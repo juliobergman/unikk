@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api\v1\user;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -16,6 +17,11 @@ class UserController extends Controller
     public function index()
     {
         return User::all();
+    }
+
+    public function currentUser()
+    {
+        return Auth::user();
     }
 
     /**

@@ -43,7 +43,7 @@
         </v-app-bar>
 
         <v-main>
-            sdalkaskjdsakj
+            Main content goes here
             <!--  -->
         </v-main>
     </v-app>
@@ -59,12 +59,29 @@ export default {
         ],
         drawer: null
     }),
+    computed: {
+        loggedIn: {
+            get() {
+                return this.$store.state.currentUser.loggedIn;
+            }
+        },
+        currentUser: {
+            get() {
+                return this.$store.state.currentUser.user;
+            }
+        }
+    },
     methods: {
         logout() {
             axios.post("/logout").then(response => {
                 window.location.href = "login";
             });
         }
+    },
+    created() {
+        axios.defaults.headers.common["Authorization"] =
+            "Bearer " + localStorage.getItem("api_token");
+        this.$store.dispatch("currentUser/getUser");
     }
 };
 </script>

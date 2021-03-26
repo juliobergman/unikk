@@ -1912,12 +1912,28 @@ __webpack_require__.r(__webpack_exports__);
       drawer: null
     };
   },
+  computed: {
+    loggedIn: {
+      get: function get() {
+        return this.$store.state.currentUser.loggedIn;
+      }
+    },
+    currentUser: {
+      get: function get() {
+        return this.$store.state.currentUser.user;
+      }
+    }
+  },
   methods: {
     logout: function logout() {
       axios.post("/logout").then(function (response) {
         window.location.href = "login";
       });
     }
+  },
+  created: function created() {
+    axios.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem("api_token");
+    this.$store.dispatch("currentUser/getUser");
   }
 });
 
@@ -2115,18 +2131,32 @@ var state = {
 };
 var getters = {};
 var actions = {
-  loginUser: function loginUser(_ref, user) {
-    _objectDestructuringEmpty(_ref);
+  getUser: function getUser(_ref) {
+    var commit = _ref.commit;
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/v1/user/current").then(function (response) {
+      commit("setUser", response.data);
+    });
+  },
+  loginUser: function loginUser(_ref2, user) {
+    _objectDestructuringEmpty(_ref2);
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default().post("/login", {
+    axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/v1/user/login", {
       email: user.email,
       password: user.password
     }).then(function (response) {
-      console.log(response.data);
+      if (response.data.access_token) {
+        // Save the Token
+        localStorage.setItem("api_token", response.data.access_token);
+        window.location.replace("/home");
+      }
     });
   }
 };
-var mutations = {};
+var mutations = {
+  setUser: function setUser(state, data) {
+    state.user = data;
+  }
+};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   namespaced: true,
   state: state,
@@ -39227,7 +39257,7 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("v-main", [_vm._v("\n        sdalkaskjdsakj\n        ")])
+      _c("v-main", [_vm._v("\n        Main content goes here\n        ")])
     ],
     1
   )

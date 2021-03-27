@@ -10,4 +10,4 @@
 
 ## API Token Auth
 
-[scaffolding-laravel-vue](https://github.com/juliobergman/scaffolding-laravel-vue "juliobergman - scaffolding-laravel-vue")
+[Julio Bergman - Scaffolding Laravel Vuejs](https://github.com/juliobergman/scaffolding-laravel-vue "juliobergman - scaffolding-laravel-vue")

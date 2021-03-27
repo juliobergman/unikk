@@ -23,7 +23,16 @@ const actions = {
                         "api_token",
                         response.data.access_token
                     );
-                    window.location.replace("/home");
+                    // axios
+                    //     .post("/login", {
+                    //         email: user.email,
+                    //         password: user.password
+                    //     })
+                    //     .then(response => {
+                    //         console.log(response.data);
+                    //     });
+                    //Redirect User
+                    //window.location.replace("/home");
                 }
             });
     }

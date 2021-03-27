@@ -6,6 +6,10 @@
 
 require("./bootstrap");
 
+// window.axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
+//     'meta[name="csrf-token"]'
+// ).attr("content");
+
 window.Vue = require("vue").default;
 
 import Vuetify from "../plugins/vuetify";

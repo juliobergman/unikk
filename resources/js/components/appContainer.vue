@@ -60,11 +60,6 @@ export default {
         drawer: null
     }),
     computed: {
-        loggedIn: {
-            get() {
-                return this.$store.state.currentUser.loggedIn;
-            }
-        },
         currentUser: {
             get() {
                 return this.$store.state.currentUser.user;

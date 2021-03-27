@@ -1913,11 +1913,6 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   computed: {
-    loggedIn: {
-      get: function get() {
-        return this.$store.state.currentUser.loggedIn;
-      }
-    },
     currentUser: {
       get: function get() {
         return this.$store.state.currentUser.user;
@@ -1950,6 +1945,47 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2009,7 +2045,10 @@ __webpack_require__.r(__webpack_exports__);
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // window.axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
+//     'meta[name="csrf-token"]'
+// ).attr("content");
+
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js").default;
 
@@ -2146,8 +2185,16 @@ var actions = {
     }).then(function (response) {
       if (response.data.access_token) {
         // Save the Token
-        localStorage.setItem("api_token", response.data.access_token);
-        window.location.replace("/home");
+        localStorage.setItem("api_token", response.data.access_token); // axios
+        //     .post("/login", {
+        //         email: user.email,
+        //         password: user.password
+        //     })
+        //     .then(response => {
+        //         console.log(response.data);
+        //     });
+        //Redirect User
+        //window.location.replace("/home");
       }
     });
   }
@@ -39286,73 +39333,125 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "email" } }, [_vm._v("Email address")]),
+    _c("div", { staticClass: "form-group row" }, [
+      _c(
+        "label",
+        {
+          staticClass: "col-md-4 col-form-label text-md-right",
+          attrs: { for: "email" }
+        },
+        [_vm._v("Email")]
+      ),
       _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.user.email,
-            expression: "user.email"
-          }
-        ],
-        staticClass: "form-control",
-        attrs: { type: "email", id: "email" },
-        domProps: { value: _vm.user.email },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
+      _c("div", { staticClass: "col-md-6" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.user.email,
+              expression: "user.email"
             }
-            _vm.$set(_vm.user, "email", $event.target.value)
+          ],
+          staticClass: "form-control",
+          attrs: { id: "email", type: "email", name: "email", required: "" },
+          domProps: { value: _vm.user.email },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.user, "email", $event.target.value)
+            }
           }
-        }
-      })
+        })
+      ])
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "password" } }, [_vm._v("Password")]),
+    _c("div", { staticClass: "form-group row" }, [
+      _c(
+        "label",
+        {
+          staticClass: "col-md-4 col-form-label text-md-right",
+          attrs: { for: "password" }
+        },
+        [_vm._v("Password")]
+      ),
       _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.user.password,
-            expression: "user.password"
-          }
-        ],
-        staticClass: "form-control",
-        attrs: { type: "password", id: "password" },
-        domProps: { value: _vm.user.password },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
+      _c("div", { staticClass: "col-md-6" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.user.password,
+              expression: "user.password"
             }
-            _vm.$set(_vm.user, "password", $event.target.value)
+          ],
+          staticClass: "form-control",
+          attrs: {
+            id: "password",
+            type: "password",
+            name: "password",
+            required: ""
+          },
+          domProps: { value: _vm.user.password },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.user, "password", $event.target.value)
+            }
           }
-        }
-      })
+        })
+      ])
     ]),
     _vm._v(" "),
-    _c(
-      "button",
-      {
-        staticClass: "btn btn-primary",
-        on: {
-          click: function($event) {
-            return _vm.login()
-          }
-        }
-      },
-      [_vm._v("\n        Submit\n    ")]
-    )
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group row mb-0" }, [
+      _c("div", { staticClass: "col-md-8 offset-md-4" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary",
+            attrs: { type: "submit" },
+            on: { click: _vm.login }
+          },
+          [_vm._v("\n                Login\n            ")]
+        ),
+        _vm._v(" "),
+        _c("a", { staticClass: "btn btn-link", attrs: { href: "#" } }, [
+          _vm._v("\n                Forgot Your Password?\n            ")
+        ])
+      ])
+    ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group row" }, [
+      _c("div", { staticClass: "col-md-6 offset-md-4" }, [
+        _c("div", { staticClass: "form-check" }, [
+          _c("input", {
+            staticClass: "form-check-input",
+            attrs: { type: "checkbox", name: "remember", id: "remember" }
+          }),
+          _vm._v(" "),
+          _c(
+            "label",
+            { staticClass: "form-check-label", attrs: { for: "remember" } },
+            [_vm._v("\n                    Remember Me\n                ")]
+          )
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

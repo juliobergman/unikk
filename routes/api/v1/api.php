@@ -23,7 +23,6 @@ use App\Http\Controllers\api\v1\user\UserController;
 
 // Users
 Route::prefix('/user')->group(function(){
-    // Route::post('/login', 'api\v1\LoginController@login');
     Route::post('/login', [LoginController::class, 'login']);
     Route::middleware('auth:api')->get('/all', [UserController::class, 'index']);
     Route::middleware('auth:api')->get('/current', [UserController::class, 'currentUser']);

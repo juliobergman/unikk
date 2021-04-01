@@ -11,10 +11,12 @@ const actions = {
         });
     },
     loginUser({}, user) {
-        axios
-            .post("/api/v1/user/login", {
+        return axios
+            .post("login", {
+                _token: user.csrf_token,
                 email: user.email,
-                password: user.password
+                password: user.password,
+                remember: user.remember
             })
             .then(response => {
                 if (response.data.access_token) {
@@ -23,16 +25,7 @@ const actions = {
                         "api_token",
                         response.data.access_token
                     );
-                    // axios
-                    //     .post("/login", {
-                    //         email: user.email,
-                    //         password: user.password
-                    //     })
-                    //     .then(response => {
-                    //         console.log(response.data);
-                    //     });
-                    //Redirect User
-                    //window.location.replace("/home");
+                    window.location.replace("/home");
                 }
             });
     }

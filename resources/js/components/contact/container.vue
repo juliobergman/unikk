@@ -1,9 +1,9 @@
 <template>
-    <div class="pa-3">
+    <v-main class="pa-3">
         <h5>Contact</h5>
         <hr />
         <contact-form></contact-form>
-    </div>
+    </v-main>
 </template>
 
 <script>

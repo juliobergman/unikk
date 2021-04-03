@@ -17,7 +17,7 @@
             <div v-for="item in items" :key="item.title">
                 <v-list-item
                     v-if="!item.children"
-                    @click="$router.push({ name: item.to })"
+                    @click="$router.push({ name: item.to }).catch(err => {})"
                     link
                 >
                     <v-list-item-icon>

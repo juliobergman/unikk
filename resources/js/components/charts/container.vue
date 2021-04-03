@@ -12,19 +12,20 @@
                 <v-icon class="ml-2">mdi-album</v-icon>
             </v-btn>
         </v-toolbar>
-        <v-container v-if="loaded" class="d-flex flex-wrap">
+        <v-container v-if="loaded">
             <!-- Main Body -->
-
-            <v-card
-                v-for="(chart, idx) in chartdata"
-                :key="idx"
-                :loading="loading"
-                class="mx-auto my-12"
-                style="max-width: 400px;"
-            >
-                <chart-canvas :chart="chart"></chart-canvas>
-            </v-card>
-
+            <v-row>
+                <v-col
+                    cols="12"
+                    sm="4"
+                    v-for="(chart, idx) in chartdata"
+                    :key="idx"
+                >
+                    <v-sheet rounded="sm" :loading="loading">
+                        <chart-canvas :chart="chart"></chart-canvas>
+                    </v-sheet>
+                </v-col>
+            </v-row>
             <!--  -->
         </v-container>
     </v-main>

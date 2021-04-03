@@ -354,6 +354,18 @@ export default {
                 display: true,
                 position: "bottom"
             },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        return (
+                            "$ " +
+                            tooltipItem.yLabel
+                                .toFixed(2)
+                                .replace(/\d(?=(\d{3})+\.)/g, "$&,")
+                        );
+                    }
+                }
+            },
             scales: {
                 xAxes: [
                     {
@@ -364,6 +376,14 @@ export default {
                     {
                         stacked: false,
                         ticks: {
+                            callback: function(value) {
+                                return (
+                                    "$ " +
+                                    value
+                                        .toFixed(2)
+                                        .replace(/\d(?=(\d{3})+\.)/g, "$&,")
+                                );
+                            },
                             suggestedMin: undefined,
                             suggestedMax: undefined
                         }

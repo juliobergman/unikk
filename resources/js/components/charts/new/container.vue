@@ -27,7 +27,10 @@
                 <v-icon class="ml-2">mdi-content-save</v-icon>
             </v-btn>
         </v-toolbar>
-        <router-view :bus="bus"></router-view>
+        <router-view
+            :bus="bus"
+            v-on:savechart.capture="storeChart($event)"
+        ></router-view>
     </v-main>
 </template>
 
@@ -61,6 +64,20 @@ export default {
         ]
     }),
     methods: {
+        storeChart(data) {
+            if (!data.type) {
+                return;
+            }
+
+            axios
+                .post("api/v1/chart/store", data)
+                .then(response => {
+                    // console.log(response.data);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
         addDataSet() {
             this.bus.$emit("addDataSet");
         },

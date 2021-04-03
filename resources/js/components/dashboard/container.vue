@@ -1,6 +1,8 @@
 <template>
     <v-main>
-        <h1>Dashboard</h1>
+        <h1>Dashboard Hola Enrik</h1>
+
+        a + b = ?
     </v-main>
 </template>
 

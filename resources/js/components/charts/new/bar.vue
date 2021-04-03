@@ -311,19 +311,19 @@
 </template>
 
 <script>
-import chartCanvas from "../type/chart";
+import chartCanvas from "../build/chart";
 
 let Labels = ["Jan", "Feb", "Mar"];
 let DataSets = [
     {
         label: "Data 1",
         backgroundColor: "#3737FF99",
-        data: [20, 40, 60]
+        data: [40020, 40040, 40060]
     },
     {
         label: "Data 2",
         backgroundColor: "#FF373799",
-        data: [15, 35, 25]
+        data: [40015, 40035, 40025]
     }
 ];
 
@@ -344,7 +344,7 @@ export default {
         },
         options: {
             responsive: true,
-            maintainAspectRatio: false,
+            maintainAspectRatio: true,
             title: {
                 display: true,
                 text: "Chart Title",
@@ -373,11 +373,10 @@ export default {
         }
     }),
     methods: {
-        chartData() {
-            // Labels
-            if (typeof this.chart.labels === "string") {
+        processLabels(labels) {
+            if (typeof labels === "string") {
                 // Check if is String
-                Labels = this.chart.labels.split(","); // Split to Array by
+                Labels = labels.split(","); // Split to Array by
             }
 
             Labels = Labels.map(function(e) {
@@ -389,6 +388,11 @@ export default {
                 return el != null && el != "";
             });
 
+            return Labels;
+        },
+        chartData() {
+            // Labels
+            Labels = this.processLabels(this.chart.labels);
             return {
                 labels: Labels,
                 datasets: DataSets
@@ -435,17 +439,28 @@ export default {
                 };
             });
 
+            if (
+                !this.options.scales.yAxes[0].ticks.suggestedMax &&
+                !this.options.scales.yAxes[0].ticks.suggestedMin
+            ) {
+                delete this.options.scales.yAxes[0].ticks;
+            }
+
             let chartdata = {
-                labels: this.chart.labels,
+                labels: this.processLabels(this.chart.labels),
                 datasets: datasets
             };
 
             let saveData = {
                 title: this.options.title.text,
-                chartdata: JSON.stringify(chartdata),
-                chartoptions: JSON.stringify(this.options),
-                charttype: this.chartType
+                chartdata: chartdata,
+                chartoptions: this.options,
+                type: this.chartType
             };
+
+            console.log(saveData);
+
+            this.$emit("savechart", saveData);
         }
     },
     mounted() {

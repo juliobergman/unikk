@@ -15,6 +15,11 @@ class Charts extends Migration
     {
         Schema::create('charts', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained();
+            $table->string('type');
+            $table->string('title');
+            $table->text('chartdata');
+            $table->text('chartoptions');
             $table->timestamps();
         });
     }

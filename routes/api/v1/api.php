@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\v1\LoginController;
 use App\Http\Controllers\api\v1\user\UserController;
+use App\Http\Controllers\api\v1\chart\ChartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,4 +27,11 @@ Route::prefix('/user')->group(function(){
     Route::post('/login', [LoginController::class, 'login']);
     Route::middleware('auth:api')->get('/all', [UserController::class, 'index']);
     Route::middleware('auth:api')->get('/current', [UserController::class, 'currentUser']);
+});
+
+// Charts
+Route::prefix('/chart')->group(function(){
+    Route::middleware('auth:api')->get('/all', [ChartController::class, 'index']);
+    Route::middleware('auth:api')->get('/{id}', [ChartController::class, 'show']);
+    Route::middleware('auth:api')->post('/store', [ChartController::class, 'store']);
 });

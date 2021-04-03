@@ -1,6 +1,11 @@
 <template>
     <v-app id="inspire">
         <v-navigation-drawer v-model="drawer" app>
+            <v-avatar color="primary" size="36">
+                <v-icon dark>
+                    mdi-account-circle
+                </v-icon>
+            </v-avatar>
             <drawer-menu :user="currentUser"></drawer-menu>
         </v-navigation-drawer>
         <v-app-bar color="primary" dark app>

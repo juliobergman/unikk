@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\api\v1\chart\ChartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +24,10 @@ Auth::routes();
 Route::post('/login', [LoginController::class, 'login']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Charts
+Route::prefix('/chart')->group(function(){
+    Route::get('/all', [ChartController::class, 'index']);
+    Route::get('/{id}', [ChartController::class, 'show']);
+    Route::post('/store', [ChartController::class, 'store']);
+});

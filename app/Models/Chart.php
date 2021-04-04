@@ -12,6 +12,7 @@ class Chart extends Model
     protected $fillable = [
         'type',
         'title',
+        'info',
         'chartdata',
         'chartoptions',
     ];

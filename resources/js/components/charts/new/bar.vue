@@ -132,7 +132,7 @@
                         </v-row>
                     </v-container>
                     <!-- Options Container -->
-                    <v-expansion-panels>
+                    <v-expansion-panels flat>
                         <v-expansion-panel>
                             <v-expansion-panel-header>
                                 <strong>Chart Options</strong>
@@ -294,6 +294,18 @@
                                 </v-row>
                             </v-expansion-panel-content>
                         </v-expansion-panel>
+                        <v-expansion-panel>
+                            <v-expansion-panel-header>
+                                <strong>Comments</strong>
+                            </v-expansion-panel-header>
+                            <v-expansion-panel-content>
+                                <v-textarea
+                                    label="Comments"
+                                    hide-details
+                                    v-model="info"
+                                ></v-textarea>
+                            </v-expansion-panel-content>
+                        </v-expansion-panel>
                     </v-expansion-panels>
                     <!-- /Form -->
                 </v-form>
@@ -312,18 +324,17 @@
 
 <script>
 import chartCanvas from "../build/chart";
-
 let Labels = ["Jan", "Feb", "Mar"];
 let DataSets = [
     {
         label: "Data 1",
         backgroundColor: "#3737FF99",
-        data: [40020, 40040, 40060]
+        data: [55, 67, 86]
     },
     {
         label: "Data 2",
         backgroundColor: "#FF373799",
-        data: [40015, 40035, 40025]
+        data: [45, 52, 82]
     }
 ];
 
@@ -338,6 +349,7 @@ export default {
         sMinTextField: false,
         tempColor: "#3737FF99",
         chartType: "barChart",
+        info: "",
         chart: {
             labels: Labels,
             datasets: DataSets
@@ -354,36 +366,20 @@ export default {
                 display: true,
                 position: "bottom"
             },
-            tooltips: {
-                callbacks: {
-                    label: function(tooltipItem, data) {
-                        return (
-                            "$ " +
-                            tooltipItem.yLabel
-                                .toFixed(2)
-                                .replace(/\d(?=(\d{3})+\.)/g, "$&,")
-                        );
-                    }
-                }
-            },
             scales: {
                 xAxes: [
                     {
-                        stacked: false
+                        stacked: false,
+                        ticks: {
+                            display: true
+                        }
                     }
                 ],
                 yAxes: [
                     {
                         stacked: false,
                         ticks: {
-                            callback: function(value) {
-                                return (
-                                    "$ " +
-                                    value
-                                        .toFixed(2)
-                                        .replace(/\d(?=(\d{3})+\.)/g, "$&,")
-                                );
-                            },
+                            display: true,
                             suggestedMin: undefined,
                             suggestedMax: undefined
                         }
@@ -459,13 +455,6 @@ export default {
                 };
             });
 
-            if (
-                !this.options.scales.yAxes[0].ticks.suggestedMax &&
-                !this.options.scales.yAxes[0].ticks.suggestedMin
-            ) {
-                delete this.options.scales.yAxes[0].ticks;
-            }
-
             let chartdata = {
                 labels: this.processLabels(this.chart.labels),
                 datasets: datasets
@@ -473,6 +462,7 @@ export default {
 
             let saveData = {
                 title: this.options.title.text,
+                info: this.info,
                 chartdata: chartdata,
                 chartoptions: this.options,
                 type: this.chartType
@@ -481,6 +471,12 @@ export default {
             console.log(saveData);
 
             this.$emit("savechart", saveData);
+        },
+        getRandomInt() {
+            let max = 55000;
+            let min = 40000;
+
+            return Math.random() * (max - min) + min;
         }
     },
     mounted() {

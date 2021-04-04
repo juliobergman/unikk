@@ -17,7 +17,8 @@ class Charts extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->string('type');
-            $table->string('title');
+            $table->string('title')->nullable();
+            $table->text('info')->nullable();
             $table->text('chartdata');
             $table->text('chartoptions');
             $table->timestamps();

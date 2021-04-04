@@ -17,6 +17,12 @@ class ChartController extends Controller
     {
         $charts = Chart::orderBy('created_at', 'DESC')->get();
 
+
+
+        if (!$charts->count()) {
+            return response()->json(['error' => 'No Records Found'], 204);
+        }
+
         foreach ($charts as $key => $value) {
             $ret[$key]['id'] = $value->id;
             $ret[$key]['user_id'] = $value->user_id;
@@ -50,6 +56,7 @@ class ChartController extends Controller
 
         $data = array(
             'title' => $request->title,
+            'info' => $request->info,
             'chartdata' => json_encode($request->chartdata),
             'chartoptions' => json_encode($request->chartoptions),
             'type' => $request->type,

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\api\v1\chart;
 use App\Models\Chart;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use Carbon\Carbon;
 
 class ChartController extends Controller
 {
@@ -16,8 +18,6 @@ class ChartController extends Controller
     public function index()
     {
         $charts = Chart::orderBy('created_at', 'DESC')->get();
-
-
 
         if (!$charts->count()) {
             return response()->json(['error' => 'No Records Found'], 204);
@@ -75,7 +75,21 @@ class ChartController extends Controller
      */
     public function show($id)
     {
-        return Chart::where('id', $id)->get();
+        $chart = Chart::where('id', $id)->first();
+
+        $ret['id'] = $chart->id;
+        $ret['user_id'] = $chart->user_id;
+        $ret['user_name'] = User::where('id', $chart->user_id)->value('name');
+        $ret['type'] = $chart->type;
+        $ret['title'] = $chart->title;
+        $ret['info'] = $chart->info;
+        $ret['chartdata'] = json_decode($chart->chartdata);
+        $ret['chartoptions'] = json_decode($chart->chartoptions);
+        $ret['created'] = $chart->created_at->format('M d Y h:i:s a');
+        $ret['updated'] = $chart->updated_at->format('M d Y h:i:s a');
+
+        return json_encode($ret);
+
     }
 
     /**

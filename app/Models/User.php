@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Chart::class);
     }
+
+    public function data()
+    {
+        return $this->hasOne(UserData::class);
+    }
 }

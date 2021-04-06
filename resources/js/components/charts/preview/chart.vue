@@ -8,6 +8,7 @@
             :chart-id="'chart-' + chart.id"
             :chart-data="chart.chartdata"
             :options="chart.chartoptions"
+            :mode="mode"
         ></component>
     </div>
 </template>
@@ -19,7 +20,8 @@ export default {
         ...components
     },
     props: {
-        chart: { type: Object, required: true }
+        chart: { type: Object, required: true },
+        mode: { type: String }
     },
     data: () => ({
         loaded: true

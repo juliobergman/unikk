@@ -3,14 +3,21 @@ import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 
+import User from "../components/user/container";
 import Dashboard from "../components/dashboard/container";
 import Contact from "../components/contact/container";
 import Charts from "../components/charts/container";
+import viewChart from "../components/charts/view";
 import newChart from "../components/charts/new/container";
 import newBarChart from "../components/charts/new/bar";
 import newLineChart from "../components/charts/new/line";
 
 const routes = [
+    {
+        component: User,
+        name: "userprofile",
+        path: "/user/:id"
+    },
     {
         component: Dashboard,
         name: "dashboard",
@@ -19,7 +26,14 @@ const routes = [
     {
         component: Charts,
         name: "charts",
-        path: "/charts"
+        path: "/charts",
+        children: [
+            {
+                component: viewChart,
+                name: "viewChart",
+                path: "view/:id"
+            }
+        ]
     },
     {
         component: newChart,

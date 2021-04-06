@@ -1,17 +1,45 @@
 <template>
     <div>
-        <v-list-item>
-            <v-list-item-content>
-                <v-list-item-title class="title">
-                    {{ user.name }}
-                </v-list-item-title>
-                <v-list-item-subtitle>
-                    {{ user.email }}
-                </v-list-item-subtitle>
-            </v-list-item-content>
-        </v-list-item>
+        <v-hover>
+            <v-sheet
+                class="usercard py-1 px-2 mb-2 border-bottom d-flex align-items-center"
+            >
+                <v-avatar color="primary" size="36">
+                    <v-icon dark>
+                        mdi-account-circle
+                    </v-icon>
+                </v-avatar>
+                <v-list-item>
+                    <v-list-item-content>
+                        <v-list-item-title
+                            @click="
+                                $router
+                                    .push({
+                                        name: 'userprofile',
+                                        params: { id: user.id }
+                                    })
+                                    .catch(err => {})
+                            "
+                            class="title"
+                        >
+                            {{ user.name }}
+                        </v-list-item-title>
+                        <v-list-item-subtitle>
+                            {{ user.email }}
+                        </v-list-item-subtitle>
+                    </v-list-item-content>
+                </v-list-item>
 
-        <v-divider></v-divider>
+                <v-tooltip bottom>
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-btn @click="logout()" icon v-bind="attrs" v-on="on">
+                            <v-icon>mdi-logout</v-icon>
+                        </v-btn>
+                    </template>
+                    <span>Logout</span>
+                </v-tooltip>
+            </v-sheet>
+        </v-hover>
 
         <v-list dense nav>
             <div v-for="item in items" :key="item.title">
@@ -86,6 +114,25 @@ export default {
             },
             { title: "Contact", icon: "mdi-contacts", to: "contact" }
         ]
-    })
+    }),
+    methods: {
+        logout() {
+            axios
+                .post("/logout")
+                .then(response => {
+                    if (response.status == 204) {
+                        window.location.replace("/login");
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
+    }
 };
 </script>
+<style scoped>
+.usercard {
+    /* cursor: pointer; */
+}
+</style>

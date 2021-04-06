@@ -31,7 +31,7 @@
             <v-row>
                 <v-col
                     cols="12"
-                    sm="4"
+                    sm="3"
                     v-for="(chart, idx) in chartdata"
                     :key="idx"
                 >
@@ -43,7 +43,10 @@
                             rounded="sm"
                             :loading="loading"
                         >
-                            <chart-canvas :chart="chart"></chart-canvas>
+                            <chart-canvas
+                                :mode="mode"
+                                :chart="chart"
+                            ></chart-canvas>
 
                             <v-card-title class="subtitle-1">
                                 {{ chart.title }}
@@ -53,17 +56,14 @@
                 </v-col>
             </v-row>
             <!--  -->
-            <v-dialog v-model="dialog" fullscreen hide-overlay>
-                <v-card>
-                    <v-toolbar dense dark color="primary">
-                        <v-toolbar-title>Settings</v-toolbar-title>
-                        <v-spacer></v-spacer>
-                        <v-toolbar-items>
-                            <v-btn dense icon dark @click="dialog = false">
-                                <v-icon>mdi-close</v-icon>
-                            </v-btn>
-                        </v-toolbar-items>
-                    </v-toolbar>
+            <v-dialog v-model="dialog" fullscreen eager hide-overlay>
+                <v-card rounded="0">
+                    <!-- Close -->
+                    <v-btn class="float-right" small icon @click="closeChart()">
+                        <v-icon small>mdi-close</v-icon>
+                    </v-btn>
+                    <!-- View -->
+                    <router-view></router-view>
                 </v-card>
             </v-dialog>
         </v-container>
@@ -80,15 +80,22 @@ export default {
     data: () => ({
         norecords: false,
         dialog: false,
+        curretChart: "",
         loading: false,
         loaded: false,
+        mode: "thumbnail",
         chartdata: null
     }),
     methods: {
         showChart(id) {
+            this.curretChart = id;
+            this.$router.push({ name: "viewChart", params: { id: id } });
             this.dialog = true;
-            console.log("showChart");
-            console.log(id);
+        },
+        closeChart() {
+            this.curretChart = false;
+            this.$router.push({ name: "charts" });
+            this.dialog = false;
         }
     },
     async mounted() {
@@ -105,8 +112,11 @@ export default {
         } catch (e) {
             console.error(e);
         }
+    },
+    created() {
+        if (this.$route.params.id) {
+            this.dialog = true;
+        }
     }
 };
 </script>
-
-<style></style>

@@ -10,14 +10,14 @@ const opts = {
         dark: false,
         themes: {
             light: {
-                primary: colors.blue.darken1,
+                primary: colors.blue.lighten1,
                 secondary: colors.blue.darken2,
                 accent: colors.blue.base,
                 danger: colors.red.lighten1,
                 background: colors.shades.white
             },
             dark: {
-                primary: colors.blue.darken3,
+                primary: colors.blue.darken2,
                 secondary: colors.blue.lighten2,
                 accent: colors.blue.base,
                 danger: colors.red.darken1,

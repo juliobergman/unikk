@@ -324,19 +324,9 @@
 
 <script>
 import chartCanvas from "../build/chart";
-let Labels = ["Jan", "Feb", "Mar"];
-let DataSets = [
-    {
-        label: "Data 1",
-        backgroundColor: "#3737FF99",
-        data: [55, 67, 86]
-    },
-    {
-        label: "Data 2",
-        backgroundColor: "#FF373799",
-        data: [45, 52, 82]
-    }
-];
+let labels = [];
+let dataSets = [];
+let dataOptions = {};
 
 export default {
     props: ["bus"],
@@ -350,68 +340,33 @@ export default {
         tempColor: "#3737FF99",
         chartType: "barChart",
         info: "",
-        chart: {
-            labels: Labels,
-            datasets: DataSets
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: true,
-            title: {
-                display: false,
-                text: "Chart Title",
-                fontSize: 16
-            },
-            legend: {
-                display: true,
-                position: "bottom"
-            },
-            scales: {
-                xAxes: [
-                    {
-                        stacked: false,
-                        ticks: {
-                            display: true
-                        }
-                    }
-                ],
-                yAxes: [
-                    {
-                        stacked: false,
-                        ticks: {
-                            display: true,
-                            suggestedMin: undefined,
-                            suggestedMax: undefined
-                        }
-                    }
-                ]
-            }
-        }
+        chart: {},
+        options: {}
     }),
     methods: {
         processLabels(labels) {
             if (typeof labels === "string") {
                 // Check if is String
-                Labels = labels.split(","); // Split to Array by
+                labels = labels.split(","); // Split to Array by
             }
 
-            Labels = Labels.map(function(e) {
+            labels = labels.map(function(e) {
                 // Trim the array Object
                 return e.trim();
             });
-            Labels = Labels.filter(el => {
+            labels = labels.filter(el => {
                 // Remove empty
                 return el != null && el != "";
             });
 
-            return Labels;
+            return labels;
         },
         chartData() {
             // Labels
-            Labels = this.processLabels(this.chart.labels);
+            labels = this.processLabels(this.chart.labels);
             return {
-                labels: Labels,
-                datasets: DataSets
+                labels: labels,
+                datasets: dataSets
             };
         },
         addDataSet() {
@@ -475,6 +430,82 @@ export default {
             let min = 40000;
 
             return Math.random() * (max - min) + min;
+        }
+    },
+    created() {
+        // Defaults
+        labels = [];
+        dataSets = [
+            {
+                label: "Data",
+                backgroundColor: "#3737FF99",
+                data: []
+            }
+        ];
+
+        dataOptions = {
+            responsive: true,
+            maintainAspectRatio: true,
+            title: {
+                display: true,
+                text: "Mock Up Text",
+                fontSize: 16
+            },
+            legend: {
+                display: true,
+                position: "bottom"
+            },
+            scales: {
+                xAxes: [
+                    {
+                        stacked: false,
+                        ticks: {
+                            display: true
+                        }
+                    }
+                ],
+                yAxes: [
+                    {
+                        stacked: false,
+                        ticks: {
+                            display: true,
+                            suggestedMin: undefined,
+                            suggestedMax: undefined
+                        }
+                    }
+                ]
+            }
+        };
+
+        this.chart = {
+            labels: labels,
+            datasets: dataSets
+        };
+
+        this.options = dataOptions;
+
+        // Udate Data
+        if (this.$route.params.id) {
+            let chart_id = this.$route.params.id;
+
+            axios
+                .get("api/v1/chart/" + chart_id)
+                .then(response => {
+                    let gc = response.data;
+                    labels = response.data.chartdata.labels;
+                    dataSets = response.data.chartdata.datasets;
+                    dataOptions = response.data.chartoptions;
+
+                    this.chart = {
+                        labels: labels,
+                        datasets: dataSets
+                    };
+
+                    this.options = dataOptions;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         }
     },
     mounted() {

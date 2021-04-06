@@ -84,7 +84,6 @@ export default {
                     });
             } else {
                 setTimeout(() => (this.loading = false), 1000);
-                console.log("NO");
             }
         }
     }

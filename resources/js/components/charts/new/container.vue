@@ -20,10 +20,9 @@
             <v-spacer></v-spacer>
             <!-- Right Side Start -->
             <v-btn @click="addDataSet()" text color="grey darken-3">
-                Add Data Set
+                <v-icon class="ml-2">mdi-chart-box-plus-outline</v-icon>
             </v-btn>
-            <v-btn @click="saveChart()" text color="grey darken-3">
-                SAVE
+            <v-btn @click="saveChart()" icon color="grey darken-3">
                 <v-icon class="ml-2">mdi-content-save</v-icon>
             </v-btn>
         </v-toolbar>
@@ -65,18 +64,23 @@ export default {
     }),
     methods: {
         storeChart(data) {
-            if (!data.type) {
-                return;
+            if (!this.$route.params.id) {
+                axios
+                    .post("api/v1/chart/store", data)
+                    .then(response => {})
+                    .catch(error => {
+                        console.log(error);
+                    });
             }
 
-            axios
-                .post("api/v1/chart/store", data)
-                .then(response => {
-                    // console.log(response.data);
-                })
-                .catch(error => {
-                    console.log(error);
-                });
+            if (this.$route.params.id) {
+                axios
+                    .put("api/v1/chart/" + this.$route.params.id, data)
+                    .then(response => {})
+                    .catch(error => {
+                        console.log(error);
+                    });
+            }
         },
         addDataSet() {
             this.bus.$emit("addDataSet");
@@ -84,16 +88,14 @@ export default {
         saveChart() {
             this.bus.$emit("saveChart");
         },
+        saveUpdatedChart() {
+            this.bus.$emit("saveUpdatedChart");
+        },
         updateChart() {
             this.bus.$emit("updateChart");
         },
         updateOptions() {
             this.bus.$emit("updateOptions");
-        }
-    },
-    computed: {
-        currentRouteName() {
-            return this.$route.name;
         }
     },
     created() {

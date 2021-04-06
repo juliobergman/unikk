@@ -43,7 +43,14 @@ const routes = [
             {
                 component: newBarChart,
                 name: "newbarchart",
-                path: "/bar"
+                path: "/bar",
+                children: [
+                    {
+                        component: newBarChart,
+                        name: "updatebarchart",
+                        path: ":id"
+                    }
+                ]
             },
             {
                 component: newLineChart,

@@ -112,8 +112,6 @@ export default {
         closeChart(e) {
             this.curretChart = false;
 
-            console.log(e);
-
             if (e === "deleted") {
                 this.getCharts();
             }

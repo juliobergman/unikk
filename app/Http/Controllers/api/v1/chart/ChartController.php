@@ -74,9 +74,8 @@ class ChartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Chart $chart)
     {
-        $chart = Chart::where('id', $id)->first();
 
         $ret['id'] = $chart->id;
         $ret['user_id'] = $chart->user_id;
@@ -94,26 +93,35 @@ class ChartController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Chart $chart)
     {
-        //
+
+
+        $res = Gate::inspect('update', $chart);
+
+        if ($res->allowed()) {
+
+            $data = array(
+                'title' => $request->title,
+                'info' => $request->info,
+                'chartdata' => json_encode($request->chartdata),
+                'chartoptions' => json_encode($request->chartoptions),
+                'type' => $request->type,
+            );
+
+            $update = Chart::where('id', $chart->id)->update($data);
+            return response()->json($update);
+
+        } else {
+            return response()->json(['error' =>$res->message()], 403);
+        }
+
     }
 
     /**
@@ -128,7 +136,7 @@ class ChartController extends Controller
         $res = Gate::inspect('delete', $chart);
 
         if ($res->allowed()) {
-            $chart->delete();
+            //$chart->delete();
             return response()->json(['message' => 'Chart Deleted Successfully'], 200);
         } else {
             return response()->json(['error' =>$res->message()], 403);

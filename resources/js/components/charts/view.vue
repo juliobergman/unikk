@@ -7,11 +7,13 @@
             </v-overlay>
 
             <v-row class="align-stretch">
-                <v-col cols="12" md="4">
-                    <h3>{{ chart.title }}</h3>
+                <v-col cols="12" md="4" class="order-1 order-md-0">
+                    <h3 class="text-center text-md-left mb-4">
+                        {{ chart.title }}
+                    </h3>
                     <p>{{ chart.info }}</p>
                 </v-col>
-                <v-col cols="12" md="8">
+                <v-col cols="12" md="8" class="order-0 order-md-1">
                     <view-chart :mode="mode" :chart="chart"></view-chart>
                 </v-col>
             </v-row>
@@ -19,6 +21,7 @@
 
         <!-- Speed Dial -->
         <v-speed-dial
+            fixed
             bottom
             right
             absolute
@@ -45,6 +48,7 @@
                 dark
                 x-small
                 color="primary"
+                @click="editChart()"
             >
                 <v-icon>mdi-pencil</v-icon>
             </v-btn>
@@ -105,6 +109,12 @@ export default {
         chart: {}
     }),
     methods: {
+        editChart() {
+            this.$router.push({
+                name: "updatebarchart",
+                params: { id: this.$route.params.id }
+            });
+        },
         deleteChart() {
             this.$refs.confirm
                 .open(

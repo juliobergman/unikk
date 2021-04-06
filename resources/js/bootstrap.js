@@ -21,8 +21,8 @@ try {
 
 window.axios = require("axios");
 
-window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
-axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
+// window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+window.axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
     'meta[name="csrf-token"]'
 ).attr("content");
 

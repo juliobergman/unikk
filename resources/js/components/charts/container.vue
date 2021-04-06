@@ -1,15 +1,15 @@
 <template>
     <v-main>
+        <v-overlay :value="!loaded" opacity="1" color="background">
+            <v-progress-circular :size="30" color="primary" indeterminate>
+            </v-progress-circular>
+        </v-overlay>
         <v-toolbar elevation="2" dense>
             <!-- Left Side Finish -->
             <v-spacer></v-spacer>
             <!-- Right Side Start -->
-            <v-btn right>
-                Button
-            </v-btn>
-            <v-btn left>
-                Button
-                <v-icon class="ml-2">mdi-album</v-icon>
+            <v-btn @click="showDialog()" left>
+                test
             </v-btn>
         </v-toolbar>
         <v-container fluid v-if="loaded">
@@ -56,14 +56,16 @@
                 </v-col>
             </v-row>
             <!--  -->
-            <v-dialog v-model="dialog" fullscreen eager hide-overlay>
+            <v-dialog v-model="viewDialog" fullscreen eager hide-overlay>
                 <v-card rounded="0">
                     <!-- Close -->
                     <v-btn class="float-right" small icon @click="closeChart()">
                         <v-icon small>mdi-close</v-icon>
                     </v-btn>
                     <!-- View -->
-                    <router-view></router-view>
+                    <router-view
+                        v-on:closechart.capture="closeChart($event)"
+                    ></router-view>
                 </v-card>
             </v-dialog>
         </v-container>
@@ -79,7 +81,7 @@ export default {
     },
     data: () => ({
         norecords: false,
-        dialog: false,
+        viewDialog: false,
         curretChart: "",
         loading: false,
         loaded: false,
@@ -87,35 +89,46 @@ export default {
         chartdata: null
     }),
     methods: {
+        async getCharts() {
+            this.loaded = false;
+            try {
+                let chartList = await axios.get("/api/v1/chart/all");
+                this.chartdata = chartList.data;
+
+                if (!chartList.data) {
+                    this.norecords = true;
+                }
+
+                this.loaded = true;
+            } catch (e) {
+                console.error(e);
+            }
+        },
         showChart(id) {
             this.curretChart = id;
             this.$router.push({ name: "viewChart", params: { id: id } });
-            this.dialog = true;
+            this.viewDialog = true;
         },
-        closeChart() {
+        closeChart(e) {
             this.curretChart = false;
-            this.$router.push({ name: "charts" });
-            this.dialog = false;
-        }
-    },
-    async mounted() {
-        this.loaded = false;
-        try {
-            let chartList = await axios.get("/api/v1/chart/all");
-            this.chartdata = chartList.data;
 
-            if (!chartList.data) {
-                this.norecords = true;
+            console.log(e);
+
+            if (e === "deleted") {
+                this.getCharts();
             }
 
-            this.loaded = true;
-        } catch (e) {
-            console.error(e);
+            if (this.$router.push({ name: "charts" })) {
+                this.viewDialog = false;
+            }
         }
+    },
+    mounted() {
+        this.getCharts();
     },
     created() {
         if (this.$route.params.id) {
-            this.dialog = true;
+            this.viewDialog = true;
         }
     }
 };

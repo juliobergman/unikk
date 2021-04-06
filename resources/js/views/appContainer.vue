@@ -51,10 +51,12 @@
 
 <script>
 import drawerMenu from "../components/ui/drawer";
+import Confirm from "../components/ui/confirm";
 export default {
     props: ["title"],
     components: {
-        drawerMenu
+        drawerMenu,
+        Confirm
     },
     data: () => ({
         drawer: null

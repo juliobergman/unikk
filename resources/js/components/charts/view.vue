@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex">
         <v-container fluid class="pa-5">
-            <v-overlay :value="!loaded" color="accent">
+            <v-overlay :value="!loaded" opacity="1" color="background">
                 <v-progress-circular :size="30" color="primary" indeterminate>
                 </v-progress-circular>
             </v-overlay>
@@ -39,13 +39,26 @@
             <v-btn @click="snackbar = true" fab dark x-small color="primary">
                 <v-icon>mdi-information-variant</v-icon>
             </v-btn>
-            <v-btn fab dark x-small color="primary">
+            <v-btn
+                v-if="currentUser.id == chart.user_id"
+                fab
+                dark
+                x-small
+                color="primary"
+            >
                 <v-icon>mdi-pencil</v-icon>
             </v-btn>
             <v-btn fab dark x-small color="primary">
                 <v-icon>mdi-plus</v-icon>
             </v-btn>
-            <v-btn fab dark x-small color="red">
+            <v-btn
+                v-if="currentUser.id == chart.user_id"
+                @click="deleteChart()"
+                fab
+                dark
+                x-small
+                color="danger"
+            >
                 <v-icon>mdi-delete</v-icon>
             </v-btn>
         </v-speed-dial>
@@ -69,14 +82,20 @@
                 </v-btn>
             </template>
         </v-snackbar>
+        <confirm ref="confirm"></confirm>
+        <alert ref="alert"></alert>
     </div>
 </template>
 
 <script>
 import viewChart from "./preview/chart";
+import confirm from "../ui/confirm";
+import alert from "../ui/alert";
 export default {
     components: {
-        viewChart
+        viewChart,
+        confirm,
+        alert
     },
     data: () => ({
         copt: false,
@@ -85,6 +104,46 @@ export default {
         snackbar: false,
         chart: {}
     }),
+    methods: {
+        deleteChart() {
+            this.$refs.confirm
+                .open(
+                    "Delete Chart",
+                    "If you delete this chart, it'll be gone forever.\n Are you sure?",
+                    { color: "danger" }
+                )
+                .then(delc => {
+                    if (delc) {
+                        axios
+                            .delete("/api/v1/chart/" + this.$route.params.id)
+                            .then(response => {
+                                let res = JSON.parse(response.request.response);
+                                this.$refs.alert
+                                    .open("Success", res["message"], {
+                                        color: "success"
+                                    })
+                                    .then(res => {
+                                        this.loaded = false;
+                                        this.$emit("closechart", "deleted");
+                                    });
+                            })
+                            .catch(res => {
+                                let error = JSON.parse(res.request.response);
+                                this.$refs.alert.open("Error", error["error"], {
+                                    color: "danger"
+                                });
+                            });
+                    }
+                });
+        }
+    },
+    computed: {
+        currentUser: {
+            get() {
+                return this.$store.state.currentUser.user;
+            }
+        }
+    },
     async created() {
         this.loaded = false;
 
@@ -94,11 +153,9 @@ export default {
             let chart = await axios.get("/api/v1/chart/" + id);
             this.chart = chart.data;
 
-            console.log(chart.data);
-
-            // if (!chartList.data) {
-            //     this.norecords = true;
-            // }
+            if (!chart.data) {
+                this.norecords = true;
+            }
 
             this.loaded = true;
         } catch (e) {

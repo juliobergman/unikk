@@ -30,4 +30,5 @@ Route::prefix('/chart')->group(function(){
     Route::get('/all', [ChartController::class, 'index']);
     Route::get('/{id}', [ChartController::class, 'show']);
     Route::post('/store', [ChartController::class, 'store']);
+    Route::delete('/{chart}', [ChartController::class, 'destroy']);
 });

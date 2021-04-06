@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\api\v1\chart;
 
+use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Chart;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Gate;
 
 class ChartController extends Controller
 {
@@ -121,8 +122,17 @@ class ChartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Chart $chart)
     {
-        //
+
+        $res = Gate::inspect('delete', $chart);
+
+        if ($res->allowed()) {
+            $chart->delete();
+            return response()->json(['message' => 'Chart Deleted Successfully'], 200);
+        } else {
+            return response()->json(['error' =>$res->message()], 403);
+        }
+
     }
 }

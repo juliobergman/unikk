@@ -10,14 +10,18 @@ const opts = {
         dark: false,
         themes: {
             light: {
-                primary: colors.blue.darken1, // #E53935
-                secondary: colors.blue.darken2, // #FFCDD2
-                accent: colors.blue.base // #3F51B5
+                primary: colors.blue.darken1,
+                secondary: colors.blue.darken2,
+                accent: colors.blue.base,
+                danger: colors.red.lighten1,
+                background: colors.shades.white
             },
             dark: {
-                primary: colors.blue.darken3, // #E53935
-                secondary: colors.blue.lighten2, // #FFCDD2
-                accent: colors.blue.base // #3F51B5
+                primary: colors.blue.darken3,
+                secondary: colors.blue.lighten2,
+                accent: colors.blue.base,
+                danger: colors.red.darken1,
+                background: colors.grey.darken4
             }
         }
     }

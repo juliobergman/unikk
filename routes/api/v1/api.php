@@ -32,6 +32,8 @@ Route::prefix('/user')->group(function(){
 // Charts
 Route::prefix('/chart')->group(function(){
     Route::middleware('auth:api')->get('/all', [ChartController::class, 'index']);
-    Route::middleware('auth:api')->get('/{id}', [ChartController::class, 'show']);
     Route::middleware('auth:api')->post('/store', [ChartController::class, 'store']);
+    Route::middleware('auth:api')->get('/{chart}', [ChartController::class, 'show']);
+    Route::middleware('auth:api')->put('/{chart}', [ChartController::class, 'update']);
+    Route::middleware('auth:api')->delete('/{chart}', [ChartController::class, 'destroy']);
 });

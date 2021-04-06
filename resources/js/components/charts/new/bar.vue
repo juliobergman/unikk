@@ -358,7 +358,7 @@ export default {
             responsive: true,
             maintainAspectRatio: true,
             title: {
-                display: true,
+                display: false,
                 text: "Chart Title",
                 fontSize: 16
             },
@@ -467,8 +467,6 @@ export default {
                 chartoptions: this.options,
                 type: this.chartType
             };
-
-            console.log(saveData);
 
             this.$emit("savechart", saveData);
         },

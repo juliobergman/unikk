@@ -47,7 +47,7 @@ const routes = [
                 children: [
                     {
                         component: newBarChart,
-                        name: "updatebarchart",
+                        name: "barChartUpdate",
                         path: ":id"
                     }
                 ]
@@ -55,7 +55,14 @@ const routes = [
             {
                 component: newLineChart,
                 name: "newlinechart",
-                path: "/line"
+                path: "/line",
+                children: [
+                    {
+                        component: newBarChart,
+                        name: "lineChartUpdate",
+                        path: ":id"
+                    }
+                ]
             }
         ]
     },

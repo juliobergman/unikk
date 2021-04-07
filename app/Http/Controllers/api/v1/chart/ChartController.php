@@ -136,7 +136,7 @@ class ChartController extends Controller
         $res = Gate::inspect('delete', $chart);
 
         if ($res->allowed()) {
-            //$chart->delete();
+            $chart->delete();
             return response()->json(['message' => 'Chart Deleted Successfully'], 200);
         } else {
             return response()->json(['error' =>$res->message()], 403);

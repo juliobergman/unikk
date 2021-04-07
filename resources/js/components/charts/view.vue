@@ -111,7 +111,7 @@ export default {
     methods: {
         editChart() {
             this.$router.push({
-                name: "updatebarchart",
+                name: this.chart.type + "Update",
                 params: { id: this.$route.params.id }
             });
         },

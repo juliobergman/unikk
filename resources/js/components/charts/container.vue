@@ -37,7 +37,7 @@
                 >
                     <v-hover v-slot:default="{ hover }">
                         <v-card
-                            class="py-3 pr-1"
+                            class="pt-8 pr-8 pl-5"
                             :elevation="hover ? 6 : 3"
                             @click="showChart(chart.id)"
                             rounded="sm"

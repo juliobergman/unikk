@@ -1,5 +1,9 @@
 <template>
     <v-container fluid>
+        <v-overlay :value="!loaded" opacity="1" color="background">
+            <v-progress-circular :size="30" color="primary" indeterminate>
+            </v-progress-circular>
+        </v-overlay>
         <v-row>
             <v-col cols="12" md="6" order="1" order-md="0" class="mt-md-5">
                 <v-form v-model="valid">
@@ -334,6 +338,7 @@ export default {
         chartCanvas
     },
     data: () => ({
+        loaded: true,
         valid: true,
         sMaxTextField: false,
         sMinTextField: false,
@@ -378,7 +383,7 @@ export default {
         },
         destroyDataSet(e) {
             if (this.chart.datasets[e]) {
-                this.chart.datasets.splice(this.chart.datasets.indexOf(e), 1);
+                this.chart.datasets.splice(e, 1);
             }
         },
         updateChart() {
@@ -424,15 +429,10 @@ export default {
             };
 
             this.$emit("savechart", saveData);
-        },
-        getRandomInt() {
-            let max = 55000;
-            let min = 40000;
-
-            return Math.random() * (max - min) + min;
         }
     },
     created() {
+        this.loaded = false;
         // Defaults
         labels = [];
         dataSets = [
@@ -484,23 +484,21 @@ export default {
 
         this.options = dataOptions;
 
-        // Udate Data
+        // Update Data
         if (this.$route.params.id) {
             let chart_id = this.$route.params.id;
 
             axios
                 .get("api/v1/chart/" + chart_id)
                 .then(response => {
-                    let gc = response.data;
+                    this.chartType = response.data.type;
                     labels = response.data.chartdata.labels;
                     dataSets = response.data.chartdata.datasets;
                     dataOptions = response.data.chartoptions;
-
                     this.chart = {
                         labels: labels,
                         datasets: dataSets
                     };
-
                     this.options = dataOptions;
                 })
                 .catch(error => {
@@ -511,6 +509,7 @@ export default {
     mounted() {
         this.bus.$on("addDataSet", this.addDataSet);
         this.bus.$on("saveChart", this.saveChart);
+        this.loaded = true;
     }
 };
 </script>

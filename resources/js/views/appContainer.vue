@@ -81,7 +81,6 @@ export default {
         }
     },
     created() {
-        // this.$vuetify.theme.currentTheme.background
         axios.defaults.headers.common["Authorization"] =
             "Bearer " + localStorage.getItem("api_token");
         this.$store.dispatch("currentUser/getUser");

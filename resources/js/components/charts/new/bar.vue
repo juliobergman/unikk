@@ -87,9 +87,12 @@
                                                                 "
                                                                 v-bind="attrs"
                                                                 v-on="on"
-                                                                x-small
-                                                                class="mr-2"
+                                                                small
+                                                                icon
                                                             >
+                                                                <v-icon>
+                                                                    mdi-checkbox-blank-circle
+                                                                </v-icon>
                                                             </v-btn>
                                                         </template>
                                                         <v-color-picker
@@ -375,9 +378,12 @@ export default {
             };
         },
         addDataSet() {
+            let ds = this.chart.datasets.length;
+
             this.chart.datasets.push({
                 label: "Data",
-                backgroundColor: this.tempColor,
+                backgroundColor: this.$vuetify.theme.currentTheme
+                    .qualitativePalette[ds],
                 data: []
             });
         },
@@ -435,13 +441,7 @@ export default {
         this.loaded = false;
         // Defaults
         labels = [];
-        dataSets = [
-            {
-                label: "Data",
-                backgroundColor: "#3737FF99",
-                data: []
-            }
-        ];
+        dataSets = [];
 
         dataOptions = {
             responsive: true,

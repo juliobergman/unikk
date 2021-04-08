@@ -290,7 +290,9 @@ export default {
             });
             labels.forEach((e, i) => {
                 if (!this.chart.datasets[0].backgroundColor[i]) {
-                    this.chart.datasets[0].backgroundColor[i] = "#3737FF99";
+                    this.chart.datasets[0].backgroundColor[
+                        i
+                    ] = this.$vuetify.theme.currentTheme.qualitativePalette[i];
                 }
             });
 

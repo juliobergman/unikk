@@ -520,14 +520,21 @@ export default {
                 datasets: dataSets
             };
         },
+        processColor(color) {
+            color = color.slice(0, -2);
+            color = color + "40";
+            return color;
+        },
         addDataSet() {
+            let ds = this.chart.datasets.length;
+            let color = this.$vuetify.theme.currentTheme.qualitativePalette[ds];
             this.chart.datasets.push({
                 label: "Data",
-                backgroundColor: "#3737FF33",
-                borderColor: "#3737FF99",
-                pointBackgroundColor: "#3737FF99",
+                backgroundColor: this.processColor(color),
+                borderColor: color,
+                pointBackgroundColor: color,
                 borderWidth: 3,
-                fill: true,
+                fill: false,
                 tension: 0.3,
                 spanGaps: true,
                 borderDash: [0, 0],
@@ -544,9 +551,9 @@ export default {
         updateChart(index) {
             let color = this.chart.datasets[index].borderColor;
             this.chart.datasets[index].pointBackgroundColor = color;
-            color = color.slice(0, -2);
-            this.chart.datasets[index].backgroundColor = color + "40";
-
+            this.chart.datasets[index].backgroundColor = this.processColor(
+                color
+            );
             this.bus.$emit("updateChart");
         },
         updateOptions() {
@@ -605,20 +612,20 @@ export default {
         // Defaults
         labels = [];
         dataSets = [
-            {
-                label: "Data",
-                backgroundColor: "#3737FF33",
-                borderColor: "#3737FF99",
-                pointBackgroundColor: "#3737FF99",
-                borderWidth: 3,
-                fill: true,
-                tension: 0.3,
-                spanGaps: true,
-                borderDash: [0, 0],
-                showLine: true,
-                pointRadius: 3,
-                data: []
-            }
+            // {
+            //     label: "Data",
+            //     backgroundColor: "#3737FF33",
+            //     borderColor: "#3737FF99",
+            //     pointBackgroundColor: "#3737FF99",
+            //     borderWidth: 3,
+            //     fill: true,
+            //     tension: 0.3,
+            //     spanGaps: true,
+            //     borderDash: [0, 0],
+            //     showLine: true,
+            //     pointRadius: 3,
+            //     data: []
+            // }
         ];
 
         dataOptions = {

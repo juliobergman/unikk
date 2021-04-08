@@ -6,8 +6,6 @@ Vue.use(Vuetify);
 
 const opts = {
     theme: {
-        light: false,
-        dark: false,
         themes: {
             light: {
                 primary: colors.blue.lighten1,
@@ -19,7 +17,33 @@ const opts = {
                 danger: colors.red.lighten1,
                 error: colors.red.base,
                 background: colors.shades.white,
-                borderPie: colors.shades.white
+                borderPie: colors.shades.white,
+                qualitativePalette: [
+                    "#1A1AFF99",
+                    "#FF881A99",
+                    "#34FF1A99",
+                    "#FF1AD599",
+                    "#00A37A99",
+                    "#13386799",
+                    "#FF1A1A99",
+                    "#08800099",
+                    "#1A1AFF99",
+                    "#FF881A99",
+                    "#34FF1A99",
+                    "#FF1AD599",
+                    "#00A37A99",
+                    "#13386799",
+                    "#FF1A1A99",
+                    "#08800099",
+                    "#1A1AFF99",
+                    "#FF881A99",
+                    "#34FF1A99",
+                    "#FF1AD599",
+                    "#00A37A99",
+                    "#13386799",
+                    "#FF1A1A99",
+                    "#08800099"
+                ]
             },
             dark: {
                 primary: colors.blue.darken2,
@@ -31,7 +55,33 @@ const opts = {
                 danger: colors.red.darken1,
                 error: colors.red.base,
                 background: "#121212",
-                borderPie: "#1E1E1E"
+                borderPie: "#1E1E1E",
+                qualitativePalette: [
+                    "#1A1AFF99",
+                    "#FF881A99",
+                    "#34FF1A99",
+                    "#FF1AD599",
+                    "#00A37A99",
+                    "#13386799",
+                    "#FF1A1A99",
+                    "#08800099",
+                    "#1A1AFF99",
+                    "#FF881A99",
+                    "#34FF1A99",
+                    "#FF1AD599",
+                    "#00A37A99",
+                    "#13386799",
+                    "#FF1A1A99",
+                    "#08800099",
+                    "#1A1AFF99",
+                    "#FF881A99",
+                    "#34FF1A99",
+                    "#FF1AD599",
+                    "#00A37A99",
+                    "#13386799",
+                    "#FF1A1A99",
+                    "#08800099"
+                ]
             }
         }
     }

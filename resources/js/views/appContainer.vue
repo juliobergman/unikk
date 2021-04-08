@@ -76,14 +76,38 @@ export default {
             });
         },
         darkMode() {
-            this.bus.$emit("updateChart");
+            // this.bus.$emit("updateChart");
             this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+
+            localStorage.setItem(
+                "dark_theme",
+                this.$vuetify.theme.dark.toString()
+            );
         }
     },
     created() {
         axios.defaults.headers.common["Authorization"] =
             "Bearer " + localStorage.getItem("api_token");
         this.$store.dispatch("currentUser/getUser");
+    },
+    mounted() {
+        const theme = localStorage.getItem("dark_theme");
+        if (theme) {
+            if (theme === "true") {
+                this.$vuetify.theme.dark = true;
+            } else {
+                this.$vuetify.theme.dark = false;
+            }
+        } else if (
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches
+        ) {
+            this.$vuetify.theme.dark = true;
+            localStorage.setItem(
+                "dark_theme",
+                this.$vuetify.theme.dark.toString()
+            );
+        }
     }
 };
 </script>

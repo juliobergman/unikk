@@ -4,7 +4,7 @@
             <v-progress-circular :size="30" color="primary" indeterminate>
             </v-progress-circular>
         </v-overlay>
-        <v-toolbar elevation="2" dense>
+        <v-toolbar v-if="false" elevation="2" dense>
             <!-- Left Side Finish -->
             <v-spacer></v-spacer>
             <!-- Right Side Start -->

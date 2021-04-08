@@ -30,7 +30,7 @@
             right
             :loading="loading"
             :disabled="!valid || loading"
-            color="secondary"
+            color="primary"
             @click="login()"
         >
             Login

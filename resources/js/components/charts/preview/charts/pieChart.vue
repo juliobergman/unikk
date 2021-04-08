@@ -11,7 +11,7 @@ export default {
             // this.options.scales.yAxes[0].ticks.display = false;
             // this.options.scales.xAxes[0].ticks.display = false;
         }
-
+        this.chartData.datasets[0].borderColor = this.$vuetify.theme.currentTheme.borderPie;
         this.renderChart(this.chartData, this.options);
     }
 };

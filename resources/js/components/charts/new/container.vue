@@ -6,7 +6,7 @@
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn
                             :value="item.to"
-                            @click="$router.push({ name: item.to })"
+                            :to="{ name: item.to }"
                             v-bind="attrs"
                             v-on="on"
                         >
@@ -35,9 +35,8 @@
 
 <script>
 export default {
-    props: [],
+    props: ["bus"],
     data: () => ({
-        bus: new Vue(),
         currentRoute: null,
         chartMenu: [
             {
@@ -54,11 +53,6 @@ export default {
                 title: "New Pie Chart",
                 icon: "mdi-chart-pie",
                 to: "newpiechart"
-            },
-            {
-                title: "New Donut Chart",
-                icon: "mdi-chart-donut",
-                to: "newdonutchart"
             }
         ]
     }),

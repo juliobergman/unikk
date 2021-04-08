@@ -45,7 +45,7 @@
             </div>
             <!--  -->
         </v-app-bar>
-        <router-view></router-view>
+        <router-view :bus="bus"></router-view>
     </v-app>
 </template>
 
@@ -59,6 +59,7 @@ export default {
         Confirm
     },
     data: () => ({
+        bus: new Vue(),
         drawer: null
     }),
     computed: {
@@ -75,10 +76,12 @@ export default {
             });
         },
         darkMode() {
+            this.bus.$emit("updateChart");
             this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
         }
     },
     created() {
+        // this.$vuetify.theme.currentTheme.background
         axios.defaults.headers.common["Authorization"] =
             "Bearer " + localStorage.getItem("api_token");
         this.$store.dispatch("currentUser/getUser");

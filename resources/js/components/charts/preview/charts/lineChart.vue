@@ -6,7 +6,6 @@ export default {
     props: ["mode", "chartData", "options"],
     mounted() {
         if (this.mode === "thumbnail") {
-            console.log("thumbnail");
             this.options.legend.display = false;
             this.options.title.display = false;
             this.options.scales.yAxes[0].ticks.display = false;

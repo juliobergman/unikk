@@ -11,6 +11,7 @@ import viewChart from "../components/charts/view";
 import newChart from "../components/charts/new/container";
 import newBarChart from "../components/charts/new/bar";
 import newLineChart from "../components/charts/new/line";
+import newPieChart from "../components/charts/new/pie";
 
 const routes = [
     {
@@ -38,12 +39,12 @@ const routes = [
     {
         component: newChart,
         name: "newchart",
-        path: "/chart-new",
+        path: "/chart-build",
         children: [
             {
                 component: newBarChart,
                 name: "newbarchart",
-                path: "/bar",
+                path: "bar",
                 children: [
                     {
                         component: newBarChart,
@@ -55,11 +56,23 @@ const routes = [
             {
                 component: newLineChart,
                 name: "newlinechart",
-                path: "/line",
+                path: "line",
                 children: [
                     {
-                        component: newBarChart,
+                        component: newLineChart,
                         name: "lineChartUpdate",
+                        path: ":id"
+                    }
+                ]
+            },
+            {
+                component: newPieChart,
+                name: "newpiechart",
+                path: "pie",
+                children: [
+                    {
+                        component: newPieChart,
+                        name: "pieChartUpdate",
                         path: ":id"
                     }
                 ]

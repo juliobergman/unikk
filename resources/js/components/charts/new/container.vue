@@ -92,10 +92,10 @@ export default {
             this.bus.$emit("updateOptions");
         }
     },
-    created() {
-        // if (this.$route.name == "newchart") {
-        //     this.$router.push({ name: "newbarchart" });
-        // }
+    mounted() {
+        if (this.$route.name === "newchart") {
+            this.$router.push({ name: "newbarchart" });
+        }
         this.currentRoute = this.$route.name;
     }
 };

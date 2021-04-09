@@ -16,19 +16,10 @@ use App\Http\Controllers\api\v1\chart\ChartController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Auth::routes();
+Auth::routes(['register' => false]);
 Route::post('/login', [LoginController::class, 'login']);
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-// Charts
-Route::prefix('/chart')->group(function(){
-    Route::get('/all', [ChartController::class, 'index']);
-    Route::get('/{id}', [ChartController::class, 'show']);
-    Route::post('/store', [ChartController::class, 'store']);
-    Route::delete('/{chart}', [ChartController::class, 'destroy']);
-});
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

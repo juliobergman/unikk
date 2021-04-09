@@ -3,7 +3,6 @@ import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 
-import User from "../components/user/container";
 import Dashboard from "../components/dashboard/container";
 import Contact from "../components/contact/container";
 import Charts from "../components/charts/container";
@@ -14,11 +13,6 @@ import newLineChart from "../components/charts/new/line";
 import newPieChart from "../components/charts/new/pie";
 
 const routes = [
-    {
-        component: User,
-        name: "userprofile",
-        path: "/user/:id"
-    },
     {
         component: Dashboard,
         name: "dashboard",

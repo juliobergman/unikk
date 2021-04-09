@@ -25,7 +25,7 @@ const actions = {
                         "api_token",
                         response.data.access_token
                     );
-                    window.location.replace("/home");
+                    window.location.replace("/");
                 }
             });
     }

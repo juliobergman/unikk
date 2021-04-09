@@ -12,6 +12,22 @@
                     <v-toolbar color="primary" elevation="0" dark>
                         <v-toolbar-title>Login</v-toolbar-title>
                     </v-toolbar>
+
+                    <v-card-text class="border-bottom mb-3">
+                        <v-container fluid class="pa-0 ma-0">
+                            <v-row dense>
+                                <v-col cols="6"><strong>User:</strong></v-col>
+                                <v-col cols="6">demo@mail.com</v-col>
+                            </v-row>
+                            <v-row dense>
+                                <v-col cols="6">
+                                    <strong>Password:</strong>
+                                </v-col>
+                                <v-col cols="6">password</v-col>
+                            </v-row>
+                        </v-container>
+                    </v-card-text>
+
                     <v-card-text>
                         <login-form></login-form>
                     </v-card-text>

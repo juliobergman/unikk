@@ -52,9 +52,6 @@
             >
                 <v-icon>mdi-pencil</v-icon>
             </v-btn>
-            <v-btn fab dark x-small color="primary">
-                <v-icon>mdi-plus</v-icon>
-            </v-btn>
             <v-btn
                 v-if="currentUser.id == chart.user_id"
                 @click="deleteChart()"

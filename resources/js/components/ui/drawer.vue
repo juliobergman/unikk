@@ -95,7 +95,6 @@ export default {
     props: ["user"],
     data: () => ({
         items: [
-            { title: "Dashboard", icon: "mdi-view-dashboard", to: "dashboard" },
             {
                 title: "Charts",
                 icon: "mdi-chart-areaspline",
@@ -111,8 +110,7 @@ export default {
                         to: "newchart"
                     }
                 ]
-            },
-            { title: "Contact", icon: "mdi-contacts", to: "contact" }
+            }
         ]
     }),
     methods: {
@@ -128,11 +126,11 @@ export default {
                     console.log(error);
                 });
         }
+    },
+    mounted() {
+        if (!this.$route.name) {
+            this.$router.push({ name: "charts" });
+        }
     }
 };
 </script>
-<style scoped>
-.usercard {
-    /* cursor: pointer; */
-}
-</style>

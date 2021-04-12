@@ -92,7 +92,7 @@ export default {
         async getCharts() {
             this.loaded = false;
             try {
-                let chartList = await axios.get("/api/v1/chart/all");
+                let chartList = await axios.get("chart/all");
                 this.chartdata = chartList.data;
 
                 if (!chartList.data) {

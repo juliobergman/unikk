@@ -1,4 +1,5 @@
 Chart.defaults.global.datasets.bar.borderWidth = 2;
+Chart.defaults.global.defaultFontFamily = "'Roboto', sans-serif";
 Chart.scaleService.updateScaleDefaults("linear", {
     ticks: {
         callback: function(value) {

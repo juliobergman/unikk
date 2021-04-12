@@ -122,7 +122,7 @@ export default {
                 .then(delc => {
                     if (delc) {
                         axios
-                            .delete("/api/v1/chart/" + this.$route.params.id)
+                            .delete("chart/" + this.$route.params.id)
                             .then(response => {
                                 let res = JSON.parse(response.request.response);
                                 this.$refs.alert
@@ -157,7 +157,7 @@ export default {
         let id = this.$route.params.id;
 
         try {
-            let chart = await axios.get("/api/v1/chart/" + id);
+            let chart = await axios.get("chart/" + id);
             this.chart = chart.data;
 
             if (!chart.data) {

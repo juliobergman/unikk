@@ -60,7 +60,7 @@ export default {
         storeChart(data) {
             if (!this.$route.params.id) {
                 axios
-                    .post("api/v1/chart/store", data)
+                    .post("chart/store", data)
                     .then(response => {})
                     .catch(error => {
                         console.log(error);
@@ -69,7 +69,7 @@ export default {
 
             if (this.$route.params.id) {
                 axios
-                    .put("api/v1/chart/" + this.$route.params.id, data)
+                    .put("chart/" + this.$route.params.id, data)
                     .then(response => {})
                     .catch(error => {
                         console.log(error);

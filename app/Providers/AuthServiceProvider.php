@@ -5,7 +5,6 @@ namespace App\Providers;
 use App\Models\User;
 use App\Models\Chart;
 use App\Policies\ChartPolicy;
-use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -28,11 +27,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerPolicies();
-
-        if (! $this->app->routesAreCached()) {
-            Passport::routes();
-        }
+        // $this->registerPolicies();
 
     }
 }

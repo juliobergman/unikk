@@ -46,9 +46,6 @@
 export default {
     data: () => ({
         user: {
-            csrf_token: document
-                .querySelector('meta[name="csrf-token"]')
-                .getAttribute("content"),
             remember: "",
             email: "",
             password: ""
@@ -78,8 +75,9 @@ export default {
             if (this.validate()) {
                 this.$store
                     .dispatch("currentUser/loginUser", this.user)
-                    .catch(error => {
-                        this.error = error.response.data.msg;
+                    .catch(res => {
+                        let error = JSON.parse(res.request.response);
+                        this.error = error.errors.email[0];
                         setTimeout(() => (this.loading = false), 1000);
                     });
             } else {

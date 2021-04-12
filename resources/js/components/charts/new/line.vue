@@ -673,7 +673,7 @@ export default {
             let chart_id = this.$route.params.id;
 
             axios
-                .get("api/v1/chart/" + chart_id)
+                .get("chart/" + chart_id)
                 .then(response => {
                     this.chartType = response.data.type;
                     labels = response.data.chartdata.labels;

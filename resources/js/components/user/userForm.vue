@@ -21,9 +21,11 @@
 
                 <v-select
                     v-model="user.role"
+                    :rules="rules.role"
                     :items="roles"
                     item-value="value"
                     label="Role"
+                    required
                 >
                 </v-select>
 
@@ -85,14 +87,14 @@ export default {
             id: null,
             name: "",
             email: "",
-            role: "subscriber",
+            role: "user",
             password: ""
         },
         roleinf: false,
         roles: [
             { text: "Admin", value: "admin" },
             { text: "Editor", value: "editor" },
-            { text: "Subscriber", value: "subscriber" }
+            { text: "User", value: "user" }
         ],
         error: "",
         loading: false,
@@ -100,6 +102,7 @@ export default {
         show: false,
         rules: {
             name: [v => !!v || "Name is Required"],
+            role: [v => !!v || "All users must have a role"],
             email: [
                 v => !!v || "E-mail is required",
                 v => /.+@.+\..+/.test(v) || "E-mail must be valid"
@@ -119,7 +122,7 @@ export default {
             this.loading = true;
             if (this.validate()) {
                 axios
-                    .post("register", this.user)
+                    .post("user/new", this.user)
                     .then(response => {
                         if (response.status === 201) {
                             let msg =
@@ -154,8 +157,8 @@ export default {
             axios
                 .put("user", this.user)
                 .then(response => {
+                    setTimeout(() => (this.loading = false), 500);
                     if (response.status === 200) {
-                        setTimeout(() => (this.loading = false), 500);
                         this.$emit("success");
                     }
                 })
@@ -164,6 +167,11 @@ export default {
                     this.error = errors.errors.email[0];
                     setTimeout(() => (this.loading = false), 500);
                 });
+        },
+        formDefaults() {
+            this.$refs.form.reset();
+            this.user.role = "user";
+            this.error = "";
         }
     },
     computed: {
@@ -187,7 +195,7 @@ export default {
             .slice(-10);
     },
     mounted() {
-        this.bus.$on("closeUserDialog", this.$refs.form.reset);
+        this.bus.$on("closeUserDialog", this.formDefaults);
         this.user.id = this.userId;
     }
 };

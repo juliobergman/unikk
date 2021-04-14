@@ -21,6 +21,7 @@ class CreateChartsTable extends Migration
             $table->text('info')->nullable();
             $table->text('chartdata');
             $table->text('chartoptions');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

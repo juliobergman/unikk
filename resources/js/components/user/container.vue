@@ -14,12 +14,12 @@
             width="400"
             @click:outside="closeUserDialog()"
         >
-            <register-user-form
+            <user-form
                 :bus="bus"
                 ref="userform"
                 v-bind:update-user="updateUser"
                 v-on:success="userRegistered()"
-            ></register-user-form>
+            ></user-form>
         </v-dialog>
 
         <!-- Table -->
@@ -55,10 +55,10 @@
 </template>
 
 <script>
-import registerUserForm from "../auth/registerForm";
+import UserForm from "./userForm";
 export default {
     components: {
-        registerUserForm
+        UserForm
     },
     props: ["bus"],
     data: () => ({
@@ -68,7 +68,6 @@ export default {
     }),
     methods: {
         getAllUsers() {
-            console.log("gau");
             // Get Users
             axios
                 .get("user/all")

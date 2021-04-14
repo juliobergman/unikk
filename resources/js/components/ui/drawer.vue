@@ -95,6 +95,7 @@ export default {
     props: ["user"],
     data: () => ({
         items: [
+            { title: "Users", icon: "mdi-account", to: "users" },
             {
                 title: "Charts",
                 icon: "mdi-chart-areaspline",

@@ -114,11 +114,7 @@ export default {
         },
         deleteChart() {
             this.$refs.confirm
-                .open(
-                    "Delete Chart",
-                    "If you delete this chart, it'll be gone forever.\n Are you sure?",
-                    { color: "danger" }
-                )
+                .open("Delete Chart", "Are you sure?", { color: "danger" })
                 .then(delc => {
                     if (delc) {
                         axios

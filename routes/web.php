@@ -31,6 +31,7 @@ Route::prefix('/user')->group(function(){
     Route::middleware('auth')->get('/all', [UserController::class, 'index']);
     Route::middleware('auth')->get('/current', [UserController::class, 'currentUser']);
     Route::middleware('auth')->put('/', [UserController::class, 'update']);
+    Route::middleware('auth')->delete('/{id}', [UserController::class, 'destroy']);
     Route::middleware('guest')->get('/create-password/{token}/{email}', [UserController::class, 'create_password'])->name('password.create');
     Route::middleware('guest')->put('/create-new-password', [UserController::class, 'create_password_new']);
 });

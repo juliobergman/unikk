@@ -1,9 +1,17 @@
 <template>
     <v-card>
-        <v-card-title v-if="!currentUserId">Add New User</v-card-title>
-        <v-card-title v-if="currentUserId">{{ updateUser.name }}</v-card-title>
-        <v-card-text>
-            <v-form ref="form" v-model="valid" lazy-validation>
+        <v-form ref="form" v-model="valid" lazy-validation>
+            <v-toolbar color="primary" dark>
+                <v-toolbar-title v-if="!currentUserId">
+                    Add New User
+                </v-toolbar-title>
+                <v-toolbar-title v-if="currentUserId">
+                    {{ updateUser.name }}
+                </v-toolbar-title>
+            </v-toolbar>
+            <v-card-text>
+                <alert ref="alert"></alert>
+                <confirm ref="confirm"></confirm>
                 <v-text-field
                     v-model="user.name"
                     :rules="rules.name"
@@ -34,10 +42,12 @@
                         {{ this.error }}
                     </v-alert>
                 </v-expand-transition>
+            </v-card-text>
+            <v-card-actions>
                 <!-- New User Btn -->
                 <v-btn
+                    block
                     v-if="!currentUserId"
-                    class="btn-block mt-2"
                     right
                     :loading="loading"
                     :disabled="!valid || loading"
@@ -50,10 +60,26 @@
                         mdi-account-plus
                     </v-icon>
                 </v-btn>
-                <!-- Update User Btn -->
+                <!-- Update/Delete User Btns -->
+
                 <v-btn
                     v-if="currentUserId"
-                    class="btn-block mt-2"
+                    right
+                    :loading="loading"
+                    :disabled="!valid || loading"
+                    color="danger"
+                    dark
+                    @click="userDelete()"
+                >
+                    Delete
+
+                    <v-icon dark dense class="ml-2 align-self-end">
+                        mdi-account-cancel
+                    </v-icon>
+                </v-btn>
+                <v-spacer></v-spacer>
+                <v-btn
+                    v-if="currentUserId"
                     right
                     :loading="loading"
                     :disabled="!valid || loading"
@@ -66,17 +92,18 @@
                         mdi-account-check
                     </v-icon>
                 </v-btn>
-                <alert ref="alert"></alert>
-            </v-form>
-        </v-card-text>
+            </v-card-actions>
+        </v-form>
     </v-card>
 </template>
 
 <script>
 import alert from "../ui/alert";
+import confirm from "../ui/confirm";
 export default {
     components: {
-        alert
+        alert,
+        confirm
     },
     props: {
         bus: {},
@@ -160,7 +187,6 @@ export default {
         },
         userUpdate() {
             this.loading = true;
-            console.log(this.user);
             axios
                 .put("user", this.user)
                 .then(response => {
@@ -175,7 +201,38 @@ export default {
                     setTimeout(() => (this.loading = false), 500);
                 });
         },
+        userDelete() {
+            this.loading = true;
+            this.$refs.confirm
+                .open("Delete User", "Are you sure?", { color: "danger" })
+                .then(delc => {
+                    if (delc) {
+                        axios
+                            .delete("user/" + this.user.id)
+                            .then(response => {
+                                setTimeout(() => (this.loading = false), 500);
+                                let res = JSON.parse(response.request.response);
+                                this.$refs.alert
+                                    .open("Success", res["message"], {
+                                        color: "success"
+                                    })
+                                    .then(res => {
+                                        this.$emit("success");
+                                    });
+                            })
+                            .catch(res => {
+                                let error = JSON.parse(res.request.response);
+                                this.$refs.alert.open("Error", error["error"], {
+                                    color: "danger"
+                                });
+                            });
+                    } else {
+                        this.loading = false;
+                    }
+                });
+        },
         formDefaults() {
+            this.loading = false;
             this.$refs.form.reset();
             this.user.role = "user";
             this.error = "";

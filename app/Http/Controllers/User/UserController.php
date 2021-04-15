@@ -106,10 +106,14 @@ class UserController extends Controller
     }
 
 
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        $destroy = User::destroy($request->id);
-        return response()->json($destroy);
+        if(User::destroy($id)){
+            return response()->json(['message' => 'User Deleted'], 200);
+        } else {
+            return response()->json(['error' =>'error'], 403);
+        }
+
     }
 
 }

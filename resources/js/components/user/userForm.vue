@@ -88,7 +88,8 @@ export default {
             name: "",
             email: "",
             role: "user",
-            password: ""
+            password: "",
+            temptoken: ""
         },
         roleinf: false,
         roles: [
@@ -120,6 +121,12 @@ export default {
         },
         userRegister() {
             this.loading = true;
+            this.user.password = Math.random()
+                .toString(36)
+                .slice(-8);
+            this.user.temptoken = Math.random()
+                .toString(36)
+                .slice(-8);
             if (this.validate()) {
                 axios
                     .post("user/new", this.user)
@@ -189,11 +196,7 @@ export default {
             }
         }
     },
-    created() {
-        this.user.password = Math.random()
-            .toString(36)
-            .slice(-10);
-    },
+    created() {},
     mounted() {
         this.bus.$on("closeUserDialog", this.formDefaults);
         this.user.id = this.userId;

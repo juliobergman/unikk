@@ -31,6 +31,8 @@ Route::prefix('/user')->group(function(){
     Route::middleware('auth')->get('/all', [UserController::class, 'index']);
     Route::middleware('auth')->get('/current', [UserController::class, 'currentUser']);
     Route::middleware('auth')->put('/', [UserController::class, 'update']);
+    Route::middleware('guest')->get('/create-password/{token}/{email}', [UserController::class, 'create_password'])->name('password.create');
+    Route::middleware('guest')->put('/create-new-password', [UserController::class, 'create_password_new']);
 });
 
 // Charts
@@ -41,6 +43,9 @@ Route::middleware('auth')->prefix('/chart')->group(function(){
     Route::put('/{chart}', [ChartController::class, 'update']);
     Route::delete('/{chart}', [ChartController::class, 'destroy']);
 });
+
+// %242y%2410%24.gYTTmBbmwONzbVP7bTTs.r8cN9pYjehkMNYXkdJkITLUUNIXOUKO
+// $2y$10$.gYTTmBbmwONzbVP7bTTs.r8cN9pYjehkMNYXkdJkITLUUNIXOUKO
 
 
 

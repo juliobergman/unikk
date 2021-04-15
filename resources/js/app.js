@@ -33,6 +33,10 @@ import router from "./router";
 // );
 
 Vue.component("view-login", require("./views/login.vue").default);
+Vue.component(
+    "view-create-password",
+    require("./views/createPassword.vue").default
+);
 Vue.component("app-container", require("./views/appContainer.vue").default);
 
 /**

@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\User;
 
+
 use App\Models\User;
+use App\Events\userCreated;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -42,13 +46,16 @@ class UserController extends Controller
             'email' => $data['email'],
             'role' => $data['role'],
             'password' => Hash::make($data['password']),
+            'temptoken' => urlencode(Hash::make($data['temptoken'])),
         ]);
     }
 
     public function store(Request $request)
     {
+
         $this->validator($request->all())->validate();
-        event(new Registered($user = $this->create($request->all())));
+        // event(new Registered($user = $this->create($request->all())));
+        event(new userCreated($user = $this->create($request->all())));
         return new JsonResponse([], 201);
     }
 
@@ -61,6 +68,41 @@ class UserController extends Controller
         }
         return new JsonResponse([], 422);
 
+    }
+
+    public function create_password($token, $email)
+    {
+        $data = array('token' => $token,'email' => $email);
+        return view('auth.newaccount', $data);
+    }
+
+    public function create_password_new(Request $request)
+    {
+        //Validate Data
+        $this->validate($request,[
+            'email' => 'required|email',
+            'password' => 'required|confirmed',
+            'temptoken' => 'required'
+        ]);
+        // Define User
+        $user = User::where('temptoken', $request->temptoken)->where('email', $request->email)->first();
+        // Return Errors
+        if(!$user){ return new JsonResponse(['message' => 'The given data was invalid.', 'errors' => array('password' => array('This credentials do not match our records'))], 422); }
+        // Update
+
+        $update = array(
+            'password'  => Hash::make($request->password),
+            'temptoken' => null,
+            'email_verified_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        );
+
+        if ($user->update($update)) {
+            // Login User
+            Auth::attempt(['email' => $user->email,'password' => $request->password]);
+            if (!Auth::check()) { return new JsonResponse(['message' => 'Hmmmm'], 418); }
+            return new JsonResponse([], 200);
+        }
     }
 
 

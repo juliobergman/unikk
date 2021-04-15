@@ -36,6 +36,9 @@
                         <th class="text-left">
                             Role
                         </th>
+                        <th class="text-center">
+                            Verified
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,9 +47,23 @@
                         :key="user.id"
                         @click="showUser(user)"
                     >
-                        <td>{{ user.name }}</td>
-                        <td>{{ user.email }}</td>
-                        <td>{{ user.role }}</td>
+                        <td nowrap>{{ user.name }}</td>
+                        <td nowrap>{{ user.email }}</td>
+                        <td nowrap>{{ user.role }}</td>
+                        <td
+                            nowrap
+                            class="text-center"
+                            v-if="user.email_verified_at"
+                        >
+                            <v-icon color="accent">
+                                mdi-account-check
+                            </v-icon>
+                        </td>
+                        <td class="text-center" v-if="!user.email_verified_at">
+                            <v-icon color="disabled">
+                                mdi-account-remove
+                            </v-icon>
+                        </td>
                     </tr>
                 </tbody>
             </template>

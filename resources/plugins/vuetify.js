@@ -11,12 +11,13 @@ const opts = {
             light: {
                 primary: colors.blue.lighten1,
                 secondary: colors.blue.darken2,
-                accent: colors.blue.base,
+                accent: colors.lightBlue.base,
                 info: colors.lightBlue.lighten2,
                 success: colors.green.base,
                 warning: colors.yellow.base,
                 danger: colors.red.lighten1,
                 error: colors.red.base,
+                disabled: colors.grey.lighten1,
                 background: colors.shades.white,
                 borderPie: colors.shades.white,
                 qualitativePalette: [
@@ -49,12 +50,13 @@ const opts = {
             dark: {
                 primary: colors.blue.darken2,
                 secondary: colors.blue.lighten2,
-                accent: colors.blue.base,
+                accent: colors.lightBlue.lighten2,
                 info: colors.lightBlue.lighten2,
                 success: colors.green.base,
                 warning: colors.yellow.base,
                 danger: colors.red.darken1,
                 error: colors.red.base,
+                disabled: colors.grey.lighten2,
                 background: "#121212",
                 borderPie: "#1E1E1E",
                 qualitativePalette: [

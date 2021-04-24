@@ -45,50 +45,56 @@
         </v-hover>
 
         <v-list dense nav>
-            <div v-for="item in items" :key="item.title">
-                <v-list-item
-                    v-if="!item.children"
-                    @click="$router.push({ name: item.to }).catch(err => {})"
-                    link
-                >
-                    <v-list-item-icon>
-                        <v-icon>{{ item.icon }}</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-content>
-                        <v-list-item-title>{{ item.title }}</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-                <!-- List -->
-                <v-list-group
-                    v-if="item.children"
-                    no-action
-                    :prepend-icon="item.icon"
-                >
-                    <template v-slot:activator>
+            <v-list-item-group v-model="selectedItem" color="secondary">
+                <div v-for="item in items" :key="item.title">
+                    <v-list-item
+                        v-if="!item.children"
+                        @click="
+                            $router.push({ name: item.to }).catch(err => {})
+                        "
+                        link
+                    >
+                        <v-list-item-icon>
+                            <v-icon>{{ item.icon }}</v-icon>
+                        </v-list-item-icon>
                         <v-list-item-content>
                             <v-list-item-title>{{
                                 item.title
                             }}</v-list-item-title>
                         </v-list-item-content>
-                    </template>
-
-                    <v-list-item
-                        v-for="child in item.children"
-                        :key="child.title"
-                        @click="$router.push({ name: child.to })"
-                        link
+                    </v-list-item>
+                    <!-- List -->
+                    <v-list-group
+                        v-if="item.children"
+                        no-action
+                        :prepend-icon="item.icon"
                     >
-                        <!-- <v-list-item-icon>
+                        <template v-slot:activator>
+                            <v-list-item-content>
+                                <v-list-item-title>{{
+                                    item.title
+                                }}</v-list-item-title>
+                            </v-list-item-content>
+                        </template>
+
+                        <v-list-item
+                            v-for="child in item.children"
+                            :key="child.title"
+                            @click="$router.push({ name: child.to })"
+                            link
+                        >
+                            <!-- <v-list-item-icon>
                             <v-icon>{{ child.icon }}</v-icon>
                         </v-list-item-icon> -->
-                        <v-list-item-content>
-                            <v-list-item-title>{{
-                                child.title
-                            }}</v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
-                </v-list-group>
-            </div>
+                            <v-list-item-content>
+                                <v-list-item-title>{{
+                                    child.title
+                                }}</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                    </v-list-group>
+                </div>
+            </v-list-item-group>
         </v-list>
     </div>
 </template>
@@ -97,6 +103,7 @@
 export default {
     props: ["user"],
     data: () => ({
+        selectedItem: null,
         items: [
             { title: "Users", icon: "mdi-account", to: "users" },
             {

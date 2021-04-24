@@ -2,9 +2,12 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TestController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\chart\ChartController;
+use App\Http\Controllers\MembershipController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +26,10 @@ Route::get('/', function () {
 
 Auth::routes(['register' => false]);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::get('/test', [TestController::class, 'index']);
+
 
 
 // Users
@@ -45,8 +52,18 @@ Route::middleware('auth')->prefix('/chart')->group(function(){
     Route::delete('/{chart}', [ChartController::class, 'destroy']);
 });
 
-// %242y%2410%24.gYTTmBbmwONzbVP7bTTs.r8cN9pYjehkMNYXkdJkITLUUNIXOUKO
-// $2y$10$.gYTTmBbmwONzbVP7bTTs.r8cN9pYjehkMNYXkdJkITLUUNIXOUKO
+// Company
+Route::middleware('auth')->prefix('/company')->group(function(){
+    Route::get('/all', [CompanyController::class, 'index']);
+    Route::get('/{id}', [CompanyController::class, 'show']);
+});
+
+// Memberships
+Route::middleware('auth')->prefix('/membership')->group(function(){
+    Route::get('/current', [MembershipController::class, 'current']);
+    Route::get('/companies', [MembershipController::class, 'companies']);
+    Route::get('/users', [MembershipController::class, 'users']);
+});
 
 
 

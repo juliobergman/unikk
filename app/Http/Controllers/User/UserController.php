@@ -4,8 +4,8 @@ namespace App\Http\Controllers\User;
 
 
 use App\Models\User;
-use App\Events\userCreated;
 
+use App\Events\userCreated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Http\JsonResponse;
@@ -54,7 +54,6 @@ class UserController extends Controller
     {
 
         $this->validator($request->all())->validate();
-        // event(new Registered($user = $this->create($request->all())));
         event(new userCreated($user = $this->create($request->all())));
         return new JsonResponse([], 201);
     }

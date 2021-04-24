@@ -53,8 +53,18 @@ class User extends Authenticatable
         return $this->hasMany(Chart::class);
     }
 
-    public function userData()
+    public function userdata()
     {
         return $this->hasOne(UserData::class);
+    }
+
+    public function company()
+    {
+        return $this->hasMany(Company::class);
+    }
+
+    public function membership()
+    {
+        return $this->hasMany(Membership::class);
     }
 }

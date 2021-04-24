@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             ChartSeeder::class,
             PeccSeeder::class,
+            ReportSchemaSeeder::class,
         ]);
     }
 }

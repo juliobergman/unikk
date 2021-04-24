@@ -87,9 +87,10 @@ export default {
         getAllUsers() {
             // Get Users
             axios
-                .get("user/all")
+                .get("membership/users")
                 .then(response => {
-                    this.users = response.data;
+                    // this.users = response.data;
+                    // console.log(response.data);
                 })
                 .catch(res => {
                     let errors = JSON.parse(res.request.response);

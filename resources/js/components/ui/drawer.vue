@@ -4,11 +4,14 @@
             <v-sheet
                 class="usercard py-1 px-2 mb-2 border-bottom d-flex align-items-center"
             >
-                <v-avatar color="primary" size="36">
+                <v-avatar v-if="false" color="primary" size="36">
                     <v-icon dark>
                         mdi-account-circle
                     </v-icon>
                 </v-avatar>
+                <v-list-item-avatar>
+                    <v-img src="storage/avatar-man-1.jpg"></v-img>
+                </v-list-item-avatar>
                 <v-list-item>
                     <v-list-item-content>
                         <v-list-item-title
@@ -129,9 +132,9 @@ export default {
         }
     },
     mounted() {
-        if (!this.$route.name) {
-            this.$router.push({ name: "charts" });
-        }
+        // if (!this.$route.name) {
+        //     this.$router.push({ name: "charts" });
+        // }
     }
 };
 </script>

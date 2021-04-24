@@ -1,6 +1,6 @@
 <template>
     <v-app id="inspire">
-        <v-main class="mt-5">
+        <v-main class="align-center">
             <v-lazy
                 v-model="isActive"
                 :options="{
@@ -8,10 +8,15 @@
                 }"
                 transition="fade-transition"
             >
-                <v-card class="mx-auto" max-width="400" elevation="3">
-                    <v-toolbar color="primary" elevation="0" dark>
-                        <v-toolbar-title>Login</v-toolbar-title>
-                    </v-toolbar>
+                <v-card class="mx-auto" max-width="400" flat>
+                    <v-img
+                        fill="blue"
+                        class="mx-auto"
+                        width="100"
+                        contain
+                        src="/ui/icon-outline.svg"
+                    ></v-img>
+                    <v-card-title v-if="false">Login</v-card-title>
                     <v-card-text>
                         <login-form></login-form>
                     </v-card-text>

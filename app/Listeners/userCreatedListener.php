@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Models\UserData;
 use App\Events\userCreated;
 use App\Mail\UserCreatedByAdmin;
 use Illuminate\Support\Facades\Mail;
@@ -30,7 +31,12 @@ class userCreatedListener
      */
     public function handle(userCreated $event)
     {
+
+
+
+        UserData::create(['user_id' => $event->user->id]);
+
         $email = array('email' => $event->user->email);
-        Mail::to($email)->send(new UserCreatedByAdmin(urlencode($event->user->temptoken),urlencode($event->user->email)));
+        // Mail::to($email)->send(new UserCreatedByAdmin(urlencode($event->user->temptoken),urlencode($event->user->email)));
     }
 }

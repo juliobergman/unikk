@@ -1,14 +1,28 @@
 <template>
     <v-app id="inspire">
-        <v-navigation-drawer expand-on-hover permanent v-model="drawer" app>
+        <v-navigation-drawer v-model="drawer" app>
             <drawer-menu :user="currentUser"></drawer-menu>
         </v-navigation-drawer>
-        <v-app-bar color="primary" dark app>
+        <v-app-bar color="primary" dark clipped-right app>
             <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-            <v-toolbar-title>App</v-toolbar-title>
-            <v-spacer></v-spacer>
+
             <!--  -->
-            <div>
+            <div
+                class="mx-auto ml-md-auto mr-md-0 flex-grow-1 flex-sm-grow-0 col-md-3"
+            >
+                <v-select
+                    class="col-12"
+                    :menu-props="{ bottom: true, offsetY: true }"
+                    hide-details
+                    dense
+                    outlined
+                    :items="companies"
+                    label=""
+                    v-model="company"
+                >
+                </v-select>
+            </div>
+            <div class="ml-2">
                 <v-tooltip v-if="!$vuetify.theme.dark" bottom>
                     <template v-slot:activator="{ on }">
                         <v-btn
@@ -60,12 +74,21 @@ export default {
     },
     data: () => ({
         bus: new Vue(),
-        drawer: null
+        drawer: null,
+        companies: []
     }),
     computed: {
         currentUser: {
             get() {
-                return this.$store.state.currentUser.user;
+                return this.$store.state.user.user;
+            }
+        },
+        company: {
+            get() {
+                return this.$store.state.membership.company;
+            },
+            set(val) {
+                this.$store.commit("membership/setCompany", val);
             }
         }
     },
@@ -83,12 +106,23 @@ export default {
                 "dark_theme",
                 this.$vuetify.theme.dark.toString()
             );
+        },
+        companySelect() {
+            axios.get("/membership/companies").then(response => {
+                let comps = response.data;
+                comps.forEach((e, index) => {
+                    this.companies.push({
+                        text: e.company.name,
+                        value: e.id
+                    });
+                });
+            });
         }
     },
     created() {
-        axios.defaults.headers.common["Authorization"] =
-            "Bearer " + localStorage.getItem("api_token");
-        this.$store.dispatch("currentUser/getUser");
+        this.$store.dispatch("user/getUser");
+        this.$store.dispatch("membership/getCompany");
+        this.companySelect();
     },
     mounted() {
         const theme = localStorage.getItem("dark_theme");

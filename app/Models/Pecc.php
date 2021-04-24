@@ -10,6 +10,7 @@ class Pecc extends Model
 {
     use SoftDeletes, HasFactory;
 
+
     protected $fillable = [
         'fund',
         'type',
@@ -25,4 +26,9 @@ class Pecc extends Model
     protected $hidden = [
 
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

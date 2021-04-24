@@ -83,20 +83,12 @@ export default {
         reguser: false,
         users: []
     }),
+    computed: {
+        company() {
+            return this.$store.state.membership.company;
+        }
+    },
     methods: {
-        getAllUsers() {
-            // Get Users
-            axios
-                .get("membership/users")
-                .then(response => {
-                    // this.users = response.data;
-                    // console.log(response.data);
-                })
-                .catch(res => {
-                    let errors = JSON.parse(res.request.response);
-                    console.log(errors);
-                });
-        },
         closeUserDialog() {
             this.reguser = false;
             setTimeout(() => (this.updateUser = {}), 100);
@@ -109,12 +101,34 @@ export default {
         userRegistered() {
             this.closeUserDialog();
             this.getAllUsers();
+        },
+        getUsers() {
+            let cpy = this.company;
+            if (!cpy) {
+                cpy = localStorage.getItem("company");
+            }
+            axios
+                .get("membership/users", {
+                    headers: {
+                        company: cpy
+                    }
+                })
+                .then(response => {
+                    console.log(response.data);
+                    this.users = response.data;
+                })
+                .catch(response => {
+                    let errors = JSON.parse(response.request.response);
+                    console.log(errors);
+                });
         }
     },
     created() {
-        this.getAllUsers();
+        this.getUsers();
     },
-    mounted() {}
+    mounted() {
+        this.bus.$on("companyChange", this.getUsers);
+    }
 };
 </script>
 

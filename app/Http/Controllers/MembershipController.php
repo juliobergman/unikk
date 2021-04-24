@@ -50,8 +50,6 @@ class MembershipController extends Controller
     public function users(Request $request)
     {
 
-        return $request->header();
-
         $users = User::query();
         $users->whereHas('membership', function($query) use ($request){
             $query->where('company_id', $request->header('company'));

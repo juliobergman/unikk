@@ -13,6 +13,7 @@ const actions = {
 };
 const mutations = {
     setCompany(state, data) {
+        localStorage.setItem("company", data);
         state.company = data;
     }
 };

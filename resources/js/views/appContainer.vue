@@ -19,6 +19,7 @@
                     :items="companies"
                     label=""
                     v-model="company"
+                    @change="bus.$emit('companyChange')"
                 >
                 </v-select>
             </div>
@@ -59,7 +60,7 @@
             </div>
             <!--  -->
         </v-app-bar>
-        <router-view :bus="bus"></router-view>
+        <router-view :company="company" :bus="bus"></router-view>
     </v-app>
 </template>
 

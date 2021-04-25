@@ -62,7 +62,8 @@ Route::middleware('auth')->prefix('/company')->group(function(){
 Route::middleware('auth')->prefix('/membership')->group(function(){
     Route::get('/current', [MembershipController::class, 'current']);
     Route::get('/companies', [MembershipController::class, 'companies']);
-    Route::get('/users', [MembershipController::class, 'users']);
+    Route::get('/users/{company}', [MembershipController::class, 'users']);
+    Route::put('/default/{membership}', [MembershipController::class, 'set_default']);
 });
 
 

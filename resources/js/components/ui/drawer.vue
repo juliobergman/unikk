@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <v-navigation-drawer v-model="drawer" app>
         <v-hover>
             <v-sheet
                 class="usercard py-1 px-2 mb-2 border-bottom d-flex align-items-center"
@@ -96,13 +96,15 @@
                 </div>
             </v-list-item-group>
         </v-list>
-    </div>
+    </v-navigation-drawer>
 </template>
 
 <script>
 export default {
-    props: ["user"],
+    props: ["bus"],
     data: () => ({
+        drawer: null,
+        user: [],
         selectedItem: null,
         items: [
             { title: "Users", icon: "mdi-account", to: "users" },
@@ -125,6 +127,9 @@ export default {
         ]
     }),
     methods: {
+        toggleDrawer() {
+            this.drawer = !this.drawer;
+        },
         logout() {
             axios
                 .post("/logout")
@@ -138,7 +143,11 @@ export default {
                 });
         }
     },
+    created() {
+        this.user = this.$store.state.user.user;
+    },
     mounted() {
+        this.bus.$on("drawer", this.toggleDrawer);
         // if (!this.$route.name) {
         //     this.$router.push({ name: "charts" });
         // }

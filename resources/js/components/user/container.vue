@@ -1,5 +1,10 @@
 <template>
     <v-main>
+        <!-- Loader -->
+        <v-overlay :value="!loaded" opacity="1" color="background">
+            <v-progress-circular :size="30" color="primary" indeterminate>
+            </v-progress-circular>
+        </v-overlay>
         <!-- Tools -->
         <v-toolbar class="border-bottom" dense>
             <v-spacer></v-spacer>
@@ -21,12 +26,14 @@
                 v-on:success="userRegistered()"
             ></user-form>
         </v-dialog>
-
         <!-- Table -->
         <v-simple-table fixed-header>
             <template v-slot:default>
                 <thead>
                     <tr>
+                        <th class="text-left">
+                            ID
+                        </th>
                         <th class="text-left">
                             Name
                         </th>
@@ -47,6 +54,7 @@
                         :key="user.id"
                         @click="showUser(user)"
                     >
+                        <td nowrap>{{ user.id }}</td>
                         <td nowrap>{{ user.name }}</td>
                         <td nowrap>{{ user.email }}</td>
                         <td nowrap>{{ user.role }}</td>
@@ -79,15 +87,11 @@ export default {
     },
     props: ["bus"],
     data: () => ({
+        loaded: false,
         updateUser: {},
         reguser: false,
         users: []
     }),
-    computed: {
-        company() {
-            return this.$store.state.membership.company;
-        }
-    },
     methods: {
         closeUserDialog() {
             this.reguser = false;
@@ -103,19 +107,14 @@ export default {
             this.getAllUsers();
         },
         getUsers() {
-            let cpy = this.company;
-            if (!cpy) {
-                cpy = localStorage.getItem("company");
-            }
+            this.loaded = false;
             axios
-                .get("membership/users", {
-                    headers: {
-                        company: cpy
-                    }
-                })
+                .get("membership/users/" + this.company)
                 .then(response => {
-                    console.log(response.data);
                     this.users = response.data;
+                    setTimeout(() => {
+                        this.loaded = true;
+                    }, 250);
                 })
                 .catch(response => {
                     let errors = JSON.parse(response.request.response);
@@ -123,11 +122,22 @@ export default {
                 });
         }
     },
+    computed: {
+        company() {
+            return this.$store.state.membership.company;
+        }
+    },
     created() {
-        this.getUsers();
+        // this.getUsers();
     },
     mounted() {
+        this.getUsers;
         this.bus.$on("companyChange", this.getUsers);
+    },
+    watch: {
+        company() {
+            this.getUsers();
+        }
     }
 };
 </script>

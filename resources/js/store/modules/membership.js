@@ -13,8 +13,12 @@ const actions = {
 };
 const mutations = {
     setCompany(state, data) {
-        localStorage.setItem("company", data);
-        state.company = data;
+        axios.put("membership/default/" + data).then(response => {
+            if (response.status == 200) {
+                localStorage.setItem("company", data);
+                state.company = data;
+            }
+        });
     }
 };
 

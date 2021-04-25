@@ -1,10 +1,10 @@
 <template>
     <v-app id="inspire">
-        <v-navigation-drawer v-model="drawer" app>
-            <drawer-menu :user="currentUser"></drawer-menu>
-        </v-navigation-drawer>
+        <drawer-menu :bus="bus"></drawer-menu>
         <v-app-bar color="primary" dark clipped-right app>
-            <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+            <v-app-bar-nav-icon
+                @click="bus.$emit('drawer')"
+            ></v-app-bar-nav-icon>
 
             <!--  -->
             <div
@@ -60,7 +60,7 @@
             </div>
             <!--  -->
         </v-app-bar>
-        <router-view :company="company" :bus="bus"></router-view>
+        <router-view :bus="bus"></router-view>
     </v-app>
 </template>
 
@@ -68,7 +68,6 @@
 import drawerMenu from "../components/ui/drawer";
 import Confirm from "../components/ui/confirm";
 export default {
-    props: ["title"],
     components: {
         drawerMenu,
         Confirm
@@ -79,10 +78,8 @@ export default {
         companies: []
     }),
     computed: {
-        currentUser: {
-            get() {
-                return this.$store.state.user.user;
-            }
+        currentUser() {
+            return this.$store.state.user.user;
         },
         company: {
             get() {
@@ -102,7 +99,6 @@ export default {
         darkMode() {
             // this.bus.$emit("updateChart");
             this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
-
             localStorage.setItem(
                 "dark_theme",
                 this.$vuetify.theme.dark.toString()
@@ -113,7 +109,7 @@ export default {
                 let comps = response.data;
                 comps.forEach((e, index) => {
                     this.companies.push({
-                        text: e.company.name,
+                        text: e.company.id + " | " + e.company.name,
                         value: e.id
                     });
                 });

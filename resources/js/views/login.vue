@@ -8,14 +8,11 @@
                 }"
                 transition="fade-transition"
             >
-                <v-card class="mx-auto" max-width="400" flat>
-                    <v-img
-                        fill="blue"
-                        class="mx-auto"
-                        width="100"
-                        contain
-                        src="/ui/icon-outline.svg"
-                    ></v-img>
+                <v-card class="mx-auto pt-4" max-width="400" flat>
+                    <v-sheet width="100" color="transparent" class="mx-auto">
+                        <login-icon :fill="iconColor"></login-icon>
+                    </v-sheet>
+
                     <v-card-title v-if="false">Login</v-card-title>
                     <v-card-text>
                         <login-form></login-form>
@@ -28,11 +25,16 @@
 
 <script>
 import loginForm from "../components/auth/loginForm";
+import loginIcon from "../components/ui/icons/main";
 export default {
-    components: { loginForm },
+    components: { loginForm, loginIcon },
     data: () => ({
-        isActive: false
+        isActive: false,
+        iconColor: "grey"
     }),
+    created() {
+        this.iconColor = this.$vuetify.theme.currentTheme.primary;
+    },
     mounted() {
         const theme = localStorage.getItem("dark_theme");
         if (theme) {
@@ -54,5 +56,4 @@ export default {
     }
 };
 </script>
-
-<style></style>
+<style scoped></style>

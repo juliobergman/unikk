@@ -2,6 +2,9 @@ import Vue from "vue";
 import Vuetify from "vuetify/lib";
 import colors from "vuetify/lib/util/colors";
 
+// Custom Icons
+import iconMain from "../js/components/ui/icons/main";
+
 Vue.use(Vuetify);
 
 const opts = {

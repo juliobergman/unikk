@@ -74,7 +74,7 @@ class UserSeeder extends Seeder
         ->create();
 
 
-        User::factory(10)
+        User::factory(15)
         ->has(UserData::factory())
         ->has(
             Membership::factory()

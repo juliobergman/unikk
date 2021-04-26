@@ -1,66 +1,68 @@
 <template>
-    <v-app id="inspire">
-        <drawer-menu :bus="bus"></drawer-menu>
-        <v-app-bar color="primary" dark clipped-right app>
-            <v-app-bar-nav-icon
-                @click="bus.$emit('drawer')"
-            ></v-app-bar-nav-icon>
+    <v-app>
+        <div class="main-background-color-gradient h-100">
+            <drawer-menu :bus="bus"></drawer-menu>
+            <v-app-bar class="main-navbar" dark clipped-right app>
+                <v-app-bar-nav-icon
+                    @click="bus.$emit('drawer')"
+                ></v-app-bar-nav-icon>
 
-            <!--  -->
-            <div
-                class="mx-auto ml-md-auto mr-md-0 flex-grow-1 flex-sm-grow-0 col-md-3"
-            >
-                <v-select
-                    class="col-12"
-                    :menu-props="{ bottom: true, offsetY: true }"
-                    hide-details
-                    dense
-                    outlined
-                    :items="companies"
-                    label=""
-                    v-model="company"
-                    @change="bus.$emit('companyChange')"
+                <!--  -->
+                <div
+                    class="mx-auto ml-md-auto mr-md-0 flex-grow-1 flex-sm-grow-0 col-md-3"
                 >
-                </v-select>
-            </div>
-            <div class="ml-2">
-                <v-tooltip v-if="!$vuetify.theme.dark" bottom>
-                    <template v-slot:activator="{ on }">
-                        <v-btn
-                            elevation="1"
-                            x-small
-                            v-on="on"
-                            color="primary"
-                            fab
-                            @click="darkMode"
-                        >
-                            <v-icon class="mr-1"
-                                >mdi-moon-waxing-crescent</v-icon
+                    <v-select
+                        class="col-12"
+                        :menu-props="{ bottom: true, offsetY: true }"
+                        hide-details
+                        dense
+                        outlined
+                        :items="companies"
+                        label=""
+                        v-model="company"
+                        @change="bus.$emit('companyChange')"
+                    >
+                    </v-select>
+                </div>
+                <div class="ml-2">
+                    <v-tooltip v-if="!$vuetify.theme.dark" bottom>
+                        <template v-slot:activator="{ on }">
+                            <v-btn
+                                elevation="1"
+                                x-small
+                                v-on="on"
+                                fab
+                                @click="darkMode"
                             >
-                        </v-btn>
-                    </template>
-                    <span>Dark Mode On</span>
-                </v-tooltip>
+                                <v-icon class="mr-1"
+                                    >mdi-moon-waxing-crescent</v-icon
+                                >
+                            </v-btn>
+                        </template>
+                        <span>Dark Mode On</span>
+                    </v-tooltip>
 
-                <v-tooltip v-else bottom>
-                    <template v-slot:activator="{ on }">
-                        <v-btn
-                            elevation="1"
-                            x-small
-                            v-on="on"
-                            color="primary"
-                            fab
-                            @click="darkMode"
-                        >
-                            <v-icon>mdi-white-balance-sunny</v-icon>
-                        </v-btn>
-                    </template>
-                    <span>Dark Mode Off</span>
-                </v-tooltip>
+                    <v-tooltip v-else bottom>
+                        <template v-slot:activator="{ on }">
+                            <v-btn
+                                elevation="1"
+                                x-small
+                                v-on="on"
+                                fab
+                                @click="darkMode"
+                            >
+                                <v-icon>mdi-white-balance-sunny</v-icon>
+                            </v-btn>
+                        </template>
+                        <span>Dark Mode Off</span>
+                    </v-tooltip>
+                </div>
+                <!--  -->
+            </v-app-bar>
+            <div class="p-3">
+                <router-view :bus="bus"></router-view>
             </div>
-            <!--  -->
-        </v-app-bar>
-        <router-view :bus="bus"></router-view>
+        </div>
     </v-app>
 </template>
 
@@ -78,8 +80,10 @@ export default {
         companies: []
     }),
     computed: {
-        currentUser() {
-            return this.$store.state.user.user;
+        currentUser: {
+            get() {
+                return this.$store.state.user.user;
+            }
         },
         company: {
             get() {
@@ -109,7 +113,7 @@ export default {
                 let comps = response.data;
                 comps.forEach((e, index) => {
                     this.companies.push({
-                        text: e.company.id + " | " + e.company.name,
+                        text: e.company.name,
                         value: e.id
                     });
                 });

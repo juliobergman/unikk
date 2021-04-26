@@ -18,7 +18,7 @@ class CreateMembershipsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained();
             $table->foreignId('company_id')->nullable()->constrained();
-            $table->enum('role', ['admin', 'editor','user'])->default('user');
+            $table->enum('role', ['admin','editor','user'])->default('user');
             $table->boolean('default')->default(null)->nullable();
             $table->softDeletes();
             $table->timestamps();

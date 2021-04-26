@@ -104,7 +104,6 @@ export default {
     props: ["bus"],
     data: () => ({
         drawer: null,
-        user: [],
         selectedItem: null,
         items: [
             { title: "Users", icon: "mdi-account", to: "users" },
@@ -141,6 +140,11 @@ export default {
                 .catch(error => {
                     console.log(error);
                 });
+        }
+    },
+    computed: {
+        user() {
+            return this.$store.state.user.user;
         }
     },
     created() {

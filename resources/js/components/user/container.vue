@@ -1,12 +1,12 @@
 <template>
     <v-main>
         <!-- Loader -->
-        <v-overlay :value="!loaded" opacity="1" color="background">
+        <v-overlay v-if="false" :value="!loaded" opacity="1" color="background">
             <v-progress-circular :size="30" color="primary" indeterminate>
             </v-progress-circular>
         </v-overlay>
         <!-- Tools -->
-        <v-toolbar class="border-bottom" dense>
+        <v-toolbar class="mb-3" flat rounded dense>
             <v-spacer></v-spacer>
             <!-- Right Side Start -->
             <v-btn @click="reguser = !reguser" icon small class="mr-1">
@@ -27,7 +27,7 @@
             ></user-form>
         </v-dialog>
         <!-- Table -->
-        <v-simple-table fixed-header>
+        <v-simple-table v-if="false" fixed-header>
             <template v-slot:default>
                 <thead>
                     <tr>
@@ -76,6 +76,32 @@
                 </tbody>
             </template>
         </v-simple-table>
+        <v-data-table
+            @click:row="showUser"
+            hide-default-footer
+            :headers="headers"
+            :items="users"
+            item-key="name"
+            :loading="!loaded"
+            item-class="red"
+        >
+            <template v-slot:item.role="{ item }">
+                <v-chip
+                    label
+                    small
+                    color="primary"
+                    dark
+                    class="d-block userchip"
+                >
+                    {{ item.role }}
+                </v-chip>
+            </template>
+            <template v-slot:item.email_verified_at="{ item }">
+                <v-icon :color="getVerifiedColor(item.email_verified_at)">
+                    {{ getVerifiedIcon(item.email_verified_at) }}
+                </v-icon>
+            </template>
+        </v-data-table>
     </v-main>
 </template>
 
@@ -90,9 +116,24 @@ export default {
         loaded: false,
         updateUser: {},
         reguser: false,
+        headers: [
+            { text: "Name", value: "name" },
+            { text: "Email", value: "email" },
+            { text: "Role", value: "role", align: "center" },
+            { text: "Verified", value: "email_verified_at", align: "center" }
+        ],
         users: []
     }),
     methods: {
+        getVerifiedColor(v) {
+            if (v) return "accent";
+            else return "disabled";
+        },
+        getVerifiedIcon(v) {
+            if (v) return "mdi-account-check";
+            else return "mdi-account-remove";
+        },
+        getUserRole(v) {},
         closeUserDialog() {
             this.reguser = false;
             setTimeout(() => (this.updateUser = {}), 100);
@@ -128,7 +169,7 @@ export default {
         }
     },
     created() {
-        // this.getUsers();
+        this.getUsers();
     },
     mounted() {
         this.getUsers;
@@ -145,5 +186,8 @@ export default {
 <style scoped>
 td {
     cursor: pointer;
+}
+.userchip {
+    text-transform: capitalize;
 }
 </style>

@@ -87,8 +87,8 @@ class UserController extends Controller
         $user = User::where('temptoken', $request->temptoken)->where('email', $request->email)->first();
         // Return Errors
         if(!$user){ return new JsonResponse(['message' => 'The given data was invalid.', 'errors' => array('password' => array('This credentials do not match our records'))], 422); }
-        // Update
 
+        // Update
         $update = array(
             'password'  => Hash::make($request->password),
             'temptoken' => null,

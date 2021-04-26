@@ -1,8 +1,9 @@
 <template>
-    <v-navigation-drawer v-model="drawer" app>
+    <v-navigation-drawer color="transparent" v-model="drawer" app>
         <v-hover>
             <v-sheet
-                class="usercard py-1 px-2 mb-2 border-bottom d-flex align-items-center"
+                color="transparent"
+                class="py-1 px-2 d-flex align-items-center"
             >
                 <v-avatar v-if="false" color="primary" size="36">
                     <v-icon dark>
@@ -33,16 +34,18 @@
                     </v-list-item-content>
                 </v-list-item>
 
-                <v-tooltip bottom>
+                <!-- <v-tooltip bottom>
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn @click="logout()" icon v-bind="attrs" v-on="on">
                             <v-icon>mdi-logout</v-icon>
                         </v-btn>
                     </template>
                     <span>Logout</span>
-                </v-tooltip>
+                </v-tooltip> -->
             </v-sheet>
         </v-hover>
+
+        <v-divider></v-divider>
 
         <v-list dense nav>
             <v-list-item-group v-model="selectedItem" color="secondary">
@@ -96,6 +99,13 @@
                 </div>
             </v-list-item-group>
         </v-list>
+        <template v-slot:append>
+            <div class="pa-2">
+                <v-btn @click="logout()" class="main-gradient" dark block>
+                    Logout
+                </v-btn>
+            </div>
+        </template>
     </v-navigation-drawer>
 </template>
 

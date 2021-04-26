@@ -9,9 +9,9 @@ const opts = {
         dark: false,
         themes: {
             light: {
-                primary: colors.blueGrey.base,
+                primary: colors.lightBlue.base,
                 secondary: colors.blue.darken2,
-                accent: colors.lightBlue.base,
+                accent: colors.lightBlue.accent3,
                 info: colors.lightBlue.lighten2,
                 success: colors.green.base,
                 warning: colors.yellow.base,
@@ -48,9 +48,9 @@ const opts = {
                 ]
             },
             dark: {
-                primary: colors.blueGrey.darken2,
+                primary: colors.lightBlue.base,
                 secondary: colors.blue.lighten2,
-                accent: colors.lightBlue.lighten2,
+                accent: colors.lightBlue.accent2,
                 info: colors.lightBlue.lighten2,
                 success: colors.green.base,
                 warning: colors.yellow.base,

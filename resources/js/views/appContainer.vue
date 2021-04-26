@@ -2,7 +2,7 @@
     <v-app>
         <div class="main-background-color-gradient h-100">
             <drawer-menu :bus="bus"></drawer-menu>
-            <v-app-bar class="main-navbar" dark clipped-right app>
+            <v-app-bar class="main-gradient" dark clipped-right app>
                 <v-app-bar-nav-icon
                     @click="bus.$emit('drawer')"
                 ></v-app-bar-nav-icon>
@@ -28,6 +28,7 @@
                     <v-tooltip v-if="!$vuetify.theme.dark" bottom>
                         <template v-slot:activator="{ on }">
                             <v-btn
+                                color="transparent"
                                 elevation="1"
                                 x-small
                                 v-on="on"
@@ -45,6 +46,7 @@
                     <v-tooltip v-else bottom>
                         <template v-slot:activator="{ on }">
                             <v-btn
+                                color="transparent"
                                 elevation="1"
                                 x-small
                                 v-on="on"

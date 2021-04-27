@@ -50,7 +50,6 @@ class MembershipController extends Controller
 
     public function users(Company $company)
     {
-
         $users = User::query();
         $users->whereHas('membership', function($query) use ($company){
             $query->where('company_id', $company->id);

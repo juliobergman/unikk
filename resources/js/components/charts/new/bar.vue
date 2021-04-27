@@ -8,15 +8,17 @@
             <v-col cols="12" md="6" order="1" order-md="0" class="mt-md-5">
                 <v-form v-model="valid">
                     <!-- Form -->
-                    <v-row>
-                        <v-col cols="12">
-                            <v-text-field
-                                v-model="chart.labels"
-                                dense
-                                label="Labels"
-                            ></v-text-field>
-                        </v-col>
-                    </v-row>
+                    <v-container>
+                        <v-row>
+                            <v-col cols="12">
+                                <v-text-field
+                                    v-model="chart.labels"
+                                    dense
+                                    label="Labels"
+                                ></v-text-field>
+                            </v-col>
+                        </v-row>
+                    </v-container>
                     <!-- Data Sets -->
                     <v-container>
                         <v-row dense>

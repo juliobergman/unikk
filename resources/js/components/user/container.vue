@@ -37,6 +37,16 @@
             item-class="red"
             class="elevation-2"
         >
+            <template v-slot:item.name="{ item, isMobile }">
+                <v-avatar v-if="!isMobile" size="35" class="mr-2">
+                    <img :src="item.userdata.profile_pic" alt="John" />
+                </v-avatar>
+                {{ item.name }}
+                <v-avatar v-if="isMobile" size="35" class="ml-2">
+                    <img :src="item.userdata.profile_pic" alt="John" />
+                </v-avatar>
+            </template>
+
             <template v-slot:item.role="{ item }">
                 <v-chip
                     label
@@ -69,7 +79,11 @@ export default {
         updateUser: {},
         reguser: false,
         headers: [
-            { text: "Name", value: "name" },
+            {
+                text: "Name",
+                value: "name",
+                align: "left"
+            },
             { text: "Email", value: "email" },
             { text: "Role", value: "role", align: "center" },
             { text: "Verified", value: "email_verified_at", align: "center" }
@@ -127,9 +141,9 @@ export default {
         this.getUsers;
         this.bus.$on("companyChange", this.getUsers);
 
-        setTimeout(() => {
-            this.showUser(this.users[1]);
-        }, 2000);
+        // setTimeout(() => {
+        //     this.showUser(this.users[1]);
+        // }, 2000);
     },
     watch: {
         company() {
@@ -140,6 +154,10 @@ export default {
 </script>
 
 <style scoped>
+.pic {
+    background: brown !important;
+}
+
 td {
     cursor: pointer;
 }

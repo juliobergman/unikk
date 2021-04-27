@@ -1,7 +1,11 @@
 <template>
     <v-main>
-        <v-toolbar elevation="2" dense>
-            <v-btn-toggle mandatory tile group v-model="currentRoute">
+        <v-toolbar dense class="mb-4" elevation="2" rounded>
+            <v-btn-toggle
+                mandatory
+                v-model="currentRoute"
+                style="margin-left: -16px;"
+            >
                 <v-tooltip bottom v-for="item in chartMenu" :key="item.title">
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn
@@ -26,10 +30,12 @@
                 <v-icon class="ml-2">mdi-content-save</v-icon>
             </v-btn>
         </v-toolbar>
-        <router-view
-            :bus="bus"
-            v-on:savechart.capture="storeChart($event)"
-        ></router-view>
+        <v-card elevation="2">
+            <router-view
+                :bus="bus"
+                v-on:savechart.capture="storeChart($event)"
+            ></router-view>
+        </v-card>
     </v-main>
 </template>
 
@@ -101,4 +107,4 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped></style>

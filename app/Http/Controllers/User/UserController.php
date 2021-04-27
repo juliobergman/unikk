@@ -28,7 +28,6 @@ class UserController extends Controller
     {
         $user = collect(Auth::user());
         $userdata = UserData::where('user_id', Auth::user()->id)->first();
-
         $merged = $user->merge($userdata);
         return $merged;
     }

@@ -18,6 +18,7 @@ class ChartSeeder extends Seeder
     {
         DB::table('charts')->insert([
             'user_id' => 1,
+            'chart_collection_id' => 1,
             'type' => 'barChart',
             'title' => 'Bar Chart',
             'info' => 'Nunc nisi mauris, dictum quis sem eu, lacinia consectetur erat. Quisque accumsan sit amet ligula et aliquam. Suspendisse tempus, sem eu accumsan porttitor, dui ex dignissim tellus, nec tempor massa turpis sed leo. Nullam elit augue, hendrerit vitae nibh eu, pretium aliquam enim. Suspendisse nec risus a quam aliquam accumsan in vel nisi. Maecenas fermentum justo laoreet, hendrerit turpis sed, sollicitudin lacus. Sed maximus consectetur lacus et suscipit. In hac habitasse platea dictumst. Maecenas rhoncus id turpis sodales sodales. Curabitur in orci sapien. Quisque laoreet nunc augue, consequat dapibus libero cursus ac. Ut molestie id tortor eget efficitur.',
@@ -28,6 +29,7 @@ class ChartSeeder extends Seeder
         ]);
         DB::table('charts')->insert([
             'user_id' => 1,
+            'chart_collection_id' => 1,
             'type' => 'lineChart',
             'title' => 'Line Chart',
             'info' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis massa id sem pretium consequat non sed mi. Donec non accumsan nisi. Etiam mi leo, ultrices eget convallis ut, commodo vitae massa. Mauris eget ultrices ligula. Donec mattis nunc eget lobortis viverra. Maecenas tempor sagittis augue, sed tincidunt felis interdum et. Duis tincidunt leo quis tellus consectetur, interdum hendrerit dui pellentesque. Aenean vehicula neque vel posuere commodo. Donec bibendum, lorem nec euismod elementum, orci purus tempor nisi, nec pulvinar quam justo sit amet massa. In quis tempus risus. Vivamus non sodales felis, in vestibulum mi. Vivamus sagittis quis neque eget commodo. Vestibulum vitae fringilla odio, in consequat elit.',
@@ -38,6 +40,7 @@ class ChartSeeder extends Seeder
         ]);
         DB::table('charts')->insert([
             'user_id' => 1,
+            'chart_collection_id' => 1,
             'type' => 'pieChart',
             'title' => 'Pie Chart',
             'info' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris viverra, nunc ut facilisis interdum, eros justo molestie ligula, non tincidunt nisi ex eget lorem. In sit amet felis pretium, commodo nisi sed, tristique nisi. Suspendisse potenti. Curabitur auctor ipsum neque, sit amet finibus sem tempor ut. Pellentesque hendrerit ligula a odio tempus, vitae rutrum urna tempus. Duis et pellentesque arcu. Ut vehicula ipsum vel lorem ullamcorper, non tristique augue aliquet. Pellentesque viverra nisi ut vestibulum imperdiet. Nullam elementum lectus justo, eget facilisis diam auctor sed.',
@@ -48,6 +51,7 @@ class ChartSeeder extends Seeder
         ]);
         DB::table('charts')->insert([
             'user_id' => 1,
+            'chart_collection_id' => 1,
             'type' => 'lineChart',
             'title' => 'Scatter Chart',
             'info' => 'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam ut ante pretium, varius leo quis, finibus felis. Vivamus aliquet metus sed sapien commodo bibendum. Etiam ullamcorper justo vitae metus sollicitudin, et dictum nisl malesuada. Quisque volutpat turpis sed tellus fringilla, id porttitor tellus laoreet. Nam in mi in dui suscipit venenatis. Etiam aliquet augue sed nisi ullamcorper vehicula. Ut sollicitudin, urna convallis mollis viverra, sapien arcu bibendum odio, sit amet laoreet metus velit in enim. Aenean ut vehicula eros. Suspendisse a arcu sem. Pellentesque in imperdiet enim. Nulla vitae orci sed dui molestie viverra vitae suscipit massa. Donec fermentum quis purus nec interdum.',

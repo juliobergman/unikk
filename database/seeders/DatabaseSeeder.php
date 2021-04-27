@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
+            ChartCollectionSeeder::class,
             ChartSeeder::class,
             PeccSeeder::class,
             ReportSchemaSeeder::class,

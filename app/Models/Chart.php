@@ -22,4 +22,8 @@ class Chart extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function collection()
+    {
+        return $this->belongsTo(ChartCollection::class);
+    }
 }

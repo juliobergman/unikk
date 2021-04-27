@@ -143,7 +143,7 @@ export default {
     computed: {
         currentUser: {
             get() {
-                return this.$store.state.currentUser.user;
+                return this.$store.state.user.user;
             }
         }
     },

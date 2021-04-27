@@ -2,4 +2,3 @@
 *.sqlite-journal
 /seeders/PeccSeeder.php
 /seeders/ReportSchemaSeeder.php
-/seeders/CompanySeeder.php

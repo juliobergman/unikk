@@ -10015,6 +10015,7 @@ h3 {
 }
 
 .theme--light .v-navigation-drawer__content,
-.theme--light .v-navigation-drawer__append {
+.theme--light .v-navigation-drawer__append,
+.theme--light .v-navigation-drawer__prepend {
   background: rgba(255, 255, 255, 0.85);
 }

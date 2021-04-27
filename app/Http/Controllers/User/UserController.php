@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use App\Models\UserData;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
@@ -25,8 +26,11 @@ class UserController extends Controller
 
     public function currentUser()
     {
-        // $account = Account::find(session('account_id'));
-        return Auth::user();
+        $user = collect(Auth::user());
+        $userdata = UserData::where('user_id', Auth::user()->id)->first();
+
+        $merged = $user->merge($userdata);
+        return $merged;
     }
 
     protected function validator(array $data)

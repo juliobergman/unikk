@@ -1,49 +1,22 @@
 <template>
-    <v-navigation-drawer color="transparent" v-model="drawer" app>
-        <v-hover>
-            <v-sheet
-                color="transparent"
-                class="py-1 px-2 d-flex align-items-center"
-            >
-                <v-avatar v-if="false" color="primary" size="36">
-                    <v-icon dark>
+    <v-navigation-drawer width="312" color="transparent" v-model="drawer" app>
+        <template v-slot:prepend>
+            <v-list-item two-line>
+                <v-list-item-avatar color="primary" size="56">
+                    <v-icon v-if="!user.profile_pic" large dark>
                         mdi-account-circle
                     </v-icon>
-                </v-avatar>
-                <v-list-item-avatar>
-                    <v-img src="storage/avatar-man-1.jpg"></v-img>
+                    <img v-if="user.profile_pic" :src="user.profile_pic" />
                 </v-list-item-avatar>
-                <v-list-item>
-                    <v-list-item-content>
-                        <v-list-item-title
-                            @click="
-                                $router
-                                    .push({
-                                        name: 'userprofile',
-                                        params: { id: user.id }
-                                    })
-                                    .catch(err => {})
-                            "
-                            class="title"
-                        >
-                            {{ user.name }}
-                        </v-list-item-title>
-                        <v-list-item-subtitle>
-                            {{ user.email }}
-                        </v-list-item-subtitle>
-                    </v-list-item-content>
-                </v-list-item>
 
-                <!-- <v-tooltip bottom>
-                    <template v-slot:activator="{ on, attrs }">
-                        <v-btn @click="logout()" icon v-bind="attrs" v-on="on">
-                            <v-icon>mdi-logout</v-icon>
-                        </v-btn>
-                    </template>
-                    <span>Logout</span>
-                </v-tooltip> -->
-            </v-sheet>
-        </v-hover>
+                <v-list-item-content>
+                    <v-list-item-title> {{ user.name }} </v-list-item-title>
+                    <v-list-item-subtitle v-if="user.job_title">
+                        {{ user.job_title }}
+                    </v-list-item-subtitle>
+                </v-list-item-content>
+            </v-list-item>
+        </template>
 
         <v-divider></v-divider>
 
@@ -111,7 +84,7 @@
 
 <script>
 export default {
-    props: ["bus"],
+    props: ["bus", "user"],
     data: () => ({
         drawer: null,
         selectedItem: null,
@@ -151,14 +124,6 @@ export default {
                     console.log(error);
                 });
         }
-    },
-    computed: {
-        user() {
-            return this.$store.state.user.user;
-        }
-    },
-    created() {
-        this.user = this.$store.state.user.user;
     },
     mounted() {
         this.bus.$on("drawer", this.toggleDrawer);

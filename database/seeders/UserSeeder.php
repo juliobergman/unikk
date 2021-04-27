@@ -13,6 +13,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 
+
 class UserSeeder extends Seeder
 {
     /**
@@ -25,7 +26,7 @@ class UserSeeder extends Seeder
 
         DB::table('users')->insert([
             'id' => 1,
-            'name' => 'Default',
+            'name' => 'James Smith',
             'email' => 'admin@mail.com',
             'role' => 'admin',
             'email_verified_at' => now(),
@@ -38,6 +39,8 @@ class UserSeeder extends Seeder
 
         DB::table('user_data')->insert([
             'user_id' => 1,
+            'job_title' => 'Manager',
+            'profile_pic' => 'factory/profile/male/avatar-6.jpg',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
@@ -57,6 +60,8 @@ class UserSeeder extends Seeder
 
         DB::table('user_data')->insert([
             'user_id' => 2,
+            'job_title' => 'CFO',
+            'profile_pic' => 'factory/profile/male/avatar-2.jpg',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
@@ -75,7 +80,27 @@ class UserSeeder extends Seeder
 
 
         User::factory(15)
-        ->has(UserData::factory())
+        ->has(
+            UserData::factory()
+            ->state(new Sequence(
+                ['profile_pic' => 'factory/profile/female/avatar-1.jpg'],
+                ['profile_pic' => 'factory/profile/male/avatar-1.jpg'],
+                ['profile_pic' => 'factory/profile/female/avatar-2.jpg'],
+                ['profile_pic' => 'factory/profile/male/avatar-2.jpg'],
+                ['profile_pic' => 'factory/profile/female/avatar-3.jpg'],
+                ['profile_pic' => 'factory/profile/male/avatar-3.jpg'],
+                ['profile_pic' => 'factory/profile/female/avatar-4.jpg'],
+                ['profile_pic' => 'factory/profile/male/avatar-4.jpg'],
+                ['profile_pic' => 'factory/profile/female/avatar-5.jpg'],
+                ['profile_pic' => 'factory/profile/male/avatar-5.jpg'],
+                ['profile_pic' => 'factory/profile/female/avatar-6.jpg'],
+                ['profile_pic' => 'factory/profile/male/avatar-6.jpg'],
+            ))
+            ->state(new Sequence(
+                ['gender' => 'female'],
+                ['gender' => 'male']
+            ))
+        )
         ->has(
             Membership::factory()
             ->state(new Sequence(

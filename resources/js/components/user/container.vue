@@ -6,7 +6,7 @@
             </v-progress-circular>
         </v-overlay>
         <!-- Tools -->
-        <v-toolbar class="mb-3" flat rounded dense>
+        <v-toolbar class="mb-3" elevation="2" flat rounded dense>
             <v-spacer></v-spacer>
             <!-- Right Side Start -->
             <v-btn @click="reguser = !reguser" icon small class="mr-1">
@@ -27,55 +27,6 @@
             ></user-form>
         </v-dialog>
         <!-- Table -->
-        <v-simple-table v-if="false" fixed-header>
-            <template v-slot:default>
-                <thead>
-                    <tr>
-                        <th class="text-left">
-                            ID
-                        </th>
-                        <th class="text-left">
-                            Name
-                        </th>
-                        <th class="text-left">
-                            Email
-                        </th>
-                        <th class="text-left">
-                            Role
-                        </th>
-                        <th class="text-center">
-                            Verified
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr
-                        v-for="user in users"
-                        :key="user.id"
-                        @click="showUser(user)"
-                    >
-                        <td nowrap>{{ user.id }}</td>
-                        <td nowrap>{{ user.name }}</td>
-                        <td nowrap>{{ user.email }}</td>
-                        <td nowrap>{{ user.role }}</td>
-                        <td
-                            nowrap
-                            class="text-center"
-                            v-if="user.email_verified_at"
-                        >
-                            <v-icon color="accent">
-                                mdi-account-check
-                            </v-icon>
-                        </td>
-                        <td class="text-center" v-if="!user.email_verified_at">
-                            <v-icon color="disabled">
-                                mdi-account-remove
-                            </v-icon>
-                        </td>
-                    </tr>
-                </tbody>
-            </template>
-        </v-simple-table>
         <v-data-table
             @click:row="showUser"
             hide-default-footer
@@ -84,6 +35,7 @@
             item-key="name"
             :loading="!loaded"
             item-class="red"
+            class="elevation-2"
         >
             <template v-slot:item.role="{ item }">
                 <v-chip
@@ -174,6 +126,10 @@ export default {
     mounted() {
         this.getUsers;
         this.bus.$on("companyChange", this.getUsers);
+
+        setTimeout(() => {
+            this.showUser(this.users[1]);
+        }, 2000);
     },
     watch: {
         company() {

@@ -20,6 +20,7 @@ class CreateUserDataTable extends Migration
             $table->string('job_title')->nullable();
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
+            $table->enum('gender', ['male', 'female'])->nullable();
             $table->timestamps();
         });
     }

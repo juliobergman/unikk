@@ -1,7 +1,7 @@
 <template>
     <v-app>
         <div class="main-background-color-gradient h-100">
-            <drawer-menu :bus="bus"></drawer-menu>
+            <drawer-menu :bus="bus" :user="user"></drawer-menu>
             <v-app-bar class="main-gradient" dark clipped-right app>
                 <v-app-bar-nav-icon
                     @click="bus.$emit('drawer')"
@@ -82,9 +82,12 @@ export default {
         companies: []
     }),
     computed: {
-        currentUser: {
+        user: {
             get() {
                 return this.$store.state.user.user;
+            },
+            set(val) {
+                this.$store.commit("user/setUser", val);
             }
         },
         company: {

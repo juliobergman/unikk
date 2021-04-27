@@ -1,30 +1,76 @@
 <template>
     <v-card>
         <v-form ref="form" v-model="valid" lazy-validation>
-            <v-toolbar color="primary" dark>
+            <!-- <v-toolbar class="main-gradient" dark>
                 <v-toolbar-title v-if="!currentUserId">
                     Add New User
                 </v-toolbar-title>
-                <v-toolbar-title v-if="currentUserId">
+                <v-toolbar-title class="text-center" v-if="currentUserId">
                     {{ updateUser.name }}
                 </v-toolbar-title>
-            </v-toolbar>
+            </v-toolbar> -->
+
+            <v-card
+                v-if="!currentUserId"
+                class="main-gradient d-flex align-end"
+                tile
+                flat
+            >
+                <v-list-item color="rgba(0, 0, 0, .4)" dark>
+                    <v-list-item-content>
+                        <v-list-item-title class="title">
+                            Add New User
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+            </v-card>
+            <v-card
+                v-if="currentUserId"
+                class="main-gradient d-flex align-end p-3"
+                tile
+                flat
+            >
+                <div>
+                    <v-avatar size="120">
+                        <v-img :src="updateUser.userdata.profile_pic"> </v-img>
+                    </v-avatar>
+                </div>
+                <v-list-item color="rgba(0, 0, 0, .4)" dark>
+                    <v-list-item-content>
+                        <v-list-item-title class="title">
+                            {{ updateUser.name }}
+                        </v-list-item-title>
+                        <v-list-item-subtitle>
+                            {{ updateUser.userdata.job_title }}
+                        </v-list-item-subtitle>
+                    </v-list-item-content>
+                </v-list-item>
+            </v-card>
+
             <v-card-text>
                 <alert ref="alert"></alert>
                 <confirm ref="confirm"></confirm>
+
                 <v-text-field
                     v-model="user.name"
-                    :rules="rules.name"
+                    :rules="rules.required"
                     label="Name"
                     required
-                    :disabled="currentUserId"
+                    v-if="!currentUserId"
                 ></v-text-field>
+
                 <v-text-field
                     v-model="user.email"
                     :rules="rules.email"
                     label="E-mail"
                     required
-                    :disabled="currentUserId"
+                    :readonly="currentUserId"
+                ></v-text-field>
+
+                <v-text-field
+                    v-model="user.jobTitle"
+                    label="Job Title"
+                    :readonly="currentUserId"
                 ></v-text-field>
 
                 <v-select
@@ -116,7 +162,8 @@ export default {
             email: "",
             role: "user",
             password: "",
-            temptoken: ""
+            temptoken: "",
+            jobTitle: ""
         },
         roleinf: false,
         roles: [
@@ -129,7 +176,7 @@ export default {
         valid: true,
         show: false,
         rules: {
-            name: [v => !!v || "Name is Required"],
+            required: [v => !!v || "This field is Required"],
             role: [v => !!v || "All users must have a role"],
             email: [
                 v => !!v || "E-mail is required",
@@ -245,6 +292,7 @@ export default {
                 this.user.name = this.updateUser.name;
                 this.user.email = this.updateUser.email;
                 this.user.role = this.updateUser.role;
+                this.user.jobTitle = this.updateUser.userdata.job_title;
 
                 return true;
             }

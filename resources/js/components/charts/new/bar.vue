@@ -1,9 +1,9 @@
 <template>
-    <v-container fluid>
-        <v-overlay :value="!loaded" opacity="1" color="background">
+    <v-card class="p-2">
+        <!-- <v-overlay :value="!loaded" opacity="1" color="background">
             <v-progress-circular :size="30" color="primary" indeterminate>
             </v-progress-circular>
-        </v-overlay>
+        </v-overlay> -->
         <v-row>
             <v-col cols="12" md="6" order="1" order-md="0" class="mt-md-5">
                 <v-form v-model="valid">
@@ -328,7 +328,7 @@
                 ></chart-canvas>
             </v-col>
         </v-row>
-    </v-container>
+    </v-card>
 </template>
 
 <script>

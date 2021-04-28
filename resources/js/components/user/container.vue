@@ -29,13 +29,16 @@
         <!-- Table -->
         <v-data-table
             @click:row="showUser"
-            hide-default-footer
             :headers="headers"
             :items="users"
             item-key="name"
             :loading="!loaded"
             item-class="red"
             class="elevation-2"
+            :footer-props="{
+                showFirstLastPage: true,
+                itemsPerPageOptions: [10]
+            }"
         >
             <template v-slot:item.name="{ item, isMobile }">
                 <v-avatar v-if="!isMobile" size="35" class="mr-2">

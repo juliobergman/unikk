@@ -63,6 +63,7 @@
 import chartCanvas from "../preview/chart";
 import Chart from "../globalSettings";
 export default {
+    props: ["bus"],
     components: {
         chartCanvas
     },
@@ -114,6 +115,7 @@ export default {
     },
     mounted() {
         this.getCharts();
+        this.bus.$on("companyChange", this.back);
     },
     created() {
         // if (this.$route.params.id) {

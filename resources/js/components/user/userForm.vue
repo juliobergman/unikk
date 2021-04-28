@@ -160,7 +160,7 @@ export default {
             id: null,
             name: "",
             email: "",
-            role: "user",
+            role: "",
             password: "",
             temptoken: "",
             jobTitle: ""
@@ -281,7 +281,7 @@ export default {
         formDefaults() {
             this.loading = false;
             this.$refs.form.reset();
-            this.user.role = "user";
+            this.user.role = "";
             this.error = "";
         }
     },
@@ -301,7 +301,9 @@ export default {
             }
         }
     },
-    created() {},
+    created() {
+        this.user.id = this.userId;
+    },
     mounted() {
         this.bus.$on("closeUserDialog", this.formDefaults);
         this.user.id = this.userId;

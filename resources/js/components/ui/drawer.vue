@@ -102,7 +102,7 @@ export default {
                     {
                         title: "New Chart",
                         icon: "mdi-chart-line",
-                        to: "newchart"
+                        to: "newbarchart"
                     }
                 ]
             }

@@ -30,12 +30,10 @@
                 <v-icon class="ml-2">mdi-content-save</v-icon>
             </v-btn>
         </v-toolbar>
-        <v-card elevation="2">
-            <router-view
-                :bus="bus"
-                v-on:savechart.capture="storeChart($event)"
-            ></router-view>
-        </v-card>
+        <!-- <transition name="slide" mode="out-in"> -->
+        <router-view :bus="bus" v-on:savechart.capture="storeChart($event)">
+        </router-view>
+        <!-- </transition> -->
     </v-main>
 </template>
 
@@ -99,9 +97,9 @@ export default {
         }
     },
     mounted() {
-        if (this.$route.name === "newchart") {
-            this.$router.push({ name: "newbarchart" });
-        }
+        // if (this.$route.name === "newchart") {
+        //     this.$router.push({ name: "newbarchart" });
+        // }
         this.currentRoute = this.$route.name;
     }
 };

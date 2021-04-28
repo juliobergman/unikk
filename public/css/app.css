@@ -10008,7 +10008,7 @@ h3 {
 }
 
 .theme--light .main-background-color-gradient {
-  background: linear-gradient(to right, rgba(58, 72, 104, 0.7) 0%, rgba(96, 108, 136, 0.7) 100%);
+  background: linear-gradient(to right, rgba(58, 72, 104, 0.2) 0%, rgba(96, 108, 136, 0.2) 100%);
 }
 
 .theme--light .v-navigation-drawer__content,

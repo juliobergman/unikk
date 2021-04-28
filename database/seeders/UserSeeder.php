@@ -79,7 +79,17 @@ class UserSeeder extends Seeder
         ->create();
 
 
-        User::factory(15)
+        User::factory(30)
+        ->state(new Sequence(
+            ['role' => 'editor'],
+            ['role' => 'admin'],
+            ['role' => 'user'],
+            ['role' => 'user']
+        ))
+        ->state(new Sequence(
+            ['email_verified_at' => now()],
+            ['email_verified_at' => null]
+        ))
         ->has(
             UserData::factory()
             ->state(new Sequence(
@@ -95,6 +105,7 @@ class UserSeeder extends Seeder
                 ['profile_pic' => 'factory/profile/male/avatar-5.jpg'],
                 ['profile_pic' => 'factory/profile/female/avatar-6.jpg'],
                 ['profile_pic' => 'factory/profile/male/avatar-6.jpg'],
+                ['profile_pic' => 'factory/profile/female/avatar-7.jpg'],
             ))
             ->state(new Sequence(
                 ['gender' => 'female'],
@@ -107,6 +118,10 @@ class UserSeeder extends Seeder
                 ['company_id' => 1],
                 ['company_id' => 2],
                 ['company_id' => 3]
+                ))
+            ->state(new Sequence(
+                ['role' => 'admin'],
+                ['role' => 'editor'],
                 ))
         )
         ->create();
@@ -132,6 +147,5 @@ class UserSeeder extends Seeder
             'role' => 'admin',
             'company_id' => 3
         ]);
-
     }
 }

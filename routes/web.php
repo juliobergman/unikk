@@ -7,6 +7,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\chart\ChartController;
+use App\Http\Controllers\ChartCollectionController;
 use App\Http\Controllers\MembershipController;
 
 /*
@@ -43,13 +44,19 @@ Route::prefix('/user')->group(function(){
     Route::middleware('guest')->put('/create-new-password', [UserController::class, 'create_password_new']);
 });
 
+
+
+
 // Charts
-Route::middleware('auth')->prefix('/chart')->group(function(){
-    Route::get('/all', [ChartController::class, 'index']);
-    Route::post('/store', [ChartController::class, 'store']);
-    Route::get('/{chart}', [ChartController::class, 'show']);
-    Route::put('/{chart}', [ChartController::class, 'update']);
-    Route::delete('/{chart}', [ChartController::class, 'destroy']);
+Route::prefix('/chart')->group(function(){
+    Route::middleware('auth')->get('/collections/{company}', [ChartCollectionController::class, 'collections']);
+    Route::middleware('auth')->get('/collection/{id}', [ChartCollectionController::class, 'collection']);
+
+    Route::middleware('auth')->get('/all', [ChartController::class, 'index']);
+    Route::middleware('auth')->post('/store', [ChartController::class, 'store']);
+    Route::middleware('auth')->get('/{chart}', [ChartController::class, 'show']);
+    Route::middleware('auth')->put('/{chart}', [ChartController::class, 'update']);
+    Route::middleware('auth')->delete('/{chart}', [ChartController::class, 'destroy']);
 });
 
 // Company

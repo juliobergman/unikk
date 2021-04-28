@@ -10003,15 +10003,12 @@ h3 {
   }
 }
 .main-gradient {
-  background: #00c6ff;
-  /* fallback for old browsers */
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(235deg, #0072ff, #00c6ff);
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #323847;
+  background: linear-gradient(to right, #3f4c6b 0%, #606c88 100%);
 }
 
 .theme--light .main-background-color-gradient {
-  background: rgba(88, 105, 104, 0.2);
+  background: linear-gradient(to right, rgba(58, 72, 104, 0.7) 0%, rgba(96, 108, 136, 0.7) 100%);
 }
 
 .theme--light .v-navigation-drawer__content,

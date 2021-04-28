@@ -1,18 +1,27 @@
 <template>
-    <v-main>
-        <h3>Collections</h3>
-    </v-main>
+    <transition name="fade" mode="out-in">
+        <router-view></router-view>
+    </transition>
 </template>
 
 <script>
 export default {
-    props: [],
-    data: () => ({}),
-    methods: {},
-    computed: {},
-    created() {},
-    mounted() {}
+    mounted() {
+        if (this.$route.name == "charts") {
+            this.$router.push({ name: "chartList" });
+        }
+    }
 };
 </script>
 
-<style></style>
+<style scoped>
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+    /* transform: translateX(200vw); */
+}
+.fade-enter-active,
+.fade-leave-active {
+    transition: all 0.4s ease;
+}
+</style>

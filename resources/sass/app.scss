@@ -7,47 +7,51 @@
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
 
-// .main-gradient {
-//     background: #323847;
-//     background: -webkit-linear-gradient(
-//         to right,
-//         rgba(63, 76, 107, 1) 0%,
-//         rgba(96, 108, 136, 1) 100%
-//     );
-//     background: linear-gradient(
-//         to right,
-//         rgba(63, 76, 107, 1) 0%,
-//         rgba(96, 108, 136, 1) 100%
-//     );
-// }
-// .theme--light .main-background-color-gradient {
-//     background: -webkit-linear-gradient(
-//         to right,
-//         rgba(63, 76, 107, 0.7) 0%,
-//         rgba(96, 108, 136, 0.7) 100%
-//     );
-//     background: linear-gradient(
-//         to right,
-//         rgba(58, 72, 104, 0.7) 0%,
-//         rgba(96, 108, 136, 0.7) 100%
-//     );
-// }
 .main-gradient {
-    background: #00c6ff; /* fallback for old browsers */
+    background: #323847;
     background: -webkit-linear-gradient(
-        235deg,
-        #0072ff,
-        #00c6ff
-    ); /* Chrome 10-25, Safari 5.1-6 */
+        to right,
+        rgba(63, 76, 107, 1) 0%,
+        rgba(96, 108, 136, 1) 100%
+    );
     background: linear-gradient(
-        235deg,
-        #0072ff,
-        #00c6ff
-    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        to right,
+        rgba(63, 76, 107, 1) 0%,
+        rgba(96, 108, 136, 1) 100%
+    );
 }
 .theme--light .main-background-color-gradient {
-    background: rgba(#586968, 0.2);
+    background: -webkit-linear-gradient(
+        to right,
+        rgba(63, 76, 107, 0.7) 0%,
+        rgba(96, 108, 136, 0.7) 100%
+    );
+    background: linear-gradient(
+        to right,
+        rgba(58, 72, 104, 0.7) 0%,
+        rgba(96, 108, 136, 0.7) 100%
+    );
 }
+
+// .main-gradient {
+//     background: #00c6ff; /* fallback for old browsers */
+//     background: -webkit-linear-gradient(
+//         235deg,
+//         #0072ff,
+//         #00c6ff
+//     ); /* Chrome 10-25, Safari 5.1-6 */
+//     background: linear-gradient(
+//         235deg,
+//         #0072ff,
+//         #00c6ff
+//     ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+// }
+// .theme--light .main-background-color-gradient {
+//     background: rgba(#586968, 0.2);
+// }
+// .theme--light .main-background-color-gradient {
+//     @extend .main-gradient;
+// }
 
 .theme--light .v-navigation-drawer__content,
 .theme--light .v-navigation-drawer__append,

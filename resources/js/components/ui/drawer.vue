@@ -97,7 +97,7 @@ export default {
                     {
                         title: "My Charts",
                         icon: "mdi-chart-areaspline-variant",
-                        to: "charts"
+                        to: "chartList"
                     },
                     {
                         title: "New Chart",

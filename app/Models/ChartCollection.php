@@ -10,6 +10,12 @@ class ChartCollection extends Model
 {
     use SoftDeletes, HasFactory;
 
+    protected $hidden = [
+        'user_id',
+        'company_id',
+        'deleted_at',
+    ];
+
     public function charts()
     {
         return $this->hasMany(Chart::class);

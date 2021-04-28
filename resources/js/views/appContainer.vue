@@ -62,7 +62,9 @@
                 <!--  -->
             </v-app-bar>
             <div class="p-3">
-                <router-view :bus="bus"></router-view>
+                <transition name="slide" mode="out-in">
+                    <router-view :bus="bus"></router-view>
+                </transition>
             </div>
         </div>
     </v-app>
@@ -151,3 +153,14 @@ export default {
     }
 };
 </script>
+<style scoped>
+.slide-enter,
+.slide-leave-to {
+    opacity: 0;
+    transform: translateY(-200vh);
+}
+.slide-enter-active,
+.slide-leave-active {
+    transition: all 0.4s ease;
+}
+</style>

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\ChartCollection;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -18,6 +19,10 @@ class ChartCollectionSeeder extends Seeder
             'user_id' => 1,
             'company_id'=> 1,
             'name' => 'My First Collection',
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
+
+        ChartCollection::factory(10)->create();
     }
 }

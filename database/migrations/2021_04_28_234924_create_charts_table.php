@@ -20,8 +20,8 @@ class CreateChartsTable extends Migration
             $table->string('type');
             $table->string('title')->nullable();
             $table->text('info')->nullable();
-            $table->text('chartdata');
-            $table->text('chartoptions');
+            $table->json('chartdata');
+            $table->json('chartoptions');
             $table->softDeletes();
             $table->timestamps();
         });

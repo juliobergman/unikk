@@ -28,7 +28,6 @@ Vue.component(
 );
 Vue.component("app-container", require("./views/appContainer.vue").default);
 Vue.component("website-container", require("./views/website.vue").default);
-Vue.component("test-container", require("./views/test.vue").default);
 
 const app = new Vue({
     created() {

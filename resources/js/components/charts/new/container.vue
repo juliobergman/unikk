@@ -1,20 +1,11 @@
 <template>
-    <v-main>
-        <v-toolbar dense class="mb-4" elevation="2" rounded>
-            <v-btn-toggle
-                mandatory
-                v-model="currentRoute"
-                style="margin-left: -16px;"
-            >
+    <v-card color="background">
+        <v-toolbar dense rounded="0">
+            <v-btn-toggle group mandatory v-model="currentRoute">
                 <v-tooltip bottom v-for="item in chartMenu" :key="item.title">
                     <template v-slot:activator="{ on, attrs }">
-                        <v-btn
-                            :value="item.to"
-                            :to="{ name: item.to }"
-                            v-bind="attrs"
-                            v-on="on"
-                        >
-                            <v-icon>{{ item.icon }}</v-icon>
+                        <v-btn :value="item.to" v-bind="attrs" v-on="on">
+                            <v-icon> {{ item.icon }}</v-icon>
                         </v-btn>
                     </template>
                     <span>{{ item.title }}</span>
@@ -23,18 +14,18 @@
             <!-- Left Side Finish -->
             <v-spacer></v-spacer>
             <!-- Right Side Start -->
-            <v-btn @click="addDataSet()" text color="grey darken-3">
-                <v-icon class="ml-2">mdi-chart-box-plus-outline</v-icon>
-            </v-btn>
-            <v-btn @click="saveChart()" icon color="grey darken-3">
-                <v-icon class="ml-2">mdi-content-save</v-icon>
-            </v-btn>
+            <v-btn-toggle group>
+                <v-tooltip bottom v-for="(item, idx) in toolsMenu" :key="idx">
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-btn @click="item.action" v-bind="attrs" v-on="on">
+                            <v-icon> {{ item.icon }} </v-icon>
+                        </v-btn>
+                    </template>
+                    <span>{{ item.tooltip }}</span>
+                </v-tooltip>
+            </v-btn-toggle>
         </v-toolbar>
-        <!-- <transition name="slide" mode="out-in"> -->
-        <router-view :bus="bus" v-on:savechart.capture="storeChart($event)">
-        </router-view>
-        <!-- </transition> -->
-    </v-main>
+    </v-card>
 </template>
 
 <script>
@@ -42,6 +33,23 @@ export default {
     props: ["bus"],
     data: () => ({
         currentRoute: null,
+        toolsMenu: [
+            {
+                tooltip: "Add New Data Set",
+                icon: "mdi-chart-box-plus-outline",
+                action: "addDataSet"
+            },
+            {
+                tooltip: "Save Chart",
+                icon: "mdi-content-save",
+                action: "saveChart"
+            },
+            {
+                tooltip: "Close",
+                icon: "mdi-close",
+                action: "closeDialog"
+            }
+        ],
         chartMenu: [
             {
                 title: "New Bar Chart",
@@ -94,6 +102,9 @@ export default {
         },
         updateOptions() {
             this.bus.$emit("updateOptions");
+        },
+        closeDialog() {
+            this.bus.$emit("closeDialog");
         }
     },
     mounted() {

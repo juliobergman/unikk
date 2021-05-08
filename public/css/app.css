@@ -10007,12 +10007,20 @@ h3 {
   background: linear-gradient(to right, #3f4c6b 0%, #606c88 100%);
 }
 
-.theme--light .main-background-color-gradient {
-  background: linear-gradient(to right, rgba(58, 72, 104, 0.2) 0%, rgba(96, 108, 136, 0.2) 100%);
+.main-gradient-transparent {
+  background: #323847;
+  background: linear-gradient(to right, rgba(63, 76, 107, 0.3) 0%, rgba(96, 108, 136, 0.3) 100%);
 }
 
 .theme--light .v-navigation-drawer__content,
 .theme--light .v-navigation-drawer__append,
 .theme--light .v-navigation-drawer__prepend {
   background: rgba(255, 255, 255, 0.85);
+}
+
+.btn-appbar-active {
+  color: #fff !important;
+  border-bottom: 2px solid #fff !important;
+  background: none !important;
+  background-color: #06f !important;
 }

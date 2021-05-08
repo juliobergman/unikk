@@ -3,6 +3,9 @@ import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 
+// Website
+// import wsMain from "../components/website/main";
+// Admin
 import Dashboard from "../components/dashboard/container";
 import Users from "../components/user/container";
 import Contact from "../components/contact/container";
@@ -30,13 +33,12 @@ const routes = [
     },
     {
         component: Charts,
-        name: "charts",
         path: "/charts",
         children: [
             {
                 component: chartList,
-                name: "chartList",
-                path: "collection/"
+                name: "charts",
+                path: ""
             },
             {
                 component: chartCollection,
@@ -46,7 +48,7 @@ const routes = [
             {
                 component: chartView,
                 name: "chartView",
-                path: "view/:id"
+                path: "collection/view/:id"
             }
         ]
     },

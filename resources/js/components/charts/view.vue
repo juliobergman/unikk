@@ -63,26 +63,6 @@
                 <v-icon>mdi-delete</v-icon>
             </v-btn>
         </v-speed-dial>
-
-        <v-snackbar left :timeout="-1" v-model="snackbar">
-            <div>
-                <div class="ma-2">
-                    <strong>Author:</strong> {{ chart.user_name }}
-                </div>
-                <v-divider></v-divider>
-                <div class="ma-2">
-                    <strong>Created at:</strong> {{ chart.created }}
-                </div>
-                <div class="ma-2">
-                    <strong>Last Update:</strong> {{ chart.updated }}
-                </div>
-            </div>
-            <template v-slot:action="{ attrs }">
-                <v-btn small icon v-bind="attrs" @click="snackbar = false">
-                    <v-icon small>mdi-close</v-icon>
-                </v-btn>
-            </template>
-        </v-snackbar>
         <confirm ref="confirm"></confirm>
         <alert ref="alert"></alert>
     </div>

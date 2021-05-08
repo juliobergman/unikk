@@ -1,5 +1,5 @@
 <template>
-    <v-main>
+    <v-main tag="div">
         <v-toolbar class="mb-3" rounded elevation="2" dense>
             <v-btn icon @click="back()">
                 <v-icon>
@@ -10,6 +10,11 @@
             <!-- Left Side Finish -->
             <v-spacer></v-spacer>
             <!-- Right Side Start -->
+            <v-btn @click="addChart()" icon>
+                <v-icon>
+                    mdi-chart-box-plus-outline
+                </v-icon>
+            </v-btn>
         </v-toolbar>
         <v-container v-if="loaded" fluid class="p-0">
             <!-- No Records Found -->
@@ -103,7 +108,7 @@ export default {
         back() {
             this.loaded = false;
             setTimeout(() => {
-                this.$router.push({ name: "chartList" });
+                this.$router.push({ name: "charts" });
             }, 100);
         },
         showChart(id) {
@@ -111,16 +116,15 @@ export default {
             setTimeout(() => {
                 this.$router.push({ name: "chartView", params: { id: id } });
             }, 100);
+        },
+        addChart() {
+            this.bus.$emit("newChart");
         }
     },
     mounted() {
         this.getCharts();
         this.bus.$on("companyChange", this.back);
     },
-    created() {
-        // if (this.$route.params.id) {
-        //     this.viewDialog = true;
-        // }
-    }
+    created() {}
 };
 </script>

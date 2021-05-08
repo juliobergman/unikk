@@ -20,18 +20,31 @@
         rgba(96, 108, 136, 1) 100%
     );
 }
-.theme--light .main-background-color-gradient {
+.main-gradient-transparent {
+    background: #323847;
     background: -webkit-linear-gradient(
         to right,
-        rgba(63, 76, 107, 0.2) 0%,
-        rgba(96, 108, 136, 0.2) 100%
+        rgba(63, 76, 107, 0.3) 0%,
+        rgba(96, 108, 136, 0.3) 100%
     );
     background: linear-gradient(
         to right,
-        rgba(58, 72, 104, 0.2) 0%,
-        rgba(96, 108, 136, 0.2) 100%
+        rgba(63, 76, 107, 0.3) 0%,
+        rgba(96, 108, 136, 0.3) 100%
     );
 }
+// .theme--light .main-background-color-gradient {
+//     background: -webkit-linear-gradient(
+//         to right,
+//         rgba(63, 76, 107, 0.2) 0%,
+//         rgba(96, 108, 136, 0.2) 100%
+//     );
+//     background: linear-gradient(
+//         to right,
+//         rgba(58, 72, 104, 0.2) 0%,
+//         rgba(96, 108, 136, 0.2) 100%
+//     );
+// }
 
 // .main-gradient {
 //     background: #00c6ff; /* fallback for old browsers */
@@ -57,4 +70,12 @@
 .theme--light .v-navigation-drawer__append,
 .theme--light .v-navigation-drawer__prepend {
     background: rgba(#fff, 0.85);
+}
+
+// Website
+.btn-appbar-active {
+    color: #fff !important;
+    border-bottom: 2px solid #fff !important;
+    background: none !important;
+    background-color: #06f !important;
 }

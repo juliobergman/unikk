@@ -62,8 +62,8 @@
                 <!--  -->
             </v-app-bar>
             <div class="p-3">
-                <transition name="slide" mode="out-in">
-                    <router-view :bus="bus"></router-view>
+                <transition :name="transitionName" mode="out-in">
+                    <router-view :key="$route.path" :bus="bus"></router-view>
                 </transition>
             </div>
         </div>
@@ -79,6 +79,7 @@ export default {
         Confirm
     },
     data: () => ({
+        transitionName: "slide-right",
         bus: new Vue(),
         drawer: null,
         companies: []
@@ -150,6 +151,19 @@ export default {
                 this.$vuetify.theme.dark.toString()
             );
         }
+    },
+    watch: {
+        $route(to, from) {
+            let toDepth = to.path.split("/").length;
+            let fromDepth = from.path.split("/").length;
+
+            if (fromDepth == 2 && toDepth == fromDepth) {
+                this.transitionName = "slide";
+            } else {
+                this.transitionName =
+                    toDepth < fromDepth ? "slide-right" : "slide-left";
+            }
+        }
     }
 };
 </script>
@@ -159,8 +173,21 @@ export default {
     opacity: 0;
     transform: translateY(-200vh);
 }
-.slide-enter-active,
-.slide-leave-active {
-    transition: all 0.4s ease;
+.slide-left-leave-to,
+.slide-right-enter {
+    opacity: 0;
+    transform: translateX(-100vw);
+}
+.slide-right-leave-to,
+.slide-left-enter {
+    opacity: 0;
+    transform: translateX(100vw);
+}
+
+.slide-right-enter-active,
+.slide-right-leave-active,
+.slide-left-enter-active,
+.slide-left-leave-active {
+    transition: all 0.3s ease;
 }
 </style>

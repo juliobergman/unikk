@@ -23,6 +23,6 @@ class ChartCollectionSeeder extends Seeder
             'updated_at' => now()
         ]);
 
-        ChartCollection::factory(200)->create();
+        ChartCollection::factory(4)->create();
     }
 }

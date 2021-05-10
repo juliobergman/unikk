@@ -3,8 +3,20 @@ import { Pie } from "vue-chartjs";
 
 export default {
     extends: Pie,
-    props: ["mode", "chartData", "options"],
+    props: ["bus", "mode", "chartData", "options"],
+    methods: {
+        update() {
+            this.$data._chart.update();
+        },
+        reRender() {
+            this.renderChart(this.chartData, this.options);
+        }
+    },
     mounted() {
+        if (this.bus) {
+            this.bus.$on("chartReRender", this.reRender);
+            this.bus.$on("chartReload", this.update);
+        }
         if (this.mode === "thumbnail") {
             this.options.legend.display = false;
             this.options.title.display = false;

@@ -16,6 +16,10 @@ class Chart extends Model
         'info',
         'chartdata',
         'chartoptions',
+        'chart_collection_id',
+    ];
+    protected $hidden = [
+        'chart_collection_id',
     ];
 
     public function user()

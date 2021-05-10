@@ -24,31 +24,37 @@ const routes = [
     {
         component: Users,
         name: "users",
-        path: "/users"
+        path: "/users",
+        meta: { section: "users" }
     },
     {
         component: Dashboard,
         name: "dashboard",
-        path: "/dashboard"
+        path: "/dashboard",
+        meta: { section: "dashboard" }
     },
     {
         component: Charts,
         path: "/charts",
+        meta: { section: "charts" },
         children: [
             {
                 component: chartList,
                 name: "charts",
-                path: ""
+                path: "",
+                meta: { section: "charts" }
             },
             {
                 component: chartCollection,
                 name: "chartCollection",
-                path: "collection/:id"
+                path: "collection/:collection",
+                meta: { section: "charts" }
             },
             {
                 component: chartView,
                 name: "chartView",
-                path: "collection/view/:id"
+                path: "collection/:collection/:id",
+                meta: { section: "charts" }
             }
         ]
     },

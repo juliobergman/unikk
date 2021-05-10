@@ -77,7 +77,7 @@ export default {
                     .put("/user/create-new-password/", this.user)
                     .then(response => {
                         if (response.status === 200) {
-                            window.location.replace("/home");
+                            window.location.replace("/app");
                         }
                     })
                     .catch(res => {

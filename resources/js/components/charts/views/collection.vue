@@ -10,7 +10,7 @@
             <!-- Left Side Finish -->
             <v-spacer></v-spacer>
             <!-- Right Side Start -->
-            <v-btn @click="addChart()" icon>
+            <v-btn @click="bus.$emit('showDialog')" icon>
                 <v-icon>
                     mdi-chart-box-plus-outline
                 </v-icon>
@@ -86,7 +86,7 @@ export default {
             this.loaded = false;
             try {
                 let chartList = await axios.get(
-                    "chart/collection/" + this.$route.params.id
+                    "chart/collection/" + this.$route.params.collection
                 );
                 let dataCollection = chartList.data.charts;
 
@@ -114,16 +114,20 @@ export default {
         showChart(id) {
             this.loaded = false;
             setTimeout(() => {
-                this.$router.push({ name: "chartView", params: { id: id } });
+                this.$router.push({
+                    name: "chartView",
+                    params: {
+                        collection: this.$route.params.collection,
+                        id: id
+                    }
+                });
             }, 100);
-        },
-        addChart() {
-            this.bus.$emit("newChart");
         }
     },
     mounted() {
         this.getCharts();
         this.bus.$on("companyChange", this.back);
+        this.bus.$on("closeDialog", this.getCharts);
     },
     created() {}
 };

@@ -134,6 +134,7 @@ export default {
         this.companySelect();
     },
     mounted() {
+        // Dark Theme
         const theme = localStorage.getItem("dark_theme");
         if (theme) {
             if (theme === "true") {
@@ -151,19 +152,31 @@ export default {
                 this.$vuetify.theme.dark.toString()
             );
         }
-    },
-    watch: {
-        $route(to, from) {
+        // Router Transitions
+        this.$router.beforeEach((to, from, next) => {
             let toDepth = to.path.split("/").length;
             let fromDepth = from.path.split("/").length;
+            this.transitionName =
+                toDepth < fromDepth ? "slide-right" : "slide-left";
 
-            if (fromDepth == 2 && toDepth == fromDepth) {
+            if (to.meta.section != from.meta.section) {
                 this.transitionName = "slide";
-            } else {
-                this.transitionName =
-                    toDepth < fromDepth ? "slide-right" : "slide-left";
             }
-        }
+
+            next();
+        });
+    },
+    watch: {
+        // $route(to, from) {
+        //     let toDepth = to.path.split("/").length;
+        //     let fromDepth = from.path.split("/").length;
+        //     if (fromDepth == 2 && toDepth == fromDepth) {
+        //         this.transitionName = "slide";
+        //     } else {
+        //         this.transitionName =
+        //             toDepth < fromDepth ? "slide-right" : "slide-left";
+        //     }
+        // }
     }
 };
 </script>
@@ -184,6 +197,8 @@ export default {
     transform: translateX(100vw);
 }
 
+.slide-enter-active,
+.slide-leave-active,
 .slide-right-enter-active,
 .slide-right-leave-active,
 .slide-left-enter-active,

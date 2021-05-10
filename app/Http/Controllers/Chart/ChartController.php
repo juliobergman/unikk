@@ -56,7 +56,11 @@ class ChartController extends Controller
     public function store(Request $request)
     {
 
+
+        // return $request;
+
         $data = array(
+            'chart_collection_id' => $request->collection,
             'title' => $request->title,
             'info' => $request->info,
             'chartdata' => json_encode($request->chartdata),
@@ -64,9 +68,10 @@ class ChartController extends Controller
             'type' => $request->type,
         );
 
+        // return $data;
+
         $newChart = $request->user()->charts()->create($data);
         return $newChart;
-
     }
 
     /**
@@ -80,6 +85,7 @@ class ChartController extends Controller
 
         $ret['id'] = $chart->id;
         $ret['user_id'] = $chart->user_id;
+        $ret['chart_collection_id'] = $chart->chart_collection_id;
         $ret['user_name'] = User::where('id', $chart->user_id)->value('name');
         $ret['type'] = $chart->type;
         $ret['title'] = $chart->title;

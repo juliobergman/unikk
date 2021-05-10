@@ -90,22 +90,23 @@ export default {
         selectedItem: null,
         items: [
             { title: "Users", icon: "mdi-account", to: "users" },
-            {
-                title: "Charts",
-                icon: "mdi-chart-areaspline",
-                children: [
-                    {
-                        title: "My Charts",
-                        icon: "mdi-chart-areaspline-variant",
-                        to: "charts"
-                    },
-                    {
-                        title: "New Chart",
-                        icon: "mdi-chart-line",
-                        to: "newbarchart"
-                    }
-                ]
-            }
+            { title: "Charts", icon: "mdi-chart-areaspline", to: "charts" }
+            // {
+            //     title: "Charts",
+            //     icon: "mdi-chart-areaspline",
+            //     children: [
+            //         {
+            //             title: "My Charts",
+            //             icon: "mdi-chart-areaspline-variant",
+            //             to: "charts"
+            //         },
+            //         {
+            //             title: "New Chart",
+            //             icon: "mdi-chart-line",
+            //             to: "newbarchart"
+            //         }
+            //     ]
+            // }
         ]
     }),
     methods: {

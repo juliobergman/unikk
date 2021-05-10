@@ -2,6 +2,7 @@
     <div>
         <component
             v-if="loaded"
+            :bus="bus"
             :width="1024"
             :height="768"
             :is="chart.type"
@@ -20,6 +21,7 @@ export default {
         ...components
     },
     props: {
+        bus: {},
         chart: { type: Object, required: true },
         mode: { type: String }
     },

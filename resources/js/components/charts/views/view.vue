@@ -5,8 +5,8 @@
             </v-progress-circular>
         </v-overlay>
 
-        <v-toolbar class="mb-3" rounded elevation="2" dense>
-            <v-btn icon @click="back(1)">
+        <v-toolbar class="mb-6" rounded elevation="2" dense>
+            <v-btn icon @click="back($route.params.collection)">
                 <v-icon>
                     mdi-chevron-left
                 </v-icon>
@@ -15,12 +15,17 @@
             <!-- Left Side Finish -->
             <v-spacer></v-spacer>
             <!-- Right Side Start -->
-            <v-btn icon @click="back(1)">
+            <v-btn v-if="false" icon @click="reloadChart()">
+                <v-icon>
+                    mdi-pencil
+                </v-icon>
+            </v-btn>
+            <v-btn icon @click="deleteChart()">
                 <v-icon>
                     mdi-delete
                 </v-icon>
             </v-btn>
-            <v-btn icon @click="back(1)">
+            <v-btn icon @click="bus.$emit('showDialog')">
                 <v-icon>
                     mdi-pencil
                 </v-icon>
@@ -31,7 +36,7 @@
                 </v-icon>
             </v-btn>
         </v-toolbar>
-        <v-container v-if="loaded" fluid class="pa-0">
+        <v-container fluid tag="div" class="pa-0" v-if="loaded">
             <v-card elevation="2">
                 <v-row>
                     <v-col cols="12" md="4" order="1" order-md="0">
@@ -39,7 +44,11 @@
                         <v-card-text> {{ chart.info }} </v-card-text>
                     </v-col>
                     <v-col cols="12" md="8" order="0" order-md="1">
-                        <view-chart :mode="mode" :chart="chart"></view-chart>
+                        <view-chart
+                            :bus="bus"
+                            :mode="mode"
+                            :chart="chart"
+                        ></view-chart>
                     </v-col>
                 </v-row>
             </v-card>
@@ -76,6 +85,7 @@ import confirm from "../../ui/confirm";
 import alert from "../../ui/alert";
 
 export default {
+    props: ["bus"],
     components: {
         viewChart,
         confirm,
@@ -94,15 +104,9 @@ export default {
             setTimeout(() => {
                 this.$router.push({
                     name: "chartCollection",
-                    params: { id: id }
+                    params: { collection: id }
                 });
             }, 200);
-        },
-        editChart() {
-            this.$router.push({
-                name: this.chart.type + "Update",
-                params: { id: this.$route.params.id }
-            });
         },
         deleteChart() {
             this.$refs.confirm
@@ -110,7 +114,7 @@ export default {
                 .then(delc => {
                     if (delc) {
                         axios
-                            .delete("chart/" + this.$route.params.id)
+                            .delete("chart/" + this.chart.id)
                             .then(response => {
                                 let res = JSON.parse(response.request.response);
                                 this.$refs.alert
@@ -119,7 +123,10 @@ export default {
                                     })
                                     .then(res => {
                                         this.loaded = false;
-                                        this.$emit("closechart", "deleted");
+                                        this.bus.$emit("reloadCollection");
+                                        this.back(
+                                            this.$route.params.collection
+                                        );
                                     });
                             })
                             .catch(res => {
@@ -130,27 +137,70 @@ export default {
                             });
                     }
                 });
+        },
+        async reloadChart() {
+            console.log("Reload Chart");
+
+            this.loaded = false;
+
+            let id = this.$route.params.id;
+
+            try {
+                let chart = await axios.get("chart/" + id);
+                this.chart = chart.data;
+                this.bus.$emit("setChartType", this.chart.type);
+                this.loaded = true;
+            } catch (e) {
+                if (e.response.status == 404) {
+                    this.$refs.alert
+                        .open(
+                            "Chart Not Found",
+                            "This Is Not the Chart You Are Looking For",
+                            {
+                                color: "danger"
+                            }
+                        )
+                        .then(() => {
+                            this.back(this.$route.params.collection);
+                        });
+                    // this.back(this.$route.params.collection);
+                }
+                console.error(e);
+            }
         }
     },
-    async created() {
-        this.loaded = false;
+    created() {
+        this.reloadChart();
+        // this.loaded = false;
 
-        let id = this.$route.params.id;
+        // let id = this.$route.params.id;
 
-        try {
-            let chart = await axios.get("chart/" + id);
-            this.chart = chart.data;
-
-            if (!chart.data) {
-                this.norecords = true;
-            }
-
-            console.log(chart.data);
-
-            this.loaded = true;
-        } catch (e) {
-            console.error(e);
-        }
+        // try {
+        //     let chart = await axios.get("chart/" + id);
+        //     this.chart = chart.data;
+        //     this.bus.$emit("setChartType", this.chart.type);
+        //     this.loaded = true;
+        // } catch (e) {
+        //     if (e.response.status == 404) {
+        //         this.$refs.alert
+        //             .open(
+        //                 "Chart Not Found",
+        //                 "This Is Not the Chart You Are Looking For",
+        //                 {
+        //                     color: "danger"
+        //                 }
+        //             )
+        //             .then(() => {
+        //                 this.back(this.$route.params.collection);
+        //             });
+        //         // this.back(this.$route.params.collection);
+        //     }
+        //     console.error(e);
+        // }
+    },
+    mounted() {
+        this.bus.$on("saveChart", this.reloadChart);
+        this.bus.$on("closeDialog", this.reloadChart);
     }
 };
 </script>

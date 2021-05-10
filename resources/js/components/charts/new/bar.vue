@@ -1,9 +1,9 @@
 <template>
-    <v-card class="p-2">
-        <!-- <v-overlay :value="!loaded" opacity="1" color="background">
+    <div>
+        <v-overlay :value="!loaded" opacity="1" color="background">
             <v-progress-circular :size="30" color="primary" indeterminate>
             </v-progress-circular>
-        </v-overlay> -->
+        </v-overlay>
         <v-row>
             <v-col cols="12" md="6" order="1" order-md="0" class="mt-md-5">
                 <v-form v-model="valid">
@@ -35,7 +35,7 @@
                                                 v-slot:activator="{ on, attrs }"
                                             >
                                                 <v-btn
-                                                    block
+                                                    icon
                                                     x-small
                                                     value="bar"
                                                     v-bind="attrs"
@@ -328,7 +328,7 @@
                 ></chart-canvas>
             </v-col>
         </v-row>
-    </v-card>
+    </div>
 </template>
 
 <script>
@@ -338,12 +338,13 @@ let dataSets = [];
 let dataOptions = {};
 
 export default {
-    props: ["bus"],
+    props: ["bus", "id"],
     components: {
         chartCanvas
     },
     data: () => ({
-        loaded: true,
+        collection: null,
+        loaded: false,
         valid: true,
         sMaxTextField: false,
         sMinTextField: false,
@@ -443,7 +444,14 @@ export default {
         this.loaded = false;
         // Defaults
         labels = [];
-        dataSets = [];
+        dataSets = [
+            {
+                label: "Data",
+                backgroundColor: this.$vuetify.theme.currentTheme
+                    .qualitativePalette[0],
+                data: []
+            }
+        ];
 
         dataOptions = {
             responsive: true,
@@ -487,7 +495,7 @@ export default {
         this.options = dataOptions;
 
         // Update Data
-        if (this.$route.params.id) {
+        if (this.id) {
             let chart_id = this.$route.params.id;
 
             axios
@@ -507,11 +515,13 @@ export default {
                     console.log(error);
                 });
         }
+        setTimeout(() => {
+            this.loaded = true;
+        }, 200);
     },
     mounted() {
         this.bus.$on("addDataSet", this.addDataSet);
         this.bus.$on("saveChart", this.saveChart);
-        this.loaded = true;
     }
 };
 </script>

@@ -5,11 +5,21 @@
             <!-- Left Side Finish -->
             <v-spacer></v-spacer>
             <!-- Right Side Start -->
-            <v-btn icon @click="newCollection()">
-                <v-icon>
-                    mdi-folder-plus-outline
-                </v-icon>
-            </v-btn>
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                        icon
+                        @click="newCollection()"
+                        v-bind="attrs"
+                        v-on="on"
+                    >
+                        <v-icon>
+                            mdi-folder-plus-outline
+                        </v-icon>
+                    </v-btn>
+                </template>
+                <span>Add New Folder</span>
+            </v-tooltip>
         </v-toolbar>
 
         <v-data-table
@@ -52,8 +62,6 @@ export default {
                 axios
                     .get("chart/collections/" + this.company)
                     .then(response => {
-                        console.log(response.data);
-
                         this.collection = response.data;
                         this.loaded = true;
                     })
@@ -63,7 +71,7 @@ export default {
         goToCollection(collection) {
             this.$router.push({
                 name: "chartCollection",
-                params: { id: collection.id }
+                params: { collection: collection.id }
             });
         },
         convertDate(date) {
@@ -86,6 +94,7 @@ export default {
     },
     mounted() {
         this.bus.$on("companyChange", this.getCollections);
+        this.bus.$on("closeDialog", this.getCollections);
     },
     watch: {
         company() {

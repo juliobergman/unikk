@@ -19,7 +19,7 @@ const actions = {
             })
             .then(response => {
                 if (response.status === 204) {
-                    window.location.replace("/home");
+                    window.location.replace("/app");
                 }
             });
     }

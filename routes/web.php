@@ -37,6 +37,7 @@ Route::get('/test', [TestController::class, 'index']);
 Route::prefix('/user')->group(function(){
     Route::middleware('auth')->post('/new', [UserController::class, 'store']);
     Route::middleware('auth')->get('/all', [UserController::class, 'index']);
+    Route::middleware('auth')->get('/show/{id}', [UserController::class, 'show']);
     Route::middleware('auth')->get('/current', [UserController::class, 'currentUser']);
     Route::middleware('auth')->put('/', [UserController::class, 'update']);
     Route::middleware('auth')->delete('/{id}', [UserController::class, 'destroy']);
@@ -51,6 +52,7 @@ Route::prefix('/user')->group(function(){
 Route::prefix('/chart')->group(function(){
     Route::middleware('auth')->get('/collections/{company}', [ChartCollectionController::class, 'collections']);
     Route::middleware('auth')->get('/collection/{id}', [ChartCollectionController::class, 'collection']);
+    Route::middleware('auth')->post('/collection/store', [ChartCollectionController::class, 'store']);
 
     Route::middleware('auth')->get('/all', [ChartController::class, 'index']);
     Route::middleware('auth')->post('/store', [ChartController::class, 'store']);
@@ -66,13 +68,12 @@ Route::middleware('auth')->prefix('/company')->group(function(){
 });
 
 // Memberships
-Route::middleware('auth')->prefix('/membership')->group(function(){
-    Route::get('/current', [MembershipController::class, 'current']);
-    Route::get('/companies', [MembershipController::class, 'companies']);
-    Route::get('/users/{company}', [MembershipController::class, 'users']);
-    Route::put('/default/{membership}', [MembershipController::class, 'set_default']);
+Route::prefix('/membership')->group(function(){
+    Route::middleware('auth')->get('/current', [MembershipController::class, 'current']);
+    Route::middleware('auth')->get('/companies', [MembershipController::class, 'companies']);
+    Route::middleware('auth')->get('/users/{company}', [MembershipController::class, 'users']);
+    Route::middleware('auth')->put('/default/{membership}', [MembershipController::class, 'set_default']);
 });
-
 
 
 

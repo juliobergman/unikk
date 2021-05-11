@@ -18,17 +18,21 @@ class MembershipController extends Controller
 
     public function current(Request $request)
     {
-
-        $company = $request->header('company');
+        $company = Membership::where('user_id', Auth::user()->id)->where('default',!null)->first();
 
         if(!$company){
+            // Get Info
             $user = Auth::user();
             $ms = Membership::query();
             $ms->where('user_id', $user->id);
             $ms->orderBy('default', 'desc');
-            $ms->withCount('company');
-            $ms->with('company');
-            return $ms->first()->company->id;
+            $membership = $ms->first();
+
+            // Set Default
+            $this->set_default($membership);
+
+            // Return
+            return $membership;
         } else {
             return $company;
         }
@@ -62,9 +66,9 @@ class MembershipController extends Controller
     public function set_default(Membership $membership)
     {
         $res = Gate::inspect('setDefault', $membership);
-        if ($res->denied()){
-            return response()->json(['error' =>$res->message()], 403);
-        }
+        // if ($res->denied()){
+        //     return response()->json(['error' =>$res->message()], 403);
+        // }
 
         $user = Auth::user();
         Membership::where('user_id', $user->id)
@@ -74,7 +78,9 @@ class MembershipController extends Controller
                     ->where('company_id', $membership->company_id)
                     ->update(['default' => true]);
 
-        return response()->json(['message' =>$res->message()], 200);
+        return Membership::where('user_id', $user->id)
+        ->where('company_id', $membership->company_id)
+        ->first();
     }
 
 }

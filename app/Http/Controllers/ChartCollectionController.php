@@ -6,6 +6,7 @@ use App\Models\Chart;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use App\Models\ChartCollection;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
 class ChartCollectionController extends Controller
@@ -28,5 +29,16 @@ class ChartCollectionController extends Controller
         $collection->first();
 
         return $collection->first();
+    }
+
+    public function store(Request $request)
+    {
+        $data = array(
+                "name" => $request->name,
+                "company_id" => $request->company
+        );
+
+        $newCollection = $request->user()->collection()->create($data);
+        return $newCollection;
     }
 }

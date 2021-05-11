@@ -497,11 +497,9 @@ export default {
         // Update Data
         if (this.id) {
             let chart_id = this.$route.params.id;
-
             axios
                 .get("chart/" + chart_id)
                 .then(response => {
-                    this.chartType = response.data.type;
                     labels = response.data.chartdata.labels;
                     dataSets = response.data.chartdata.datasets;
                     dataOptions = response.data.chartoptions;
@@ -510,18 +508,22 @@ export default {
                         datasets: dataSets
                     };
                     this.options = dataOptions;
+                    this.info = response.data.info;
                 })
                 .catch(error => {
                     console.log(error);
                 });
         }
+
         setTimeout(() => {
             this.loaded = true;
-        }, 200);
+        }, 500);
     },
     mounted() {
-        this.bus.$on("addDataSet", this.addDataSet);
-        this.bus.$on("saveChart", this.saveChart);
+        if (this.bus) {
+            this.bus.$on("addDataSet", this.addDataSet);
+            this.bus.$on("saveChart", this.saveChart);
+        }
     }
 };
 </script>

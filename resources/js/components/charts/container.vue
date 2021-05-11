@@ -1,12 +1,21 @@
 <template>
     <div>
-        <router-view key="coll" :bus="bus"></router-view>
+        <router-view
+            v-if="!chartDialog"
+            :key="key"
+            :bus="bus"
+            :id="chartId"
+        ></router-view>
+
+        <v-dialog max-width="375" v-model="folderDialog">
+            <new-folder :bus="bus"></new-folder>
+        </v-dialog>
 
         <v-dialog v-model="chartDialog" fullscreen hide-overlay>
             <chart-container
-                :update="updateChart"
-                :id="chartId"
                 :bus="bus"
+                :type="chartType"
+                :id="chartId"
             ></chart-container>
         </v-dialog>
     </div>
@@ -14,36 +23,57 @@
 
 <script>
 import chartContainer from "./new/container";
+import newFolder from "./new/folder";
 export default {
+    name: "chartMainComponent",
     components: {
+        newFolder,
         chartContainer
     },
     props: ["bus"],
     data: () => ({
+        key: 1,
         chartDialog: false,
+        folderDialog: false,
         chartId: null,
-        updateChart: undefined
+        chartType: undefined
     }),
     methods: {
-        showDialog() {
+        forceRender() {
+            this.key++;
+        },
+        showFDialog() {
+            this.folderDialog = true;
+        },
+        showCDialog() {
             this.chartDialog = true;
         },
         closeDialog() {
             this.chartDialog = false;
         },
-        setUpdateChart(chartType) {
-            this.updateChart = chartType;
+        closeFDialog() {
+            this.folderDialog = false;
+        },
+
+        chartData($payload) {
+            this.chartType = $payload.type;
         }
     },
     created() {
         if (this.$route.name == "chartView") {
-            this.chartId = Number.parseInt(this.$route.params.id, 10);
+            this.chartId = this.$route.params.id;
         }
     },
     mounted() {
-        this.bus.$on("showDialog", this.showDialog);
-        this.bus.$on("closeDialog", this.closeDialog);
-        this.bus.$on("setChartType", this.setUpdateChart);
+        if (this.bus) {
+            this.bus.$on("showDialog", this.showCDialog);
+            this.bus.$on("showFDialog", this.showFDialog);
+            this.bus.$on("closeDialog", this.closeDialog);
+            this.bus.$on("closeFDialog", this.closeFDialog);
+            this.bus.$on("chartData", this.chartData);
+            this.bus.$on("saveChart", this.forceRender);
+        }
+
         // if (this.$route.name == "charts") {
         //     this.$router.push({ name: "chartList" });
         // }

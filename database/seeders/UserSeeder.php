@@ -66,7 +66,7 @@ class UserSeeder extends Seeder
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
 
-        Membership::factory(3)
+        Membership::factory(4)
         ->create()
         ;
 
@@ -79,7 +79,7 @@ class UserSeeder extends Seeder
         ->create();
 
 
-        User::factory(15)
+        User::factory(9)
         ->state(new Sequence(
             ['role' => 'editor'],
             ['role' => 'admin'],
@@ -136,7 +136,7 @@ class UserSeeder extends Seeder
         DB::table('memberships')
         ->where('id', 2)
         ->update([
-            'user_id' => 2,
+            'user_id' => 1,
             'role' => 'admin',
             'company_id' => 2
         ]);
@@ -147,5 +147,16 @@ class UserSeeder extends Seeder
             'role' => 'admin',
             'company_id' => 3
         ]);
+
+        DB::table('memberships')
+        ->where('id', 4)
+        ->update([
+            'user_id' => 2,
+            'role' => 'admin',
+            'company_id' => 2
+        ]);
+
+
+
     }
 }

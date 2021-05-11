@@ -15,17 +15,20 @@
             <!-- Left Side Finish -->
             <v-spacer></v-spacer>
             <!-- Right Side Start -->
-            <v-btn v-if="false" icon @click="reloadChart()">
-                <v-icon>
-                    mdi-pencil
-                </v-icon>
-            </v-btn>
-            <v-btn icon @click="deleteChart()">
+            <v-btn
+                v-if="currentUser.id == chartData.user_id"
+                icon
+                @click="deleteChart()"
+            >
                 <v-icon>
                     mdi-delete
                 </v-icon>
             </v-btn>
-            <v-btn icon @click="bus.$emit('showDialog')">
+            <v-btn
+                v-if="currentUser.id == chartData.user_id"
+                icon
+                @click="bus.$emit('showDialog')"
+            >
                 <v-icon>
                     mdi-pencil
                 </v-icon>
@@ -40,14 +43,15 @@
             <v-card elevation="2">
                 <v-row>
                     <v-col cols="12" md="4" order="1" order-md="0">
-                        <v-card-title> {{ chart.title }} </v-card-title>
-                        <v-card-text> {{ chart.info }} </v-card-text>
+                        <v-card-title> {{ chartData.title }} </v-card-title>
+                        <v-card-text> {{ chartData.info }} </v-card-text>
                     </v-col>
                     <v-col cols="12" md="8" order="0" order-md="1">
                         <view-chart
+                            :key="key"
                             :bus="bus"
                             :mode="mode"
-                            :chart="chart"
+                            :chart="chartData"
                         ></view-chart>
                     </v-col>
                 </v-row>
@@ -57,14 +61,24 @@
         <v-snackbar left :timeout="-1" v-model="snackbar">
             <div>
                 <div class="ma-2">
-                    <strong>Author:</strong> {{ chart.user_name }}
+                    <v-icon>
+                        mdi-folder
+                    </v-icon>
+                    {{ chartData.collection_name }}
                 </div>
                 <v-divider></v-divider>
                 <div class="ma-2">
-                    <strong>Created at:</strong> {{ chart.created }}
+                    <v-icon>
+                        mdi-account
+                    </v-icon>
+                    {{ chartData.user_name }}
+                </div>
+                <v-divider></v-divider>
+                <div class="ma-2">
+                    <strong>Created at:</strong> {{ chartData.created }}
                 </div>
                 <div class="ma-2">
-                    <strong>Last Update:</strong> {{ chart.updated }}
+                    <strong>Last Update:</strong> {{ chartData.updated }}
                 </div>
             </div>
             <template v-slot:action="{ attrs }">
@@ -85,20 +99,42 @@ import confirm from "../../ui/confirm";
 import alert from "../../ui/alert";
 
 export default {
-    props: ["bus"],
+    props: ["bus", "id"],
     components: {
         viewChart,
         confirm,
         alert
     },
     data: () => ({
-        copt: false,
-        loaded: false,
+        key: 1,
+        ownership: false,
+        loaded: true,
         mode: "view",
         snackbar: false,
-        chart: {}
+        chartId: null,
+        chartType: undefined,
+        chartData: {}
     }),
+    computed: {
+        currentUser: {
+            get() {
+                return this.$store.state.user.user;
+            }
+        }
+    },
     methods: {
+        forceRender() {
+            this.key++;
+        },
+        btnfunc() {
+            this.forceRender();
+        },
+        reloadChart() {
+            this.loaded = false;
+            setTimeout(() => {
+                this.loaded = true;
+            }, 500);
+        },
         back(id) {
             // this.loaded = false;
             setTimeout(() => {
@@ -107,6 +143,36 @@ export default {
                     params: { collection: id }
                 });
             }, 200);
+        },
+        getChart() {
+            let id = this.$route.params.id;
+            this.chartId = Number.parseInt(id, 10);
+            axios
+                .get("chart/" + id)
+                .then(response => {
+                    this.chartData = response.data;
+                    this.chartType = response.data.type;
+                    this.bus.$emit("chartData", response.data);
+                    this.forceRender();
+                    this.loaded = true;
+                })
+                .catch(e => {
+                    if (e.response.status == 404) {
+                        this.$refs.alert
+                            .open(
+                                "Chart Not Found",
+                                "This Is Not the Chart You Are Looking For",
+                                {
+                                    color: "danger"
+                                }
+                            )
+                            .then(() => {
+                                this.back(this.$route.params.collection);
+                            });
+                        // this.back(this.$route.params.collection);
+                    }
+                    console.error(e);
+                });
         },
         deleteChart() {
             this.$refs.confirm
@@ -137,44 +203,15 @@ export default {
                             });
                     }
                 });
-        },
-        async reloadChart() {
-            console.log("Reload Chart");
-
-            this.loaded = false;
-
-            let id = this.$route.params.id;
-
-            try {
-                let chart = await axios.get("chart/" + id);
-                this.chart = chart.data;
-                this.bus.$emit("setChartType", this.chart.type);
-                this.loaded = true;
-            } catch (e) {
-                if (e.response.status == 404) {
-                    this.$refs.alert
-                        .open(
-                            "Chart Not Found",
-                            "This Is Not the Chart You Are Looking For",
-                            {
-                                color: "danger"
-                            }
-                        )
-                        .then(() => {
-                            this.back(this.$route.params.collection);
-                        });
-                    // this.back(this.$route.params.collection);
-                }
-                console.error(e);
-            }
         }
     },
     created() {
-        this.reloadChart();
+        this.loaded = false;
+        this.getChart();
+        // this.loaded = true;
+        // this.reloadChart();
         // this.loaded = false;
-
         // let id = this.$route.params.id;
-
         // try {
         //     let chart = await axios.get("chart/" + id);
         //     this.chart = chart.data;
@@ -199,8 +236,7 @@ export default {
         // }
     },
     mounted() {
-        this.bus.$on("saveChart", this.reloadChart);
-        this.bus.$on("closeDialog", this.reloadChart);
+        this.bus.$on("saveChart", this.getChart);
     }
 };
 </script>

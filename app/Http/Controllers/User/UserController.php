@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use App\Models\Membership;
 use App\Models\UserData;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -30,6 +31,11 @@ class UserController extends Controller
         $userdata = UserData::where('user_id', Auth::user()->id)->first();
         $merged = $user->merge($userdata);
         return $merged;
+    }
+
+    public function show($id)
+    {
+        return $this->currentUser();
     }
 
     protected function validator(array $data)

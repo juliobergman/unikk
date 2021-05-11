@@ -11,7 +11,7 @@
                 <v-tooltip bottom v-for="item in chartMenu" :key="item.title">
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn
-                            :disabled="update && item.to != update"
+                            :disabled="type && item.to != type"
                             :value="item.to"
                             v-bind="attrs"
                             v-on="on"
@@ -92,10 +92,10 @@ import lineChart from "./line";
 import pieChart from "./pie";
 export default {
     components: { barChart, lineChart, pieChart },
-    props: ["bus", "id", "update"],
+    props: ["bus", "id", "type"],
     data: () => ({
         chartEditor: null,
-        collection: "",
+        collection: null,
         folders: [],
         toolsMenu: [
             {
@@ -135,6 +135,7 @@ export default {
     methods: {
         storeChart(data) {
             data.collection = this.collection;
+
             if (!this.id) {
                 axios
                     .post("chart/store", data)
@@ -155,23 +156,8 @@ export default {
                     });
             }
         },
-        addDataSet() {
-            this.bus.$emit("addDataSet");
-        },
-        saveChart() {
-            this.bus.$emit("saveChart");
-        },
-        saveUpdatedChart() {
-            this.bus.$emit("saveUpdatedChart");
-        },
-        updateChart() {
-            this.bus.$emit("updateChart");
-        },
-        updateOptions() {
-            this.bus.$emit("updateOptions");
-        },
-        busEmmit(action) {
-            this.bus.$emit(action);
+        busEmmit($action) {
+            this.bus.$emit($action);
         }
     },
     created() {
@@ -184,7 +170,10 @@ export default {
 
         // Collection
         if (!this.collection) {
-            let collectionId = Number.parseInt(this.$route.params.id, 10);
+            let collectionId = Number.parseInt(
+                this.$route.params.collection,
+                10
+            );
             this.collection = collectionId;
         }
     },

@@ -30,11 +30,11 @@ Vue.component("app-container", require("./views/appContainer.vue").default);
 Vue.component("website-container", require("./views/website.vue").default);
 
 const app = new Vue({
+    store,
+    router,
+    vuetify: Vuetify,
     created() {
         AOS.init();
     },
-    vuetify: Vuetify,
-    store,
-    router,
     el: "#app"
 });

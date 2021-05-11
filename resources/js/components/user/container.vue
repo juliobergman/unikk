@@ -118,23 +118,25 @@ export default {
         },
         getUsers() {
             this.loaded = false;
-            axios
-                .get("membership/users/" + this.company)
-                .then(response => {
-                    this.users = response.data;
-                    setTimeout(() => {
-                        this.loaded = true;
-                    }, 250);
-                })
-                .catch(response => {
-                    let errors = JSON.parse(response.request.response);
-                    console.log(errors);
-                });
+            if (this.company) {
+                axios
+                    .get("membership/users/" + this.company)
+                    .then(response => {
+                        this.users = response.data;
+                        setTimeout(() => {
+                            this.loaded = true;
+                        }, 250);
+                    })
+                    .catch(response => {
+                        let errors = JSON.parse(response.request.response);
+                        console.log(errors);
+                    });
+            }
         }
     },
     computed: {
         company() {
-            return this.$store.state.membership.company;
+            return this.$store.state.membership.company_id;
         }
     },
     created() {

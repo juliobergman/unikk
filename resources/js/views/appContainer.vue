@@ -18,9 +18,10 @@
                         dense
                         outlined
                         :items="companies"
+                        item-text="text"
+                        item-value="value"
                         label=""
-                        v-model="company"
-                        @change="bus.$emit('companyChange')"
+                        v-model="currentCompany"
                     >
                     </v-select>
                 </div>
@@ -93,12 +94,12 @@ export default {
                 this.$store.commit("user/setUser", val);
             }
         },
-        company: {
+        currentCompany: {
             get() {
-                return this.$store.state.membership.company;
+                return this.$store.state.membership.membership_id;
             },
             set(val) {
-                this.$store.commit("membership/setCompany", val);
+                this.$store.commit("membership/setMembershipId", val);
             }
         }
     },
@@ -130,7 +131,9 @@ export default {
     },
     created() {
         this.$store.dispatch("user/getUser");
-        this.$store.dispatch("membership/getCompany");
+        this.$store.dispatch("membership/getMembership");
+        this.$store.dispatch("membership/getMembershipId");
+        this.$store.dispatch("membership/getCompanyId");
         this.companySelect();
     },
     mounted() {
@@ -167,16 +170,9 @@ export default {
         });
     },
     watch: {
-        // $route(to, from) {
-        //     let toDepth = to.path.split("/").length;
-        //     let fromDepth = from.path.split("/").length;
-        //     if (fromDepth == 2 && toDepth == fromDepth) {
-        //         this.transitionName = "slide";
-        //     } else {
-        //         this.transitionName =
-        //             toDepth < fromDepth ? "slide-right" : "slide-left";
-        //     }
-        // }
+        currentCompany() {
+            this.bus.$emit("companyChange");
+        }
     }
 };
 </script>

@@ -10,6 +10,11 @@ class ChartCollection extends Model
 {
     use SoftDeletes, HasFactory;
 
+    protected $fillable = [
+        'name',
+        'company_id'
+    ];
+
     protected $hidden = [
         'user_id',
         'company_id',

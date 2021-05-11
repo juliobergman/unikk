@@ -73,11 +73,16 @@ export default {
         login() {
             this.loading = true;
             if (this.validate()) {
-                this.$store.dispatch("user/loginUser", this.user).catch(res => {
-                    let error = JSON.parse(res.request.response);
-                    this.error = error.errors.email[0];
-                    setTimeout(() => (this.loading = false), 1000);
+                axios.post("login", this.user).then(response => {
+                    if (response.status === 204) {
+                        window.location.replace("/app");
+                    }
                 });
+                // this.$store.dispatch("user/loginUser", this.user).catch(res => {
+                //     let error = JSON.parse(res.request.response);
+                //     this.error = error.errors.email[0];
+                //     setTimeout(() => (this.loading = false), 1000);
+                // });
             } else {
                 setTimeout(() => (this.loading = false), 1000);
             }

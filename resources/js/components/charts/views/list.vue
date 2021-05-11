@@ -58,10 +58,16 @@ export default {
     }),
     methods: {
         getCollections() {
+            console.log("-> Get Collections -> List.vue");
             if (this.company) {
+                console.log("-> this.company");
                 axios
                     .get("chart/collections/" + this.company)
                     .then(response => {
+                        console.log("-> this.axios");
+
+                        console.log(response.data);
+
                         this.collection = response.data;
                         this.loaded = true;
                     })
@@ -81,12 +87,12 @@ export default {
             dateReadable = dateObject.toDateString();
         },
         newCollection() {
-            console.log("newCollection");
+            this.bus.$emit("showFDialog");
         }
     },
     computed: {
         company() {
-            return this.$store.state.membership.company;
+            return this.$store.state.membership.company_id;
         }
     },
     created() {
@@ -95,11 +101,7 @@ export default {
     mounted() {
         this.bus.$on("companyChange", this.getCollections);
         this.bus.$on("closeDialog", this.getCollections);
-    },
-    watch: {
-        company() {
-            this.getCollections();
-        }
+        this.bus.$on("reloadCollectionList", this.getCollections);
     }
 };
 </script>

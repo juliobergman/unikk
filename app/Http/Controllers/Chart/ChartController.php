@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Chart;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\ChartCollection;
 use Illuminate\Support\Facades\Gate;
 
 class ChartController extends Controller
@@ -86,6 +87,7 @@ class ChartController extends Controller
         $ret['id'] = $chart->id;
         $ret['user_id'] = $chart->user_id;
         $ret['chart_collection_id'] = $chart->chart_collection_id;
+        $ret['collection_name'] = ChartCollection::where('id', $chart->chart_collection_id)->value('name');
         $ret['user_name'] = User::where('id', $chart->user_id)->value('name');
         $ret['type'] = $chart->type;
         $ret['title'] = $chart->title;
@@ -120,6 +122,7 @@ class ChartController extends Controller
                 'chartdata' => json_encode($request->chartdata),
                 'chartoptions' => json_encode($request->chartoptions),
                 'type' => $request->type,
+                'chart_collection_id' => $request->collection,
             );
 
             $update = Chart::where('id', $chart->id)->update($data);

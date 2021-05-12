@@ -58,16 +58,10 @@ export default {
     }),
     methods: {
         getCollections() {
-            console.log("-> Get Collections -> List.vue");
             if (this.company) {
-                console.log("-> this.company");
                 axios
                     .get("chart/collections/" + this.company)
                     .then(response => {
-                        console.log("-> this.axios");
-
-                        console.log(response.data);
-
                         this.collection = response.data;
                         this.loaded = true;
                     })

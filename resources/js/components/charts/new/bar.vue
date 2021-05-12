@@ -11,11 +11,14 @@
                     <v-container>
                         <v-row>
                             <v-col cols="12">
-                                <v-text-field
-                                    v-model="chart.labels"
-                                    dense
+                                <v-combobox
                                     label="Labels"
-                                ></v-text-field>
+                                    multiple
+                                    small-chips
+                                    v-model="chart.labels"
+                                    item-color="primary"
+                                >
+                                </v-combobox>
                             </v-col>
                         </v-row>
                     </v-container>
@@ -333,7 +336,7 @@
 
 <script>
 import chartCanvas from "../build/chart";
-let labels = [];
+let labels = ["a", "b", "c"];
 let dataSets = [];
 let dataOptions = {};
 
@@ -373,16 +376,13 @@ export default {
             return labels;
         },
         chartData() {
-            // Labels
-            labels = this.processLabels(this.chart.labels);
             return {
-                labels: labels,
+                labels: this.chart.labels,
                 datasets: dataSets
             };
         },
         addDataSet() {
             let ds = this.chart.datasets.length;
-
             this.chart.datasets.push({
                 label: "Data",
                 backgroundColor: this.$vuetify.theme.currentTheme

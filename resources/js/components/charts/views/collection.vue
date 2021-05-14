@@ -126,8 +126,8 @@ export default {
     },
     mounted() {
         this.getCharts();
-        this.bus.$on("companyChange", this.back);
-        this.bus.$on("closeDialog", this.getCharts);
+        // this.bus.$on("companyChange", this.back);
+        // this.bus.$on("closeDialog", this.getCharts);
     },
     created() {}
 };

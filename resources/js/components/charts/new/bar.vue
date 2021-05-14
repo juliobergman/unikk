@@ -11,14 +11,20 @@
                     <v-container>
                         <v-row>
                             <v-col cols="12">
-                                <v-combobox
+                                <!-- <v-combobox
                                     label="Labels"
                                     multiple
                                     small-chips
                                     v-model="chart.labels"
                                     item-color="primary"
                                 >
-                                </v-combobox>
+                                </v-combobox> -->
+
+                                <v-text-field
+                                    v-model="chart.labels"
+                                    dense
+                                    label="Labels"
+                                ></v-text-field>
                             </v-col>
                         </v-row>
                     </v-container>
@@ -376,15 +382,19 @@ export default {
             return labels;
         },
         chartData() {
+            let cLabels = this.processLabels(this.chart.labels);
             return {
-                labels: this.chart.labels,
-                datasets: dataSets
+                labels: cLabels,
+                datasets: this.chart.datasets
             };
         },
         addDataSet() {
+            let dataS = this.chart.datasets;
+            console.log(dataS);
+
             let ds = this.chart.datasets.length;
             this.chart.datasets.push({
-                label: "Data",
+                label: "Data " + (ds + 1),
                 backgroundColor: this.$vuetify.theme.currentTheme
                     .qualitativePalette[ds],
                 data: []
@@ -520,6 +530,7 @@ export default {
         }, 500);
     },
     mounted() {
+        console.log(this.chart.datasets);
         if (this.bus) {
             this.bus.$on("addDataSet", this.addDataSet);
             this.bus.$on("saveChart", this.saveChart);

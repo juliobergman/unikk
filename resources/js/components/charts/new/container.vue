@@ -140,7 +140,7 @@ export default {
                 axios
                     .post("chart/store", data)
                     .then(response => {
-                        console.log(response.data);
+                        // console.log(response.data);
                     })
                     .catch(error => {
                         console.log(error);

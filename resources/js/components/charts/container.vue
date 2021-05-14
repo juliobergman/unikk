@@ -33,7 +33,7 @@ export default {
     props: ["bus"],
     data: () => ({
         key: 1,
-        chartDialog: true,
+        chartDialog: false,
         folderDialog: false,
         chartId: null,
         chartType: undefined

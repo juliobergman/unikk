@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
             'id' => 1,
             'name' => 'James Smith',
             'email' => 'admin@mail.com',
-            'role' => 'admin',
+            // 'role' => 'admin',
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'temptoken' => Str::random(10),
@@ -49,7 +49,7 @@ class UserSeeder extends Seeder
             'id' => 2,
             'name' => 'John Doe',
             'email' => 'demo@mail.com',
-            'role' => 'editor',
+            // 'role' => 'editor',
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'temptoken' => Str::random(10),
@@ -80,12 +80,12 @@ class UserSeeder extends Seeder
 
 
         User::factory(9)
-        ->state(new Sequence(
-            ['role' => 'editor'],
-            ['role' => 'admin'],
-            ['role' => 'user'],
-            ['role' => 'user']
-        ))
+        // ->state(new Sequence(
+        //     ['role' => 'editor'],
+        //     ['role' => 'admin'],
+        //     ['role' => 'user'],
+        //     ['role' => 'user']
+        // ))
         ->state(new Sequence(
             ['email_verified_at' => now()],
             ['email_verified_at' => null]
@@ -120,8 +120,8 @@ class UserSeeder extends Seeder
                 ['company_id' => 3]
                 ))
             ->state(new Sequence(
-                ['role' => 'admin'],
                 ['role' => 'editor'],
+                ['role' => 'user'],
                 ))
         )
         ->create();

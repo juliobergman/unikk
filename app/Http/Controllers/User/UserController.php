@@ -22,7 +22,8 @@ class UserController extends Controller
 
     public function index()
     {
-        return User::all();
+
+        return User::with('userdata:user_id,profile_pic,job_title')->get()->makeHidden(['role', 'email_verified_at', 'created_at', 'updated_at', 'email'])->toArray();
     }
 
     public function currentUser()
@@ -53,7 +54,6 @@ class UserController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'role' => $data['role'],
             'password' => Hash::make($data['password']),
             'temptoken' => urlencode(Hash::make($data['temptoken'])),
         ]);
@@ -61,16 +61,14 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-
         $this->validator($request->all())->validate();
-        event(new userCreated($user = $this->create($request->all())));
+        event(new userCreated($user = $this->create($request->all()), $data = $request));
         return new JsonResponse([], 201);
     }
 
     public function update(Request $request)
     {
         $update = User::where('id', $request->id)->update($request->only('name','email','role'));
-
         if($update){
             return new JsonResponse([], 200);
         }

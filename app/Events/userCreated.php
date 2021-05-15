@@ -16,14 +16,16 @@ class userCreated
      * @var \Illuminate\Contracts\Auth\Authenticatable
      */
     public $user;
+    public $data;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($user)
+    public function __construct($user, $data)
     {
         $this->user = $user;
+        $this->data = $data;
     }
 }

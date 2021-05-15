@@ -9,6 +9,12 @@ class Membership extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'company_id',
+        'role',
+    ];
+
     protected $hidden = [
         'user_id',
         'default',

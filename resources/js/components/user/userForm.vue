@@ -202,26 +202,30 @@ export default {
                 .toString(36)
                 .slice(-8);
             if (this.validate()) {
+                console.log(this.user);
+
                 axios
                     .post("user/new", this.user)
                     .then(response => {
-                        if (response.status === 201) {
-                            let msg =
-                                "User " + this.user.name + " has been created.";
+                        console.log(response);
 
-                            this.$refs.alert
-                                .open("Success", msg, {
-                                    color: "success"
-                                })
-                                .then(res => {
-                                    setTimeout(
-                                        () => (this.loading = false),
-                                        500
-                                    );
+                        // if (response.status === 201) {
+                        //     let msg =
+                        //         "User " + this.user.name + " has been created.";
 
-                                    this.$emit("success", res);
-                                });
-                        }
+                        //     this.$refs.alert
+                        //         .open("Success", msg, {
+                        //             color: "success"
+                        //         })
+                        //         .then(res => {
+                        //             setTimeout(
+                        //                 () => (this.loading = false),
+                        //                 500
+                        //             );
+
+                        //             this.$emit("success", res);
+                        //         });
+                        // }
                     })
                     .catch(response => {
                         let errors = JSON.parse(response.request.response);

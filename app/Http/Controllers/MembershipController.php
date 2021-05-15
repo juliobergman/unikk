@@ -63,6 +63,18 @@ class MembershipController extends Controller
         return $users->get();
     }
 
+    public function notusers(Company $company)
+    {
+        $companyUsers = $this->users($company);
+        $avoidUsers = array();
+        foreach ($companyUsers as $key => $user) {
+            $avoidUsers[$key] = $user->id;
+        }
+        $users = User::whereNotIn('id', $avoidUsers);
+        $users->with('userdata:user_id,profile_pic,job_title');
+        return $users->get()->makeHidden(['role', 'email_verified_at', 'created_at', 'updated_at', 'email'])->toArray();
+    }
+
     public function set_default(Membership $membership)
     {
         $res = Gate::inspect('setDefault', $membership);
@@ -81,6 +93,17 @@ class MembershipController extends Controller
         return Membership::where('user_id', $user->id)
         ->where('company_id', $membership->company_id)
         ->first();
+    }
+
+
+    public function store(Request $request)
+    {
+        $membership = new Membership;
+        $membership->user_id = $request->id;
+        $membership->company_id = $request->company;
+        $membership->save();
+
+        return $membership;
     }
 
 }

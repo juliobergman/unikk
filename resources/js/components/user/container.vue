@@ -9,13 +9,17 @@
         <v-toolbar class="mb-3" elevation="2" flat rounded dense>
             <v-spacer></v-spacer>
             <!-- Right Side Start -->
-            <v-btn @click="reguser = !reguser" icon small class="mr-1">
+            <user-search
+                @user:invite="userInfoDialog = true"
+                @new:membership="getUsers()"
+            ></user-search>
+            <!-- <v-btn @click="reguser = !reguser" icon small class="mr-1">
                 <v-icon>mdi-account-plus</v-icon>
-            </v-btn>
+            </v-btn> -->
         </v-toolbar>
         <!-- Register User Dialog -->
         <v-dialog
-            v-model="reguser"
+            v-model="userInfoDialog"
             width="400"
             @click:outside="closeUserDialog()"
         >
@@ -72,16 +76,19 @@
 
 <script>
 import UserForm from "./userForm";
+import UserSearch from "./userSearch";
 export default {
     components: {
-        UserForm
+        UserForm,
+        UserSearch
     },
     props: ["bus"],
     data: () => ({
         loaded: false,
         updateUser: {},
-        reguser: false,
+        userInfoDialog: false,
         headers: [
+            { text: "ID", value: "id" },
             {
                 text: "Name",
                 value: "name",

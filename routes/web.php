@@ -72,7 +72,9 @@ Route::prefix('/membership')->group(function(){
     Route::middleware('auth')->get('/current', [MembershipController::class, 'current']);
     Route::middleware('auth')->get('/companies', [MembershipController::class, 'companies']);
     Route::middleware('auth')->get('/users/{company}', [MembershipController::class, 'users']);
+    Route::middleware('auth')->get('/notusers/{company}', [MembershipController::class, 'notusers']);
     Route::middleware('auth')->put('/default/{membership}', [MembershipController::class, 'set_default']);
+    Route::middleware('auth')->post('/store', [MembershipController::class, 'store']);
 });
 
 

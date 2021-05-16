@@ -77,6 +77,7 @@ Route::prefix('/membership')->group(function(){
     Route::middleware('auth')->get('/notusers/{company}', [MembershipController::class, 'notusers']);
     Route::middleware('auth')->put('/default/{membership}', [MembershipController::class, 'set_default']);
     Route::middleware('auth')->post('/store', [MembershipController::class, 'store']);
+    Route::middleware('auth')->put('/', [MembershipController::class, 'update']);
     Route::middleware('auth')->delete('/{id}', [MembershipController::class, 'destroy']);
 });
 

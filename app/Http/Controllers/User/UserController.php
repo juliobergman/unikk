@@ -68,11 +68,18 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
-        $update = User::where('id', $request->id)->update($request->only('name','email','role'));
-        if($update){
-            return new JsonResponse([], 200);
-        }
-        return new JsonResponse([], 422);
+
+
+        // $user = User::where('id', $request->id);
+        // $membership = Membership::where('id', $request->membership);
+
+
+        // dd($membership);
+        // $update = User::where('id', $request->id)->update($request->only('name','email','role'));
+        // if($update){
+        //     return new JsonResponse([], 200);
+        // }
+        // return new JsonResponse([], 422);
 
     }
 

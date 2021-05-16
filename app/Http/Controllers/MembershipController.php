@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Company;
 use App\Models\Membership;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -116,6 +117,18 @@ class MembershipController extends Controller
         $membership->save();
 
         return $membership;
+    }
+
+    public function update(Request $request)
+    {
+
+        $updateData = $request->only('role');
+        $membership = Membership::where('id', $request->membership)->update($updateData);
+        if($membership){
+            return new JsonResponse([], 200);
+        }
+
+        return new JsonResponse([], 422);
     }
 
     public function destroy($id)

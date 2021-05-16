@@ -238,7 +238,7 @@ export default {
         userUpdate() {
             this.loading = true;
             axios
-                .put("user", this.user)
+                .put("membership", this.user)
                 .then(response => {
                     setTimeout(() => (this.loading = false), 500);
                     if (response.status === 200) {

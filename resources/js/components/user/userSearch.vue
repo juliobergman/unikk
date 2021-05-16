@@ -55,8 +55,17 @@
                     </template>
 
                     <template v-slot:item="data">
-                        <v-list-item-avatar>
-                            <img :src="data.item.userdata.profile_pic" />
+                        <v-list-item-avatar color="primary">
+                            <img
+                                v-if="data.item.userdata.profile_pic"
+                                :src="data.item.userdata.profile_pic"
+                            />
+                            <span
+                                v-if="!data.item.userdata.profile_pic"
+                                class="white--text mx-auto"
+                            >
+                                {{ data.item.name.charAt(0).toUpperCase() }}
+                            </span>
                         </v-list-item-avatar>
                         <v-list-item-content>
                             <v-list-item-title

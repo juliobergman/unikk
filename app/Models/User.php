@@ -67,8 +67,13 @@ class User extends Authenticatable
         return $this->hasMany(Company::class);
     }
 
-    public function membership()
+    public function memberships()
     {
         return $this->hasMany(Membership::class);
+    }
+
+    public function membership()
+    {
+        return $this->hasOne(Membership::class);
     }
 }

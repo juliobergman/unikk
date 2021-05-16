@@ -28,6 +28,10 @@ class MembershipController extends Controller
             $ms->orderBy('default', 'desc');
             $membership = $ms->first();
 
+            if(!$membership){
+                return response()->json(['error' => 'Your Access has been revoked'], 403);
+            }
+
             // Set Default
             $this->set_default($membership);
 
@@ -55,11 +59,18 @@ class MembershipController extends Controller
     public function users(Company $company)
     {
         $users = User::query();
-        $users->whereHas('membership', function($query) use ($company){
+        $users->whereHas('memberships', function($query) use ($company){
+            $cUser = Auth::user();
             $query->where('company_id', $company->id);
+            $query->where('user_id', '!=', $cUser->id);
         });
         $users->with('userdata');
-        $users->with('membership');
+        // $users->with('currentMembership');
+
+        $users->with('membership', function($query) use ($company){
+            $query->where('company_id', $company->id);
+        });
+
         return $users->get();
     }
 
@@ -70,6 +81,7 @@ class MembershipController extends Controller
         foreach ($companyUsers as $key => $user) {
             $avoidUsers[$key] = $user->id;
         }
+        $avoidUsers[] = Auth::user()->id;
         $users = User::whereNotIn('id', $avoidUsers);
         $users->with('userdata:user_id,profile_pic,job_title');
         return $users->get()->makeHidden(['role', 'email_verified_at', 'created_at', 'updated_at', 'email'])->toArray();
@@ -104,6 +116,15 @@ class MembershipController extends Controller
         $membership->save();
 
         return $membership;
+    }
+
+    public function destroy($id)
+    {
+        if(Membership::destroy($id)){
+            return response()->json(['message' => 'Membership Revoqued'], 200);
+        } else {
+            return response()->json(['error' =>'error'], 403);
+        }
     }
 
 }

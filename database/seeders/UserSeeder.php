@@ -79,7 +79,7 @@ class UserSeeder extends Seeder
         ->create();
 
 
-        User::factory(9)
+        User::factory(18)
         // ->state(new Sequence(
         //     ['role' => 'editor'],
         //     ['role' => 'admin'],

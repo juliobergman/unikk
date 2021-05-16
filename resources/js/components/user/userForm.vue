@@ -31,7 +31,7 @@
                 flat
             >
                 <div>
-                    <v-avatar size="120">
+                    <v-avatar v-if="updateUser.userdata.profile_pic" size="120">
                         <v-img :src="updateUser.userdata.profile_pic"> </v-img>
                     </v-avatar>
                 </div>
@@ -117,7 +117,7 @@
                     dark
                     @click="userDelete()"
                 >
-                    Delete
+                    Revoke
 
                     <v-icon dark dense class="ml-2 align-self-end">
                         mdi-account-cancel
@@ -158,12 +158,14 @@ export default {
     data: () => ({
         user: {
             id: null,
-            name: "",
-            email: "",
-            role: "",
-            password: "",
-            temptoken: "",
-            jobTitle: ""
+            name: undefined,
+            email: undefined,
+            role: undefined,
+            password: undefined,
+            temptoken: undefined,
+            jobTitle: undefined,
+            company: undefined,
+            membership: undefined
         },
         roleinf: false,
         roles: [
@@ -195,6 +197,7 @@ export default {
         },
         userRegister() {
             this.loading = true;
+            this.user.company = localStorage.getItem("company");
             this.user.password = Math.random()
                 .toString(36)
                 .slice(-8);
@@ -202,30 +205,26 @@ export default {
                 .toString(36)
                 .slice(-8);
             if (this.validate()) {
-                console.log(this.user);
-
                 axios
                     .post("user/new", this.user)
                     .then(response => {
-                        console.log(response);
+                        if (response.status === 201) {
+                            let msg =
+                                "User " + this.user.name + " has been created.";
 
-                        // if (response.status === 201) {
-                        //     let msg =
-                        //         "User " + this.user.name + " has been created.";
+                            this.$refs.alert
+                                .open("Success", msg, {
+                                    color: "success"
+                                })
+                                .then(res => {
+                                    setTimeout(
+                                        () => (this.loading = false),
+                                        500
+                                    );
 
-                        //     this.$refs.alert
-                        //         .open("Success", msg, {
-                        //             color: "success"
-                        //         })
-                        //         .then(res => {
-                        //             setTimeout(
-                        //                 () => (this.loading = false),
-                        //                 500
-                        //             );
-
-                        //             this.$emit("success", res);
-                        //         });
-                        // }
+                                    this.$emit("user:success", res);
+                                });
+                        }
                     })
                     .catch(response => {
                         let errors = JSON.parse(response.request.response);
@@ -243,7 +242,7 @@ export default {
                 .then(response => {
                     setTimeout(() => (this.loading = false), 500);
                     if (response.status === 200) {
-                        this.$emit("success");
+                        this.$emit("user:success");
                     }
                 })
                 .catch(response => {
@@ -255,11 +254,11 @@ export default {
         userDelete() {
             this.loading = true;
             this.$refs.confirm
-                .open("Delete User", "Are you sure?", { color: "danger" })
-                .then(delc => {
-                    if (delc) {
+                .open("Revoke Membership", "Are you sure?", { color: "danger" })
+                .then(response => {
+                    if (response) {
                         axios
-                            .delete("user/" + this.user.id)
+                            .delete("membership/" + this.user.membership)
                             .then(response => {
                                 setTimeout(() => (this.loading = false), 500);
                                 let res = JSON.parse(response.request.response);
@@ -268,7 +267,7 @@ export default {
                                         color: "success"
                                     })
                                     .then(res => {
-                                        this.$emit("success");
+                                        this.$emit("user:success");
                                     });
                             })
                             .catch(res => {
@@ -295,8 +294,10 @@ export default {
             if (this.user.id) {
                 this.user.name = this.updateUser.name;
                 this.user.email = this.updateUser.email;
-                this.user.role = this.updateUser.role;
                 this.user.jobTitle = this.updateUser.userdata.job_title;
+                this.user.membership = this.updateUser.membership.id;
+                this.user.company = this.updateUser.membership.company_id;
+                this.user.role = this.updateUser.membership.role;
 
                 return true;
             }

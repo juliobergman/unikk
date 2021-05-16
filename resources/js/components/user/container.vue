@@ -13,9 +13,6 @@
                 @user:invite="userInfoDialog = true"
                 @new:membership="getUsers()"
             ></user-search>
-            <!-- <v-btn @click="reguser = !reguser" icon small class="mr-1">
-                <v-icon>mdi-account-plus</v-icon>
-            </v-btn> -->
         </v-toolbar>
         <!-- Register User Dialog -->
         <v-dialog
@@ -27,7 +24,7 @@
                 :bus="bus"
                 ref="userform"
                 v-bind:update-user="updateUser"
-                v-on:success="userRegistered()"
+                @user:success="userRegistered()"
             ></user-form>
         </v-dialog>
         <!-- Table -->
@@ -45,12 +42,34 @@
             }"
         >
             <template v-slot:item.name="{ item, isMobile }">
-                <v-avatar v-if="!isMobile" size="35" class="mr-2">
-                    <img :src="item.userdata.profile_pic" alt="John" />
-                </v-avatar>
+                <v-list-item-avatar color="primary" v-if="!isMobile">
+                    <img
+                        :src="item.userdata.profile_pic"
+                        v-if="item.userdata.profile_pic"
+                        alt="Avatar"
+                    />
+                    <span
+                        v-if="!item.userdata.profile_pic"
+                        class="white--text overline mx-auto"
+                    >
+                        {{ item.name.charAt(0) }}
+                    </span>
+                </v-list-item-avatar>
                 {{ item.name }}
-                <v-avatar v-if="isMobile" size="35" class="ml-2">
-                    <img :src="item.userdata.profile_pic" alt="John" />
+                <v-avatar
+                    color="primary"
+                    v-if="isMobile"
+                    size="35"
+                    class="ml-2"
+                >
+                    <img
+                        :src="item.userdata.profile_pic"
+                        v-if="item.userdata.profile_pic"
+                        alt="Avatar"
+                    />
+                    <span v-if="!item.userdata.profile_pic" class="white--text">
+                        {{ item.name.charAt(0).toUpperCase() }}
+                    </span>
                 </v-avatar>
             </template>
 
@@ -62,7 +81,7 @@
                     dark
                     class="d-block userchip"
                 >
-                    {{ item.role }}
+                    {{ item.membership.role }}
                 </v-chip>
             </template>
             <template v-slot:item.email_verified_at="{ item }">
@@ -88,7 +107,6 @@ export default {
         updateUser: {},
         userInfoDialog: false,
         headers: [
-            { text: "ID", value: "id" },
             {
                 text: "Name",
                 value: "name",
@@ -111,17 +129,17 @@ export default {
         },
         getUserRole(v) {},
         closeUserDialog() {
-            this.reguser = false;
+            this.userInfoDialog = false;
             setTimeout(() => (this.updateUser = {}), 100);
             this.bus.$emit("closeUserDialog");
         },
         showUser(user) {
-            this.reguser = true;
+            this.userInfoDialog = true;
             this.updateUser = user;
         },
         userRegistered() {
             this.closeUserDialog();
-            this.getAllUsers();
+            this.getUsers();
         },
         getUsers() {
             this.loaded = false;

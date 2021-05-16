@@ -1,6 +1,9 @@
 <template>
     <v-app>
-        <div class="main-background-color-gradient h-100">
+        <div
+            v-if="activeMembership"
+            class="main-background-color-gradient h-100"
+        >
             <drawer-menu :bus="bus" :user="user"></drawer-menu>
             <v-app-bar class="main-gradient" dark clipped-right app>
                 <v-app-bar-nav-icon
@@ -68,16 +71,19 @@
                 </transition>
             </div>
         </div>
+        <no-membership-dialog v-if="!activeMembership"></no-membership-dialog>
     </v-app>
 </template>
 
 <script>
 import drawerMenu from "../components/ui/drawer";
 import Confirm from "../components/ui/confirm";
+import NoMembershipDialog from "../components/ui/noMembershipDialog.vue";
 export default {
     components: {
         drawerMenu,
-        Confirm
+        Confirm,
+        NoMembershipDialog
     },
     data: () => ({
         transitionName: "slide-right",
@@ -101,6 +107,9 @@ export default {
             set(val) {
                 this.$store.commit("membership/setMembershipId", val);
             }
+        },
+        activeMembership() {
+            return this.$store.state.membership.active;
         }
     },
     methods: {

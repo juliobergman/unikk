@@ -89,7 +89,7 @@ export default {
         drawer: null,
         selectedItem: null,
         items: [
-            { title: "Users", icon: "mdi-account", to: "users" },
+            { title: "Workgroup", icon: "mdi-account-group", to: "users" },
             { title: "Charts", icon: "mdi-chart-areaspline", to: "charts" }
             // {
             //     title: "Charts",

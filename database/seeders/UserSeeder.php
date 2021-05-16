@@ -137,7 +137,7 @@ class UserSeeder extends Seeder
         ->where('id', 2)
         ->update([
             'user_id' => 1,
-            'role' => 'admin',
+            'role' => 'editor',
             'company_id' => 2
         ]);
         DB::table('memberships')

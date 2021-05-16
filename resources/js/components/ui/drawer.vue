@@ -24,7 +24,7 @@
             <v-list-item-group v-model="selectedItem" color="secondary">
                 <div v-for="item in items" :key="item.title">
                     <v-list-item
-                        v-if="!item.children"
+                        v-if="!item.children && checkAuth(item.auth)"
                         @click="
                             $router.push({ name: item.to }).catch(err => {})
                         "
@@ -84,13 +84,23 @@
 
 <script>
 export default {
-    props: ["bus", "user"],
+    props: ["bus", "user", "role"],
     data: () => ({
         drawer: null,
         selectedItem: null,
         items: [
-            { title: "Workgroup", icon: "mdi-account-group", to: "users" },
-            { title: "Charts", icon: "mdi-chart-areaspline", to: "charts" }
+            {
+                title: "Workgroup",
+                icon: "mdi-account-group",
+                to: "users",
+                auth: ["admin"]
+            },
+            {
+                title: "Charts",
+                icon: "mdi-chart-areaspline",
+                to: "charts",
+                auth: ["admin", "editor", "user"]
+            }
             // {
             //     title: "Charts",
             //     icon: "mdi-chart-areaspline",
@@ -112,6 +122,9 @@ export default {
     methods: {
         toggleDrawer() {
             this.drawer = !this.drawer;
+        },
+        checkAuth(data) {
+            return data.indexOf(this.role) < 0 ? false : true;
         },
         logout() {
             axios

@@ -4,6 +4,7 @@ const state = {
     membership: null,
     membership_id: null,
     company_id: null,
+    role: null,
     active: true
 };
 const getters = {};
@@ -55,6 +56,8 @@ const mutations = {
                     state.membership = response.data;
                     state.membership_id = response.data.id;
                     state.company_id = response.data.company_id;
+                    state.role = response.data.role;
+                    state.active = true;
                 }
             })
             .catch(response => {

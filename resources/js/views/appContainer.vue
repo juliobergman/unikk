@@ -4,7 +4,7 @@
             v-if="activeMembership"
             class="main-background-color-gradient h-100"
         >
-            <drawer-menu :bus="bus" :user="user"></drawer-menu>
+            <drawer-menu :role="userRole" :bus="bus" :user="user"></drawer-menu>
             <v-app-bar class="main-gradient" dark clipped-right app>
                 <v-app-bar-nav-icon
                     @click="bus.$emit('drawer')"
@@ -110,6 +110,9 @@ export default {
         },
         activeMembership() {
             return this.$store.state.membership.active;
+        },
+        userRole() {
+            return this.$store.state.membership.role;
         }
     },
     methods: {

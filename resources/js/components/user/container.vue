@@ -134,8 +134,10 @@ export default {
             this.bus.$emit("closeUserDialog");
         },
         showUser(user) {
-            this.userInfoDialog = true;
-            this.updateUser = user;
+            if (this.role == "admin") {
+                this.userInfoDialog = true;
+                this.updateUser = user;
+            }
         },
         userRegistered() {
             this.closeUserDialog();
@@ -162,6 +164,9 @@ export default {
     computed: {
         company() {
             return this.$store.state.membership.company_id;
+        },
+        role() {
+            return this.$store.state.membership.role;
         }
     },
     created() {
@@ -178,6 +183,11 @@ export default {
     watch: {
         company() {
             this.getUsers();
+        },
+        role() {
+            if (this.role != "admin") {
+                this.$router.push({ path: "/" });
+            }
         }
     }
 };

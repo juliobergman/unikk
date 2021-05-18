@@ -90,10 +90,16 @@ export default {
         selectedItem: null,
         items: [
             {
+                title: "Company",
+                icon: "mdi-domain",
+                to: "company",
+                auth: ["admin", "editor", "user"]
+            },
+            {
                 title: "Workgroup",
                 icon: "mdi-account-group",
                 to: "users",
-                auth: ["admin"]
+                auth: ["admin", "editor", "user"]
             },
             {
                 title: "Charts",

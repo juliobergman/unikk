@@ -9,6 +9,7 @@ Vue.use(VueRouter);
 import Dashboard from "../components/dashboard/container";
 import Users from "../components/user/container";
 import Contact from "../components/contact/container";
+import Company from "../components/company/container";
 // Charts Retrieve
 import Charts from "../components/charts/container";
 import chartList from "../components/charts/views/list";
@@ -21,6 +22,12 @@ import newLineChart from "../components/charts/new/line";
 import newPieChart from "../components/charts/new/pie";
 
 const routes = [
+    {
+        component: Company,
+        name: "company",
+        path: "/company",
+        meta: { section: "company" }
+    },
     {
         component: Users,
         name: "users",

@@ -27,7 +27,12 @@ class CompanyDataFactory extends Factory
         return [
             'address' => $this->faker->address(),
             'city' => $this->faker->city(),
-            'country' => $this->faker->countryCode()
+            'country' => strtolower($this->faker->countryCode()),
+            'phone' => $this->faker->phoneNumber(),
+            'email' => $this->faker->companyEmail(),
+            'website' => $this->faker->domainName(),
+            'info' => $this->faker->paragraph(10),
+            'logo' => 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
         ];
     }
 }

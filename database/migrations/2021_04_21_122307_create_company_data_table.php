@@ -18,6 +18,9 @@ class CreateCompanyDataTable extends Migration
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->string('website')->nullable();
+            $table->text('info')->nullable();
+            $table->string('logo')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

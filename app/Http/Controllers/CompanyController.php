@@ -18,12 +18,15 @@ class CompanyController extends Controller
         return $companies->get();
     }
 
-    public function show(Request $request)
+    public function show($id)
     {
-        $company = CompanyData::query();
-        $company->where(['id' => $request->id]);
-        $company->with('company');
-        return $company->get();
+
+        $company = Company::where('id', $id)->with('user:id,name,email')->first();
+
+        $companydata = CompanyData::where('company_id', $company->id)->first();
+        $collection = collect($company);
+        $merged = $collection->merge($companydata);
+        return $merged;
     }
 
 }

@@ -99,7 +99,7 @@ export default {
                 title: "Workgroup",
                 icon: "mdi-account-group",
                 to: "users",
-                auth: ["admin", "editor", "user"]
+                auth: ["admin"]
             },
             {
                 title: "Charts",

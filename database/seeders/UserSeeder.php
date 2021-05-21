@@ -77,7 +77,7 @@ class UserSeeder extends Seeder
         ->create();
 
 
-        User::factory(18)
+        User::factory(27)
         ->state(new Sequence(
             ['email_verified_at' => now()],
             ['email_verified_at' => null]
@@ -98,6 +98,13 @@ class UserSeeder extends Seeder
                 ['profile_pic' => '/factory/profile/female/avatar-6.jpg'],
                 ['profile_pic' => '/factory/profile/male/avatar-6.jpg'],
                 ['profile_pic' => '/factory/profile/female/avatar-7.jpg'],
+                ['profile_pic' => '/factory/profile/male/avatar-7.jpg'],
+                ['profile_pic' => '/factory/profile/female/avatar-8.jpg'],
+                ['profile_pic' => '/factory/profile/male/avatar-8.jpg'],
+                ['profile_pic' => '/factory/profile/female/avatar-9.jpg'],
+                ['profile_pic' => '/factory/profile/male/avatar-9.jpg'],
+                ['profile_pic' => '/factory/profile/female/avatar-10.jpg'],
+                ['profile_pic' => '/factory/profile/male/avatar-10.jpg']
             ))
             ->state(new Sequence(
                 ['gender' => 'female'],

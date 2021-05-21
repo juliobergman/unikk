@@ -2,7 +2,7 @@
     <v-dialog
         @click:outside="reset()"
         v-model="dialog"
-        width="500"
+        width="375"
     >
         <v-card>
             <v-progress-linear
@@ -10,29 +10,32 @@
                 indeterminate
                 class="main-gradient"
             ></v-progress-linear>
-            <v-card class="main-gradient d-flex align-end p-3" tile flat>
-                <div>
-                    <v-avatar size="120">
-                        <v-img :src="user.userdata.profile_pic"> </v-img>
-                    </v-avatar>
-                </div>
-                <v-list-item color="rgba(0, 0, 0, .4)" dark>
-                    <v-list-item-content>
-                        <v-list-item-title class="title">
-                            {{ user.name }}
-                        </v-list-item-title>
-                        <v-list-item-subtitle>
-                            {{ user.membership.job_title }}
-                        </v-list-item-subtitle>
-                    </v-list-item-content>
-                </v-list-item>
-
-                <v-btn @click="reset()" dark icon x-small class="align-self-start">
-                    <v-icon>
-                        mdi-close
-                    </v-icon>
-                </v-btn>
-
+            <v-card class="main-gradient" tile flat>
+                <v-card-actions class="mb-0 pb-0 w-100" style="position: absolute;">
+                    <v-spacer></v-spacer>
+                    <v-btn @click="reset()" dark icon x-small>
+                        <v-icon>
+                            mdi-close
+                        </v-icon>
+                    </v-btn>
+                </v-card-actions>
+                <v-card-text class="d-flex justify-center align-center flex-column">
+                    <div>
+                        <v-avatar size="120" class="align-self-center">
+                            <v-img :src="user.userdata.profile_pic"> </v-img>
+                        </v-avatar>
+                    </div>
+                    <v-list-item color="rgba(0, 0, 0, .4)" dark>
+                        <v-list-item-content>
+                            <v-list-item-title class="title text-center">
+                                {{ user.name }}
+                            </v-list-item-title>
+                            <v-list-item-subtitle class="text-wrap text-center">
+                                {{ user.membership.job_title }}
+                            </v-list-item-subtitle>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-card-text>
             </v-card>
 
             <v-card-text class="pt-3">

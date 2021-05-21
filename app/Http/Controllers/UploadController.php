@@ -20,7 +20,12 @@ class UploadController extends Controller
         // Delete Old Avatar
         $oldpath = UserData::select('profile_pic')->where('user_id', $request->user()->id)->first();
         $deletepath = str_replace('/storage/', '/public/', $oldpath->profile_pic);
-        Storage::delete($deletepath);
+
+        $factory = strstr($deletepath, '/factory/');
+
+        if(!$factory){
+            Storage::delete($deletepath);
+        };
 
         // Upload New Avatar
         $newpath = Storage::putFile('public/avatars/'.$request->user()->id, new File($request->file('avatar')));

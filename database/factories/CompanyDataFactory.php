@@ -32,7 +32,7 @@ class CompanyDataFactory extends Factory
             'email' => $this->faker->companyEmail(),
             'website' => $this->faker->domainName(),
             'info' => $this->faker->paragraph(10),
-            'logo' => 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+            'logo' => 'factory/stock/company-logo.jpg',
         ];
     }
 }

@@ -39,7 +39,7 @@ class UserSeeder extends Seeder
 
         DB::table('user_data')->insert([
             'user_id' => 1,
-            'profile_pic' => 'factory/profile/male/avatar-6.jpg',
+            'profile_pic' => '/factory/profile/male/avatar-6.jpg',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
@@ -59,7 +59,7 @@ class UserSeeder extends Seeder
 
         DB::table('user_data')->insert([
             'user_id' => 2,
-            'profile_pic' => 'factory/profile/male/avatar-2.jpg',
+            'profile_pic' => '/factory/profile/male/avatar-2.jpg',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);

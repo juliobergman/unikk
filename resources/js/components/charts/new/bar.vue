@@ -342,7 +342,7 @@
 
 <script>
 import chartCanvas from "../build/chart";
-let labels = ["a", "b", "c"];
+let labels = [];
 let dataSets = [];
 let dataOptions = {};
 
@@ -389,9 +389,6 @@ export default {
             };
         },
         addDataSet() {
-            let dataS = this.chart.datasets;
-            console.log(dataS);
-
             let ds = this.chart.datasets.length;
             this.chart.datasets.push({
                 label: "Data " + (ds + 1),
@@ -506,7 +503,7 @@ export default {
 
         // Update Data
         if (this.id) {
-            let chart_id = this.$route.params.id;
+            let chart_id = this.id;
             axios
                 .get("chart/" + chart_id)
                 .then(response => {
@@ -530,7 +527,6 @@ export default {
         }, 500);
     },
     mounted() {
-        console.log(this.chart.datasets);
         if (this.bus) {
             this.bus.$on("addDataSet", this.addDataSet);
             this.bus.$on("saveChart", this.saveChart);

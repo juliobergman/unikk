@@ -55,6 +55,20 @@
                         ></view-chart>
                     </v-col>
                 </v-row>
+                <v-system-bar lights-out class="pr-0">
+                    <v-icon>mdi-folder</v-icon>
+                    <span class="mr-2"> {{ chartData.collection_name }} </span>
+                    <v-spacer></v-spacer>
+                    <div
+                        class="btn-sys-bar rounded px-2"
+                        @click="bus.$emit('showUserProfile', chartData.user_id)"
+                    >
+                        <v-icon>
+                            mdi-account
+                        </v-icon>
+                        <span> {{ chartData.user_name }} </span>
+                    </div>
+                </v-system-bar>
             </v-card>
         </v-container>
 
@@ -116,10 +130,8 @@ export default {
         chartData: {}
     }),
     computed: {
-        currentUser: {
-            get() {
-                return this.$store.state.user.user;
-            }
+        currentUser() {
+            return this.$store.state.user.user;
         }
     },
     methods: {
@@ -169,9 +181,7 @@ export default {
                             .then(() => {
                                 this.back(this.$route.params.collection);
                             });
-                        // this.back(this.$route.params.collection);
                     }
-                    console.error(e);
                 });
         },
         deleteChart() {
@@ -240,5 +250,14 @@ export default {
     }
 };
 </script>
-
-<style></style>
+<style scoped>
+.btn-sys-bar {
+    cursor: pointer;
+}
+.theme--dark .btn-sys-bar:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+.theme--light .btn-sys-bar:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+</style>

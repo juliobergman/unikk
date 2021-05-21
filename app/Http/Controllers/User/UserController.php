@@ -76,7 +76,6 @@ class UserController extends Controller
     public function update(Request $request)
     {
 
-
         // $user = User::where('id', $request->id);
         // $membership = Membership::where('id', $request->membership);
 

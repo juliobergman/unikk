@@ -85,19 +85,19 @@ class UserSeeder extends Seeder
         ->has(
             UserData::factory()
             ->state(new Sequence(
-                ['profile_pic' => 'factory/profile/female/avatar-1.jpg'],
-                ['profile_pic' => 'factory/profile/male/avatar-1.jpg'],
-                ['profile_pic' => 'factory/profile/female/avatar-2.jpg'],
-                ['profile_pic' => 'factory/profile/male/avatar-2.jpg'],
-                ['profile_pic' => 'factory/profile/female/avatar-3.jpg'],
-                ['profile_pic' => 'factory/profile/male/avatar-3.jpg'],
-                ['profile_pic' => 'factory/profile/female/avatar-4.jpg'],
-                ['profile_pic' => 'factory/profile/male/avatar-4.jpg'],
-                ['profile_pic' => 'factory/profile/female/avatar-5.jpg'],
-                ['profile_pic' => 'factory/profile/male/avatar-5.jpg'],
-                ['profile_pic' => 'factory/profile/female/avatar-6.jpg'],
-                ['profile_pic' => 'factory/profile/male/avatar-6.jpg'],
-                ['profile_pic' => 'factory/profile/female/avatar-7.jpg'],
+                ['profile_pic' => '/factory/profile/female/avatar-1.jpg'],
+                ['profile_pic' => '/factory/profile/male/avatar-1.jpg'],
+                ['profile_pic' => '/factory/profile/female/avatar-2.jpg'],
+                ['profile_pic' => '/factory/profile/male/avatar-2.jpg'],
+                ['profile_pic' => '/factory/profile/female/avatar-3.jpg'],
+                ['profile_pic' => '/factory/profile/male/avatar-3.jpg'],
+                ['profile_pic' => '/factory/profile/female/avatar-4.jpg'],
+                ['profile_pic' => '/factory/profile/male/avatar-4.jpg'],
+                ['profile_pic' => '/factory/profile/female/avatar-5.jpg'],
+                ['profile_pic' => '/factory/profile/male/avatar-5.jpg'],
+                ['profile_pic' => '/factory/profile/female/avatar-6.jpg'],
+                ['profile_pic' => '/factory/profile/male/avatar-6.jpg'],
+                ['profile_pic' => '/factory/profile/female/avatar-7.jpg'],
             ))
             ->state(new Sequence(
                 ['gender' => 'female'],

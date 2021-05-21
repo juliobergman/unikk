@@ -2,8 +2,12 @@
     <v-navigation-drawer width="312" color="transparent" v-model="drawer" app>
         <template v-slot:prepend>
             <v-list-item two-line>
-                <v-list-item-avatar color="primary" size="56">
-                    <v-icon v-if="!user.profile_pic" large dark>
+                <v-list-item-avatar
+                    @click="bus.$emit('pickAvatar')"
+                    color="primary"
+                    size="56"
+                >
+                    <v-icon hover v-if="!user.profile_pic" large dark>
                         mdi-account-circle
                     </v-icon>
                     <img v-if="user.profile_pic" :src="user.profile_pic" />
@@ -84,11 +88,17 @@
 
 <script>
 export default {
-    props: ["bus", "user"],
+    props: ["bus"],
     data: () => ({
         drawer: null,
         selectedItem: null,
         items: [
+            {
+                title: "Dashboard",
+                icon: "mdi-view-dashboard",
+                to: "dashboard",
+                auth: ["admin", "editor", "user"]
+            },
             {
                 title: "Company",
                 icon: "mdi-domain",
@@ -126,6 +136,9 @@ export default {
         ]
     }),
     computed: {
+        user() {
+            return this.$store.state.user.user;
+        },
         role() {
             return this.$store.state.membership.role;
         },
@@ -161,3 +174,8 @@ export default {
     }
 };
 </script>
+<style scoped>
+.v-avatar img {
+    object-fit: cover;
+}
+</style>

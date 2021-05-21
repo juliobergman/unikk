@@ -3,12 +3,13 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\UploadController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\chart\ChartController;
 use App\Http\Controllers\ChartCollectionController;
-use App\Http\Controllers\MembershipController;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,7 +82,10 @@ Route::prefix('/membership')->group(function(){
     Route::middleware('auth')->delete('/{id}', [MembershipController::class, 'destroy']);
 });
 
-
+//Uploads
+Route::prefix('/upload')->group(function(){
+    Route::middleware('auth')->post('/avatar', [UploadController::class, 'avatar']);
+});
 
 
 

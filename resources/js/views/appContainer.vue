@@ -4,7 +4,7 @@
             v-if="activeMembership"
             class="main-background-color-gradient h-100"
         >
-            <drawer-menu :role="userRole" :bus="bus" :user="user"></drawer-menu>
+            <drawer-menu :bus="bus" :user="user"></drawer-menu>
             <v-app-bar class="main-gradient" dark clipped-right app>
                 <v-app-bar-nav-icon
                     @click="bus.$emit('drawer')"
@@ -72,6 +72,7 @@
             </div>
         </div>
         <no-membership-dialog v-if="!activeMembership"></no-membership-dialog>
+        <user-profile :bus="bus"></user-profile>
     </v-app>
 </template>
 
@@ -79,9 +80,11 @@
 import drawerMenu from "../components/ui/drawer";
 import Confirm from "../components/ui/confirm";
 import NoMembershipDialog from "../components/ui/noMembershipDialog.vue";
+import UserProfile from "../components/user/profile";
 export default {
     components: {
         drawerMenu,
+        UserProfile,
         Confirm,
         NoMembershipDialog
     },
@@ -113,6 +116,9 @@ export default {
         },
         userRole() {
             return this.$store.state.membership.role;
+        },
+        membership() {
+            return this.$store.state.membership.membership;
         }
     },
     methods: {

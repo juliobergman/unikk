@@ -10,7 +10,10 @@
                         cols="6"
                         md="3"
                     >
-                        <v-card>
+                        <v-card
+                            hover
+                            @click="bus.$emit('showUserProfile', member.id)"
+                        >
                             <v-img
                                 :aspect-ratio="1 / 1"
                                 :src="member.userdata.profile_pic"
@@ -21,7 +24,7 @@
                                         {{ member.name }}
                                     </v-list-item-title>
                                     <v-list-item-subtitle>
-                                        {{ member.userdata.job_title }}
+                                        {{ member.membership.job_title }}
                                     </v-list-item-subtitle>
                                 </v-list-item-content>
                             </v-list-item>

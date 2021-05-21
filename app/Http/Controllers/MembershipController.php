@@ -84,7 +84,7 @@ class MembershipController extends Controller
         }
         $avoidUsers[] = Auth::user()->id;
         $users = User::whereNotIn('id', $avoidUsers);
-        $users->with('userdata:user_id,profile_pic,job_title');
+        $users->with('userdata:user_id,profile_pic');
         return $users->get()->makeHidden(['role', 'email_verified_at', 'created_at', 'updated_at', 'email'])->toArray();
     }
 

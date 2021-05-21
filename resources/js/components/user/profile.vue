@@ -1,0 +1,155 @@
+<template>
+    <v-dialog
+        @click:outside="reset()"
+        v-model="dialog"
+        width="500"
+    >
+        <v-card>
+            <v-progress-linear
+                v-if="!loaded"
+                indeterminate
+                class="main-gradient"
+            ></v-progress-linear>
+            <v-card class="main-gradient d-flex align-end p-3" tile flat>
+                <div>
+                    <v-avatar size="120">
+                        <v-img :src="user.userdata.profile_pic"> </v-img>
+                    </v-avatar>
+                </div>
+                <v-list-item color="rgba(0, 0, 0, .4)" dark>
+                    <v-list-item-content>
+                        <v-list-item-title class="title">
+                            {{ user.name }}
+                        </v-list-item-title>
+                        <v-list-item-subtitle>
+                            {{ user.membership.job_title }}
+                        </v-list-item-subtitle>
+                    </v-list-item-content>
+                </v-list-item>
+
+                <v-btn @click="reset()" dark icon x-small class="align-self-start">
+                    <v-icon>
+                        mdi-close
+                    </v-icon>
+                </v-btn>
+
+            </v-card>
+
+            <v-card-text class="pt-3">
+                <v-list two-line>
+                    <v-list-item>
+                        <v-list-item-icon>
+                            <v-icon color="primary">
+                                mdi-email
+                            </v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-subtitle>
+                                E-mail
+                            </v-list-item-subtitle>
+                            <v-list-item-title>
+                                {{ user.email }}
+                            </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item>
+                        <v-list-item-icon>
+                            <v-icon color="primary">
+                                mdi-cellphone
+                            </v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-subtitle>
+                                Phone
+                            </v-list-item-subtitle>
+                            <v-list-item-title>
+                                {{ user.userdata.phone }}
+                            </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item>
+                        <v-list-item-icon>
+                            <v-icon color="primary">
+                                mdi-home
+                            </v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+
+                            <v-list-item-subtitle>
+                                Address
+                            </v-list-item-subtitle>
+                            <v-list-item-title class="text-wrap" v-text="user.userdata.address">
+                            </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item>
+                        <v-list-item-icon>
+                            <v-icon color="primary">
+                                mdi-timer-sand
+                            </v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+
+                            <v-list-item-subtitle>
+                                Member Since
+                            </v-list-item-subtitle>
+                            <v-list-item-title class="text-wrap" v-text="moment(user.created_at).format('MMM, YYYY')">
+                            </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-list>
+            </v-card-text>
+        </v-card>
+    </v-dialog>
+</template>
+
+<script>
+export default {
+    props: ["bus", "id"],
+    data: () => ({
+        loaded: false,
+        dialog: false,
+        user: {
+            userdata: {},
+            membership: {}
+        }
+    }),
+    methods: {
+        reset(){
+            this.loaded = false,
+            this.dialog = false;
+            this.user = { userdata: {}, membership: {} }
+        },
+        getUser(userId) {
+            this.loaded = false;
+            let data = {
+                id: userId,
+                company: localStorage.getItem("company")
+            };
+
+            if (userId) {
+                axios
+                    .post("user/show", data)
+                    .then(response => {
+                        this.user = response.data;
+                        this.dialog = true;
+                        this.loaded = true;
+                    })
+                    .catch(response => {});
+            }
+        }
+    },
+    created() {
+        this.bus.$on("showUserProfile", this.getUser);
+        this.getUser();
+    }
+};
+</script>
+
+<style scoped>
+.txtof {
+    text-overflow: unset !important;
+}
+</style>>
+
+</style>

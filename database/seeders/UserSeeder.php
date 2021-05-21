@@ -39,7 +39,6 @@ class UserSeeder extends Seeder
 
         DB::table('user_data')->insert([
             'user_id' => 1,
-            'job_title' => 'Manager',
             'profile_pic' => 'factory/profile/male/avatar-6.jpg',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
@@ -60,7 +59,6 @@ class UserSeeder extends Seeder
 
         DB::table('user_data')->insert([
             'user_id' => 2,
-            'job_title' => 'CFO',
             'profile_pic' => 'factory/profile/male/avatar-2.jpg',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
@@ -80,12 +78,6 @@ class UserSeeder extends Seeder
 
 
         User::factory(18)
-        // ->state(new Sequence(
-        //     ['role' => 'editor'],
-        //     ['role' => 'admin'],
-        //     ['role' => 'user'],
-        //     ['role' => 'user']
-        // ))
         ->state(new Sequence(
             ['email_verified_at' => now()],
             ['email_verified_at' => null]

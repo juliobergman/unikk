@@ -22,7 +22,7 @@ class MembershipFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'job_title' => $this->faker->jobTitle(),
         ];
     }
 }

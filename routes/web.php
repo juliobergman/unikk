@@ -39,7 +39,7 @@ Route::get('/test', [TestController::class, 'index']);
 Route::prefix('/user')->group(function(){
     Route::middleware('auth')->post('/new', [UserController::class, 'store']);
     Route::middleware('auth')->get('/all', [UserController::class, 'index']);
-    Route::middleware('auth')->get('/show/{id}', [UserController::class, 'show']);
+    Route::middleware('auth')->post('/show', [UserController::class, 'show']);
     Route::middleware('auth')->get('/current', [UserController::class, 'currentUser']);
     Route::middleware('auth')->put('/', [UserController::class, 'update']);
     Route::middleware('auth')->delete('/{id}', [UserController::class, 'destroy']);

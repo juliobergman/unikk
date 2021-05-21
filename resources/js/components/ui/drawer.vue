@@ -11,8 +11,8 @@
 
                 <v-list-item-content>
                     <v-list-item-title> {{ user.name }} </v-list-item-title>
-                    <v-list-item-subtitle v-if="user.job_title">
-                        {{ user.job_title }}
+                    <v-list-item-subtitle v-if="membership">
+                        {{ membership.job_title }}
                     </v-list-item-subtitle>
                 </v-list-item-content>
             </v-list-item>
@@ -84,7 +84,7 @@
 
 <script>
 export default {
-    props: ["bus", "user", "role"],
+    props: ["bus", "user"],
     data: () => ({
         drawer: null,
         selectedItem: null,
@@ -125,6 +125,14 @@ export default {
             // }
         ]
     }),
+    computed: {
+        role() {
+            return this.$store.state.membership.role;
+        },
+        membership() {
+            return this.$store.state.membership.membership;
+        }
+    },
     methods: {
         toggleDrawer() {
             this.drawer = !this.drawer;

@@ -17,7 +17,6 @@ class CreateUserDataTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->text('profile_pic')->nullable();
-            $table->string('job_title')->nullable();
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
             $table->enum('gender', ['male', 'female'])->nullable();

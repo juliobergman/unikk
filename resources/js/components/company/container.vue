@@ -70,7 +70,7 @@
             <v-card-text>{{ company.info }}</v-card-text>
         </v-card>
 
-        <work-group></work-group>
+        <work-group :bus="bus"></work-group>
     </v-main>
 </template>
 

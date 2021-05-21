@@ -22,7 +22,6 @@ class UserDataFactory extends Factory
     public function definition()
     {
         return [
-            'job_title' => $this->faker->jobTitle(),
             'phone' => $this->faker->phoneNumber(),
             'address' => $this->faker->address(),
         ];

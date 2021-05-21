@@ -23,7 +23,7 @@ class UserController extends Controller
     public function index()
     {
 
-        return User::with('userdata:user_id,profile_pic,job_title')->get()->makeHidden(['role', 'email_verified_at', 'created_at', 'updated_at', 'email'])->toArray();
+        return User::with('userdata:user_id,profile_pic')->get()->makeHidden(['role', 'email_verified_at', 'created_at', 'updated_at', 'email'])->toArray();
     }
 
     public function currentUser()
@@ -34,9 +34,16 @@ class UserController extends Controller
         return $merged;
     }
 
-    public function show($id)
+    public function show(Request $request)
     {
-        return $this->currentUser();
+        $user = User::query();
+        $user->where('id', $request->id);
+        $user->with('userdata');
+        $user->with('membership', function($query) use ($request){
+            $query->where('user_id', $request->id);
+            $query->where('company_id', $request->company);
+        });
+        return $user->first();
     }
 
     protected function validator(array $data)

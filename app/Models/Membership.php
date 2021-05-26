@@ -17,7 +17,6 @@ class Membership extends Model
     ];
 
     protected $hidden = [
-        'user_id',
         'default',
         'deleted_at',
         'created_at',

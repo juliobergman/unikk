@@ -68,6 +68,7 @@ Route::prefix('/chart')->group(function(){
 Route::middleware('auth')->prefix('/company')->group(function(){
     Route::get('/all', [CompanyController::class, 'index']);
     Route::get('/{id}', [CompanyController::class, 'show']);
+    Route::put('/{company}', [CompanyController::class, 'update']);
 });
 
 // Memberships
@@ -85,6 +86,7 @@ Route::prefix('/membership')->group(function(){
 //Uploads
 Route::prefix('/upload')->group(function(){
     Route::middleware('auth')->post('/avatar', [UploadController::class, 'avatar']);
+    Route::middleware('auth')->post('/companylogo', [UploadController::class, 'companylogo']);
 });
 
 

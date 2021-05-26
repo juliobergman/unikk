@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\CompanyData;
 use App\Models\UserData;
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
@@ -21,7 +23,7 @@ class UploadController extends Controller
         $oldpath = UserData::select('profile_pic')->where('user_id', $request->user()->id)->first();
         $deletepath = str_replace('/storage/', '/public/', $oldpath->profile_pic);
 
-        $factory = strstr($deletepath, '/factory/');
+        $factory = strstr($deletepath, 'factory/');
 
         if(!$factory){
             Storage::delete($deletepath);
@@ -35,6 +37,39 @@ class UploadController extends Controller
         // Update User Data @ (profile_pic)
         if ($newpath) {
             UserData::where('user_id', $request->user()->id)->update($update);
+        }
+
+        // Response
+        return new JsonResponse(['message' => 'Success', 'path' => $dbpath], 200);
+
+    }
+
+    public function companylogo(Request $request)
+    {
+
+        // Validation
+        $request->validate([
+            'logo' => 'required|mimes:png,jpg,jpeg|max:2048'
+        ]);
+
+        // Delete Old Logo
+        $oldpath = CompanyData::select('logo')->where('company_id', $request->company)->first();
+        $deletepath = str_replace('/storage/', '/public/', $oldpath->logo);
+
+        $factory = strstr($deletepath, 'factory/');
+
+        if(!$factory){
+            Storage::delete($deletepath);
+        };
+
+        // Upload New Logo
+        $newpath = Storage::putFile('public/company/'.$request->company.'/logo', new File($request->file('logo')));
+        $dbpath = Storage::url($newpath);
+        $update = array('logo' => $dbpath);
+
+        // Update Company Data @ (logo)
+        if ($newpath) {
+            CompanyData::where('company_id', $request->company)->update($update);
         }
 
         // Response

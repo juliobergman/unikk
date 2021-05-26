@@ -1,6 +1,5 @@
 <template>
-    <v-card>
-        <v-card-title>WorkGroup</v-card-title>
+    <v-card flat>
         <v-card-text>
             <v-container fluid class="pa-0">
                 <v-row>
@@ -8,7 +7,7 @@
                         v-for="(member, idx) in memberships"
                         :key="idx"
                         cols="6"
-                        md="3"
+                        md="2"
                     >
                         <v-card
                             hover

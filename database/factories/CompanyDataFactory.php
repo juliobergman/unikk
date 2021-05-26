@@ -32,6 +32,7 @@ class CompanyDataFactory extends Factory
             'email' => $this->faker->companyEmail(),
             'website' => $this->faker->domainName(),
             'info' => $this->faker->paragraph(10),
+            'sector' => $this->faker->bs(),
             'logo' => 'factory/stock/company-logo.jpg',
         ];
     }

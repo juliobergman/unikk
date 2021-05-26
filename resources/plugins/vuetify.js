@@ -12,7 +12,7 @@ const opts = {
         dark: false,
         themes: {
             light: {
-                primary: colors.blueGrey.base,
+                primary: colors.blueGrey.darken2,
                 secondary: colors.blue.darken2,
                 accent: colors.lightBlue.accent3,
                 info: colors.lightBlue.lighten2,

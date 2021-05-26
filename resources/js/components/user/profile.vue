@@ -7,40 +7,47 @@
                     indeterminate
                     class="main-gradient"
                 ></v-progress-linear>
-                <v-card class="main-gradient" tile flat>
-                    <v-card-actions
-                        class="mb-0 pb-0 w-100"
-                        style="position: absolute;"
+                <v-card tile flat dark>
+                    <v-img
+                        aspect-ratio="1/2"
+                        src="/factory/stock/company-logo.jpg"
                     >
-                        <v-spacer></v-spacer>
-                        <v-btn @click="reset()" dark icon x-small>
-                            <v-icon>
-                                mdi-close
-                            </v-icon>
-                        </v-btn>
-                    </v-card-actions>
-                    <v-card-text
-                        class="d-flex justify-center align-center flex-column"
-                    >
-                        <div>
-                            <v-avatar size="120" class="align-self-center">
-                                <v-img :src="user.userdata.profile_pic">
-                                </v-img>
-                            </v-avatar>
-                        </div>
-                        <v-list-item color="rgba(0, 0, 0, .4)" dark>
-                            <v-list-item-content>
-                                <v-list-item-title class="title text-center">
-                                    {{ user.name }}
-                                </v-list-item-title>
-                                <v-list-item-subtitle
-                                    class="text-wrap text-center"
-                                >
-                                    {{ user.membership.job_title }}
-                                </v-list-item-subtitle>
-                            </v-list-item-content>
-                        </v-list-item>
-                    </v-card-text>
+                        <v-card-actions
+                            class="mb-0 pb-0 w-100"
+                            style="position: absolute;"
+                        >
+                            <v-spacer></v-spacer>
+                            <v-btn @click="reset()" icon x-small>
+                                <v-icon>
+                                    mdi-close
+                                </v-icon>
+                            </v-btn>
+                        </v-card-actions>
+                        <v-card-text
+                            class="d-flex justify-center align-center flex-column"
+                        >
+                            <div>
+                                <v-avatar size="120" class="align-self-center">
+                                    <v-img :src="user.userdata.profile_pic">
+                                    </v-img>
+                                </v-avatar>
+                            </div>
+                            <v-list-item color="rgba(0, 0, 0, .4)">
+                                <v-list-item-content>
+                                    <v-list-item-title
+                                        class="title text-center"
+                                    >
+                                        {{ user.name }}
+                                    </v-list-item-title>
+                                    <v-list-item-subtitle
+                                        class="text-wrap text-center"
+                                    >
+                                        {{ user.membership.job_title }}
+                                    </v-list-item-subtitle>
+                                </v-list-item-content>
+                            </v-list-item>
+                        </v-card-text>
+                    </v-img>
                 </v-card>
 
                 <v-card-text class="pt-3">
@@ -196,8 +203,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.txtof {
-    text-overflow: unset !important;
-}
-</style>
+<style scoped></style>

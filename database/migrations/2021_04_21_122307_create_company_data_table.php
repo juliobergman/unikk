@@ -14,6 +14,7 @@ class CreateCompanyDataTable extends Migration
             $table->foreignId('company_id')->constrained()->onDelete('cascade');
             $table->string('address')->nullable();
             $table->string('city')->nullable();
+            $table->string('sector')->nullable();
             $table->string('country')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();

@@ -121,13 +121,11 @@ class MembershipController extends Controller
 
     public function update(Request $request)
     {
-
-        $updateData = $request->only('role');
-        $membership = Membership::where('id', $request->membership)->update($updateData);
-        if($membership){
-            return new JsonResponse([], 200);
+        $updateData = $request->only('role','job_title');
+        if(Membership::where('id', $request->membership)->update($updateData)){
+            $userMembership = Membership::where('id', $request->membership)->first();
+            return new JsonResponse($userMembership, 200);
         }
-
         return new JsonResponse([], 422);
     }
 

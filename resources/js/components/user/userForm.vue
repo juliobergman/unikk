@@ -68,9 +68,8 @@
                 ></v-text-field>
 
                 <v-text-field
-                    v-model="user.jobTitle"
+                    v-model="user.job_title"
                     label="Job Title"
-                    :readonly="currentUserId"
                 ></v-text-field>
 
                 <v-select
@@ -163,7 +162,7 @@ export default {
             role: undefined,
             password: undefined,
             temptoken: undefined,
-            jobTitle: undefined,
+            job_title: undefined,
             company: undefined,
             membership: undefined
         },
@@ -237,6 +236,7 @@ export default {
         },
         userUpdate() {
             this.loading = true;
+
             axios
                 .put("membership", this.user)
                 .then(response => {
@@ -294,7 +294,7 @@ export default {
             if (this.user.id) {
                 this.user.name = this.updateUser.name;
                 this.user.email = this.updateUser.email;
-                this.user.jobTitle = this.updateUser.userdata.job_title;
+                this.user.job_title = this.updateUser.membership.job_title;
                 this.user.membership = this.updateUser.membership.id;
                 this.user.company = this.updateUser.membership.company_id;
                 this.user.role = this.updateUser.membership.role;

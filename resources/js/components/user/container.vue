@@ -112,6 +112,7 @@ export default {
                 value: "name",
                 align: "left"
             },
+            { text: "Job", value: "membership.job_title" },
             { text: "Email", value: "email" },
             { text: "Role", value: "role", align: "center" },
             { text: "Verified", value: "email_verified_at", align: "center" }

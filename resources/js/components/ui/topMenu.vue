@@ -19,6 +19,7 @@
                     </v-list-item-action>
                     <v-list-item-title>Dark Mode</v-list-item-title>
                 </v-list-item>
+                <v-divider></v-divider>
                 <v-list-item
                     v-for="(link, idx) in links"
                     :key="idx"
@@ -33,6 +34,15 @@
                         <v-list-item-title
                             v-text="link.text"
                         ></v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+                <v-divider></v-divider>
+                <v-list-item @click="logout()" link>
+                    <v-list-item-icon>
+                        <v-icon>mdi-logout</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title> Logout </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
             </v-list>
@@ -65,6 +75,18 @@ export default {
                 "dark_theme",
                 this.$vuetify.theme.dark.toString()
             );
+        },
+        logout() {
+            axios
+                .post("/logout")
+                .then(response => {
+                    if (response.status == 204) {
+                        window.location.replace("/login");
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         }
     },
     mounted() {

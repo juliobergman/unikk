@@ -76,13 +76,6 @@
                 </div>
             </v-list-item-group>
         </v-list>
-        <template v-slot:append>
-            <div class="pa-2">
-                <v-btn @click="logout()" class="main-gradient" dark block>
-                    Logout
-                </v-btn>
-            </div>
-        </template>
     </v-navigation-drawer>
 </template>
 
@@ -152,18 +145,6 @@ export default {
         },
         checkAuth(data) {
             return data.indexOf(this.role) < 0 ? false : true;
-        },
-        logout() {
-            axios
-                .post("/logout")
-                .then(response => {
-                    if (response.status == 204) {
-                        window.location.replace("/login");
-                    }
-                })
-                .catch(error => {
-                    console.log(error);
-                });
         }
     },
     mounted() {

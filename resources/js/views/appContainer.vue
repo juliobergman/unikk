@@ -42,14 +42,14 @@
             :bus="bus"
         ></new-company-dialog>
         <no-membership-dialog v-if="!activeMembership"></no-membership-dialog>
-        <user-profile :bus="bus"></user-profile>
+        <profile-card :bus="bus"></profile-card>
     </v-app>
 </template>
 
 <script>
 import drawerMenu from "../components/ui/drawer";
 import Confirm from "../components/ui/confirm";
-import UserProfile from "../components/user/profile";
+import profileCard from "../components/user/profileCard";
 import newCompanyDialog from "../components/company/newCompanyDialog";
 import topMenuBtn from "../components/ui/topMenu";
 
@@ -57,7 +57,7 @@ import NoMembershipDialog from "../components/ui/noMembershipDialog.vue";
 export default {
     components: {
         drawerMenu,
-        UserProfile,
+        profileCard,
         newCompanyDialog,
         Confirm,
         NoMembershipDialog,

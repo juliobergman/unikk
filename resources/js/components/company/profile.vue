@@ -263,6 +263,9 @@ export default {
         }
     },
     created() {
+        if (this.bus) {
+            this.bus.$on("companyChange", this.editProfile);
+        }
         this.getCompanyData();
     },
     watch: {

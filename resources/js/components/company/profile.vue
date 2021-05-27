@@ -82,6 +82,7 @@
                             <v-row>
                                 <v-col cols="12" md="6">
                                     <v-text-field
+                                        v-show="company.sector || edit"
                                         :class="textFieldsClass"
                                         hide-details
                                         label="Sector"
@@ -90,6 +91,7 @@
                                     >
                                     </v-text-field>
                                     <v-text-field
+                                        v-show="company.phone || edit"
                                         :class="textFieldsClass"
                                         hide-details
                                         label="Phone"
@@ -98,6 +100,7 @@
                                     >
                                     </v-text-field>
                                     <v-text-field
+                                        v-show="company.email || edit"
                                         :class="textFieldsClass"
                                         hide-details
                                         label="Email"
@@ -108,15 +111,7 @@
                                 </v-col>
                                 <v-col cols="12" md="6">
                                     <v-text-field
-                                        v-if="false"
-                                        :class="textFieldsClass"
-                                        hide-details
-                                        label="Country"
-                                        v-model="company.country"
-                                        flat
-                                    >
-                                    </v-text-field>
-                                    <v-text-field
+                                        v-show="company.city || edit"
                                         :class="textFieldsClass"
                                         hide-details
                                         label="City"
@@ -125,6 +120,7 @@
                                     >
                                     </v-text-field>
                                     <v-text-field
+                                        v-show="company.address || edit"
                                         :class="textFieldsClass + ' text-wrap'"
                                         hide-details
                                         label="Address"

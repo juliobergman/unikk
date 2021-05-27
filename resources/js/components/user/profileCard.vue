@@ -10,7 +10,7 @@
                 <v-card tile flat dark>
                     <v-img
                         aspect-ratio="1/2"
-                        src="/factory/stock/company-logo.jpg"
+                        src="/factory/stock/company-background.jpg"
                     >
                         <v-card-actions
                             class="mb-0 pb-0 w-100"

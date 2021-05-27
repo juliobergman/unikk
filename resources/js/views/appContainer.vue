@@ -25,6 +25,7 @@
                         item-value="value"
                         label=""
                         v-model="currentCompany"
+                        v-if="showSelect"
                     >
                     </v-select>
                 </div>
@@ -94,6 +95,9 @@ export default {
         },
         membership() {
             return this.$store.state.membership.membership;
+        },
+        showSelect() {
+            return this.companies.length > 1 ? true : false;
         }
     },
     methods: {

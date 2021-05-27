@@ -33,6 +33,7 @@
                             $router.push({ name: item.to }).catch(err => {})
                         "
                         link
+                        color="primary"
                     >
                         <v-list-item-icon>
                             <v-icon>{{ item.icon }}</v-icon>

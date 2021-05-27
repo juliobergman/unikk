@@ -27,8 +27,13 @@ class Company extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function memberships()
+    {
+        return $this->hasMany(Membership::class);
+    }
+
     public function membership()
     {
-        return $this->hasMany(User::class);
+        return $this->hasOne(Membership::class);
     }
 }

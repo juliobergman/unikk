@@ -116,5 +116,5 @@ const routes = [
 ];
 
 export default new VueRouter({
-    routes // Short for routes: routes
+    routes
 });

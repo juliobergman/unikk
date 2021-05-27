@@ -10,6 +10,10 @@ class CompanyData extends Model
 {
     use SoftDeletes, HasFactory;
 
+    protected $fillable = [
+        'company_id',
+        'logo',
+    ];
     protected $hidden = [
         'company_id',
     ];

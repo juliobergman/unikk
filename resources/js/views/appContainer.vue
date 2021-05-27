@@ -28,41 +28,7 @@
                     >
                     </v-select>
                 </div>
-                <div class="ml-2">
-                    <v-tooltip v-if="!$vuetify.theme.dark" bottom>
-                        <template v-slot:activator="{ on }">
-                            <v-btn
-                                color="transparent"
-                                elevation="1"
-                                x-small
-                                v-on="on"
-                                fab
-                                @click="darkMode"
-                            >
-                                <v-icon class="mr-1"
-                                    >mdi-moon-waxing-crescent</v-icon
-                                >
-                            </v-btn>
-                        </template>
-                        <span>Dark Mode On</span>
-                    </v-tooltip>
-
-                    <v-tooltip v-else bottom>
-                        <template v-slot:activator="{ on }">
-                            <v-btn
-                                color="transparent"
-                                elevation="1"
-                                x-small
-                                v-on="on"
-                                fab
-                                @click="darkMode"
-                            >
-                                <v-icon>mdi-white-balance-sunny</v-icon>
-                            </v-btn>
-                        </template>
-                        <span>Dark Mode Off</span>
-                    </v-tooltip>
-                </div>
+                <top-menu-btn :bus="bus"></top-menu-btn>
                 <!--  -->
             </v-app-bar>
             <div class="p-3">
@@ -71,6 +37,10 @@
                 </transition>
             </div>
         </div>
+        <new-company-dialog
+            @companyChange="companySelect()"
+            :bus="bus"
+        ></new-company-dialog>
         <no-membership-dialog v-if="!activeMembership"></no-membership-dialog>
         <user-profile :bus="bus"></user-profile>
     </v-app>
@@ -79,14 +49,19 @@
 <script>
 import drawerMenu from "../components/ui/drawer";
 import Confirm from "../components/ui/confirm";
-import NoMembershipDialog from "../components/ui/noMembershipDialog.vue";
 import UserProfile from "../components/user/profile";
+import newCompanyDialog from "../components/company/newCompanyDialog";
+import topMenuBtn from "../components/ui/topMenu";
+
+import NoMembershipDialog from "../components/ui/noMembershipDialog.vue";
 export default {
     components: {
         drawerMenu,
         UserProfile,
+        newCompanyDialog,
         Confirm,
-        NoMembershipDialog
+        NoMembershipDialog,
+        topMenuBtn
     },
     data: () => ({
         transitionName: "slide-right",
@@ -127,14 +102,6 @@ export default {
                 window.location.href = "login";
             });
         },
-        darkMode() {
-            // this.bus.$emit("updateChart");
-            this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
-            localStorage.setItem(
-                "dark_theme",
-                this.$vuetify.theme.dark.toString()
-            );
-        },
         companySelect() {
             axios.get("/membership/companies").then(response => {
                 let comps = response.data;
@@ -155,24 +122,6 @@ export default {
         this.companySelect();
     },
     mounted() {
-        // Dark Theme
-        const theme = localStorage.getItem("dark_theme");
-        if (theme) {
-            if (theme === "true") {
-                this.$vuetify.theme.dark = true;
-            } else {
-                this.$vuetify.theme.dark = false;
-            }
-        } else if (
-            window.matchMedia &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches
-        ) {
-            this.$vuetify.theme.dark = true;
-            localStorage.setItem(
-                "dark_theme",
-                this.$vuetify.theme.dark.toString()
-            );
-        }
         // Router Transitions
         this.$router.beforeEach((to, from, next) => {
             let toDepth = to.path.split("/").length;

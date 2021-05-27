@@ -68,6 +68,7 @@ Route::prefix('/chart')->group(function(){
 Route::middleware('auth')->prefix('/company')->group(function(){
     Route::get('/all', [CompanyController::class, 'index']);
     Route::get('/{id}', [CompanyController::class, 'show']);
+    Route::post('/store', [CompanyController::class, 'store']);
     Route::put('/{company}', [CompanyController::class, 'update']);
 });
 

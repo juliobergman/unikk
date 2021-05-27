@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use App\Models\CompanyData;
 use Illuminate\Http\Request;
+use App\Events\companyCreated;
+use App\Models\Membership;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Validator;
 
 class CompanyController extends Controller
 {
@@ -29,6 +32,22 @@ class CompanyController extends Controller
         $collection = collect($company);
         $merged = $collection->merge($companydata);
         return $merged;
+    }
+
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => ['required', 'string', 'max:255'],
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        $newCompany = $request->user()->company()->create($request->only('name'));
+        event(new companyCreated($newCompany));
+        $membership = Membership::where('company_id', $newCompany->id)->where('user_id', $newCompany->user_id)->first();
+        return new JsonResponse(['company' => $newCompany, 'membership' => $membership], 201);
     }
 
     public function update(Request $request, Company $company)

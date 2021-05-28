@@ -390,12 +390,13 @@ export default {
         },
         addDataSet() {
             let ds = this.chart.datasets.length;
-            this.chart.datasets.push({
+            let newDataSet = {
                 label: "Data " + (ds + 1),
                 backgroundColor: this.$vuetify.theme.currentTheme
                     .qualitativePalette[ds],
                 data: []
-            });
+            };
+            this.chart.datasets = [...this.chart.datasets, newDataSet];
         },
         destroyDataSet(e) {
             if (this.chart.datasets[e]) {

@@ -7,7 +7,9 @@ Vue.use(VueRouter);
 // import wsMain from "../components/website/main";
 // Admin
 import Dashboard from "../components/dashboard/container";
+// User
 import Users from "../components/user/container";
+import Account from "../components/user/accountContainer.vue";
 import Contact from "../components/contact/container";
 import Company from "../components/company/container";
 // Charts Retrieve
@@ -27,6 +29,12 @@ const routes = [
         name: "company",
         path: "/company",
         meta: { section: "company" }
+    },
+    {
+        component: Account,
+        name: "account",
+        path: "/account",
+        meta: { section: "account" }
     },
     {
         component: Users,

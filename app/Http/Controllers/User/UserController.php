@@ -46,6 +46,14 @@ class UserController extends Controller
         return $user->first();
     }
 
+    public function profile(Request $request)
+    {
+        $user = User::query();
+        $user->where('id', $request->id);
+        $user->with('userdata');
+        return $user->first();
+    }
+
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -75,17 +83,56 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
+        $updateUser = $request->only(
+            'name',
+            'email',
+        );
+        $updateData = $request->only(
+            'phone',
+            'address',
+            'gender',
+        );
 
-        // $user = User::where('id', $request->id);
-        // $membership = Membership::where('id', $request->membership);
+        $update = User::where('id', $request->id)->update($updateUser);
 
+        if($update){
+            $dataupdate = UserData::where('user_id', $request->id)->update($updateData);
+            if ($dataupdate) {
+                return $this->currentUser();
+            }
+        }
 
-        // dd($membership);
-        // $update = User::where('id', $request->id)->update($request->only('name','email','role'));
-        // if($update){
-        //     return new JsonResponse([], 200);
-        // }
-        // return new JsonResponse([], 422);
+    }
+
+    public function newpassword(Request $request)
+    {
+        $user = Auth::user();
+
+        $this->validate($request, [
+            'old_password'          => 'required',
+            'password'              => 'required|min:8',
+            'password_confirmation' => 'required|same:password'
+        ]);
+
+        if(Hash::check($request->old_password, $user->password)){
+            // Password Validated
+            $new_password = Hash::make($request->password);
+
+            $userUpdate = User::find($user->id);
+            $userUpdate->password = $new_password;
+            $userUpdate->save();
+
+            if($userUpdate){
+                return new JsonResponse(['message' => 'Password Updated'], 200);
+            }
+
+        } else {
+
+            return new JsonResponse(['message' => 'The password you provided does not match our records'], 403);
+
+        }
+
+        return new JsonResponse(['message' => 'The given data was invalid.', 'errors' => array('password' => array('Failed to update password'))], 422);
 
     }
 

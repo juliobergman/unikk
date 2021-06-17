@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\chart\ChartController;
 use App\Http\Controllers\ChartCollectionController;
+use App\Http\Controllers\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,6 +85,11 @@ Route::prefix('/membership')->group(function(){
     Route::middleware('auth')->post('/store', [MembershipController::class, 'store']);
     Route::middleware('auth')->put('/', [MembershipController::class, 'update']);
     Route::middleware('auth')->delete('/{id}', [MembershipController::class, 'destroy']);
+});
+
+// Contacts
+Route::prefix('/contact')->group(function(){
+    Route::middleware('auth')->get('/list', [ContactController::class, 'list']);
 });
 
 //Uploads

@@ -110,6 +110,12 @@ export default {
                 icon: "mdi-chart-areaspline",
                 to: "charts",
                 auth: ["admin", "editor", "user"]
+            },
+            {
+                title: "Contacts",
+                icon: "mdi-contacts",
+                to: "contact",
+                auth: ["admin", "editor", "user"]
             }
             // {
             //     title: "Charts",

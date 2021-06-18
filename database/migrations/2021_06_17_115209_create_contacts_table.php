@@ -17,9 +17,12 @@ class CreateContactsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->string('name')->nullable();
+            $table->string('company')->nullable();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->text('address')->nullable();
+            $table->text('notes')->nullable();
+            $table->text('profile_pic')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -90,12 +90,16 @@ Route::prefix('/membership')->group(function(){
 // Contacts
 Route::prefix('/contact')->group(function(){
     Route::middleware('auth')->get('/list', [ContactController::class, 'list']);
+    Route::middleware('auth')->post('/store', [ContactController::class, 'store']);
+    Route::middleware('auth')->post('/show', [ContactController::class, 'show']);
+    Route::middleware('auth')->put('/update', [ContactController::class, 'update']);
 });
 
 //Uploads
 Route::prefix('/upload')->group(function(){
     Route::middleware('auth')->post('/avatar', [UploadController::class, 'avatar']);
     Route::middleware('auth')->post('/companylogo', [UploadController::class, 'companylogo']);
+    Route::middleware('auth')->post('/contact', [UploadController::class, 'contact']);
 });
 
 

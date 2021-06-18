@@ -15,10 +15,11 @@ class Contact extends Model
         'email',
         'phone',
         'address',
+        'profile_pic'
     ];
 
     protected $hidden = [
-
+        'deleted_at'
     ];
 
     public function user()

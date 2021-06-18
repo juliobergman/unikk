@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CompanyData;
+use App\Models\Contact;
 use App\Models\UserData;
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
@@ -70,6 +71,39 @@ class UploadController extends Controller
         // Update Company Data @ (logo)
         if ($newpath) {
             CompanyData::where('company_id', $request->company)->update($update);
+        }
+
+        // Response
+        return new JsonResponse(['message' => 'Success', 'path' => $dbpath], 200);
+
+    }
+
+    public function contact(Request $request)
+    {
+
+        // Validation
+        $request->validate([
+            'avatar' => 'required|mimes:png,jpg,jpeg|max:2048'
+        ]);
+
+        // Delete Old Avatar
+        $oldpath = Contact::select('profile_pic')->where('id', $request->id)->first();
+        $deletepath = str_replace('/storage/', '/public/', $oldpath->profile_pic);
+
+        $factory = strstr($deletepath, 'factory/');
+
+        if(!$factory){
+            Storage::delete($deletepath);
+        };
+
+        // Upload New Avatar
+        $newpath = Storage::putFile('public/contacts/'.$request->id, new File($request->file('avatar')));
+        $dbpath = Storage::url($newpath);
+        $update = array('profile_pic' => $dbpath);
+
+        // Update User Data @ (profile_pic)
+        if ($newpath) {
+            Contact::where('id', $request->id)->update($update);
         }
 
         // Response

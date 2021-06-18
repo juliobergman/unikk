@@ -10,7 +10,6 @@ import Dashboard from "../components/dashboard/container";
 // User
 import Users from "../components/user/container";
 import Account from "../components/user/accountContainer.vue";
-import Contact from "../components/contact/container";
 import Company from "../components/company/container";
 // Charts Retrieve
 import Charts from "../components/charts/container";
@@ -22,6 +21,9 @@ import newChart from "../components/charts/new/container";
 import newBarChart from "../components/charts/new/bar";
 import newLineChart from "../components/charts/new/line";
 import newPieChart from "../components/charts/new/pie";
+//Contacts
+import Contact from "../components/contact/container";
+import ContactProfile from "../components/contact/contactProfile";
 
 const routes = [
     {
@@ -119,7 +121,14 @@ const routes = [
     {
         component: Contact,
         name: "contact",
-        path: "/contact"
+        path: "/contact",
+        meta: { section: "contact" }
+    },
+    {
+        component: ContactProfile,
+        name: "contactProfile",
+        path: "/contact/:id",
+        meta: { section: "contact" }
     }
 ];
 

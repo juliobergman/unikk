@@ -1,17 +1,17 @@
 <template>
-    <v-main class="pa-3">
-        <h5>Contact</h5>
-        <hr />
-        <contact-form></contact-form>
+    <v-main>
+        <list :bus="bus"></list>
     </v-main>
 </template>
 
 <script>
-import contactForm from "./contactForm";
+import List from "./list";
 export default {
+    props: ["bus"],
     components: {
-        contactForm
-    }
+        List
+    },
+    data: () => ({})
 };
 </script>
 

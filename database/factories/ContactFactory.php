@@ -24,9 +24,11 @@ class ContactFactory extends Factory
         return [
             'user_id' => 1,
             'name' => $this->faker->name(),
+            'company' => $this->faker->company(),
             'email' => $this->faker->email(),
             'phone' => $this->faker->e164PhoneNumber(),
             'address' => $this->faker->address(),
+            'profile_pic' => 'factory/stock/user-profile.jpg',
         ];
     }
 }

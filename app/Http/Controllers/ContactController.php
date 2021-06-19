@@ -61,6 +61,10 @@ class ContactController extends Controller
 
     public function destroy(Contact $contact)
     {
-        //
+        if($contact->delete()){
+            return response()->json(['message' => 'Contact Deleted'], 200);
+        } else {
+            return response()->json(['error' =>'error'], 403);
+        }
     }
 }

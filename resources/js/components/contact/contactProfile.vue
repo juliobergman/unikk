@@ -12,16 +12,29 @@
             </v-btn>
             <v-spacer></v-spacer>
             <v-slide-x-reverse-transition>
-                <v-btn
-                    v-show="edit"
-                    :disabled="!valid"
-                    @click="update()"
-                    icon
-                    small
-                    class="mr-4"
-                >
-                    <v-icon>mdi-content-save</v-icon>
-                </v-btn>
+                <div>
+                    <v-btn
+                        v-show="edit"
+                        :disabled="!valid"
+                        @click="destroy()"
+                        icon
+                        small
+                        class="mr-4"
+                        color="danger"
+                    >
+                        <v-icon>mdi-delete</v-icon>
+                    </v-btn>
+                    <v-btn
+                        v-show="edit"
+                        :disabled="!valid"
+                        @click="update()"
+                        icon
+                        small
+                        class="mr-4"
+                    >
+                        <v-icon>mdi-content-save</v-icon>
+                    </v-btn>
+                </div>
             </v-slide-x-reverse-transition>
             <v-btn icon small v-if="!edit" @click="editContact(true)">
                 <v-icon>
@@ -196,15 +209,19 @@
             </v-form>
         </v-card>
         <confirm ref="confirm"></confirm>
+        <alert ref="alert"></alert>
     </v-main>
 </template>
 
 <script>
+import axios from "axios";
 import confirm from "../ui/confirm";
+import alert from "../ui/alert";
 export default {
     props: ["bus"],
     components: {
-        confirm
+        confirm,
+        alert
     },
     data: () => ({
         valid: true,
@@ -256,7 +273,6 @@ export default {
                 this.$refs.confirm
                     .open("Call...", message, { color: "primary" })
                     .then(response => {
-                        console.log(response);
                         if (response) {
                             let phoneNumber = "tel:" + this.contact.phone;
                             window.location.href = phoneNumber;
@@ -301,6 +317,37 @@ export default {
                     console.log(response);
                     console.log(response.response);
                 });
+        },
+        destroy() {
+            let message =
+                "Do you really want to DELETE " +
+                this.contact.name +
+                " from your contact list?";
+            this.$refs.confirm
+                .open("Delete Contact", message, { color: "danger" })
+                .then(response => {
+                    if (response) {
+                        axios
+                            .delete("contact/destroy/" + this.$route.params.id)
+                            .then(response => {
+                                this.$refs.alert
+                                    .open(
+                                        "Contact Deleted",
+                                        "Contact Successfully Deleted",
+                                        {
+                                            color: "primary"
+                                        }
+                                    )
+                                    .then(() => {
+                                        this.$router.push({ name: "contact" });
+                                    });
+                            })
+                            .catch(response => {
+                                console.error(response);
+                            });
+                    }
+                })
+                .catch(response => {});
         }
     },
     created() {

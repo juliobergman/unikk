@@ -94,6 +94,7 @@ Route::prefix('/contact')->group(function(){
     Route::middleware('auth')->post('/store', [ContactController::class, 'store']);
     Route::middleware('auth')->post('/show', [ContactController::class, 'show']);
     Route::middleware('auth')->put('/update', [ContactController::class, 'update']);
+    Route::middleware('auth')->delete('/destroy/{contact}', [ContactController::class, 'destroy']);
 });
 
 // Peccs

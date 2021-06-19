@@ -4,82 +4,76 @@ namespace App\Http\Controllers;
 
 use App\Models\Pecc;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 
 class PeccController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        abort(404);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function list()
     {
-        //
+        $peccs = Pecc::where('user_id', Auth::user()->id);
+        return $peccs->get();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $pecc = array(
+            'fund' => $request->fund,
+            'type' => $request->type,
+            'region' => $request->region,
+            'based' => $request->based,
+            'main_countries' => $request->main_countries,
+            'main_cities' => $request->main_cities,
+            'sector' => $request->sector,
+            'geo_focus' => $request->geo_focus,
+            'logo' => 'factory/stock/company-logo.jpg',
+        );
+
+        $newPecc = $request->user()->peccs()->create($pecc);
+        return $newPecc;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Pecc  $pecc
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Pecc $pecc)
+    public function show(Request $request)
     {
-        //
+        return Pecc::where('id', $request->id)->first();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Pecc  $pecc
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Pecc $pecc)
+    public function update(Request $request)
     {
-        //
+
+        $updatePecc = $request->only(
+            'fund',
+            'type',
+            'region',
+            'based',
+            'main_countries',
+            'main_cities',
+            'sector',
+            'geo_focus'
+        );
+
+        $update = Pecc::where('id', $request->id)->update($updatePecc);
+
+        if($update){
+            return new JsonResponse(['message' => 'Success'], 200);
+        }
+
+        return new JsonResponse(['error' => 'Failed'], 422);
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Pecc  $pecc
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Pecc $pecc)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Pecc  $pecc
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Pecc $pecc)
     {
-        //
+        if($pecc->delete()){
+            return response()->json(['message' => 'Pecc Deleted'], 200);
+        } else {
+            return response()->json(['error' =>'error'], 403);
+        }
     }
 }

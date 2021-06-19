@@ -81,4 +81,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Contact::class);
     }
+
+    public function peccs()
+    {
+        return $this->hasMany(Pecc::class);
+    }
 }

@@ -13,14 +13,15 @@ class CreatePeccsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->default(1)->constrained();
 
-            $table->string('fund');
-            $table->string('type');
-            $table->text('region');
-            $table->string('based');
-            $table->text('main_countries');
-            $table->text('main_cities');
-            $table->text('sector');
-            $table->text('geo_focus');
+            $table->string('fund')->nullable();
+            $table->string('type')->nullable();
+            $table->text('region')->nullable();
+            $table->string('based')->nullable();
+            $table->text('main_countries')->nullable();
+            $table->text('main_cities')->nullable();
+            $table->text('sector')->nullable();
+            $table->text('geo_focus')->nullable();
+            $table->text('logo')->nullable();
 
             $table->softDeletes();
             $table->timestamps();

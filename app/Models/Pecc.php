@@ -19,12 +19,11 @@ class Pecc extends Model
         'main_countries',
         'main_cities',
         'sector',
-        'geo_focus',
-        'updated_at'
+        'geo_focus'
     ];
 
     protected $hidden = [
-
+        'deleted_at'
     ];
 
     public function user()

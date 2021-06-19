@@ -11,6 +11,7 @@ use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\chart\ChartController;
 use App\Http\Controllers\ChartCollectionController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\PeccController;
 
 /*
 |--------------------------------------------------------------------------
@@ -93,6 +94,15 @@ Route::prefix('/contact')->group(function(){
     Route::middleware('auth')->post('/store', [ContactController::class, 'store']);
     Route::middleware('auth')->post('/show', [ContactController::class, 'show']);
     Route::middleware('auth')->put('/update', [ContactController::class, 'update']);
+});
+
+// Peccs
+Route::prefix('/pecc')->group(function(){
+    Route::middleware('auth')->get('/list', [PeccController::class, 'list']);
+    Route::middleware('auth')->post('/store', [PeccController::class, 'store']);
+    Route::middleware('auth')->post('/show', [PeccController::class, 'show']);
+    Route::middleware('auth')->put('/update', [PeccController::class, 'update']);
+    Route::middleware('auth')->delete('/destroy/{pecc}', [PeccController::class, 'destroy']);
 });
 
 //Uploads

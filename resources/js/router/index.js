@@ -24,6 +24,9 @@ import newPieChart from "../components/charts/new/pie";
 //Contacts
 import Contact from "../components/contact/container";
 import ContactProfile from "../components/contact/contactProfile";
+//Peccs
+import Pecc from "../components/pecc/container";
+import PeccProfile from "../components/pecc/peccProfile";
 
 const routes = [
     {
@@ -129,6 +132,18 @@ const routes = [
         name: "contactProfile",
         path: "/contact/:id",
         meta: { section: "contact" }
+    },
+    {
+        component: Pecc,
+        name: "pecc",
+        path: "/pecc",
+        meta: { section: "pecc" }
+    },
+    {
+        component: PeccProfile,
+        name: "peccProfile",
+        path: "/pecc/:id/:ref?",
+        meta: { section: "pecc" }
     }
 ];
 

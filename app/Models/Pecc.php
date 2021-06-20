@@ -19,6 +19,8 @@ class Pecc extends Model
         'main_countries',
         'main_cities',
         'sector',
+        'notes',
+        'logo',
         'geo_focus'
     ];
 

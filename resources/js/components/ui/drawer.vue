@@ -116,6 +116,12 @@ export default {
                 icon: "mdi-contacts",
                 to: "contact",
                 auth: ["admin", "editor", "user"]
+            },
+            {
+                title: "PECC",
+                icon: "mdi-ferry",
+                to: "pecc",
+                auth: ["admin"]
             }
             // {
             //     title: "Charts",

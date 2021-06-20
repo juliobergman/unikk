@@ -111,6 +111,7 @@ Route::prefix('/upload')->group(function(){
     Route::middleware('auth')->post('/avatar', [UploadController::class, 'avatar']);
     Route::middleware('auth')->post('/companylogo', [UploadController::class, 'companylogo']);
     Route::middleware('auth')->post('/contact', [UploadController::class, 'contact']);
+    Route::middleware('auth')->post('/pecc', [UploadController::class, 'pecc']);
 });
 
 

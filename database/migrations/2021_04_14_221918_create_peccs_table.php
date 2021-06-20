@@ -22,6 +22,7 @@ class CreatePeccsTable extends Migration
             $table->text('sector')->nullable();
             $table->text('geo_focus')->nullable();
             $table->text('logo')->nullable();
+            $table->text('notes')->nullable();
 
             $table->softDeletes();
             $table->timestamps();

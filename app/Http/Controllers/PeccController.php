@@ -32,6 +32,7 @@ class PeccController extends Controller
             'main_cities' => $request->main_cities,
             'sector' => $request->sector,
             'geo_focus' => $request->geo_focus,
+            'notes' => $request->notes,
             'logo' => 'factory/stock/company-logo.jpg',
         );
 
@@ -41,7 +42,13 @@ class PeccController extends Controller
 
     public function show(Request $request)
     {
-        return Pecc::where('id', $request->id)->first();
+        $pecc = Pecc::where('id', $request->id)->first();
+
+        if ($pecc) {
+            return $pecc;
+        }
+
+        return new JsonResponse(['error' => 'Not Found'], 404);
     }
 
     public function update(Request $request)
@@ -55,7 +62,8 @@ class PeccController extends Controller
             'main_countries',
             'main_cities',
             'sector',
-            'geo_focus'
+            'geo_focus',
+            'notes'
         );
 
         $update = Pecc::where('id', $request->id)->update($updatePecc);

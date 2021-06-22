@@ -126,6 +126,7 @@ export default {
         this.companySelect();
     },
     mounted() {
+        this.bus.$on("companySelect", this.companySelect);
         // Router Transitions
         this.$router.beforeEach((to, from, next) => {
             let toDepth = to.path.split("/").length;

@@ -12,6 +12,8 @@ class Company extends Model
 
     protected $fillable = [
         'name',
+        'company_id',
+        'type',
     ];
 
     protected $hidden = [
@@ -35,5 +37,15 @@ class Company extends Model
     public function membership()
     {
         return $this->hasOne(Membership::class);
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(self::class, 'company_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(self::class, 'company_id');
     }
 }

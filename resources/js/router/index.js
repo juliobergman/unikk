@@ -27,6 +27,9 @@ import ContactProfile from "../components/contact/contactProfile";
 //Peccs
 import Pecc from "../components/pecc/container";
 import PeccProfile from "../components/pecc/peccProfile";
+//Target
+import Target from "../components/target/container";
+import TargetProfile from "../components/target/targetProfile";
 
 const routes = [
     {
@@ -144,6 +147,18 @@ const routes = [
         name: "peccProfile",
         path: "/pecc/:id/:ref?",
         meta: { section: "pecc" }
+    },
+    {
+        component: Target,
+        name: "target",
+        path: "/target",
+        meta: { section: "target" }
+    },
+    {
+        component: TargetProfile,
+        name: "targetProfile",
+        path: "/target/:id/:ref?",
+        meta: { section: "target" }
     }
 ];
 

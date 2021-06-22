@@ -34,6 +34,14 @@ class CompanyDataFactory extends Factory
             'info' => $this->faker->paragraph(10),
             'sector' => $this->faker->bs(),
             'logo' => 'factory/stock/company-logo.jpg',
+            // Target Data
+            'company_ov' => $this->faker->paragraph(10),
+            'financial_ov' => $this->faker->paragraph(10),
+            'milestones' => $this->faker->paragraph(10),
+            'competitors' => $this->faker->paragraph(10),
+            'goals' => $this->faker->paragraph(10),
+            'channels' => $this->faker->paragraph(10),
+            'challenges' => $this->faker->paragraph(10),
         ];
     }
 }

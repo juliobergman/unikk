@@ -12,6 +12,7 @@ use App\Http\Controllers\chart\ChartController;
 use App\Http\Controllers\ChartCollectionController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PeccController;
+use App\Http\Controllers\TargetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -104,6 +105,16 @@ Route::prefix('/pecc')->group(function(){
     Route::middleware('auth')->post('/show', [PeccController::class, 'show']);
     Route::middleware('auth')->put('/update', [PeccController::class, 'update']);
     Route::middleware('auth')->delete('/destroy/{pecc}', [PeccController::class, 'destroy']);
+});
+
+// Targets
+Route::prefix('/target')->group(function(){
+    Route::middleware('auth')->get('/list/{id}', [TargetController::class, 'list']);
+    Route::middleware('auth')->post('/store', [TargetController::class, 'store']);
+    Route::middleware('auth')->post('/show', [TargetController::class, 'show']);
+    Route::middleware('auth')->put('/update', [TargetController::class, 'update']);
+    Route::middleware('auth')->put('/acquire', [TargetController::class, 'acquire']);
+    Route::middleware('auth')->delete('/destroy/{company}', [TargetController::class, 'destroy']);
 });
 
 //Uploads

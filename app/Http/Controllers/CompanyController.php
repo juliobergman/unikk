@@ -44,7 +44,7 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         $this->validator($request->all())->validate();
-        $newCompany = $request->user()->company()->create($request->only('name'));
+        $newCompany = $request->user()->company()->create($request->only(['name','type','company_id']));
         event(new companyCreated($newCompany));
         $membership = Membership::where('company_id', $newCompany->id)->where('user_id', $newCompany->user_id)->first();
         return new JsonResponse(['company' => $newCompany, 'membership' => $membership], 201);

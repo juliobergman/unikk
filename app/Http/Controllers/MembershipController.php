@@ -48,13 +48,17 @@ class MembershipController extends Controller
 
         $user = Auth::user();
 
-        $companies = Membership::query();
+        $memberships = Membership::query();
+        $memberships->where('user_id', $user->id);
 
-        $companies->where('user_id', $user->id);
-        $companies->withCount('company');
-        $companies->with('company');
+        $memberships->whereHas('company', function($query){
+            $query->where('type', 'active');
+        });
 
-        return $companies->get();
+        $memberships->withCount('company');
+        $memberships->with('company');
+
+        return $memberships->get();
     }
 
     public function users(Company $company)

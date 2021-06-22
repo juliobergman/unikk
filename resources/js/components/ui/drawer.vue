@@ -122,6 +122,12 @@ export default {
                 icon: "mdi-ferry",
                 to: "pecc",
                 auth: ["admin"]
+            },
+            {
+                title: "Targets",
+                icon: "mdi-target",
+                to: "target",
+                auth: ["admin"]
             }
             // {
             //     title: "Charts",

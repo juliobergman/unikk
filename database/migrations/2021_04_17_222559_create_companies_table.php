@@ -11,7 +11,10 @@ class CreateCompaniesTable extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
+            $table->unsignedBigInteger('company_id')->nullable();
+            $table->foreign('company_id')->references('id')->on('companies');
             $table->string('name');
+            $table->enum('type', ['active','target'])->default('active');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -76,6 +76,20 @@ class UserSeeder extends Seeder
         ))
         ->create();
 
+        Company::factory(10)
+        ->has(CompanyData::factory())
+        ->has(
+            Membership::factory()
+            ->state(['user_id' => 1])
+            ->state(['role' => 'admin'])
+        )
+        ->state([
+            'user_id' => 1,
+            'company_id' => 1,
+            'type' => 'target',
+        ])
+        ->create();
+
 
         User::factory(20)
         ->state(new Sequence(

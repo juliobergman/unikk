@@ -118,7 +118,7 @@ export default {
                 auth: ["admin", "editor", "user"]
             },
             {
-                title: "PECC",
+                title: "Private Equity Funds",
                 icon: "mdi-ferry",
                 to: "pecc",
                 auth: ["admin"]

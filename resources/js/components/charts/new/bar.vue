@@ -342,6 +342,7 @@
 
 <script>
 import chartCanvas from "../build/chart";
+import { processLabels } from "./fun";
 let labels = [];
 let dataSets = [];
 let dataOptions = {};
@@ -364,25 +365,17 @@ export default {
         options: {}
     }),
     methods: {
-        processLabels(labels) {
-            if (typeof labels === "string") {
-                // Check if is String
-                labels = labels.split(","); // Split to Array by
-            }
-
-            labels = labels.map(function(e) {
-                // Trim the array Object
-                return e.trim();
-            });
-            labels = labels.filter(el => {
-                // Remove empty
-                return el != null && el != "";
-            });
-
-            return labels;
-        },
+        // processLabels(labels) {
+        //     if (typeof labels === "string") {
+        //         // Check if is String
+        //         labels = labels.split(","); // Split to Array
+        //     }
+        //     labels = labels.map(e => e.trim());
+        //     labels = labels.filter(el => el != null && el != "");
+        //     return labels;
+        // },
         chartData() {
-            let cLabels = this.processLabels(this.chart.labels);
+            let cLabels = processLabels(this.chart.labels);
             return {
                 labels: cLabels,
                 datasets: this.chart.datasets
@@ -433,7 +426,7 @@ export default {
             });
 
             let chartdata = {
-                labels: this.processLabels(this.chart.labels),
+                labels: processLabels(this.chart.labels),
                 datasets: datasets
             };
 

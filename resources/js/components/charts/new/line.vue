@@ -474,6 +474,7 @@
 
 <script>
 import chartCanvas from "../build/chart";
+import { processLabels } from "./fun";
 let labels = [];
 let dataSets = [];
 let dataOptions = {};
@@ -496,29 +497,12 @@ export default {
         options: {}
     }),
     methods: {
-        processLabels(labels) {
-            if (typeof labels === "string") {
-                // Check if is String
-                labels = labels.split(","); // Split to Array by
-            }
-
-            labels = labels.map(function(e) {
-                // Trim the array Object
-                return e.trim();
-            });
-            labels = labels.filter(el => {
-                // Remove empty
-                return el != null && el != "";
-            });
-
-            return labels;
-        },
         chartData() {
             // Labels
-            labels = this.processLabels(this.chart.labels);
+            let cLabels = processLabels(this.chart.labels);
             return {
-                labels: labels,
-                datasets: dataSets
+                labels: cLabels,
+                datasets: this.chart.datasets
             };
         },
         processColor(color) {
@@ -529,7 +513,7 @@ export default {
         addDataSet() {
             let ds = this.chart.datasets.length;
             let color = this.$vuetify.theme.currentTheme.qualitativePalette[ds];
-            this.chart.datasets.push({
+            let newDataSet = {
                 label: "Data " + (ds + 1),
                 backgroundColor: this.processColor(color),
                 borderColor: color,
@@ -542,7 +526,8 @@ export default {
                 showLine: true,
                 pointRadius: 3,
                 data: []
-            });
+            };
+            this.chart.datasets = [...this.chart.datasets, newDataSet];
         },
         destroyDataSet(e) {
             if (this.chart.datasets[e]) {
@@ -593,7 +578,7 @@ export default {
             });
 
             let chartdata = {
-                labels: this.processLabels(this.chart.labels),
+                labels: processLabels(this.chart.labels),
                 datasets: datasets
             };
 
@@ -613,20 +598,20 @@ export default {
         // Defaults
         labels = [];
         dataSets = [
-            // {
-            //     label: "Data",
-            //     backgroundColor: "#3737FF33",
-            //     borderColor: "#3737FF99",
-            //     pointBackgroundColor: "#3737FF99",
-            //     borderWidth: 3,
-            //     fill: true,
-            //     tension: 0.3,
-            //     spanGaps: true,
-            //     borderDash: [0, 0],
-            //     showLine: true,
-            //     pointRadius: 3,
-            //     data: []
-            // }
+            {
+                label: "Data",
+                backgroundColor: "#3737FF33",
+                borderColor: "#3737FF99",
+                pointBackgroundColor: "#3737FF99",
+                borderWidth: 3,
+                fill: true,
+                tension: 0.3,
+                spanGaps: true,
+                borderDash: [0, 0],
+                showLine: true,
+                pointRadius: 3,
+                data: []
+            }
         ];
 
         dataOptions = {

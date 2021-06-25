@@ -256,6 +256,7 @@
 
 <script>
 import chartCanvas from "../build/chart";
+import { processLabels } from "./fun";
 let labels = [];
 let dataSets = [];
 let dataOptions = {};
@@ -274,21 +275,9 @@ export default {
         options: {}
     }),
     methods: {
-        processLabels(labels) {
-            if (typeof labels === "string") {
-                // Check if is String
-                labels = labels.split(","); // Split to Array by
-            }
-
-            labels = labels.map(function(e) {
-                // Trim the array Object
-                return e.trim();
-            });
-            labels = labels.filter(el => {
-                // Remove empty
-                return el != null && el != "";
-            });
-            labels.forEach((e, i) => {
+        getLabels(labels) {
+            let pLabels = processLabels(labels);
+            pLabels.forEach((e, i) => {
                 if (!this.chart.datasets[0].backgroundColor[i]) {
                     this.chart.datasets[0].backgroundColor[
                         i
@@ -296,15 +285,14 @@ export default {
                 }
             });
 
-            return labels;
+            return pLabels;
         },
         chartData() {
             // Labels
-            labels = this.processLabels(this.chart.labels);
-
+            let cLabels = this.getLabels(this.chart.labels);
             return {
-                labels: labels,
-                datasets: dataSets
+                labels: cLabels,
+                datasets: this.chart.datasets
             };
         },
         updateChart() {
@@ -326,7 +314,7 @@ export default {
             });
 
             let chartdata = {
-                labels: this.processLabels(this.chart.labels),
+                labels: this.getLabels(this.chart.labels),
                 datasets: datasets
             };
 

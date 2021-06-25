@@ -4,7 +4,11 @@
             v-if="activeMembership"
             class="main-background-color-gradient h-100"
         >
-            <drawer-menu :bus="bus" :user="user"></drawer-menu>
+            <drawer-menu
+                :optionsBtn="topMenu"
+                :bus="bus"
+                :user="user"
+            ></drawer-menu>
             <v-app-bar class="main-gradient" dark clipped-right app>
                 <v-app-bar-nav-icon
                     @click="bus.$emit('drawer')"
@@ -29,7 +33,7 @@
                     >
                     </v-select>
                 </div>
-                <top-menu-btn :bus="bus"></top-menu-btn>
+                <top-menu-btn v-if="topMenu" :bus="bus"></top-menu-btn>
                 <!--  -->
             </v-app-bar>
             <div class="p-3">
@@ -65,6 +69,8 @@ export default {
         topMenuBtn
     },
     data: () => ({
+        isMobile: false,
+        topMenu: true,
         transitionName: "slide-right",
         bus: new Vue(),
         drawer: null,
@@ -101,6 +107,10 @@ export default {
         }
     },
     methods: {
+        onResize() {
+            this.isMobile = window.innerWidth < 600;
+            this.topMenu = window.innerWidth > 400;
+        },
         logout() {
             axios.post("/logout").then(response => {
                 window.location.href = "login";
@@ -125,6 +135,10 @@ export default {
         this.$store.dispatch("membership/getCompanyId");
         this.companySelect();
     },
+    beforeDestroy() {
+        if (typeof window === "undefined") return;
+        window.removeEventListener("resize", this.onResize, { passive: true });
+    },
     mounted() {
         this.bus.$on("companySelect", this.companySelect);
         // Router Transitions
@@ -140,6 +154,8 @@ export default {
 
             next();
         });
+        this.onResize();
+        window.addEventListener("resize", this.onResize, { passive: true });
     },
     watch: {
         currentCompany() {

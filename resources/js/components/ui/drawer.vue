@@ -1,5 +1,16 @@
 <template>
-    <v-navigation-drawer width="312" color="transparent" v-model="drawer" app>
+    <v-navigation-drawer width="312" v-model="drawer" app>
+        <!-- <template v-slot:append>
+            <div>
+                <v-divider class="my-0"></v-divider>
+                <v-btn block text>
+                    <v-icon small class="mr-2">
+                        mdi-cog
+                    </v-icon>
+                    Options
+                </v-btn>
+            </div>
+        </template> -->
         <template v-slot:prepend>
             <v-list-item two-line>
                 <v-list-item-avatar
@@ -77,12 +88,32 @@
                 </div>
             </v-list-item-group>
         </v-list>
+
+        <template v-slot:append v-if="!optionsBtn">
+            <v-expansion-panels>
+                <v-expansion-panel :key="1">
+                    <v-expansion-panel-header>
+                        Options
+                        <template v-slot:actions>
+                            <v-icon small>
+                                mdi-cog
+                            </v-icon>
+                        </template>
+                    </v-expansion-panel-header>
+                    <v-expansion-panel-content>
+                        <top-menu-content :bus="bus"></top-menu-content>
+                    </v-expansion-panel-content>
+                </v-expansion-panel>
+            </v-expansion-panels>
+        </template>
     </v-navigation-drawer>
 </template>
 
 <script>
+import TopMenuContent from "./topMenuContent";
 export default {
-    props: ["bus"],
+    props: ["bus", "optionsBtn"],
+    components: { TopMenuContent },
     data: () => ({
         drawer: null,
         selectedItem: null,

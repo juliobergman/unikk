@@ -128,16 +128,4 @@ Route::prefix('/upload')->group(function(){
     Route::middleware('auth')->post('/pecc', [UploadController::class, 'pecc']);
 });
 
-//Reports
-Route::prefix('/financial')->group(function(){
-    // Fields
-    Route::prefix('/fields')->group(function(){
-        Route::get('/all', [FinancialFieldsController::class, 'index']);
-    });
-    Route::prefix('/schema')->group(function(){
-        Route::get('/all', [FinancialSchemaController::class, 'index']);
-        Route::get('/show/{id}', [FinancialSchemaController::class, 'show']);
-    });
-});
-
 

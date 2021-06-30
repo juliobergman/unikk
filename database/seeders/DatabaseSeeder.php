@@ -19,12 +19,7 @@ class DatabaseSeeder extends Seeder
             ChartSeeder::class,
             PeccSeeder::class,
             ReportSchemaSeeder::class,
-            ContactSeeder::class,
-            FinancialFieldsSeeder::class,
-            FinancialReportSeeder::class,
-            FinancialSchemaSeeder::class,
-            FinancialSchemaDataSeeder::class,
-            FinancialDataSeeder::class,
+            ContactSeeder::class
         ]);
     }
 }

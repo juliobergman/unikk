@@ -44,9 +44,15 @@ class FinancialSchemaController extends Controller
      * @param  \App\Models\FinancialSchema  $financialSchema
      * @return \Illuminate\Http\Response
      */
-    public function show(FinancialSchema $financialSchema)
+    public function show($id)
     {
-        //
+
+        $schema = FinancialSchema::query();
+        $schema->where('id', $id);
+        $schema->with(['data' => function ($query) {
+            $query->where('parent', '=', null);
+        }]);
+        return $schema->first();
     }
 
     /**

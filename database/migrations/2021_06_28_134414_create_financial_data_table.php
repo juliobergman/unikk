@@ -15,6 +15,9 @@ class CreateFinancialDataTable extends Migration
     {
         Schema::create('financial_data', function (Blueprint $table) {
             $table->id();
+            $table->date('date');
+            $table->decimal('amount', $precision = 8, $scale = 2);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

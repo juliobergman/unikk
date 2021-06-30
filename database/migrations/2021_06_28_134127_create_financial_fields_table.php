@@ -15,6 +15,16 @@ class CreateFinancialFieldsTable extends Migration
     {
         Schema::create('financial_fields', function (Blueprint $table) {
             $table->id();
+
+            $table->unsignedBigInteger('company_id')->nullable();
+            $table->foreign('company_id')->references('id')->on('companies');
+
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
+
+            $table->string('code');
+            $table->string('name');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

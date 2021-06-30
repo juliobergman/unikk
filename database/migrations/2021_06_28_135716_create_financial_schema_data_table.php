@@ -15,6 +15,12 @@ class CreateFinancialSchemaDataTable extends Migration
     {
         Schema::create('financial_schema_data', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('financial_schema_id')->constrained();
+            $table->unsignedBigInteger('parent')->nullable();
+            $table->foreign('parent')->references('id')->on('financial_schema_data');
+            $table->integer('code')->unique()->nullable();
+            $table->string('name');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

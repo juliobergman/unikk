@@ -11,8 +11,11 @@ use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\chart\ChartController;
 use App\Http\Controllers\ChartCollectionController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\FinancialFieldsController;
+use App\Http\Controllers\FinancialSchemaController;
 use App\Http\Controllers\PeccController;
 use App\Http\Controllers\TargetController;
+use App\Models\FinancialFields;
 
 /*
 |--------------------------------------------------------------------------
@@ -125,5 +128,16 @@ Route::prefix('/upload')->group(function(){
     Route::middleware('auth')->post('/pecc', [UploadController::class, 'pecc']);
 });
 
+//Reports
+Route::prefix('/financial')->group(function(){
+    // Fields
+    Route::prefix('/fields')->group(function(){
+        Route::get('/all', [FinancialFieldsController::class, 'index']);
+    });
+    Route::prefix('/schema')->group(function(){
+        Route::get('/all', [FinancialSchemaController::class, 'index']);
+        Route::get('/show/{id}', [FinancialSchemaController::class, 'show']);
+    });
+});
 
 

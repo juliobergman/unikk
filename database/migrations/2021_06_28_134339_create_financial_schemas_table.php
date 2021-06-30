@@ -15,6 +15,10 @@ class CreateFinancialSchemasTable extends Migration
     {
         Schema::create('financial_schemas', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('company_id')->constrained();
+            $table->string('name');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

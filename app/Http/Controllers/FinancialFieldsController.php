@@ -14,7 +14,7 @@ class FinancialFieldsController extends Controller
      */
     public function index()
     {
-        //
+        return FinancialFields::all();
     }
 
     /**

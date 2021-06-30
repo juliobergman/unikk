@@ -15,6 +15,7 @@ class CreateFinancialReportsTable extends Migration
     {
         Schema::create('financial_reports', function (Blueprint $table) {
             $table->id();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

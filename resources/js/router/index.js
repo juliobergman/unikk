@@ -30,6 +30,9 @@ import PeccProfile from "../components/pecc/peccProfile";
 //Target
 import Target from "../components/target/container";
 import TargetProfile from "../components/target/targetProfile";
+// Reporting
+import Financial from "../components/financial/container";
+import FinancialReport from "../components/financial/section/report";
 
 const routes = [
     {
@@ -159,6 +162,18 @@ const routes = [
         name: "targetProfile",
         path: "/target/:id/:ref?",
         meta: { section: "target" }
+    },
+    {
+        component: Financial,
+        name: "financial",
+        path: "/financial",
+        meta: { section: "financial" }
+    },
+    {
+        component: FinancialReport,
+        name: "financialReport",
+        path: "/financial/report",
+        meta: { section: "financial" }
     }
 ];
 

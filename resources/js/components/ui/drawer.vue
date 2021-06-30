@@ -159,6 +159,12 @@ export default {
                 icon: "mdi-target",
                 to: "target",
                 auth: ["admin"]
+            },
+            {
+                title: "Financial",
+                icon: "mdi-currency-usd",
+                to: "financial",
+                auth: ["admin"]
             }
             // {
             //     title: "Charts",

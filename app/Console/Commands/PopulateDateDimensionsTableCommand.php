@@ -45,7 +45,7 @@ class PopulateDateDimensionsTableCommand extends Command
         $this->info(now()->toDateTimeString() . " Start: app:PopulateDateDimensionsTableCommand");
 
         // Truncate all records
-        DateDimension::truncate();
+        // DateDimension::truncate();
 
         // Create an empty array and save the transformed input to array
         $dataToInsert = [];

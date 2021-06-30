@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +14,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        Artisan::call('app:PopulateDateDimensionsTableCommand');
+
         $this->call([
             UserSeeder::class,
             ChartCollectionSeeder::class,
@@ -22,5 +25,6 @@ class DatabaseSeeder extends Seeder
             ContactSeeder::class,
             DateDimensionSeeder::class
         ]);
+
     }
 }

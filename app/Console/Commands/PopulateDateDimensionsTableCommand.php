@@ -52,7 +52,7 @@ class PopulateDateDimensionsTableCommand extends Command
 
         // Get the date range
         // @NOTE - update the start and end date as per your choice
-        $dates = CarbonPeriod::create('2020-01-01', '2030-12-31');
+        $dates = CarbonPeriod::create('2020-01-01', '2022-12-31');
 
         // For each dates create a transformed data
         foreach ($dates as $date) {
@@ -78,6 +78,7 @@ class PopulateDateDimensionsTableCommand extends Command
                 'week_of_year' => $date->weekOfYear,
                 'iso_week_in_year' => $date->isoWeeksInYear,
                 'month_name' => $date->monthName,
+                'month_name_short' => strtolower($date->shortMonthName),
                 'month_year' => $date->format('mY'),
                 'month_name_year' => $date->format('MY'),
                 'first_day_of_month' => $date->clone()->firstOfMonth()->format('Y-m-d'),
@@ -118,18 +119,18 @@ class PopulateDateDimensionsTableCommand extends Command
     private function getQuarterDetails(Carbon $date)
     {
         $quarterMonthMap = [
-            1 => ['value' => 1, 'name' => 'First'],
-            2 => ['value' => 2, 'name' => 'First'],
-            3 => ['value' => 2, 'name' => 'First'],
-            4 => ['value' => 2, 'name' => 'Second'],
-            5 => ['value' => 3, 'name' => 'Second'],
-            6 => ['value' => 3, 'name' => 'Second'],
-            7 => ['value' => 3, 'name' => 'Third'],
-            8 => ['value' => 4, 'name' => 'Third'],
-            9 => ['value' => 4, 'name' => 'Third'],
-            10 => ['value' => 4, 'name' => 'Fourth'],
-            11 => ['value' => 1, 'name' => 'Fourth'],
-            12 => ['value' => 1, 'name' => 'Fourth'],
+            1 => ['value' => 1, 'name' => 'First Quarter'],
+            2 => ['value' => 1, 'name' => 'First Quarter'],
+            3 => ['value' => 1, 'name' => 'First Quarter'],
+            4 => ['value' => 2, 'name' => 'Second Quarter'],
+            5 => ['value' => 2, 'name' => 'Second Quarter'],
+            6 => ['value' => 2, 'name' => 'Second Quarter'],
+            7 => ['value' => 3, 'name' => 'Third Quarter'],
+            8 => ['value' => 3, 'name' => 'Third Quarter'],
+            9 => ['value' => 3, 'name' => 'Third Quarter'],
+            10 => ['value' => 4, 'name' => 'Fourth Quarter'],
+            11 => ['value' => 4, 'name' => 'Fourth Quarter'],
+            12 => ['value' => 4, 'name' => 'Fourth Quarter'],
         ];
 
         $output['value'] = $quarterMonthMap[$date->month]['value'];

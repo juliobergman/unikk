@@ -21,7 +21,7 @@ class CreateFactsTable extends Migration
             $table->foreignId('company_id')->constrained();
             $table->foreignId('user_id')->constrained();
 
-            $table->decimal('amount', 8,2,false);
+            $table->decimal('amount', 20,2,false);
 
             $table->timestamps();
         });

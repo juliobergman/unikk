@@ -18,9 +18,11 @@ class DateDimensionController extends Controller
         //
     }
 
-    public function show(DateDimension $dateDimension)
+    public function show(Request $request)
     {
-        //
+        $date = DateDimension::query();
+        $date->whereMonth('date', '09');
+        return $date->get();
     }
 
     public function update(Request $request, DateDimension $dateDimension)

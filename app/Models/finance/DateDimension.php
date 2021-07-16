@@ -82,4 +82,10 @@ class DateDimension extends Model
         'last_day_of_year' => 'date:Y-m-d',
         'first_day_of_next_year' => 'date:Y-m-d',
     ];
+
+    public function facts()
+    {
+        return $this->hasMany(Fact::class, 'date');
+    }
+
 }

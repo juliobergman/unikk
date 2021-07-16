@@ -31,8 +31,9 @@ import PeccProfile from "../components/pecc/peccProfile";
 import Target from "../components/target/container";
 import TargetProfile from "../components/target/targetProfile";
 // Reporting
-// import Financial from "../components/financial/container";
-// import FinancialReport from "../components/financial/section/report";
+import Financial from "../components/financial/container";
+import FinancialStatementAdd from "../components/financial/section/financialStatementAdd";
+import FinancialStatement from "../components/financial/section/financialStatement";
 
 const routes = [
     {
@@ -162,19 +163,25 @@ const routes = [
         name: "targetProfile",
         path: "/target/:id/:ref?",
         meta: { section: "target" }
+    },
+    {
+        component: Financial,
+        name: "financial",
+        path: "/financial",
+        meta: { section: "financial" }
+    },
+    {
+        component: FinancialStatement,
+        name: "financialStatement",
+        path: "/financial/statement",
+        meta: { section: "financial" }
+    },
+    {
+        component: FinancialStatementAdd,
+        name: "financialStatementAdd",
+        path: "/financial/statement/add",
+        meta: { section: "financial" }
     }
-    // {
-    //     component: Financial,
-    //     name: "financial",
-    //     path: "/financial",
-    //     meta: { section: "financial" }
-    // },
-    // {
-    //     component: FinancialReport,
-    //     name: "financialReport",
-    //     path: "/financial/report",
-    //     meta: { section: "financial" }
-    // }
 ];
 
 export default new VueRouter({

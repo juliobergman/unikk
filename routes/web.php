@@ -6,16 +6,16 @@ use App\Http\Controllers\TestController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\User\UserController;
-use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\chart\ChartController;
 use App\Http\Controllers\ChartCollectionController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\FinancialFieldsController;
-use App\Http\Controllers\FinancialSchemaController;
+use App\Http\Controllers\finance\CodeController;
+use App\Http\Controllers\finance\DateDimensionController;
+use App\Http\Controllers\finance\FactController;
 use App\Http\Controllers\PeccController;
 use App\Http\Controllers\TargetController;
-use App\Models\FinancialFields;
+use App\Http\Controllers\finance\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -128,4 +128,42 @@ Route::prefix('/upload')->group(function(){
     Route::middleware('auth')->post('/pecc', [UploadController::class, 'pecc']);
 });
 
+// Codes
+Route::prefix('/code')->group(function(){
+    Route::get('/all', [CodeController::class, 'index']);
+    Route::post('/store', [CodeController::class, 'store']);
+    Route::post('/data', [CodeController::class, 'data']);
+    Route::put('/update', [CodeController::class, 'update']);
+    Route::delete('/destroy/{report}', [CodeController::class, 'destroy']);
+});
+
+// Reports
+Route::prefix('/report')->group(function(){
+    Route::get('/all/{type?}', [ReportController::class, 'index']);
+    Route::post('/store', [ReportController::class, 'store']);
+    Route::post('/data', [ReportController::class, 'data']);
+    Route::put('/update', [ReportController::class, 'update']);
+    Route::delete('/destroy/{report}', [ReportController::class, 'destroy']);
+    Route::post('/getdata', [ReportController::class, 'getdata']);
+    Route::post('/getinfo', [ReportController::class, 'getinfo']);
+});
+
+// Date
+Route::prefix('/date')->group(function(){
+    Route::get('/all', [DateDimensionController::class, 'index']);
+    Route::post('/store', [DateDimensionController::class, 'store']);
+    Route::post('/show', [DateDimensionController::class, 'show']);
+    Route::put('/update', [DateDimensionController::class, 'update']);
+    Route::delete('/destroy/{report}', [DateDimensionController::class, 'destroy']);
+});
+
+// Fact
+Route::prefix('/fact')->group(function(){
+    Route::post('/amount', [FactController::class, 'fact_amount']);
+    Route::post('/all', [FactController::class, 'index']);
+    Route::post('/store', [FactController::class, 'store']);
+    Route::post('/show', [FactController::class, 'show']);
+    Route::put('/update', [FactController::class, 'update']);
+    Route::delete('/destroy/{report}', [FactController::class, 'destroy']);
+});
 

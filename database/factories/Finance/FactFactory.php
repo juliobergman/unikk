@@ -22,7 +22,15 @@ class FactFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'date' => $this->faker->dateTimeBetween('-7 months', '+7 months'),
+            // 'date' => $this->faker->dateTimeBetween('-2 weeks', '+2 weeks'),
+            // 'date' => '2021-07-01',
+            'code_id' => $this->faker->numberBetween(1,93),
+            'report_id' => $this->faker->numberBetween(1,2),
+            'company_id' => 1,
+            'user_id' => 1,
+            // 'amount' => $this->faker->numberBetween(0, 100),
+            'amount' => 100,
         ];
     }
 }

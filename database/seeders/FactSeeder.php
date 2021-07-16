@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\finance\Fact;
 use Illuminate\Database\Seeder;
 
 class FactSeeder extends Seeder
@@ -13,6 +14,6 @@ class FactSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Fact::factory(2000)->create();
     }
 }

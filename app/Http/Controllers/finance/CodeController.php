@@ -11,7 +11,9 @@ class CodeController extends Controller
 
     public function index()
     {
-        //
+        $codes = Code::query();
+        $codes->orderBy('oby');
+        return $codes->get();
     }
 
     public function store(Request $request)

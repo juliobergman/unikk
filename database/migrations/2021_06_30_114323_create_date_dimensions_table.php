@@ -29,6 +29,7 @@ class CreateDateDimensionsTable extends Migration
             $table->unsignedInteger('week_of_year');
             $table->unsignedInteger('iso_week_in_year');
             $table->string('month_name');
+            $table->string('month_name_short');
             $table->string('month_year');
             $table->string('month_name_year');
             $table->date('first_day_of_month');

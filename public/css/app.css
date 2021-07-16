@@ -10026,6 +10026,78 @@ h3 {
   background: rgba(0, 0, 0, 0.5) !important;
 }
 
+.v-data-table__wrapper table tbody tr td {
+  white-space: nowrap;
+}
+
+.v-data-table__wrapper table .month,
+.v-data-table__wrapper table .quart,
+.v-data-table__wrapper table .years {
+  text-align: end !important;
+  font-size: 0.8rem !important;
+}
+
+.v-data-table__wrapper table tbody .data-row .month:hover {
+  cursor: pointer;
+}
+
+.v-data-table__wrapper table .month,
+.v-data-table__wrapper table .month_header {
+  background-color: transparent;
+}
+
+.v-data-table__wrapper table .quart,
+.v-data-table__wrapper table .quart_header,
+.v-data-table__wrapper table .years,
+.v-data-table__wrapper table .years_header {
+  font-weight: bolder;
+  border-left: 1px solid;
+  border-right: 1px solid;
+}
+
+.v-data-table__wrapper table .years,
+.v-data-table__wrapper table .years_header {
+  background-color: transparent;
+}
+
+.v-data-table__wrapper table .dttit_header,
+.v-data-table__wrapper table .month_header,
+.v-data-table__wrapper table .quart_header,
+.v-data-table__wrapper table .years_header {
+  border-top: 1px solid !important;
+}
+
+.v-data-table__wrapper table .result-row td {
+  font-weight: bold;
+}
+
+.v-data-table__wrapper table .divider td {
+  pointer-events: none;
+  height: 5rem !important;
+  border-bottom: 1px solid !important;
+  border-left: none;
+  border-right: none;
+}
+
+/* Themes */
+.theme--dark .v-data-table__wrapper table tr th,
+.theme--dark .v-data-table__wrapper table tr td {
+  border-color: #6e6e6e;
+}
+
+.theme--light .v-data-table__wrapper table tr th,
+.theme--light .v-data-table__wrapper table tr td {
+  border-color: #cecdcf;
+}
+
+.theme--light .v-data-table__wrapper table tbody tr:hover td {
+  background: #eeedef;
+}
+
+.theme--dark .v-data-table__wrapper table tbody tr:hover td {
+  background: #2e2e2e;
+}
+
 .btn-appbar-active {
   color: #fff !important;
   border-bottom: 2px solid #fff !important;

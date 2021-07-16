@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\ResCountry;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
 
@@ -18,12 +19,18 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             UserSeeder::class,
+            ResCountrySeeder::class,
+            ResCurrencySeeder::class,
             ChartCollectionSeeder::class,
             ChartSeeder::class,
             PeccSeeder::class,
             ReportSchemaSeeder::class,
             ContactSeeder::class,
-            DateDimensionSeeder::class
+            CodeGroupSeeder::class,
+            CodeCategorySeeder::class,
+            CodeSeeder::class,
+            ReportSeeder::class,
+            FactSeeder::class,
         ]);
 
     }

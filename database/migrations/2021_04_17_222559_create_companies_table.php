@@ -13,6 +13,7 @@ class CreateCompaniesTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->unsignedBigInteger('company_id')->nullable();
             $table->foreign('company_id')->references('id')->on('companies');
+            $table->unsignedBigInteger('currency_id')->nullable();
             $table->string('name');
             $table->enum('type', ['active','target'])->default('active');
             $table->softDeletes();

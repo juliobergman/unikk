@@ -15,6 +15,12 @@ class CreateCodesTable extends Migration
     {
         Schema::create('codes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->nullable()->constrained();
+            $table->foreignId('company_id')->nullable()->constrained();
+            $table->foreignId('code_category_id')->references('id')->on('code_categories')->nullable()->constrained();
+            $table->unsignedBigInteger('group')->nullable();
+            $table->foreign('group')->references('id')->on('code_groups');
+            $table->unsignedBigInteger('oby')->default(1);
             $table->integer('code');
             $table->string('name');
             $table->timestamps();

@@ -249,14 +249,14 @@ class CodeCategorySeeder extends Seeder
             // Other Income/Expenses -> Parent 7
             [
                 'id' => 33,
-                'parent' => 1,
+                'parent' => 7,
                 'user_id' => 1,
                 'company_id' => 1,
                 'name' => 'Rental Income',
             ],
             [
                 'id' => 34,
-                'parent' => 1,
+                'parent' => 7,
                 'user_id' => 1,
                 'company_id' => 1,
                 'name' => 'Gains on tangible fixed assets',

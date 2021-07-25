@@ -18,37 +18,46 @@
                 v-for="header in headers"
                 v-slot:[`item.${header.value}`]="{ item, header, value }"
             >
-                <span @click="showRecords(item, header, value)">{{
-                    formatAccounting(value)
-                }}</span>
+                <span @click="showRecords(item, header)">
+                    {{ formatAccounting(value) }}
+                </span>
             </template>
         </v-data-table>
+        <v-dialog v-model="recordsDialog" scrollable @click:outside.prevent="">
+            <fs-records
+                :bus="bus"
+                :data="post"
+                :date="date"
+                :lvl="lvl"
+                :name="recordsName"
+                :month="recordsMonth"
+                v-on:reloadTable="reloadTable"
+                v-on:closeReportDialog="closeReportDialog()"
+            ></fs-records>
+        </v-dialog>
     </div>
 </template>
 <script>
 import FsToolbar from "./fsToolbar";
+import FsRecords from "./fsRecords";
 export default {
     components: {
-        FsToolbar
+        FsToolbar,
+        FsRecords
     },
-    props: [
-        "bus",
-        "rid",
-        "year",
-        "period",
-        "month",
-        "quarter",
-        "lvl",
-        "search"
-    ],
+    props: ["bus", "rid", "year", "period", "lvl", "search"],
     methods: {
         getReportData() {
+            if (!this.year) return;
+            if (!this.lvl) return;
+            if (!this.rid) return;
+
             this.dataLoaded = false;
 
             let postData = {
                 year: this.year,
                 company: localStorage.getItem("company"),
-                lvl: this.lvl,
+                lvl: this.lvl.data,
                 report: this.rid
             };
 
@@ -91,10 +100,19 @@ export default {
             });
 
             result = [
+                // {
+                //     text: "Branch",
+                //     value: "branch",
+                //     currency: false,
+                //     sortable: false,
+                //     class: "dttit_header",
+                //     cellClass: "dttit",
+                //     group: ["jan", "q1", "yearly"]
+                // },
                 {
                     text: "",
                     value: "name",
-                    currency: true,
+                    currency: false,
                     sortable: false,
                     class: "dttit_header",
                     cellClass: "dttit",
@@ -108,23 +126,57 @@ export default {
         rowClass(item) {
             return item.row_class;
         },
-        showRecords(item, header, value) {
-            if (header.cellClass != "month") {
-                return;
-            }
-            if (item.row_class == "result-row") {
-                return;
-            }
+        showRecords(item, header) {
+            if (header.cellClass != "month") return;
+            if (item.row_class == "result-row") return;
 
-            console.log("Item", item);
-            console.log("Header", header);
-            console.log("Value", value);
+            this.date = new Date(header.value + "-" + this.year).toISOString();
+            this.recordsName = item.name;
+            this.recordsMonth = header.value;
+
+            let postData = {
+                year: this.year,
+                month: header.value,
+                company: localStorage.getItem("company"),
+                report: this.rid,
+                lvl: this.lvl.data,
+                name: item.name
+            };
+
+            axios
+                .post("report/getrecords", postData)
+                .then(response => {
+                    this.post = response.data;
+                })
+                .catch(response => {
+                    console.error(response);
+                });
+            if (!this.recordsDialog) {
+                this.recordsDialog = true;
+            }
+            return;
+        },
+        reloadTable($payload) {
+            this.getReportData();
+            this.showRecords($payload.item, $payload.header);
+
+            console.log($payload);
+        },
+        closeReportDialog() {
+            this.post = undefined;
+            this.recordsDialog = false;
+            this.date = "";
         }
     },
     data: () => ({
         dataLoaded: true,
         currency_symbol: "$",
         report: undefined,
+        recordsDialog: false,
+        date: "",
+        recordsName: "",
+        recordsMonth: "",
+        post: undefined,
         selected: [],
         headers: [
             {
@@ -165,7 +217,7 @@ export default {
                 sortable: false,
                 class: "quart_header",
                 cellClass: "quart",
-                group: ["q1", "yearly"]
+                group: ["q1", "qa", "yearly"]
             },
             {
                 text: "April",
@@ -205,7 +257,7 @@ export default {
                 sortable: false,
                 class: "quart_header",
                 cellClass: "quart",
-                group: ["q2", "yearly"]
+                group: ["q2", "qa", "yearly"]
             },
             {
                 text: "July",
@@ -245,7 +297,7 @@ export default {
                 sortable: false,
                 class: "quart_header",
                 cellClass: "quart",
-                group: ["q3", "yearly"]
+                group: ["q3", "qa", "yearly"]
             },
             {
                 text: "October",
@@ -285,7 +337,7 @@ export default {
                 sortable: false,
                 class: "quart_header",
                 cellClass: "quart",
-                group: ["q4", "yearly"]
+                group: ["q4", "qa", "yearly"]
             },
             {
                 text: "Year",
@@ -295,7 +347,7 @@ export default {
                 sortable: false,
                 class: "years_header",
                 cellClass: "years",
-                group: ["yearly"]
+                group: ["qa", "yearly"]
             }
         ]
     }),

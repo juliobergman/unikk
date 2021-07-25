@@ -2,10 +2,10 @@
     <v-main>
         <report-toolbar
             :bus="bus"
-            @periodChange="periodChange"
-            @monthChange="monthChange"
-            @quarterChange="quarterChange"
-            @lvlChange="lvlChange"
+            :period="period"
+            :lvl="lvl"
+            @changePeriod="changePeriod"
+            @changeLevel="changeLevel"
         >
         </report-toolbar>
         <v-divider></v-divider>
@@ -15,8 +15,6 @@
             v-for="idx in 1"
             :key="idx"
             :period="period"
-            :month="month"
-            :quarter="quarter"
             :lvl="lvl"
             :search="search"
             :bus="bus"
@@ -37,45 +35,41 @@ export default {
     },
     props: ["bus"],
     methods: {
-        periodChange($payload) {
+        changePeriod($payload, $search) {
             this.period = $payload;
-
-            if ($payload == "monthly") {
-                this.search = this.month;
-            }
-            if ($payload == "quarterly") {
-                this.search = this.quarter;
-            }
-            if ($payload == "yearly") {
-                this.search = "yearly";
-            }
+            this.search = $search;
+            localStorage.setItem("fs_period", JSON.stringify($payload));
+            localStorage.setItem("fs_search", $search);
+            return;
         },
-        monthChange($payload) {
-            this.month = $payload;
-            this.periodChange(this.period);
-        },
-        quarterChange($payload) {
-            this.quarter = $payload;
-            this.periodChange(this.period);
-        },
-        lvlChange($payload) {
+        changeLevel($payload) {
             this.lvl = $payload;
-            this.periodChange(this.period);
+            localStorage.setItem("fs_lvl", JSON.stringify($payload));
+            this.changePeriod(this.period, this.search);
         }
     },
     data: () => ({
-        period: "yearly",
-        month: "jan",
-        quarter: "q1",
-        lvl: "lvl1",
-        search: "yearly",
-        reports: [
-            { id: 1, rep: 2 }
-            // { id: 2, rep: 2 },
-            // { id: 3, rep: 1 }
-        ]
+        period: {
+            window: { data: "yearly", name: "By Year" },
+            month: { data: "jan", name: "January" },
+            quarter: { data: "qa", name: "Only Quarters" }
+        },
+        lvl: { data: "lvl1", name: "Level 1" },
+        search: "yearly"
     }),
-    created() {}
+    created() {
+        if (localStorage.fs_period) {
+            this.period = JSON.parse(localStorage.getItem("fs_period"));
+        }
+        if (localStorage.fs_lvl) {
+            this.lvl = JSON.parse(localStorage.getItem("fs_lvl"));
+        }
+        if (localStorage.fs_search) {
+            this.search = localStorage.getItem("fs_search");
+        }
+        this.changePeriod(this.period, this.search);
+        this.changeLevel(this.lvl);
+    }
 };
 </script>
 

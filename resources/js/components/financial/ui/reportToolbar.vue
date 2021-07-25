@@ -9,32 +9,38 @@
                     color="primary"
                     v-bind="attrs"
                     v-on="on"
+                    v-text="dataPeriod.window.name"
                 >
-                    {{ period }}
                 </v-btn>
             </template>
             <v-list>
                 <v-list-item-group
-                    v-model="period"
+                    v-model="dataPeriod.window"
                     color="primary"
                     mandatory
-                    @change="$emit('periodChange', period)"
+                    @change="
+                        $emit(
+                            'changePeriod',
+                            dataPeriod,
+                            dataPeriod.window.search
+                        )
+                    "
                 >
                     <v-list-item
                         v-for="(item, i) in periodButtons"
                         :key="i"
-                        :value="item.value"
+                        :value="item"
                     >
                         <v-list-item-content>
                             <v-list-item-title
-                                v-text="item.text"
+                                v-text="item.name"
                             ></v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
                 </v-list-item-group>
             </v-list>
         </v-menu>
-        <v-menu offset-y v-if="period == 'monthly'">
+        <v-menu offset-y v-if="qbtn">
             <template v-slot:activator="{ on, attrs }">
                 <v-btn
                     text
@@ -43,59 +49,71 @@
                     color="primary"
                     v-bind="attrs"
                     v-on="on"
+                    v-text="dataPeriod.quarter.name"
                 >
-                    {{ month }}
                 </v-btn>
             </template>
             <v-list>
                 <v-list-item-group
-                    v-model="month"
+                    v-model="dataPeriod.quarter"
                     color="primary"
                     mandatory
-                    @change="$emit('monthChange', month)"
-                >
-                    <v-list-item
-                        v-for="(item, i) in monthButtons"
-                        :key="i"
-                        :value="item.value"
-                    >
-                        <v-list-item-content>
-                            <v-list-item-title
-                                v-text="item.text"
-                            ></v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
-                </v-list-item-group>
-            </v-list>
-        </v-menu>
-        <v-menu offset-y v-if="period == 'quarterly'">
-            <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                    text
-                    tile
-                    height="48"
-                    color="primary"
-                    v-bind="attrs"
-                    v-on="on"
-                >
-                    {{ quarter }}
-                </v-btn>
-            </template>
-            <v-list>
-                <v-list-item-group
-                    v-model="quarter"
-                    color="primary"
-                    mandatory
-                    @change="$emit('quarterChange', quarter)"
+                    @change="
+                        $emit(
+                            'changePeriod',
+                            dataPeriod,
+                            dataPeriod.quarter.search
+                        )
+                    "
                 >
                     <v-list-item
                         v-for="(item, i) in quarterButtons"
                         :key="i"
-                        :value="item.value"
+                        :value="item"
                     >
                         <v-list-item-content>
                             <v-list-item-title
-                                v-text="item.text"
+                                v-text="item.name"
+                            ></v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-list-item-group>
+            </v-list>
+        </v-menu>
+        <v-menu offset-y v-if="mbtn">
+            <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                    text
+                    tile
+                    height="48"
+                    color="primary"
+                    v-bind="attrs"
+                    v-on="on"
+                    v-text="dataPeriod.month.name"
+                >
+                </v-btn>
+            </template>
+            <v-list>
+                <v-list-item-group
+                    v-model="dataPeriod.month"
+                    color="primary"
+                    mandatory
+                    @change="
+                        $emit(
+                            'changePeriod',
+                            dataPeriod,
+                            dataPeriod.month.search
+                        )
+                    "
+                >
+                    <v-list-item
+                        v-for="(item, i) in monthButtons"
+                        :key="i"
+                        :value="item"
+                    >
+                        <v-list-item-content>
+                            <v-list-item-title
+                                v-text="item.name"
                             ></v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
@@ -111,7 +129,7 @@
             @click="$emit('addReport')"
         >
             <v-icon>
-                mdi-content-copy
+                mdi-content-duplicate
             </v-icon>
         </v-btn>
         <v-btn
@@ -134,25 +152,24 @@
                     color="primary"
                     v-bind="attrs"
                     v-on="on"
+                    v-text="dataLevel.name"
                 >
-                    {{ lvl }}
                 </v-btn>
             </template>
             <v-list>
                 <v-list-item-group
-                    v-model="lvl"
+                    v-model="dataLevel"
                     color="primary"
                     mandatory
-                    @change="$emit('lvlChange', lvl)"
                 >
                     <v-list-item
                         v-for="(item, i) in levelButtons"
                         :key="i"
-                        :value="item.value"
+                        :value="item"
                     >
                         <v-list-item-content>
                             <v-list-item-title
-                                v-text="item.text"
+                                v-text="item.name"
                             ></v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
@@ -164,42 +181,62 @@
 
 <script>
 export default {
+    props: ["bus", "period", "lvl"],
+    computed: {
+        dataPeriod() {
+            return this.period;
+        },
+        dataLevel: {
+            get() {
+                return this.lvl;
+            },
+            set(val) {
+                this.$emit("changeLevel", val);
+            }
+        },
+        qbtn() {
+            return this.dataPeriod.window.data == "quarterly" ? true : false;
+        },
+        mbtn() {
+            return this.dataPeriod.window.data == "monthly" ? true : false;
+        }
+    },
     data: () => ({
-        period: "yearly",
-        month: "jan",
-        quarter: "q1",
-        lvl: "lvl1",
         periodButtons: [
-            { text: "by Month", value: "monthly" },
-            { text: "by Quarter", value: "quarterly" },
-            { text: "by Year", value: "yearly" }
+            { data: "yearly", name: "by Year", search: "yearly" },
+            { data: "quarterly", name: "by Quarter", search: "qa" },
+            { data: "monthly", name: "by Month", search: "jan" }
         ],
         monthButtons: [
-            { text: "January", value: "jan" },
-            { text: "February", value: "feb" },
-            { text: "March", value: "mar" },
-            { text: "April", value: "apr" },
-            { text: "May", value: "may" },
-            { text: "June", value: "jun" },
-            { text: "July", value: "jul" },
-            { text: "August", value: "aug" },
-            { text: "September", value: "sep" },
-            { text: "October", value: "oct" },
-            { text: "November", value: "nov" },
-            { text: "December", value: "dec" }
+            { data: "jan", name: "January", search: "jan" },
+            { data: "feb", name: "February", search: "feb" },
+            { data: "mar", name: "March", search: "mar" },
+            { data: "apr", name: "April", search: "apr" },
+            { data: "may", name: "May", search: "may" },
+            { data: "jun", name: "June", search: "jun" },
+            { data: "jul", name: "July", search: "jul" },
+            { data: "aug", name: "August", search: "aug" },
+            { data: "sep", name: "September", search: "sep" },
+            { data: "oct", name: "October", search: "oct" },
+            { data: "nov", name: "November", search: "nov" },
+            { data: "dec", name: "December", search: "dec" }
         ],
         quarterButtons: [
-            { text: "First Quarter", value: "q1" },
-            { text: "Second Quarter", value: "q2" },
-            { text: "Third Quarter", value: "q3" },
-            { text: "Four Quarter", value: "q4" }
+            { data: "qa", name: "Only Quarters", search: "qa" },
+            { data: "q1", name: "First Quarter", search: "q1" },
+            { data: "q2", name: "Second Quarter", search: "q2" },
+            { data: "q3", name: "Third Quarter", search: "q3" },
+            { data: "q4", name: "Four Quarter", search: "q4" }
         ],
         levelButtons: [
-            { text: "Level 1", value: "lvl1" },
-            { text: "Level 2", value: "lvl2" },
-            { text: "Level 3", value: "lvl3" }
+            { data: "lvl1", name: "Level 1" },
+            { data: "lvl2", name: "Level 2" },
+            { data: "lvl3", name: "Level 3" }
         ]
-    })
+    }),
+    mounted() {
+        // console.log(this.dataPeriod);
+    }
 };
 </script>
 

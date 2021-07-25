@@ -10,26 +10,22 @@
         <v-divider></v-divider>
         <fs-table
             :bus="bus"
+            :search="search"
             :rid="report.id"
             :report="report"
+            :lvl="lvl"
             :year="year"
             :period="period"
-            :month="month"
-            :quarter="quarter"
-            :lvl="lvl"
-            :search="search"
         ></fs-table>
     </v-card>
 </template>
 
 <script>
-import reportInformation from "./repInfo";
 import fsToolbar from "./fsToolbar";
 import fsTable from "./fsTable";
 export default {
-    props: ["bus", "period", "month", "quarter", "lvl", "search"],
+    props: ["bus", "period", "search", "lvl"],
     components: {
-        reportInformation,
         fsToolbar,
         fsTable
     },

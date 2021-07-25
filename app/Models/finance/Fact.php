@@ -15,7 +15,8 @@ class Fact extends Model
         'report_id',
         'company_id',
         'user_id',
-        'amount'
+        'amount',
+        'created_at'
     ];
 
     public function date()

@@ -146,6 +146,7 @@ Route::prefix('/report')->group(function(){
     Route::delete('/destroy/{report}', [ReportController::class, 'destroy']);
     Route::post('/getdata', [ReportController::class, 'getdata']);
     Route::post('/getinfo', [ReportController::class, 'getinfo']);
+    Route::post('/getrecords', [ReportController::class, 'getrecords']);
 });
 
 // Date
@@ -164,6 +165,6 @@ Route::prefix('/fact')->group(function(){
     Route::post('/store', [FactController::class, 'store']);
     Route::post('/show', [FactController::class, 'show']);
     Route::put('/update', [FactController::class, 'update']);
-    Route::delete('/destroy/{report}', [FactController::class, 'destroy']);
+    Route::delete('/destroy/{id}', [FactController::class, 'destroy']);
 });
 

@@ -44,7 +44,8 @@ class FactController extends Controller
                 'report_id' => $request->report_id,
                 'company_id' => $request->company_id,
                 'user_id' => $user,
-                'amount' => $value
+                'amount' => $value,
+                'created_at' => now(),
             ];
         }
 
@@ -61,8 +62,12 @@ class FactController extends Controller
         //
     }
 
-    public function destroy(Fact $fact)
+    public function destroy($id)
     {
-        //
+        if(Fact::destroy($id)){
+            return response()->json(['message' => 'Record Deleted'], 200);
+        } else {
+            return response()->json(['error' =>'error'], 403);
+        }
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\finance;
 
+use Carbon\CarbonPeriod;
 use App\Models\finance\Code;
 use App\Models\finance\Fact;
 use Illuminate\Http\Request;
@@ -12,6 +13,7 @@ use App\Http\Controllers\Controller;
 use App\Models\finance\DateDimension;
 use GrahamCampbell\ResultType\Result;
 use PHPUnit\TextUI\XmlConfiguration\Groups;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 
 class ReportController extends Controller
 {
@@ -25,6 +27,40 @@ class ReportController extends Controller
     public function store(Request $request)
     {
 
+    }
+
+    public function getrecords(Request $request)
+    {
+        $date = date_parse($request->month.'-'.$request->year);
+        $records = Fact::query();
+        $records->where('facts.company_id', $request->company);
+        $records->where('facts.report_id', $request->report);
+        $records->whereMonth('date', $date['month']);
+        $records->whereYear('date', $date['year']);
+        // Look for Name
+        $data_where = [
+            'lvl1' => 'parents.name',
+            'lvl2' => 'code_categories.name',
+            'lvl3' => 'codes.name'
+        ];
+        $records->where($data_where[$request->lvl], $request->name);
+        // Selects
+        $records->select([
+            'codes.name AS name',
+            'facts.id as id',
+            'codes.code as code',
+            'facts.date',
+            'facts.created_at',
+            'facts.amount',
+        ]);
+        // Joins
+        $records->join('codes', 'facts.code_id', '=', 'codes.id');
+        $records->join('code_categories', 'codes.code_category_id', '=', 'code_categories.id');
+        $records->join('code_categories as parents', 'parents.id', '=', 'code_categories.parent');
+
+        $records->orderBy('created_at');
+
+        return $records->get();
     }
 
     public function getinfo(Request $request)
@@ -216,7 +252,7 @@ class ReportController extends Controller
 
             $result[$key] = [
                 'key'  => $key,
-                'branch'  => 'branch',
+                'branch'  => '',
                 'row_class'  => 'result-row',
                 'name' => $group->name,
                 'jan'  => $payload['jan'],
@@ -306,7 +342,7 @@ class ReportController extends Controller
 
                 $result[$key] = [
                 'key'  => $key,
-                'branch'  => null,
+                'branch'  => '',
                 'row_class'  => 'result-row',
                 'name' => $name,
                 'jan'  => $payload['jan'],

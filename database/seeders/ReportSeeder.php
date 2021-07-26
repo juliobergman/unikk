@@ -26,6 +26,26 @@ class ReportSeeder extends Seeder
                 'name' => 'Forecast Income Statement',
                 'type' => 'income'
             ],
+            [
+                'id' => 3,
+                'name' => 'Actual Balance Sheet',
+                'type' => 'balance'
+            ],
+            [
+                'id' => 4,
+                'name' => 'Forecast Balance Sheet',
+                'type' => 'balance'
+            ],
+            [
+                'id' => 5,
+                'name' => 'Actual Ratio Panel',
+                'type' => 'ratio'
+            ],
+            [
+                'id' => 6,
+                'name' => 'Forecast Ratio Panel',
+                'type' => 'ratio'
+            ],
         ];
 
         DB::table('reports')->insert($reports);

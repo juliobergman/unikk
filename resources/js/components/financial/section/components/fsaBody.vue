@@ -10,7 +10,7 @@
         calculate-widths
         dense
     >
-        <template v-slot:item.created_at="{ item }">
+        <template v-slot:item.amount="{ item }">
             <v-text-field
                 :id="'element' + item.oby"
                 :name="'element' + item.oby"
@@ -39,9 +39,10 @@ export default {
         date: new Date().toISOString().slice(0, 10),
         report: [],
         headers: [
+            { text: "Branch", value: "branch", align: "left" },
             { text: "Code", value: "code", align: "left" },
             { text: "Name", value: "name", align: "left" },
-            { text: "Amount", value: "created_at", align: "center" }
+            { text: "Amount", value: "amount", align: "center" }
         ],
         items: [],
         values: []

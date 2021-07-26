@@ -17,10 +17,12 @@ use Illuminate\Database\Eloquent\Factories\Sequence;
 
 class ReportController extends Controller
 {
-    public function index($type)
+    public function index($type = null)
     {
        $reports = Report::query();
-       $reports->where('type', $type);
+       if($type){
+        $reports->where('type', $type);
+       }
        return $reports->get();
     }
 

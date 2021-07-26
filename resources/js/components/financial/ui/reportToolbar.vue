@@ -121,17 +121,38 @@
             </v-list>
         </v-menu>
         <v-spacer></v-spacer>
-        <v-btn
-            tile
-            text
-            height="48"
-            color="primary"
-            @click="$emit('addReport')"
-        >
-            <v-icon>
-                mdi-content-duplicate
-            </v-icon>
-        </v-btn>
+        <v-menu offset-y>
+            <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                    text
+                    tile
+                    height="48"
+                    color="primary"
+                    v-bind="attrs"
+                    v-on="on"
+                >
+                    <v-icon>
+                        mdi-content-duplicate
+                    </v-icon>
+                </v-btn>
+            </template>
+            <v-list>
+                <v-list-item-group color="primary" mandatory>
+                    <v-list-item
+                        v-for="(item, i) in menuReports"
+                        :key="i"
+                        :value="item"
+                        @click="addReport(item)"
+                    >
+                        <v-list-item-content>
+                            <v-list-item-title
+                                v-text="item.name"
+                            ></v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-list-item-group>
+            </v-list>
+        </v-menu>
         <v-btn
             to="/financial/statement/add"
             tile
@@ -202,6 +223,7 @@ export default {
         }
     },
     data: () => ({
+        menuReports: [],
         periodButtons: [
             { data: "yearly", name: "by Year", search: "yearly" },
             { data: "quarterly", name: "by Quarter", search: "qa" },
@@ -234,8 +256,32 @@ export default {
             { data: "lvl3", name: "Level 3" }
         ]
     }),
-    mounted() {
-        // console.log(this.dataPeriod);
+    methods: {
+        getMenuReports() {
+            axios
+                .get("report/all/income")
+                .then(response => {
+                    if (response.status == 200) {
+                        this.menuReports = response.data;
+                    }
+                })
+                .catch(response => {
+                    console.error(response);
+                });
+        },
+        addReport(item) {
+            // let repData = {
+            //     id: item.id,
+            //     name: item.name,
+            //     type: item.type,
+            //     year: new Date().getFullYear()
+            // };
+
+            this.$emit("duplicateReport", item);
+        }
+    },
+    created() {
+        this.getMenuReports();
     }
 };
 </script>

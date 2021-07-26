@@ -1,5 +1,5 @@
 <template>
-    <v-main>
+    <v-main id="section">
         <fsa-toolbar :bus="bus"></fsa-toolbar>
         <v-divider></v-divider>
         <fsa-body :bus="bus"></fsa-body>

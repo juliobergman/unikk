@@ -3,6 +3,8 @@
         <fs-toolbar
             :bus="bus"
             :year="year"
+            :setreport="report"
+            :index="index"
             @changeYear="changeYear"
             @changeReport="changeReport"
         >
@@ -24,13 +26,13 @@
 import fsToolbar from "./fsToolbar";
 import fsTable from "./fsTable";
 export default {
-    props: ["bus", "period", "search", "lvl"],
+    props: ["bus", "period", "search", "lvl", "repdata", "index"],
     components: {
         fsToolbar,
         fsTable
     },
     data: () => ({
-        year: new Date().getFullYear(),
+        year: 2021,
         report: []
     }),
     methods: {
@@ -41,7 +43,9 @@ export default {
             this.report = $payload;
         }
     },
-    created() {}
+    created() {
+        this.changeReport(this.repdata);
+    }
 };
 </script>
 

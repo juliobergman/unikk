@@ -6,15 +6,18 @@
             :lvl="lvl"
             @changePeriod="changePeriod"
             @changeLevel="changeLevel"
+            @duplicateReport="addReport"
         >
         </report-toolbar>
         <v-divider></v-divider>
         <!-- <fs-top-bar :bus="bus"></fs-top-bar> -->
         <!-- <fs-table :bus="bus"></fs-table> -->
         <statement
-            v-for="idx in 1"
+            v-for="(item, idx) in reports"
             :key="idx"
+            :index="idx"
             :period="period"
+            :repdata="item"
             :lvl="lvl"
             :search="search"
             :bus="bus"
@@ -35,6 +38,29 @@ export default {
     },
     props: ["bus"],
     methods: {
+        defaultReport() {
+            if (this.reports.lenght > 0) return;
+            axios
+                .get("report/all/income")
+                .then(response => {
+                    if (response.status == 200) {
+                        this.addReport(response.data[0]);
+                    }
+                })
+                .catch(response => {
+                    console.error(response);
+                });
+        },
+        addReport($payload) {
+            this.reports = [...this.reports, $payload];
+        },
+        deleteReport($payload) {
+            let arr = this.reports;
+            this.reports = arr
+                .slice(0, $payload)
+                .concat(arr.slice($payload + 1, arr.length));
+            return;
+        },
         changePeriod($payload, $search) {
             this.period = $payload;
             this.search = $search;
@@ -49,6 +75,8 @@ export default {
         }
     },
     data: () => ({
+        reportMenu: [],
+        reports: [],
         period: {
             window: { data: "yearly", name: "By Year" },
             month: { data: "jan", name: "January" },
@@ -69,6 +97,10 @@ export default {
         }
         this.changePeriod(this.period, this.search);
         this.changeLevel(this.lvl);
+        this.defaultReport();
+    },
+    mounted() {
+        this.bus.$on("closeReport", this.deleteReport);
     }
 };
 </script>

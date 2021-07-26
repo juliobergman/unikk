@@ -354,6 +354,9 @@ export default {
     created() {
         this.getReportData();
     },
+    mounted() {
+        this.bus.$on("companyChange", this.getReportData);
+    },
     watch: {
         year() {
             this.getReportData();

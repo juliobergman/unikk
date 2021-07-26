@@ -1,5 +1,5 @@
 <template>
-    <v-toolbar elevation="1" rounded dense class="v-toolbar__no_pad mb-2">
+    <v-toolbar flat dense class="v-toolbar__no_pad mb-2 sticky">
         <v-btn
             small
             text
@@ -93,11 +93,16 @@ import axios from "axios";
 export default {
     props: ["bus"],
     data: () => ({
+        toolbarElevation: 0,
         date: new Date().toISOString().slice(0, 10),
         report: [],
         reports: []
     }),
     methods: {
+        handleScroll(event) {
+            // let ret = window.scrollY > 0 ? 0 : 0;
+            // this.toolbarElevation = ret;
+        },
         getReports() {
             axios
                 .get("report/all/income")
@@ -112,12 +117,22 @@ export default {
         }
     },
     created() {
+        window.addEventListener("scroll", this.handleScroll);
         this.getReports();
+    },
+    destroyed() {
+        window.removeEventListener("scroll", this.handleScroll);
     }
 };
 </script>
 
-<style>
+<style scoped>
+.sticky {
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 64px !important;
+    z-index: 100 !important;
+}
 .v-toolbar__no_pad .v-toolbar__content {
     padding-left: 0 !important;
     padding-right: 0 !important;

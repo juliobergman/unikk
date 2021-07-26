@@ -24,10 +24,6 @@
                 sort-by="code"
             >
                 <!-- Formater -->
-                <template v-slot:item.id="{ item, header, value }">
-                    {{ value }}
-                </template>
-                <!-- Formater -->
                 <template v-slot:item.amount="{ item, header, value }">
                     {{ formatAccounting(value) }}
                 </template>
@@ -44,7 +40,6 @@
                 <!-- Summary -->
                 <template slot="body.append">
                     <tr class="border-top">
-                        <th></th>
                         <th></th>
                         <th class="body-1 font-weight-medium">Total</th>
                         <th class="body-1 font-weight-medium">{{ total() }}</th>
@@ -71,7 +66,7 @@ export default {
     data: () => ({
         currency_symbol: "$",
         headers: [
-            { text: "id", value: "id" },
+            // { text: "id", value: "id" },
             { text: "Code", value: "code" },
             { text: "Name", value: "name" },
             // {text: "Name", value: "date"},
@@ -79,7 +74,7 @@ export default {
             { text: "Created", value: "created_at" },
             {
                 text: "Delete",
-                value: "code",
+                value: "delete",
                 align: "center",
                 sortable: false
             }

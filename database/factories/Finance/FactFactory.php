@@ -27,7 +27,7 @@ class FactFactory extends Factory
             'report_id' => $this->faker->numberBetween(1,2),
             'company_id' => 1,
             'user_id' => 1,
-            'amount' => $this->faker->numberBetween(1000, 2000),
+            'amount' => $this->faker->numberBetween(-1000, 1000),
         ];
     }
 }

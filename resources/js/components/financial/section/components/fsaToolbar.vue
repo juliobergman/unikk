@@ -131,7 +131,7 @@ export default {
     position: -webkit-sticky !important;
     position: sticky !important;
     top: 64px !important;
-    z-index: 100 !important;
+    z-index: 4 !important;
 }
 .v-toolbar__no_pad .v-toolbar__content {
     padding-left: 0 !important;

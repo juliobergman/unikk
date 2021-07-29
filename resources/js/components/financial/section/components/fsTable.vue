@@ -24,9 +24,15 @@
                 </span>
             </template>
         </v-data-table>
-        <v-dialog v-model="recordsDialog" scrollable @click:outside.prevent="">
+        <v-dialog
+            v-model="recordsDialog"
+            scrollable
+            @update:return-value="bus.$emit('recordsDialog:closed')"
+            @click:outside.prevent
+        >
             <fs-records
                 :bus="bus"
+                :rid="rid"
                 :data="post"
                 :date="date"
                 :lvl="lvl"
@@ -162,7 +168,6 @@ export default {
         reloadTable($payload) {
             this.getReportData();
             this.showRecords($payload.item, $payload.header);
-
             console.log($payload);
         },
         closeReportDialog() {

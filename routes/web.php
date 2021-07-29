@@ -178,6 +178,7 @@ Route::prefix('/fact')->group(function(){
     Route::post('/store', [FactController::class, 'store']);
     Route::post('/show', [FactController::class, 'show']);
     Route::put('/update', [FactController::class, 'update']);
+    Route::post('/destroy/bulk', [FactController::class, 'destroy_bulk']);
     Route::delete('/destroy/{id}', [FactController::class, 'destroy']);
 });
 

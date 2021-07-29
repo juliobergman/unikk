@@ -1,5 +1,11 @@
 <template>
     <v-card>
+        <v-overlay absolute color="white" opacity="1" :value="!loaded">
+            <v-progress-circular
+                color="primary"
+                indeterminate
+            ></v-progress-circular>
+        </v-overlay>
         <v-toolbar flat color="primary" dark>
             <v-toolbar-title>
                 {{ moment(date).format("MMMM, YYYY") }}
@@ -21,7 +27,10 @@
                 calculate-widths
                 :headers="headers"
                 :items="data"
+                item-key="id"
                 sort-by="code"
+                show-select
+                v-model="selected"
             >
                 <!-- Formater -->
                 <template v-slot:item.amount="{ item, header, value }">
@@ -31,24 +40,47 @@
                 <template v-slot:item.created_at="{ item }">
                     {{ moment(item.created_at).format("DD-MM-YYYY") }}
                 </template>
-                <!-- Tools -->
-                <template v-slot:item.delete="{ item }">
-                    <v-icon small @click="destroy(item)">
-                        mdi-delete
-                    </v-icon>
-                </template>
                 <!-- Summary -->
                 <template slot="body.append">
                     <tr class="border-top">
                         <th></th>
+                        <th></th>
                         <th class="body-1 font-weight-medium">Total</th>
                         <th class="body-1 font-weight-medium">{{ total() }}</th>
-                        <th></th>
                         <th></th>
                     </tr>
                 </template>
             </v-data-table>
         </v-card-text>
+        <v-card-actions>
+            <v-btn
+                :disabled="bulkDelete"
+                :dark="!bulkDelete"
+                small
+                elevation="0"
+                color="danger"
+                @click="destroy()"
+            >
+                <v-icon class="mr-2">
+                    mdi-delete
+                </v-icon>
+
+                Delete Selected
+            </v-btn>
+            <v-spacer></v-spacer>
+            <v-btn
+                small
+                elevation="0"
+                color="primary"
+                @click="$emit('closeReportDialog')"
+            >
+                <v-icon class="mr-2">
+                    mdi-close
+                </v-icon>
+
+                Close
+            </v-btn>
+        </v-card-actions>
         <confirm ref="confirm"></confirm>
         <alert ref="alert"></alert>
     </v-card>
@@ -58,28 +90,36 @@
 import confirm from "../../../ui/confirm";
 import alert from "../../../ui/alert";
 export default {
-    props: ["bus", "data", "date", "lvl", "name", "month"],
+    props: ["bus", "rid", "data", "date", "lvl", "name", "month"],
     components: {
         confirm,
         alert
     },
     data: () => ({
+        loaded: true,
         currency_symbol: "$",
+        selected: [],
         headers: [
             // { text: "id", value: "id" },
             { text: "Code", value: "code" },
             { text: "Name", value: "name" },
             // {text: "Name", value: "date"},
             { text: "Amount", value: "amount" },
-            { text: "Created", value: "created_at" },
-            {
-                text: "Delete",
-                value: "delete",
-                align: "center",
-                sortable: false
-            }
+            { text: "Created", value: "created_at" }
+            // {
+            //     text: "Delete",
+            //     value: "delete",
+            //     align: "center",
+            //     width: 0,
+            //     sortable: false
+            // }
         ]
     }),
+    computed: {
+        bulkDelete() {
+            return this.selected.length > 0 ? false : true;
+        }
+    },
     methods: {
         formatAccounting(value) {
             if (isNaN(value)) {
@@ -115,35 +155,58 @@ export default {
 
             return this.formatAccounting(sum);
         },
-        destroy(item) {
-            let message = "Do you really want to DELETE this Record?";
+        destroy() {
+            let message = "Do you really want to DELETE the selected records?";
             this.$refs.confirm
-                .open("Delete Record", message, { color: "danger" })
+                .open("Delete Records", message, { color: "danger" })
                 .then(response => {
                     if (response) {
+                        this.loaded = false;
                         axios
-                            .delete("fact/destroy/" + item.id)
+                            .post("fact/destroy/bulk", this.selected)
                             .then(response => {
                                 if (response.status == 200) {
-                                    this.$refs.alert.open(
-                                        "Record Deleted",
-                                        "Record Successfully Deleted",
-                                        {
-                                            color: "primary"
-                                        }
-                                    );
-                                    let reloadData = {
-                                        item: {
-                                            row_class: "data-row",
-                                            name: this.name
-                                        },
-                                        header: {
-                                            cellClass: "month",
-                                            value: this.month
-                                        }
-                                    };
+                                    this.clear();
 
-                                    this.$emit("reloadTable", reloadData);
+                                    axios
+                                        .post("etl/extract/income", {
+                                            year: this.date.substr(0, 4),
+                                            company: localStorage.getItem(
+                                                "company"
+                                            ),
+                                            report: this.rid
+                                        })
+                                        .then(response => {
+                                            if (response.status == 200) {
+                                                this.$refs.alert.open(
+                                                    "Records Deleted",
+                                                    "Records Successfully Deleted",
+                                                    {
+                                                        color: "primary"
+                                                    }
+                                                );
+                                                let reloadData = {
+                                                    item: {
+                                                        row_class: "data-row",
+                                                        name: this.name
+                                                    },
+                                                    header: {
+                                                        cellClass: "month",
+                                                        value: this.month
+                                                    }
+                                                };
+
+                                                this.$emit(
+                                                    "reloadTable",
+                                                    reloadData
+                                                );
+
+                                                this.loaded = true;
+                                            }
+                                        })
+                                        .catch(response => {
+                                            console.error(response);
+                                        });
                                 }
                             })
                             .catch(response => {
@@ -151,8 +214,16 @@ export default {
                             });
                     }
                 })
-                .catch(response => {});
+                .catch(response => {
+                    console.error(response);
+                });
+        },
+        clear() {
+            this.selected = [];
         }
+    },
+    mounted() {
+        this.bus.$on("recordsDialog:closed", this.clear);
     }
 };
 </script>

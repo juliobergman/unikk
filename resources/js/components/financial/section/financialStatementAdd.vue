@@ -1,8 +1,16 @@
 <template>
     <v-main id="section">
+        <v-overlay color="white" opacity="1" :value="!loaded">
+            <v-main>
+                <v-progress-circular
+                    color="primary"
+                    indeterminate
+                ></v-progress-circular>
+            </v-main>
+        </v-overlay>
         <fsa-toolbar :bus="bus"></fsa-toolbar>
         <v-divider></v-divider>
-        <fsa-body :bus="bus"></fsa-body>
+        <fsa-body @loaded="changeLoading" :bus="bus"></fsa-body>
     </v-main>
 </template>
 
@@ -14,6 +22,14 @@ export default {
     components: {
         FsaToolbar,
         FsaBody
+    },
+    data: () => ({
+        loaded: true
+    }),
+    methods: {
+        changeLoading($payload) {
+            this.loaded = $payload;
+        }
     }
 };
 </script>

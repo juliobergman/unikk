@@ -75,10 +75,16 @@ export default {
             this.date = $date + lastDay;
         },
         save() {
+            this.$emit("loaded", false);
+
+            let year = this.date.substr(0, 4);
+            let companyId = localStorage.getItem("company");
+            let reportId = this.report.id;
+
             let data = {
                 date: this.date,
-                report_id: this.report.id,
-                company_id: localStorage.getItem("company"),
+                company_id: companyId,
+                report_id: reportId,
                 facts: this.values
             };
 
@@ -91,7 +97,23 @@ export default {
                 .then(response => {
                     if (response.status == 200) {
                         this.values = [];
-                        this.$router.push({ name: "financialStatement" });
+                        axios
+                            .post("etl/extract/income", {
+                                year: year,
+                                company: companyId,
+                                report: reportId
+                            })
+                            .then(response => {
+                                if (response.status == 200) {
+                                    this.$emit("loaded", true);
+                                    this.$router.push({
+                                        name: "financialStatement"
+                                    });
+                                }
+                            })
+                            .catch(response => {
+                                console.error(response);
+                            });
                     }
                 })
                 .catch(response => {

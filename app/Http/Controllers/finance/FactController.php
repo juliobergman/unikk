@@ -70,4 +70,12 @@ class FactController extends Controller
             return response()->json(['error' =>'error'], 403);
         }
     }
+
+    public function destroy_bulk(Request $request)
+    {
+        $deletes = array_map(function($e){
+            return $e['id'];
+        }, $request->toArray());
+        Fact::destroy($deletes);
+    }
 }

@@ -16,6 +16,9 @@ class CreateCodeGroupsTable extends Migration
         Schema::create('code_groups', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->enum('type', ['income', 'balance', 'ratio']);
+            $table->unsignedBigInteger('oby')->default(1);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

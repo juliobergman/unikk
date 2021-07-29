@@ -24,7 +24,6 @@ class DatabaseSeeder extends Seeder
             ChartCollectionSeeder::class,
             ChartSeeder::class,
             PeccSeeder::class,
-            ReportSchemaSeeder::class,
             ContactSeeder::class,
             CodeGroupSeeder::class,
             CodeCategorySeeder::class,

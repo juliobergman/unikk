@@ -16,12 +16,14 @@ class CodeGroupSeeder extends Seeder
     {
 
         $groups = [
-            ['id' => 1, 'name' => 'Gross Profit'],
-            ['id' => 2, 'name' => 'Operative Income'],
-            ['id' => 3, 'name' => 'Earning Before Taxes'],
-            ['id' => 4, 'name' => 'Net Income'],
-            ['id' => 5, 'name' => 'EBIT'],
-            ['id' => 6, 'name' => 'EBITDA'],
+            ['id' => 1, 'type' => 'income', "oby" => 1, 'name' => 'Gross Profit'],
+            ['id' => 2, 'type' => 'income', "oby" => 2, 'name' => 'Operative Income'],
+            ['id' => 3, 'type' => 'income', "oby" => 3, 'name' => 'Earning Before Taxes'],
+            ['id' => 4, 'type' => 'income', "oby" => 4, 'name' => 'Net Income'],
+            ['id' => 5, 'type' => 'balance', "oby" => 1, 'name' => 'Current Assets'],
+            ['id' => 6, 'type' => 'balance', "oby" => 2, 'name' => 'Fixed Assets'],
+            ['id' => 7, 'type' => 'balance', "oby" => 3, 'name' => 'Short-term Liabilites'],
+            ['id' => 8, 'type' => 'balance', "oby" => 4, 'name' => 'Long-Term Liabilites'],
         ];
 
         DB::table('code_groups')->insert($groups);

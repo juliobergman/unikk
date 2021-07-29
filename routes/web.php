@@ -11,7 +11,9 @@ use App\Http\Controllers\chart\ChartController;
 use App\Http\Controllers\ChartCollectionController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\finance\CodeController;
+use App\Http\Controllers\finance\DataWarehouseController;
 use App\Http\Controllers\finance\DateDimensionController;
+use App\Http\Controllers\finance\EtlController;
 use App\Http\Controllers\finance\FactController;
 use App\Http\Controllers\PeccController;
 use App\Http\Controllers\TargetController;
@@ -136,6 +138,17 @@ Route::prefix('/code')->group(function(){
     Route::put('/update', [CodeController::class, 'update']);
     Route::delete('/destroy/{report}', [CodeController::class, 'destroy']);
 });
+
+// ETL
+Route::prefix('/etl')->group(function(){
+    Route::post('/extract/income', [EtlController::class, 'extractincome']);
+});
+
+// DW
+Route::prefix('/dw')->group(function(){
+    Route::post('/report', [DataWarehouseController::class, 'report']);
+});
+
 
 // Reports
 Route::prefix('/report')->group(function(){

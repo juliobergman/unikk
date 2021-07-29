@@ -19,6 +19,7 @@
                 v-slot:[`item.${header.value}`]="{ item, header, value }"
             >
                 <span @click="showRecords(item, header)">
+                    <!-- {{ value }} -->
                     {{ formatAccounting(value) }}
                 </span>
             </template>
@@ -62,7 +63,7 @@ export default {
             };
 
             axios
-                .post("report/getdata", postData)
+                .post("dw/report", postData)
                 .then(response => {
                     this.report = response.data;
                     setTimeout(() => {
@@ -74,20 +75,22 @@ export default {
                 });
         },
         formatAccounting(value) {
-            if (isNaN(value)) {
+            if (isNaN(value) || value === null) {
                 return value;
             }
+            let val = parseFloat(value);
+            let currsym = this.currency_symbol;
 
-            if (value >= 0) {
+            if (val >= 0) {
                 return (
-                    this.currency_symbol +
+                    currsym +
                     " " +
-                    value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")
+                    val.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")
                 );
             } else {
-                let nv = value * -1;
+                let nv = val * -1;
                 return (
-                    this.currency_symbol +
+                    currsym +
                     " (" +
                     nv.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,") +
                     ")"
@@ -342,7 +345,7 @@ export default {
             {
                 text: "Year",
                 align: "center",
-                value: "year",
+                value: "yar",
                 currency: true,
                 sortable: false,
                 class: "years_header",

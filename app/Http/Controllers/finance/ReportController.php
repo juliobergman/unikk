@@ -133,7 +133,6 @@ class ReportController extends Controller
         $data = $facts->get();
         return $data;
 
-
     }
 
     protected function processGroup($request, $group)
@@ -196,7 +195,7 @@ class ReportController extends Controller
             'nov'  => 0,
             'dec'  => 0,
             'qr4'  => 0,
-            'year' => 0
+            'yar' => 0
         ];
         foreach ($groups as $group) {
 
@@ -226,7 +225,7 @@ class ReportController extends Controller
                     'nov'  => $data->where('name', '=', $value->name)->where('month_name_short', '=', 'nov')->sum('total_amount'),
                     'dec'  => $data->where('name', '=', $value->name)->where('month_name_short', '=', 'dec')->sum('total_amount'),
                     'qr4'  => $data->where('name', '=', $value->name)->where('quarter', '=', 4)->sum('total_amount'),
-                    'year' => $data->where('name', '=', $value->name)->sum('total_amount'),
+                    'yar' => $data->where('name', '=', $value->name)->sum('total_amount'),
                 ];
                 $key++;
             }
@@ -248,7 +247,7 @@ class ReportController extends Controller
             $payload['nov'] += $data->where('month_name_short', '=', 'nov')->sum('total_amount');
             $payload['dec'] += $data->where('month_name_short', '=', 'dec')->sum('total_amount');
             $payload['qr4'] += $data->where('quarter', '=', 4)->sum('total_amount');
-            $payload['year'] += $data->sum('total_amount');
+            $payload['yar'] += $data->sum('total_amount');
 
 
 
@@ -273,7 +272,7 @@ class ReportController extends Controller
                 'nov'  => $payload['nov'],
                 'dec'  => $payload['dec'],
                 'qr4'  => $payload['qr4'],
-                'year' => $payload['year'],
+                'yar' => $payload['yar'],
             ];
 
             $key++;
@@ -317,7 +316,7 @@ class ReportController extends Controller
                     'nov'  => $value['nov'] * -1,
                     'dec'  => $value['dec'] * -1,
                     'qr4'  => $value['qr4'] * -1,
-                    'year' => $value['year'] * -1,
+                    'yar' => $value['yar'] * -1,
                 ];
 
                     // Payload
@@ -337,7 +336,7 @@ class ReportController extends Controller
                     $payload['nov']  += $value['nov'] * -1;
                     $payload['dec']  += $value['dec'] * -1;
                     $payload['qr4']  += $value['qr4'] * -1;
-                    $payload['year'] += $value['year'] * -1;
+                    $payload['yar'] += $value['yar'] * -1;
 
                     $key++;
                 }
@@ -363,7 +362,7 @@ class ReportController extends Controller
                 'nov'  => $payload['nov'],
                 'dec'  => $payload['dec'],
                 'qr4'  => $payload['qr4'],
-                'year' => $payload['year'],
+                'yar' => $payload['yar'],
             ];
 
             $key++;
@@ -419,7 +418,7 @@ class ReportController extends Controller
                 'nov' => $data->where('month_name_short', '=', 'nov')->where('code', '=', $value->code)->sum('month_amount'),
                 'dec' => $data->where('month_name_short', '=', 'dec')->where('code', '=', $value->code)->sum('month_amount'),
                 'qr4' =>  $data->where('quarter', '=', 4)->where('code', '=', $value->code)->sum('month_amount'),
-                'year' =>  $data->where('code', '=', $value->code)->sum('month_amount'),
+                'yar' =>  $data->where('code', '=', $value->code)->sum('month_amount'),
             ];
         }
         return $ret;

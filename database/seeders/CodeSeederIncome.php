@@ -16,6 +16,8 @@ class CodeSeederIncome extends Seeder
     {
         $codes = [
             [
+                'id' => 1,
+
                 'group' => 1,
                 'oby' => 1,
                 'code_category_id' => 10,
@@ -23,6 +25,8 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Income from Services'
             ],
             [
+                'id' => 2,
+
                 'group' => 1,
                 'oby' => 2,
                 'code_category_id' => 11,
@@ -30,6 +34,8 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Revenue Dividends Income'
             ],
             [
+                'id' => 3,
+
                 'group' => 1,
                 'oby' => 3,
                 'code_category_id' => 11,
@@ -37,6 +43,8 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Revenue Unrealized gains in trading securities'
             ],
             [
+                'id' => 4,
+
                 'group' => 1,
                 'oby' => 4,
                 'code_category_id' => 11,
@@ -44,6 +52,8 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Earnings from short-term financial investments'
             ],
             [
+                'id' => 5,
+
                 'group' => 1,
                 'oby' => 5,
                 'code_category_id' => 12,
@@ -51,6 +61,8 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Realized gains in  Private equity Holdings'
             ],
             [
+                'id' => 6,
+
                 'group' => 1,
                 'oby' => 6,
                 'code_category_id' => 13,
@@ -58,6 +70,8 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Interest gains from AFS debt investments'
             ],
             [
+                'id' => 7,
+
                 'group' => 1,
                 'oby' => 7,
                 'code_category_id' => 13,
@@ -65,6 +79,8 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Realized gains on AFS debt invesments'
             ],
             [
+                'id' => 8,
+
                 'group' => 1,
                 'oby' => 8,
                 'code_category_id' => 14,
@@ -72,6 +88,8 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Return on bank deposits'
             ],
             [
+                'id' => 9,
+
                 'group' => 1,
                 'oby' => 9,
                 'code_category_id' => 14,
@@ -79,6 +97,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Exchange gains'
             ],
             [
+                'id' => 10,
                 'group' => 1,
                 'oby' => 10,
                 'code_category_id' => 14,
@@ -86,6 +105,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Other Interest gains'
             ],
             [
+                'id' => 11,
                 'group' => 1,
                 'oby' => 11,
                 'code_category_id' => 15,
@@ -93,6 +113,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Revenue from Royalties'
             ],
             [
+                'id' => 12,
                 'group' => 1,
                 'oby' => 12,
                 'code_category_id' => 15,
@@ -100,6 +121,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Revenue from IP sales'
             ],
             [
+                'id' => 13,
                 'group' => 1,
                 'oby' => 13,
                 'code_category_id' => 16,
@@ -107,6 +129,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Gains on Cryptocurrency holdings value'
             ],
             [
+                'id' => 14,
                 'group' => 1,
                 'oby' => 14,
                 'code_category_id' => 17,
@@ -114,6 +137,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Discount'
             ],
             [
+                'id' => 15,
                 'group' => 1,
                 'oby' => 15,
                 'code_category_id' => 17,
@@ -121,6 +145,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Rebates and price deductions'
             ],
             [
+                'id' => 16,
                 'group' => 1,
                 'oby' => 16,
                 'code_category_id' => 17,
@@ -128,6 +153,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Losses from receivables'
             ],
             [
+                'id' => 17,
                 'group' => 1,
                 'oby' => 17,
                 'code_category_id' => 18,
@@ -135,6 +161,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Costs of services'
             ],
             [
+                'id' => 18,
                 'group' => 1,
                 'oby' => 18,
                 'code_category_id' => 18,
@@ -142,6 +169,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Investments Comision'
             ],
             [
+                'id' => 19,
                 'group' => 1,
                 'oby' => 19,
                 'code_category_id' => 18,
@@ -149,6 +177,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Management fees'
             ],
             [
+                'id' => 20,
                 'group' => 1,
                 'oby' => 20,
                 'code_category_id' => 18,
@@ -156,6 +185,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Brokerage Comissions'
             ],
             [
+                'id' => 21,
                 'group' => 1,
                 'oby' => 21,
                 'code_category_id' => 18,
@@ -163,6 +193,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Management fees Private equity'
             ],
             [
+                'id' => 22,
                 'group' => 1,
                 'oby' => 22,
                 'code_category_id' => 18,
@@ -170,6 +201,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Interest from leveraged investments'
             ],
             [
+                'id' => 23,
                 'group' => 1,
                 'oby' => 23,
                 'code_category_id' => 18,
@@ -177,6 +209,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Bank investments comissions (Private Equity)'
             ],
             [
+                'id' => 24,
                 'group' => 1,
                 'oby' => 24,
                 'code_category_id' => 18,
@@ -184,6 +217,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Other Investments Comissions'
             ],
             [
+                'id' => 25,
                 'group' => 1,
                 'oby' => 25,
                 'code_category_id' => 19,
@@ -191,6 +225,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Labor fees'
             ],
             [
+                'id' => 26,
                 'group' => 1,
                 'oby' => 26,
                 'code_category_id' => 19,
@@ -198,6 +233,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Techological tools Cost'
             ],
             [
+                'id' => 27,
                 'group' => 1,
                 'oby' => 27,
                 'code_category_id' => 19,
@@ -205,6 +241,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Bank comissions'
             ],
             [
+                'id' => 28,
                 'group' => 1,
                 'oby' => 28,
                 'code_category_id' => 19,
@@ -212,6 +249,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Other incubation cost'
             ],
             [
+                'id' => 29,
                 'group' => 1,
                 'oby' => 29,
                 'code_category_id' => 20,
@@ -219,6 +257,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Salary cost Services'
             ],
             [
+                'id' => 30,
                 'group' => 1,
                 'oby' => 30,
                 'code_category_id' => 20,
@@ -226,6 +265,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Allowances Services'
             ],
             [
+                'id' => 31,
                 'group' => 1,
                 'oby' => 31,
                 'code_category_id' => 20,
@@ -233,6 +273,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Bonuses Services'
             ],
             [
+                'id' => 32,
                 'group' => 1,
                 'oby' => 32,
                 'code_category_id' => 20,
@@ -240,6 +281,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Commissions Services'
             ],
             [
+                'id' => 33,
                 'group' => 1,
                 'oby' => 33,
                 'code_category_id' => 20,
@@ -247,6 +289,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Social security benefits '
             ],
             [
+                'id' => 34,
                 'group' => 1,
                 'oby' => 34,
                 'code_category_id' => 20,
@@ -254,6 +297,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Director Fees'
             ],
             [
+                'id' => 35,
                 'group' => 1,
                 'oby' => 35,
                 'code_category_id' => 21,
@@ -261,6 +305,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'AHV, IV, EO, ALV'
             ],
             [
+                'id' => 36,
                 'group' => 1,
                 'oby' => 36,
                 'code_category_id' => 21,
@@ -268,6 +313,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'FAK'
             ],
             [
+                'id' => 37,
                 'group' => 1,
                 'oby' => 37,
                 'code_category_id' => 21,
@@ -275,6 +321,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Occupational pension'
             ],
             [
+                'id' => 38,
                 'group' => 1,
                 'oby' => 38,
                 'code_category_id' => 21,
@@ -282,6 +329,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Accident insurance'
             ],
             [
+                'id' => 39,
                 'group' => 1,
                 'oby' => 39,
                 'code_category_id' => 21,
@@ -289,6 +337,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Daily sickness insurance'
             ],
             [
+                'id' => 40,
                 'group' => 1,
                 'oby' => 40,
                 'code_category_id' => 21,
@@ -296,6 +345,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Tax at source'
             ],
             [
+                'id' => 41,
                 'group' => 1,
                 'oby' => 41,
                 'code_category_id' => 22,
@@ -303,6 +353,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Staff recruitment'
             ],
             [
+                'id' => 42,
                 'group' => 1,
                 'oby' => 42,
                 'code_category_id' => 22,
@@ -310,6 +361,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Vocational education and traiding'
             ],
             [
+                'id' => 43,
                 'group' => 1,
                 'oby' => 43,
                 'code_category_id' => 22,
@@ -317,6 +369,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Other employee expenses'
             ],
             [
+                'id' => 44,
                 'group' => 2,
                 'oby' => 44,
                 'code_category_id' => 23,
@@ -324,6 +377,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Rent'
             ],
             [
+                'id' => 45,
                 'group' => 2,
                 'oby' => 45,
                 'code_category_id' => 24,
@@ -331,6 +385,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Expenses Furnishings and equipment'
             ],
             [
+                'id' => 46,
                 'group' => 2,
                 'oby' => 46,
                 'code_category_id' => 24,
@@ -338,6 +393,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Leasing tangible fixed assets'
             ],
             [
+                'id' => 47,
                 'group' => 2,
                 'oby' => 47,
                 'code_category_id' => 25,
@@ -345,6 +401,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Vehicle repair, service'
             ],
             [
+                'id' => 48,
                 'group' => 2,
                 'oby' => 48,
                 'code_category_id' => 25,
@@ -352,6 +409,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Vehicle fuel'
             ],
             [
+                'id' => 49,
                 'group' => 2,
                 'oby' => 49,
                 'code_category_id' => 25,
@@ -359,6 +417,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Vehicle insurance / vehicle tax'
             ],
             [
+                'id' => 50,
                 'group' => 2,
                 'oby' => 50,
                 'code_category_id' => 25,
@@ -366,6 +425,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Vehicle leasing'
             ],
             [
+                'id' => 51,
                 'group' => 2,
                 'oby' => 51,
                 'code_category_id' => 25,
@@ -373,6 +433,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Private share Vehicle expenses'
             ],
             [
+                'id' => 52,
                 'group' => 2,
                 'oby' => 52,
                 'code_category_id' => 26,
@@ -380,6 +441,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Insurance premiums'
             ],
             [
+                'id' => 53,
                 'group' => 2,
                 'oby' => 53,
                 'code_category_id' => 26,
@@ -387,6 +449,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Duties and charges'
             ],
             [
+                'id' => 54,
                 'group' => 2,
                 'oby' => 54,
                 'code_category_id' => 27,
@@ -394,6 +457,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Electricity/water/gas'
             ],
             [
+                'id' => 55,
                 'group' => 2,
                 'oby' => 55,
                 'code_category_id' => 28,
@@ -401,6 +465,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Office material'
             ],
             [
+                'id' => 56,
                 'group' => 2,
                 'oby' => 56,
                 'code_category_id' => 28,
@@ -408,6 +473,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Magazines, books'
             ],
             [
+                'id' => 57,
                 'group' => 2,
                 'oby' => 57,
                 'code_category_id' => 28,
@@ -415,6 +481,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Telephone, internet'
             ],
             [
+                'id' => 58,
                 'group' => 2,
                 'oby' => 58,
                 'code_category_id' => 28,
@@ -422,6 +489,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Postage'
             ],
             [
+                'id' => 59,
                 'group' => 2,
                 'oby' => 59,
                 'code_category_id' => 28,
@@ -429,6 +497,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Contributions, donations'
             ],
             [
+                'id' => 60,
                 'group' => 2,
                 'oby' => 60,
                 'code_category_id' => 28,
@@ -436,6 +505,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Accounting expenses'
             ],
             [
+                'id' => 61,
                 'group' => 2,
                 'oby' => 61,
                 'code_category_id' => 28,
@@ -443,6 +513,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Legal consulting'
             ],
             [
+                'id' => 62,
                 'group' => 2,
                 'oby' => 62,
                 'code_category_id' => 28,
@@ -450,6 +521,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Tax consulting'
             ],
             [
+                'id' => 63,
                 'group' => 2,
                 'oby' => 63,
                 'code_category_id' => 28,
@@ -457,6 +529,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Other consulting expenses'
             ],
             [
+                'id' => 64,
                 'group' => 2,
                 'oby' => 64,
                 'code_category_id' => 28,
@@ -464,6 +537,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Gsuites expenses'
             ],
             [
+                'id' => 65,
                 'group' => 2,
                 'oby' => 65,
                 'code_category_id' => 28,
@@ -471,6 +545,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Cloud Storage expenses'
             ],
             [
+                'id' => 66,
                 'group' => 2,
                 'oby' => 66,
                 'code_category_id' => 28,
@@ -478,6 +553,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Leasing and rent HW + SW'
             ],
             [
+                'id' => 67,
                 'group' => 2,
                 'oby' => 67,
                 'code_category_id' => 28,
@@ -485,6 +561,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Licenses and maintenance'
             ],
             [
+                'id' => 68,
                 'group' => 2,
                 'oby' => 68,
                 'code_category_id' => 29,
@@ -492,6 +569,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Advertising'
             ],
             [
+                'id' => 69,
                 'group' => 2,
                 'oby' => 69,
                 'code_category_id' => 29,
@@ -499,6 +577,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Promotional print material'
             ],
             [
+                'id' => 70,
                 'group' => 2,
                 'oby' => 70,
                 'code_category_id' => 29,
@@ -506,6 +585,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Exhibitions / decoration'
             ],
             [
+                'id' => 71,
                 'group' => 2,
                 'oby' => 71,
                 'code_category_id' => 29,
@@ -513,6 +593,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Web Hostung services'
             ],
             [
+                'id' => 72,
                 'group' => 2,
                 'oby' => 72,
                 'code_category_id' => 29,
@@ -520,6 +601,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Travel expenses'
             ],
             [
+                'id' => 73,
                 'group' => 2,
                 'oby' => 73,
                 'code_category_id' => 29,
@@ -527,6 +609,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Representation expenses '
             ],
             [
+                'id' => 74,
                 'group' => 2,
                 'oby' => 74,
                 'code_category_id' => 29,
@@ -534,6 +617,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Customer gifts'
             ],
             [
+                'id' => 75,
                 'group' => 2,
                 'oby' => 75,
                 'code_category_id' => 30,
@@ -541,6 +625,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Other expenses'
             ],
             [
+                'id' => 76,
                 'group' => 2,
                 'oby' => 76,
                 'code_category_id' => 31,
@@ -548,6 +633,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Depreciation on financial assets'
             ],
             [
+                'id' => 77,
                 'group' => 2,
                 'oby' => 77,
                 'code_category_id' => 31,
@@ -555,6 +641,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Depreciation on machinery and appliances'
             ],
             [
+                'id' => 78,
                 'group' => 2,
                 'oby' => 78,
                 'code_category_id' => 31,
@@ -562,6 +649,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Depreciation on furniture and equipment'
             ],
             [
+                'id' => 79,
                 'group' => 2,
                 'oby' => 79,
                 'code_category_id' => 31,
@@ -569,6 +657,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Depreciation on office equipment and computers'
             ],
             [
+                'id' => 80,
                 'group' => 2,
                 'oby' => 80,
                 'code_category_id' => 31,
@@ -576,6 +665,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Depreciation on vehicles'
             ],
             [
+                'id' => 81,
                 'group' => 2,
                 'oby' => 81,
                 'code_category_id' => 31,
@@ -583,6 +673,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Depreciation on immovable fixes assets'
             ],
             [
+                'id' => 82,
                 'group' => 2,
                 'oby' => 82,
                 'code_category_id' => 31,
@@ -590,6 +681,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Depreciation on intangible assets'
             ],
             [
+                'id' => 83,
                 'group' => 2,
                 'oby' => 83,
                 'code_category_id' => 31,
@@ -597,6 +689,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Depreciation on capitalized expenditure'
             ],
             [
+                'id' => 84,
                 'group' => 3,
                 'oby' => 84,
                 'code_category_id' => 32,
@@ -604,6 +697,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Interest expenses on loans'
             ],
             [
+                'id' => 85,
                 'group' => 3,
                 'oby' => 85,
                 'code_category_id' => 32,
@@ -611,6 +705,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Other Bank Charges'
             ],
             [
+                'id' => 86,
                 'group' => 3,
                 'oby' => 86,
                 'code_category_id' => 32,
@@ -618,6 +713,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Exchange losses'
             ],
             [
+                'id' => 87,
                 'group' => 3,
                 'oby' => 87,
                 'code_category_id' => 33,
@@ -625,6 +721,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Rental income'
             ],
             [
+                'id' => 88,
                 'group' => 3,
                 'oby' => 88,
                 'code_category_id' => 33,
@@ -632,6 +729,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Property expenses'
             ],
             [
+                'id' => 89,
                 'group' => 3,
                 'oby' => 89,
                 'code_category_id' => 34,
@@ -639,6 +737,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Gains on tangible fixed assets'
             ],
             [
+                'id' => 90,
                 'group' => 3,
                 'oby' => 90,
                 'code_category_id' => 35,
@@ -646,6 +745,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Non-company related expenditures'
             ],
             [
+                'id' => 91,
                 'group' => 3,
                 'oby' => 91,
                 'code_category_id' => 36,
@@ -653,6 +753,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Non-company related income'
             ],
             [
+                'id' => 92,
                 'group' => 4,
                 'oby' => 92,
                 'code_category_id' => 37,
@@ -660,6 +761,7 @@ class CodeSeederIncome extends Seeder
                 'name' => 'Cantonal and municipal taxes'
             ],
             [
+                'id' => 93,
                 'group' => 4,
                 'oby' => 93,
                 'code_category_id' => 38,

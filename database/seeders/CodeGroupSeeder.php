@@ -24,6 +24,7 @@ class CodeGroupSeeder extends Seeder
             ['id' => 6, 'type' => 'balance', "oby" => 2, 'name' => 'Fixed Assets'],
             ['id' => 7, 'type' => 'balance', "oby" => 3, 'name' => 'Short-term Liabilites'],
             ['id' => 8, 'type' => 'balance', "oby" => 4, 'name' => 'Long-Term Liabilites'],
+            ['id' => 9, 'type' => 'balance', "oby" => 5, 'name' => 'Equity'],
         ];
 
         DB::table('code_groups')->insert($groups);

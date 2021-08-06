@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\finance\Fact;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class CodeSeeder extends Seeder
+class CodeSeederIncome extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +14,6 @@ class CodeSeeder extends Seeder
      */
     public function run()
     {
-
         $codes = [
             [
                 'group' => 1,
@@ -667,7 +665,7 @@ class CodeSeeder extends Seeder
                 'code_category_id' => 38,
                 'code' => 8901,
                 'name' => 'Direct federal taxes'
-            ],
+            ]
         ];
 
         DB::table('codes')->insert($codes);
@@ -678,6 +676,5 @@ class CodeSeeder extends Seeder
         ];
 
         DB::table('codes')->update($update);
-
     }
 }

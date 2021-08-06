@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class CodeCategorySeeder extends Seeder
+class CodeCategorySeederIncome extends Seeder
 {
     /**
      * Run the database seeds.
@@ -290,7 +290,7 @@ class CodeCategorySeeder extends Seeder
                 'user_id' => 1,
                 'company_id' => 1,
                 'name' => 'Direct federal taxes',
-            ],
+            ]
         ];
 
         DB::table('code_categories')->insert($code_categories);

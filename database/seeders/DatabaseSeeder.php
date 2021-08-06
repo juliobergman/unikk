@@ -26,8 +26,10 @@ class DatabaseSeeder extends Seeder
             PeccSeeder::class,
             ContactSeeder::class,
             CodeGroupSeeder::class,
-            CodeCategorySeeder::class,
-            CodeSeeder::class,
+            CodeCategorySeederIncome::class,
+            CodeCategorySeederBalance::class,
+            CodeSeederIncome::class,
+            CodeSeederBalance::class,
             ReportSeeder::class,
             FactSeeder::class,
         ]);

@@ -27,7 +27,7 @@ export default {
             };
 
             axios
-                .post("report/getinfo", postData)
+                .post("report/show", postData)
                 .then(response => {
                     this.title = response.data.title;
                     this.subtitle = response.data.subtitle;

@@ -41,10 +41,10 @@ export default {
         defaultReport() {
             if (this.reports.lenght > 0) return;
             axios
-                .get("report/all/income")
+                .post("report/show", { id: 1 })
                 .then(response => {
                     if (response.status == 200) {
-                        this.addReport(response.data[0]);
+                        this.addReport(response.data);
                     }
                 })
                 .catch(response => {

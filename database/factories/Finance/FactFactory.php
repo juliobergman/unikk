@@ -23,8 +23,10 @@ class FactFactory extends Factory
     {
         return [
             'date' => $this->faker->dateTimeBetween('-7 months', '+7 months'),
-            'code_id' => $this->faker->numberBetween(1,93),
-            'report_id' => $this->faker->numberBetween(1,2),
+            // 'code_id' => $this->faker->numberBetween(1,165),
+            'code_id' => $this->faker->numberBetween(94,165),
+            // 'report_id' => $this->faker->numberBetween(1,3),
+            'report_id' => 3,
             'company_id' => 1,
             'user_id' => 1,
             'amount' => $this->faker->numberBetween(-1000, 1000),

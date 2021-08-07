@@ -259,7 +259,7 @@ export default {
     methods: {
         getMenuReports() {
             axios
-                .get("report/all/income")
+                .post("report/all")
                 .then(response => {
                     if (response.status == 200) {
                         this.menuReports = response.data;

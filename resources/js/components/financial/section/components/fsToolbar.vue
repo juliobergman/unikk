@@ -94,7 +94,7 @@ export default {
     methods: {
         getReportMenu() {
             axios
-                .get("report/all/income")
+                .post("report/all")
                 .then(response => {
                     this.reportMenu = response.data;
                     if (this.setreport) {

@@ -15,11 +15,7 @@ class DataWarehouseController extends Controller
         $report->where('company_id', $request->company);
         $report->where('lvl', $request->lvl);
         $report->where('report_id', $request->report);
-
         $report->orderBy('row','asc');
-
-
         return $report->get();
-
     }
 }

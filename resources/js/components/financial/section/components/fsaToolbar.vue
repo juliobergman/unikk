@@ -105,7 +105,7 @@ export default {
         },
         getReports() {
             axios
-                .get("report/all/income")
+                .post("report/all", { not: "ratio" })
                 .then(response => {
                     this.reports = response.data;
                     this.report = this.reports[0];

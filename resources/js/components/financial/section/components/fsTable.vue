@@ -153,7 +153,7 @@ export default {
             };
 
             axios
-                .post("report/getrecords", postData)
+                .post("fact/records", postData)
                 .then(response => {
                     this.post = response.data;
                 })

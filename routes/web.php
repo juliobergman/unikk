@@ -2,22 +2,23 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PeccController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\TargetController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\chart\ChartController;
-use App\Http\Controllers\ChartCollectionController;
-use App\Http\Controllers\ContactController;
 use App\Http\Controllers\finance\CodeController;
+use App\Http\Controllers\finance\FactController;
+use App\Http\Controllers\finance\ReportController;
+use App\Http\Controllers\ChartCollectionController;
+use App\Http\Controllers\finance\EtlIncomeController;
+use App\Http\Controllers\finance\EtlBalanceController;
 use App\Http\Controllers\finance\DataWarehouseController;
 use App\Http\Controllers\finance\DateDimensionController;
-use App\Http\Controllers\finance\EtlController;
-use App\Http\Controllers\finance\FactController;
-use App\Http\Controllers\PeccController;
-use App\Http\Controllers\TargetController;
-use App\Http\Controllers\finance\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -141,7 +142,8 @@ Route::prefix('/code')->group(function(){
 
 // ETL
 Route::prefix('/etl')->group(function(){
-    Route::post('/extract/income', [EtlController::class, 'extractincome']);
+    Route::post('/extract/income', [EtlIncomeController::class, 'extract']);
+    Route::post('/extract/balance', [EtlBalanceController::class, 'extract']);
 });
 
 // DW
@@ -152,14 +154,11 @@ Route::prefix('/dw')->group(function(){
 
 // Reports
 Route::prefix('/report')->group(function(){
-    Route::get('/all/{type?}', [ReportController::class, 'index']);
+    Route::post('/all', [ReportController::class, 'index']);
+    Route::post('/show', [ReportController::class, 'show']);
     Route::post('/store', [ReportController::class, 'store']);
-    Route::post('/data', [ReportController::class, 'data']);
     Route::put('/update', [ReportController::class, 'update']);
     Route::delete('/destroy/{report}', [ReportController::class, 'destroy']);
-    Route::post('/getdata', [ReportController::class, 'getdata']);
-    Route::post('/getinfo', [ReportController::class, 'getinfo']);
-    Route::post('/getrecords', [ReportController::class, 'getrecords']);
 });
 
 // Date
@@ -173,8 +172,9 @@ Route::prefix('/date')->group(function(){
 
 // Fact
 Route::prefix('/fact')->group(function(){
-    Route::post('/amount', [FactController::class, 'fact_amount']);
     Route::post('/all', [FactController::class, 'index']);
+    Route::post('/records', [FactController::class, 'records']);
+    Route::post('/amount', [FactController::class, 'fact_amount']);
     Route::post('/store', [FactController::class, 'store']);
     Route::post('/show', [FactController::class, 'show']);
     Route::put('/update', [FactController::class, 'update']);

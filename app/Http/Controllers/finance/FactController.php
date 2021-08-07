@@ -17,6 +17,40 @@ class FactController extends Controller
         abort(404);
     }
 
+    public function records(Request $request)
+    {
+        $date = date_parse($request->month.'-'.$request->year);
+        $records = Fact::query();
+        $records->where('facts.company_id', $request->company);
+        $records->where('facts.report_id', $request->report);
+        $records->whereMonth('date', $date['month']);
+        $records->whereYear('date', $date['year']);
+        // Look for Name
+        $data_where = [
+            'lvl1' => 'parents.name',
+            'lvl2' => 'code_categories.name',
+            'lvl3' => 'codes.name'
+        ];
+        $records->where($data_where[$request->lvl], $request->name);
+        // Selects
+        $records->select([
+            'codes.name AS name',
+            'facts.id as id',
+            'codes.code as code',
+            'facts.date',
+            'facts.created_at',
+            'facts.amount',
+        ]);
+        // Joins
+        $records->join('codes', 'facts.code_id', '=', 'codes.id');
+        $records->join('code_categories', 'codes.code_category_id', '=', 'code_categories.id');
+        $records->join('code_categories as parents', 'parents.id', '=', 'code_categories.parent');
+
+        $records->orderBy('created_at');
+
+        return $records->get();
+    }
+
     public function fact_amount($data)
     {
         $facts = Fact::query();

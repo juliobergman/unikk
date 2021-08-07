@@ -23,7 +23,7 @@ class CreateDataWarehousesTable extends Migration
             $table->unsignedBigInteger('year');
             $table->string('lvl')->index();
             // Unique
-            $table->unique(['year','report_id','lvl','row'], 'unicus');
+            $table->unique(['year','report_id','lvl','row','company_id'], 'unicus');
 
             $table->string('name')->nullable();
 

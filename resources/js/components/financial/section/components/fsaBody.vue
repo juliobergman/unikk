@@ -36,6 +36,7 @@ import axios from "axios";
 export default {
     props: ["bus"],
     data: () => ({
+        loaded: true,
         date: new Date().toISOString().slice(0, 10),
         report: [],
         headers: [
@@ -53,10 +54,10 @@ export default {
             let focusItem = document.getElementById(focusItemId);
             focusItem ? focusItem.focus() : null;
         },
-        getFields() {
+        getFields($type) {
             this.loaded = false;
             axios
-                .get("code/all")
+                .post("code/all", { type: $type })
                 .then(response => {
                     this.items = response.data;
                     this.loaded = true;
@@ -66,7 +67,9 @@ export default {
                 });
         },
         setReport($report) {
+            this.values = [];
             this.report = $report;
+            this.getFields($report.type);
         },
         setDate($date) {
             let lastDay = this.moment($date)
@@ -80,6 +83,7 @@ export default {
             let year = this.date.substr(0, 4);
             let companyId = localStorage.getItem("company");
             let reportId = this.report.id;
+            let reportType = this.report.type;
 
             let data = {
                 date: this.date,
@@ -98,7 +102,7 @@ export default {
                     if (response.status == 200) {
                         this.values = [];
                         axios
-                            .post("etl/extract/income", {
+                            .post("etl/extract/" + reportType, {
                                 year: year,
                                 company: companyId,
                                 report: reportId
@@ -120,9 +124,6 @@ export default {
                     console.error(response);
                 });
         }
-    },
-    created() {
-        this.getFields();
     },
     mounted() {
         this.bus.$on("setReport", this.setReport);

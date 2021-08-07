@@ -73,6 +73,7 @@ class EtlIncomeController extends Controller
             // Order
             $facts->orderBy('codes.oby');
             $data = $facts->get();
+
             return $data;
 
         }

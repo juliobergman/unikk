@@ -10,16 +10,19 @@
                     v-bind="attrs"
                     v-on="on"
                 >
-                    {{ report.name }}
+                    {{ reportData.name }}
                 </v-btn>
             </template>
             <v-list>
-                <v-list-item-group v-model="report" color="primary" mandatory>
+                <v-list-item-group
+                    v-model="reportData"
+                    color="primary"
+                    mandatory
+                >
                     <v-list-item
                         v-for="(item, i) in reportMenu"
                         :key="i"
                         :value="item"
-                        @click="$emit('changeReport', item)"
                     >
                         <v-list-item-content>
                             <v-list-item-title
@@ -31,6 +34,8 @@
             </v-list>
         </v-menu>
         <v-spacer></v-spacer>
+        <!-- Add Btn -->
+        <fs-add-btn :bus="bus" :report="report"></fs-add-btn>
         <!-- Year Menu -->
         <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
@@ -50,7 +55,7 @@
                     v-model="year"
                     color="primary"
                     mandatory
-                    @change="$emit('changeYear', year)"
+                    @change="bus.$emit('year:change', year)"
                 >
                     <v-list-item
                         v-for="(item, i) in yearButtons"
@@ -66,46 +71,35 @@
                 </v-list-item-group>
             </v-list>
         </v-menu>
-        <v-btn
-            small
-            tile
-            text
-            height="48"
-            width="48"
-            color="primary"
-            @click="bus.$emit('closeReport', index)"
-        >
-            <v-icon small>
-                mdi-close
-            </v-icon>
-        </v-btn>
     </v-toolbar>
 </template>
 
 <script>
+import fsAddBtn from "./fsAddBtn";
 export default {
-    props: ["bus", "index", "setreport"],
+    components: { fsAddBtn },
+    props: ["bus", "report", "period"],
     data: () => ({
-        year: new Date().getFullYear(),
+        year: undefined,
         yearButtons: [2020, 2021, 2022, 2023, 2024, 2025, 2026],
-        reportMenu: [],
-        report: []
+        reportMenu: []
     }),
+    computed: {
+        reportData: {
+            get() {
+                return this.report;
+            },
+            set(val) {
+                this.bus.$emit("report:update", val);
+            }
+        }
+    },
     methods: {
         getReportMenu() {
             axios
                 .post("report/all")
                 .then(response => {
                     this.reportMenu = response.data;
-                    if (this.setreport) {
-                        this.report = this.setreport;
-                    }
-                })
-                .then(response => {
-                    if (!this.setreport) {
-                        this.report = response.data[0];
-                        this.$emit("changeReport", this.report);
-                    }
                 })
                 .catch(response => {
                     console.error(response);
@@ -114,13 +108,9 @@ export default {
     },
     created() {
         this.getReportMenu();
+        this.year = this.period.year;
     }
 };
 </script>
 
-<style>
-.v-toolbar__no_pad .v-toolbar__content {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-}
-</style>
+<style></style>

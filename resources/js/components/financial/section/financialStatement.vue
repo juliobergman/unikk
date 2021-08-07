@@ -1,50 +1,54 @@
 <template>
     <v-main>
-        <report-toolbar
-            :bus="bus"
-            :period="period"
-            :lvl="lvl"
-            @changePeriod="changePeriod"
-            @changeLevel="changeLevel"
-            @duplicateReport="addReport"
-        >
-        </report-toolbar>
+        <fs-toolbar :bus="bus" :report="report" :period="period"> </fs-toolbar>
         <v-divider></v-divider>
-        <!-- <fs-top-bar :bus="bus"></fs-top-bar> -->
-        <!-- <fs-table :bus="bus"></fs-table> -->
-        <statement
-            v-for="(item, idx) in reports"
-            :key="idx"
-            :index="idx"
-            :period="period"
-            :repdata="item"
-            :lvl="lvl"
-            :search="search"
+        <fs-top-bar :bus="bus" :period="period" :lvl="lvl"></fs-top-bar>
+        <v-divider></v-divider>
+        <fs-table
+            v-if="report"
             :bus="bus"
-        ></statement>
+            :search="search"
+            :rid="report.id"
+            :lvl="lvl"
+            :period="period"
+        ></fs-table>
     </v-main>
 </template>
 <script>
-import reportToolbar from "../ui/reportToolbar";
-import Statement from "./components/statement";
-import fsTable from "./components/fsTable";
 import fsTopBar from "./components/fsTopBar";
+import fsToolbar from "./components/fsToolbar";
+import fsTable from "./components/fsTable";
 export default {
     components: {
-        reportToolbar,
-        Statement,
-        fsTable,
-        fsTopBar
+        fsTopBar,
+        fsToolbar,
+        fsTable
     },
     props: ["bus"],
+    data: () => ({
+        reportMenu: [],
+        report: {},
+        period: {
+            window: { data: "yearly", name: "By Year" },
+            month: { data: "jan", name: "January" },
+            quarter: { data: "qa", name: "Only Quarters" },
+            year: new Date().getFullYear()
+        },
+        lvl: { data: "lvl1", name: "Level 1" },
+        search: "yearly"
+    }),
     methods: {
+        updateReport(data) {
+            this.report = data;
+        },
         defaultReport() {
-            if (this.reports.lenght > 0) return;
+            if (!_.isEmpty(this.report)) return;
             axios
                 .post("report/show", { id: 1 })
                 .then(response => {
                     if (response.status == 200) {
-                        this.addReport(response.data);
+                        this.report = response.data;
+                        // this.addReport(response.data);
                     }
                 })
                 .catch(response => {
@@ -64,27 +68,19 @@ export default {
         changePeriod($payload, $search) {
             this.period = $payload;
             this.search = $search;
-            localStorage.setItem("fs_period", JSON.stringify($payload));
-            localStorage.setItem("fs_search", $search);
+            // localStorage.setItem("fs_period", JSON.stringify($payload));
+            // localStorage.setItem("fs_search", $search);
             return;
         },
         changeLevel($payload) {
             this.lvl = $payload;
-            localStorage.setItem("fs_lvl", JSON.stringify($payload));
+            // localStorage.setItem("fs_lvl", JSON.stringify($payload));
             this.changePeriod(this.period, this.search);
+        },
+        changeYear($payload) {
+            this.period.year = $payload;
         }
     },
-    data: () => ({
-        reportMenu: [],
-        reports: [],
-        period: {
-            window: { data: "yearly", name: "By Year" },
-            month: { data: "jan", name: "January" },
-            quarter: { data: "qa", name: "Only Quarters" }
-        },
-        lvl: { data: "lvl1", name: "Level 1" },
-        search: "yearly"
-    }),
     created() {
         if (localStorage.fs_period) {
             this.period = JSON.parse(localStorage.getItem("fs_period"));
@@ -100,7 +96,10 @@ export default {
         this.defaultReport();
     },
     mounted() {
-        this.bus.$on("closeReport", this.deleteReport);
+        this.bus.$on("report:update", this.updateReport);
+        this.bus.$on("year:change", this.changeYear);
+        this.bus.$on("period:change", this.changePeriod);
+        this.bus.$on("level:change", this.changeLevel);
     }
 };
 </script>

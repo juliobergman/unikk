@@ -133,7 +133,7 @@ Route::prefix('/upload')->group(function(){
 
 // Codes
 Route::prefix('/code')->group(function(){
-    Route::get('/all', [CodeController::class, 'index']);
+    Route::post('/all', [CodeController::class, 'index']);
     Route::post('/store', [CodeController::class, 'store']);
     Route::post('/data', [CodeController::class, 'data']);
     Route::put('/update', [CodeController::class, 'update']);

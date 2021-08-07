@@ -34,7 +34,7 @@ class FactSeeder extends Seeder
             // '2021-12-15',
         ];
 
-        Fact::factory(1000)->create();
+        // Fact::factory(1000)->create();
         // foreach ($dates as $value) {
         //     Fact::factory(93)
         //     ->state(

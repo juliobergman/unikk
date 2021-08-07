@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-data-table
-            :loading="!dataLoaded"
+            :loading="!loaded"
             :headers="getHeaders()"
             :items="report"
             :item-class="rowClass"
@@ -52,17 +52,17 @@ export default {
         FsToolbar,
         FsRecords
     },
-    props: ["bus", "rid", "year", "period", "lvl", "search"],
+    props: ["bus", "rid", "period", "lvl", "search"],
     methods: {
         getReportData() {
-            if (!this.year) return;
+            if (!this.period) return;
             if (!this.lvl) return;
             if (!this.rid) return;
 
-            this.dataLoaded = false;
+            this.loaded = false;
 
             let postData = {
-                year: this.year,
+                year: this.period.year,
                 company: localStorage.getItem("company"),
                 lvl: this.lvl.data,
                 report: this.rid
@@ -73,7 +73,7 @@ export default {
                 .then(response => {
                     this.report = response.data;
                     setTimeout(() => {
-                        this.dataLoaded = true;
+                        this.loaded = true;
                     }, 100);
                 })
                 .catch(response => {
@@ -138,13 +138,14 @@ export default {
         showRecords(item, header) {
             if (header.cellClass != "month") return;
             if (item.row_class == "result-row") return;
-
-            this.date = new Date(header.value + "-" + this.year).toISOString();
+            this.date = new Date(
+                header.value + "-" + this.period.year
+            ).toISOString();
             this.recordsName = item.name;
             this.recordsMonth = header.value;
 
             let postData = {
-                year: this.year,
+                year: this.period.year,
                 month: header.value,
                 company: localStorage.getItem("company"),
                 report: this.rid,
@@ -177,7 +178,7 @@ export default {
         }
     },
     data: () => ({
-        dataLoaded: true,
+        loaded: true,
         currency_symbol: "$",
         report: undefined,
         recordsDialog: false,

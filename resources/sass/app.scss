@@ -78,7 +78,11 @@
 .theme--dark .transparent-overlay {
     background: rgba(0, 0, 0, 0.5) !important;
 }
-
+// Toolbars
+.v-toolbar__no_pad .v-toolbar__content {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
 // Data Tables
 .v-data-table__wrapper table tbody tr td {
     white-space: nowrap;

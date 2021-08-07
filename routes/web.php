@@ -163,11 +163,8 @@ Route::prefix('/report')->group(function(){
 
 // Date
 Route::prefix('/date')->group(function(){
-    Route::get('/all', [DateDimensionController::class, 'index']);
-    Route::post('/store', [DateDimensionController::class, 'store']);
     Route::post('/show', [DateDimensionController::class, 'show']);
-    Route::put('/update', [DateDimensionController::class, 'update']);
-    Route::delete('/destroy/{report}', [DateDimensionController::class, 'destroy']);
+    Route::get('/years', [DateDimensionController::class, 'years']);
 });
 
 // Fact

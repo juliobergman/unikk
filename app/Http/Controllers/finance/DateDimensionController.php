@@ -8,15 +8,6 @@ use Illuminate\Http\Request;
 
 class DateDimensionController extends Controller
 {
-    public function index()
-    {
-        //
-    }
-
-    public function store(Request $request)
-    {
-        //
-    }
 
     public function show(Request $request)
     {
@@ -25,13 +16,11 @@ class DateDimensionController extends Controller
         return $date->get();
     }
 
-    public function update(Request $request, DateDimension $dateDimension)
+    public function years()
     {
-        //
-    }
-
-    public function destroy(DateDimension $dateDimension)
-    {
-        //
+        $date = DateDimension::query();
+        $date->select('year');
+        $date->groupBy('year');
+        return $date->get();
     }
 }

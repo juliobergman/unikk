@@ -60,11 +60,11 @@
                     <v-list-item
                         v-for="(item, i) in yearButtons"
                         :key="i"
-                        :value="item"
+                        :value="item.year"
                     >
                         <v-list-item-content>
                             <v-list-item-title
-                                v-text="item"
+                                v-text="item.year"
                             ></v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
@@ -81,7 +81,7 @@ export default {
     props: ["bus", "report", "period"],
     data: () => ({
         year: undefined,
-        yearButtons: [2020, 2021, 2022, 2023, 2024, 2025, 2026],
+        yearButtons: [],
         reportMenu: []
     }),
     computed: {
@@ -104,10 +104,21 @@ export default {
                 .catch(response => {
                     console.error(response);
                 });
+        },
+        getYears() {
+            axios
+                .get("date/years")
+                .then(response => {
+                    this.yearButtons = response.data;
+                })
+                .catch(response => {
+                    console.error(response);
+                });
         }
     },
     created() {
         this.getReportMenu();
+        this.getYears();
         this.year = this.period.year;
     }
 };

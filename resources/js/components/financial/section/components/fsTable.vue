@@ -367,8 +367,11 @@ export default {
         this.bus.$on("companyChange", this.getReportData);
     },
     watch: {
-        year() {
-            this.getReportData();
+        period: {
+            handler() {
+                this.getReportData();
+            },
+            deep: true
         },
         lvl() {
             this.getReportData();

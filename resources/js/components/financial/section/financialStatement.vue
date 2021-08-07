@@ -40,6 +40,7 @@ export default {
     methods: {
         updateReport(data) {
             this.report = data;
+            localStorage.setItem("fs_report", JSON.stringify(data));
         },
         defaultReport() {
             if (!_.isEmpty(this.report)) return;
@@ -48,15 +49,15 @@ export default {
                 .then(response => {
                     if (response.status == 200) {
                         this.report = response.data;
-                        // this.addReport(response.data);
+                        localStorage.setItem(
+                            "fs_report",
+                            JSON.stringify(response.data)
+                        );
                     }
                 })
                 .catch(response => {
                     console.error(response);
                 });
-        },
-        addReport($payload) {
-            this.reports = [...this.reports, $payload];
         },
         deleteReport($payload) {
             let arr = this.reports;
@@ -68,20 +69,24 @@ export default {
         changePeriod($payload, $search) {
             this.period = $payload;
             this.search = $search;
-            // localStorage.setItem("fs_period", JSON.stringify($payload));
-            // localStorage.setItem("fs_search", $search);
+            localStorage.setItem("fs_period", JSON.stringify($payload));
+            localStorage.setItem("fs_search", $search);
             return;
         },
         changeLevel($payload) {
             this.lvl = $payload;
-            // localStorage.setItem("fs_lvl", JSON.stringify($payload));
+            localStorage.setItem("fs_lvl", JSON.stringify($payload));
             this.changePeriod(this.period, this.search);
         },
         changeYear($payload) {
             this.period.year = $payload;
+            localStorage.setItem("fs_period", JSON.stringify(this.period));
         }
     },
     created() {
+        if (localStorage.fs_report) {
+            this.report = JSON.parse(localStorage.getItem("fs_report"));
+        }
         if (localStorage.fs_period) {
             this.period = JSON.parse(localStorage.getItem("fs_period"));
         }

@@ -1,11 +1,13 @@
 <template>
-    <v-main>
-        <h1>Dashboard</h1>
-    </v-main>
+    <financial-statement :bus="bus"></financial-statement>
 </template>
 
 <script>
-export default {};
+import FinancialStatement from "../financial/section/financialStatement";
+export default {
+    props: ["bus"],
+    components: {
+        FinancialStatement
+    }
+};
 </script>
-
-<style></style>

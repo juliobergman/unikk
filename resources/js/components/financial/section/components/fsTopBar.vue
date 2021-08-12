@@ -6,7 +6,6 @@
                     text
                     tile
                     height="48"
-                    color="primary"
                     v-bind="attrs"
                     v-on="on"
                     v-text="dataPeriod.window.name"
@@ -14,11 +13,7 @@
                 </v-btn>
             </template>
             <v-list>
-                <v-list-item-group
-                    v-model="dataWindow"
-                    color="primary"
-                    mandatory
-                >
+                <v-list-item-group v-model="dataWindow" mandatory>
                     <v-list-item
                         v-for="(item, i) in periodButtons"
                         :key="i"
@@ -39,7 +34,6 @@
                     text
                     tile
                     height="48"
-                    color="primary"
                     v-bind="attrs"
                     v-on="on"
                     v-text="dataPeriod.quarter.name"
@@ -47,11 +41,7 @@
                 </v-btn>
             </template>
             <v-list>
-                <v-list-item-group
-                    v-model="dataQuarter"
-                    color="primary"
-                    mandatory
-                >
+                <v-list-item-group v-model="dataQuarter" mandatory>
                     <v-list-item
                         v-for="(item, i) in quarterButtons"
                         :key="i"
@@ -72,7 +62,6 @@
                     text
                     tile
                     height="48"
-                    color="primary"
                     v-bind="attrs"
                     v-on="on"
                     v-text="dataPeriod.month.name"
@@ -80,11 +69,7 @@
                 </v-btn>
             </template>
             <v-list>
-                <v-list-item-group
-                    v-model="dataMonth"
-                    color="primary"
-                    mandatory
-                >
+                <v-list-item-group v-model="dataMonth" mandatory>
                     <v-list-item
                         v-for="(item, i) in monthButtons"
                         :key="i"
@@ -102,21 +87,14 @@
         <v-spacer></v-spacer>
         <v-menu offset-y v-if="false">
             <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                    text
-                    tile
-                    height="48"
-                    color="primary"
-                    v-bind="attrs"
-                    v-on="on"
-                >
+                <v-btn text tile height="48" v-bind="attrs" v-on="on">
                     <v-icon>
                         mdi-content-duplicate
                     </v-icon>
                 </v-btn>
             </template>
             <v-list>
-                <v-list-item-group color="primary" mandatory>
+                <v-list-item-group mandatory>
                     <v-list-item
                         v-for="(item, i) in menuReports"
                         :key="i"
@@ -138,7 +116,6 @@
                     text
                     tile
                     height="48"
-                    color="primary"
                     v-bind="attrs"
                     v-on="on"
                     v-text="dataLevel.name"
@@ -146,11 +123,7 @@
                 </v-btn>
             </template>
             <v-list>
-                <v-list-item-group
-                    v-model="dataLevel"
-                    color="primary"
-                    mandatory
-                >
+                <v-list-item-group v-model="dataLevel" mandatory>
                     <v-list-item
                         v-for="(item, i) in levelButtons"
                         :key="i"

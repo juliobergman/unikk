@@ -1,28 +1,13 @@
 <template>
     <v-toolbar flat dense class="v-toolbar__no_pad mb-2 sticky">
-        <v-btn
-            small
-            text
-            height="48"
-            width="30"
-            tile
-            color="primary"
-            to="/financial/statement"
-        >
+        <v-btn small text height="48" width="30" tile to="/financial/statement">
             <v-icon>
                 mdi-chevron-left
             </v-icon>
         </v-btn>
         <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                    text
-                    tile
-                    height="48"
-                    color="primary"
-                    v-bind="attrs"
-                    v-on="on"
-                >
+                <v-btn text tile height="48" v-bind="attrs" v-on="on">
                     {{ report.name }}
                 </v-btn>
             </template>
@@ -30,7 +15,6 @@
             <v-list>
                 <v-list-item-group
                     v-model="report"
-                    color="primary"
                     mandatory
                     @change="bus.$emit('setReport', report)"
                 >
@@ -55,7 +39,6 @@
             height="48"
             width="30"
             tile
-            color="primary"
             @click="bus.$emit('saveFacts')"
         >
             <v-icon>
@@ -65,14 +48,7 @@
         <!-- Year Menu -->
         <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                    text
-                    tile
-                    height="48"
-                    color="primary"
-                    v-bind="attrs"
-                    v-on="on"
-                >
+                <v-btn text tile height="48" v-bind="attrs" v-on="on">
                     {{ moment(date).format("MMM, YYYY") }}
                 </v-btn>
             </template>
@@ -132,9 +108,5 @@ export default {
     position: sticky !important;
     top: 64px !important;
     z-index: 4 !important;
-}
-.v-toolbar__no_pad .v-toolbar__content {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
 }
 </style>

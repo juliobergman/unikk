@@ -320,6 +320,9 @@
                                                         Legend Position
                                                     </div>
                                                     <v-btn-toggle
+                                                        color="accent"
+                                                        tile
+                                                        group
                                                         v-model="
                                                             options.legend
                                                                 .position
@@ -431,14 +434,11 @@
                                 </v-row>
                                 <v-row>
                                     <v-col cols="12" class="d-flex justify-end">
-                                        <v-btn
-                                            color="primary"
-                                            @click="updateOptions()"
-                                        >
+                                        <v-btn text @click="updateOptions()">
+                                            <v-icon small class="mr-2">
+                                                mdi-update
+                                            </v-icon>
                                             Update
-                                            <v-icon small class="ml-2"
-                                                >mdi-update</v-icon
-                                            >
                                         </v-btn>
                                     </v-col>
                                 </v-row>

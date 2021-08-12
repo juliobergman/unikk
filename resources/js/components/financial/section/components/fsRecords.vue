@@ -1,12 +1,9 @@
 <template>
     <v-card>
-        <v-overlay absolute color="white" opacity="1" :value="!loaded">
-            <v-progress-circular
-                color="primary"
-                indeterminate
-            ></v-progress-circular>
+        <v-overlay absolute opacity="1" :value="!loaded">
+            <v-progress-circular indeterminate></v-progress-circular>
         </v-overlay>
-        <v-toolbar flat color="primary" dark>
+        <v-toolbar flat>
             <v-toolbar-title>
                 {{ moment(date).format("MMMM, YYYY") }}
                 |
@@ -68,12 +65,7 @@
                 Delete Selected
             </v-btn>
             <v-spacer></v-spacer>
-            <v-btn
-                small
-                elevation="0"
-                color="primary"
-                @click="$emit('closeReportDialog')"
-            >
+            <v-btn small elevation="0" @click="$emit('closeReportDialog')">
                 <v-icon class="mr-2">
                     mdi-close
                 </v-icon>

@@ -1,48 +1,50 @@
 <template>
-    <div>
-        <v-data-table
-            :loading="!loaded"
-            :headers="getHeaders()"
-            :items="report"
-            :item-class="rowClass"
-            item-key="key"
-            disable-filtering
-            disable-pagination
-            disable-sort
-            hide-default-footer
-            calculate-widths
-            class="no-wrap"
-            dense
-        >
-            <template
-                v-for="header in headers"
-                v-slot:[`item.${header.value}`]="{ item, header, value }"
+    <v-card flat rounded class="pa-0">
+        <v-card-text class="pa-0">
+            <v-data-table
+                :loading="!loaded"
+                :headers="getHeaders()"
+                :items="report"
+                :item-class="rowClass"
+                item-key="key"
+                disable-filtering
+                disable-pagination
+                disable-sort
+                hide-default-footer
+                calculate-widths
+                class="no-wrap"
+                dense
             >
-                <span @click="showRecords(item, header)">
-                    <!-- {{ value }} -->
-                    {{ formatAccounting(value) }}
-                </span>
-            </template>
-        </v-data-table>
-        <v-dialog
-            v-model="recordsDialog"
-            scrollable
-            @update:return-value="bus.$emit('recordsDialog:closed')"
-            @click:outside.prevent
-        >
-            <fs-records
-                :bus="bus"
-                :rid="rid"
-                :data="post"
-                :date="date"
-                :lvl="lvl"
-                :name="recordsName"
-                :month="recordsMonth"
-                v-on:reloadTable="reloadTable"
-                v-on:closeReportDialog="closeReportDialog()"
-            ></fs-records>
-        </v-dialog>
-    </div>
+                <template
+                    v-for="header in headers"
+                    v-slot:[`item.${header.value}`]="{ item, header, value }"
+                >
+                    <span @click="showRecords(item, header)">
+                        <!-- {{ value }} -->
+                        {{ formatAccounting(value) }}
+                    </span>
+                </template>
+            </v-data-table>
+            <v-dialog
+                v-model="recordsDialog"
+                scrollable
+                @update:return-value="bus.$emit('recordsDialog:closed')"
+                @click:outside.prevent
+            >
+                <fs-records
+                    :bus="bus"
+                    :rid="rid"
+                    :data="post"
+                    :date="date"
+                    :lvl="lvl"
+                    :name="recordsName"
+                    :month="recordsMonth"
+                    v-on:reloadTable="reloadTable"
+                    v-on:closeReportDialog="closeReportDialog()"
+                ></fs-records>
+            </v-dialog>
+        </v-card-text>
+    </v-card>
 </template>
 <script>
 import FsToolbar from "./fsToolbar";

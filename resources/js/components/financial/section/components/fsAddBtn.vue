@@ -1,5 +1,5 @@
 <template>
-    <v-btn @click="go()" tile text height="48" color="primary">
+    <v-btn @click="go()" tile text height="48">
         <v-icon>
             mdi-playlist-plus
         </v-icon>

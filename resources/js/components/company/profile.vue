@@ -67,10 +67,7 @@
                             <v-row>
                                 <v-col cols="12">
                                     <v-text-field
-                                        :class="
-                                            textFieldsClass +
-                                                ' title primary--text'
-                                        "
+                                        :class="textFieldsClass + ' title'"
                                         hide-details
                                         label="Company Name"
                                         v-model="company.name"

@@ -1,5 +1,5 @@
 <template>
-    <v-card class="p-2">
+    <div>
         <v-overlay :value="!loaded" opacity="1" color="background">
             <v-progress-circular :size="30" color="primary" indeterminate>
             </v-progress-circular>
@@ -83,6 +83,9 @@
                                                     Legend Position
                                                 </div>
                                                 <v-btn-toggle
+                                                    color="accent"
+                                                    tile
+                                                    group
                                                     v-model="
                                                         options.legend.position
                                                     "
@@ -251,7 +254,7 @@
                 ></chart-canvas>
             </v-col>
         </v-row>
-    </v-card>
+    </div>
 </template>
 
 <script>

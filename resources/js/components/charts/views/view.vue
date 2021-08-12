@@ -5,7 +5,7 @@
             </v-progress-circular>
         </v-overlay>
 
-        <v-toolbar class="mb-6" rounded elevation="2" dense>
+        <v-toolbar rounded flat dense>
             <v-btn icon @click="back($route.params.collection)">
                 <v-icon>
                     mdi-chevron-left
@@ -39,8 +39,9 @@
                 </v-icon>
             </v-btn>
         </v-toolbar>
-        <v-container fluid tag="div" class="pa-0" v-if="loaded">
-            <v-card elevation="2">
+        <v-divider></v-divider>
+        <v-container fluid class="pa-0" v-if="loaded">
+            <v-card flat>
                 <v-row>
                     <v-col cols="12" md="4" order="1" order-md="0">
                         <v-card-title> {{ chartData.title }} </v-card-title>

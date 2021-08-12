@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             ResCountrySeeder::class,
             ResCurrencySeeder::class,
+            SettingsSeeder::class,
             ChartCollectionSeeder::class,
             ChartSeeder::class,
             PeccSeeder::class,

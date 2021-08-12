@@ -21,6 +21,10 @@ class CreateCompanyDataTable extends Migration
             $table->string('website')->nullable();
             $table->text('info')->nullable();
             $table->string('logo')->nullable();
+            // Settings
+
+
+
             // Target Data
             $table->text('company_ov')->nullable();
             $table->text('financial_ov')->nullable();
@@ -30,6 +34,7 @@ class CreateCompanyDataTable extends Migration
             $table->text('channels')->nullable();
             $table->text('challenges')->nullable();
 
+            // Soft & TimeStamps
             $table->softDeletes();
             $table->timestamps();
         });

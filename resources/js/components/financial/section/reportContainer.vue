@@ -4,11 +4,11 @@
             <v-card-title v-text="report.title"></v-card-title>
             <v-card-text v-text="report.description"></v-card-text>
             <v-card-actions>
-                <v-btn :to="report.to" color="primary" icon class="ml-auto">
+                <v-btn :to="report.to" icon class="ml-auto">
                     <v-icon>
                         mdi-chevron-right-circle
-                    </v-icon>
-                </v-btn>
+                    </v-icon> </v-btn
+                >asdasda
             </v-card-actions>
         </v-card>
     </v-sheet>

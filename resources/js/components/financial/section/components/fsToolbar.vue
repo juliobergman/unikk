@@ -1,24 +1,13 @@
 <template>
-    <v-toolbar flat dense class="v-toolbar__no_pad mb-2">
+    <v-toolbar flat rounded dense class="v-toolbar__no_pad mb-2">
         <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                    text
-                    tile
-                    height="48"
-                    color="primary"
-                    v-bind="attrs"
-                    v-on="on"
-                >
+                <v-btn text tile height="48" v-bind="attrs" v-on="on">
                     {{ reportData.name }}
                 </v-btn>
             </template>
             <v-list>
-                <v-list-item-group
-                    v-model="reportData"
-                    color="primary"
-                    mandatory
-                >
+                <v-list-item-group v-model="reportData" mandatory>
                     <v-list-item
                         v-for="(item, i) in reportMenu"
                         :key="i"
@@ -39,21 +28,13 @@
         <!-- Year Menu -->
         <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                    text
-                    tile
-                    height="48"
-                    color="primary"
-                    v-bind="attrs"
-                    v-on="on"
-                >
+                <v-btn text tile height="48" v-bind="attrs" v-on="on">
                     {{ year }}
                 </v-btn>
             </template>
             <v-list>
                 <v-list-item-group
                     v-model="year"
-                    color="primary"
                     mandatory
                     @change="bus.$emit('year:change', year)"
                 >

@@ -5,9 +5,8 @@
                 <v-progress-linear
                     v-if="!loaded"
                     indeterminate
-                    class="main-gradient"
                 ></v-progress-linear>
-                <v-toolbar dark dense class="main-gradient">
+                <v-toolbar flat dense>
                     <v-icon class="mr-2">
                         mdi-domain-plus
                     </v-icon>
@@ -31,21 +30,20 @@
                     ></v-text-field>
                 </v-card-text>
 
-                <v-card-actions>
+                <v-card-text>
                     <v-btn
                         block
+                        text
                         :loading="!loaded"
                         :disabled="!valid"
-                        class="main-gradient"
-                        dark
                         @click="addCompany()"
                     >
-                        <v-icon dark dense class="mr-2">
+                        <v-icon dense class="mr-2">
                             mdi-domain-plus
                         </v-icon>
                         Add
                     </v-btn>
-                </v-card-actions>
+                </v-card-text>
             </v-card>
         </v-form>
     </v-dialog>

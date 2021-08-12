@@ -6,10 +6,11 @@
             </v-progress-circular>
         </v-overlay>
         <!-- Tools -->
-        <v-toolbar class="mb-3" elevation="2" flat rounded dense>
+        <v-toolbar flat rounded dense>
             <v-text-field
-                flat
                 solo
+                flat
+                background-color="transparent"
                 v-model="search"
                 append-icon="mdi-magnify"
                 label="Search"
@@ -28,6 +29,8 @@
             </v-tooltip>
         </v-toolbar>
 
+        <v-divider></v-divider>
+
         <!-- Table -->
         <v-data-table
             @click:row="showPecc"
@@ -37,7 +40,6 @@
             :search="search"
             item-key="id"
             :loading="!loaded"
-            class="elevation-2"
             :footer-props="{
                 showFirstLastPage: true,
                 itemsPerPageOptions: [10]

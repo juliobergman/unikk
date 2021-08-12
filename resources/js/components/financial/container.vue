@@ -1,16 +1,13 @@
 <template>
     <v-main>
-        <report-container :bus="bus"></report-container>
+        <v-btn to="/financial/statement">state</v-btn>
     </v-main>
 </template>
 
 <script>
-import reportContainer from "./section/reportContainer";
 export default {
     props: ["bus"],
-    components: {
-        reportContainer
-    }
+    components: {}
 };
 </script>
 

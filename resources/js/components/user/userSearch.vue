@@ -12,7 +12,6 @@
                 <v-icon>mdi-account-plus</v-icon>
             </v-btn>
         </template>
-
         <v-card>
             <v-progress-linear
                 :active="!loaded"
@@ -32,12 +31,10 @@
                 <v-autocomplete
                     v-model="user"
                     :items="userList"
-                    filled
                     chips
-                    color="blue-grey lighten-2"
-                    label=""
                     item-text="name"
                     item-value="id"
+                    label="User"
                 >
                     <template v-slot:selection="data">
                         <v-chip
@@ -79,11 +76,11 @@
                 </v-autocomplete>
             </v-card-text>
             <v-card-actions>
-                <v-btn @click="switchToInvite()" class="main-gradient" dark>
+                <v-btn @click="switchToInvite()" text>
                     Invite
                 </v-btn>
                 <v-spacer></v-spacer>
-                <v-btn @click="addUser()" class="main-gradient" dark>
+                <v-btn @click="addUser()" text>
                     Add
                 </v-btn>
             </v-card-actions>

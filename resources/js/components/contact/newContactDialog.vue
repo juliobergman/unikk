@@ -11,7 +11,7 @@
 
             <v-card>
                 <v-form ref="form" v-model="valid" lazy-validation>
-                    <v-toolbar dark dense class="main-gradient">
+                    <v-toolbar flat dense>
                         <v-icon class="mr-2">
                             mdi-account-plus
                         </v-icon>
@@ -53,15 +53,12 @@
                         ></v-text-field>
                     </v-card-text>
 
-                    <v-divider></v-divider>
-
                     <v-card-actions>
                         <v-btn
+                            text
                             block
                             :loading="!loaded"
                             :disabled="!valid"
-                            class="main-gradient"
-                            dark
                             @click="addContact()"
                         >
                             <v-icon dark dense class="mr-2">

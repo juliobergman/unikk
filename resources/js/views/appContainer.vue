@@ -9,7 +9,7 @@
                 :bus="bus"
                 :user="user"
             ></drawer-menu>
-            <v-app-bar class="main-gradient" dark clipped-right app flat>
+            <v-app-bar dark clipped-right app flat>
                 <v-app-bar-nav-icon
                     @click="bus.$emit('drawer')"
                 ></v-app-bar-nav-icon>

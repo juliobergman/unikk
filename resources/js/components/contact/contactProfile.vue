@@ -6,49 +6,64 @@
             </v-progress-circular>
         </v-overlay>
         <!-- Toolbar -->
-        <v-toolbar class="mb-3 px-1" elevation="2" rounded dense>
-            <v-btn @click="back()" icon small>
+        <v-toolbar flat rounded dense class="v-toolbar__no_pad mb-2">
+            <v-btn text tile height="48" @click="back()">
                 <v-icon>mdi-arrow-left</v-icon>
             </v-btn>
             <v-spacer></v-spacer>
             <v-slide-x-reverse-transition>
                 <div>
                     <v-btn
+                        text
+                        tile
+                        height="48"
                         v-show="edit"
                         :disabled="!valid"
                         @click="destroy()"
-                        icon
-                        small
-                        class="mr-4"
                         color="danger"
                     >
                         <v-icon>mdi-delete</v-icon>
                     </v-btn>
                     <v-btn
+                        text
+                        tile
+                        height="48"
                         v-show="edit"
                         :disabled="!valid"
                         @click="update()"
-                        icon
-                        small
-                        class="mr-4"
                     >
                         <v-icon>mdi-content-save</v-icon>
                     </v-btn>
                 </div>
             </v-slide-x-reverse-transition>
-            <v-btn icon small v-if="!edit" @click="editContact(true)">
+            <v-btn
+                text
+                tile
+                height="48"
+                v-if="!edit"
+                @click="editContact(true)"
+            >
                 <v-icon>
                     mdi-pencil
                 </v-icon>
             </v-btn>
-            <v-btn icon small v-if="edit" @click="editContact(false)">
+            <v-btn
+                text
+                tile
+                height="48"
+                v-if="edit"
+                @click="editContact(false)"
+            >
                 <v-icon>
                     mdi-close
                 </v-icon>
             </v-btn>
         </v-toolbar>
+
+        <v-divider></v-divider>
+
         <!-- Card -->
-        <v-card class="mt-2 pt-5">
+        <v-card flat>
             <v-form v-model="valid" :readonly="!edit">
                 <v-container fluid>
                     <v-row>

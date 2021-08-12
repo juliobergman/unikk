@@ -27,6 +27,7 @@ class CreateDataWarehousesTable extends Migration
 
             $table->string('name')->nullable();
 
+            $table->string('format')->default('currency');
             $table->string('branch')->nullable();
             $table->string('row_class');
             $table->decimal('jan', 20,2,false)->nullable();

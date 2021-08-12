@@ -1,13 +1,7 @@
 <template>
     <v-card color="background">
-        <v-toolbar
-            class="main-gradient mb-5"
-            elevation="2"
-            dark
-            dense
-            rounded="0"
-        >
-            <v-btn-toggle group mandatory v-model="chartEditor">
+        <v-toolbar flat :class="toolbarClass">
+            <v-btn-toggle group mandatory v-model="chartEditor" v-show="!id">
                 <v-tooltip bottom v-for="item in chartMenu" :key="item.title">
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn
@@ -132,6 +126,15 @@ export default {
             }
         ]
     }),
+    computed: {
+        toolbarClass() {
+            if (this.$vuetify.theme.dark) {
+                return "";
+            } else {
+                return "border-bottom";
+            }
+        }
+    },
     methods: {
         storeChart(data) {
             data.collection = this.collection;

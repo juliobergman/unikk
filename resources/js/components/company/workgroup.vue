@@ -10,13 +10,17 @@
                         md="2"
                     >
                         <v-card
+                            flat
                             hover
                             @click="bus.$emit('showUserProfile', member.id)"
                         >
-                            <v-img
-                                :aspect-ratio="1 / 1"
-                                :src="member.userdata.profile_pic"
-                            ></v-img>
+                            <v-card flat>
+                                <v-img
+                                    :aspect-ratio="1 / 1"
+                                    :src="member.userdata.profile_pic"
+                                ></v-img>
+                            </v-card>
+                            <v-divider></v-divider>
                             <v-list-item>
                                 <v-list-item-content>
                                     <v-list-item-title>
@@ -27,6 +31,7 @@
                                     </v-list-item-subtitle>
                                 </v-list-item-content>
                             </v-list-item>
+                            <v-divider></v-divider>
                         </v-card>
                     </v-col>
                 </v-row>

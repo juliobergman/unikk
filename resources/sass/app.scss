@@ -7,19 +7,40 @@
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
 
+.profile-bottom-gradient {
+    background-image: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 0.4) 28%,
+        rgba(0, 0, 0, 0) 100%
+    );
+}
 .main-gradient {
     background: #323847;
     background: -webkit-linear-gradient(
-        to right,
-        rgba(63, 76, 107, 1) 0%,
-        rgba(96, 108, 136, 1) 100%
+        -45deg,
+        rgba(18, 18, 18, 1) 0%,
+        rgba(39, 39, 39, 1) 100%
     );
     background: linear-gradient(
-        to right,
-        rgba(63, 76, 107, 1) 0%,
-        rgba(96, 108, 136, 1) 100%
+        -45deg,
+        rgba(18, 18, 18, 1) 0%,
+        rgba(39, 39, 39, 1) 100%
     );
 }
+// .main-gradient {
+//     background: #323847;
+//     background: -webkit-linear-gradient(
+//         to right,
+//         rgba(63, 76, 107, 1) 0%,
+//         rgba(96, 108, 136, 1) 100%
+//     );
+//     background: linear-gradient(
+//         to right,
+//         rgba(63, 76, 107, 1) 0%,
+//         rgba(96, 108, 136, 1) 100%
+//     );
+// }
 .main-gradient-transparent {
     background: #323847;
     background: -webkit-linear-gradient(
@@ -105,8 +126,8 @@
 .v-data-table__wrapper table .years,
 .v-data-table__wrapper table .years_header {
     font-weight: bolder;
-    border-left: 1px solid;
-    border-right: 1px solid;
+    // border-left: 1px solid;
+    // border-right: 1px solid;
 }
 
 .v-data-table__wrapper table .years,
@@ -118,7 +139,7 @@
 .v-data-table__wrapper table .quart_header,
 .v-data-table__wrapper table .years_header {
     // border-bottom: 1px solid !important;
-    border-top: 1px solid !important;
+    // border-top: 1px solid !important;
 }
 .v-data-table__wrapper table .result-row td {
     font-weight: bold;
@@ -127,18 +148,18 @@
 .v-data-table__wrapper table .divider td {
     pointer-events: none;
     height: 5rem !important;
-    border-bottom: 1px solid !important;
-    border-left: none;
-    border-right: none;
+    // border-bottom: 1px solid !important;
+    // border-left: none;
+    // border-right: none;
 }
 /* Themes */
 .theme--dark .v-data-table__wrapper table tr th,
 .theme--dark .v-data-table__wrapper table tr td {
-    border-color: #6e6e6e;
+    // border-color: #6e6e6e;
 }
 .theme--light .v-data-table__wrapper table tr th,
 .theme--light .v-data-table__wrapper table tr td {
-    border-color: #cecdcf;
+    // border-color: #cecdcf;
 }
 .theme--light .v-data-table__wrapper table tbody tr:hover td {
     background: #eeedef;

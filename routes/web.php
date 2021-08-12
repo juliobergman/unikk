@@ -15,6 +15,7 @@ use App\Http\Controllers\finance\CodeController;
 use App\Http\Controllers\finance\FactController;
 use App\Http\Controllers\finance\ReportController;
 use App\Http\Controllers\ChartCollectionController;
+use App\Http\Controllers\finance\EtlRatioController;
 use App\Http\Controllers\finance\EtlIncomeController;
 use App\Http\Controllers\finance\EtlBalanceController;
 use App\Http\Controllers\finance\DataWarehouseController;
@@ -144,6 +145,7 @@ Route::prefix('/code')->group(function(){
 Route::prefix('/etl')->group(function(){
     Route::post('/extract/income', [EtlIncomeController::class, 'extract']);
     Route::post('/extract/balance', [EtlBalanceController::class, 'extract']);
+    Route::post('/extract/ratio', [EtlRatioController::class, 'extract']);
 });
 
 // DW

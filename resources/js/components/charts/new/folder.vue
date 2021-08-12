@@ -1,7 +1,7 @@
 <template>
     <v-card max-width="375">
         <v-form ref="form" v-model="valid" lazy-validation>
-            <v-toolbar dark dense class="main-gradient">
+            <v-toolbar flat>
                 <v-icon class="mr-2">
                     mdi-folder
                 </v-icon>
@@ -32,11 +32,10 @@
 
             <v-card-actions>
                 <v-btn
+                    text
                     block
                     :loading="!loaded"
                     :disabled="!valid"
-                    class="main-gradient"
-                    dark
                     @click="addFolder()"
                 >
                     <v-icon dark dense class="mr-2">

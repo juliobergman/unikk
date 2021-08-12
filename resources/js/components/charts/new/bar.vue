@@ -172,40 +172,51 @@
                                                 cols="12"
                                                 class="d-flex justify-center"
                                             >
-                                                <div>
+                                                <div class="w-100">
                                                     <div
                                                         class="text-center mb-2"
                                                     >
                                                         Legend Position
                                                     </div>
-                                                    <v-btn-toggle
-                                                        v-model="
-                                                            options.legend
-                                                                .position
-                                                        "
-                                                        mandatory
+                                                    <div
+                                                        class="d-flex justify-center w-100"
                                                     >
-                                                        <v-btn value="left">
-                                                            <v-icon>
-                                                                mdi-format-horizontal-align-left
-                                                            </v-icon>
-                                                        </v-btn>
-                                                        <v-btn value="top">
-                                                            <v-icon>
-                                                                mdi-format-vertical-align-top
-                                                            </v-icon>
-                                                        </v-btn>
-                                                        <v-btn value="bottom">
-                                                            <v-icon>
-                                                                mdi-format-vertical-align-bottom
-                                                            </v-icon>
-                                                        </v-btn>
-                                                        <v-btn value="right">
-                                                            <v-icon>
-                                                                mdi-format-horizontal-align-right
-                                                            </v-icon>
-                                                        </v-btn>
-                                                    </v-btn-toggle>
+                                                        <v-btn-toggle
+                                                            color="accent"
+                                                            tile
+                                                            group
+                                                            v-model="
+                                                                options.legend
+                                                                    .position
+                                                            "
+                                                            mandatory
+                                                        >
+                                                            <v-btn value="left">
+                                                                <v-icon>
+                                                                    mdi-format-horizontal-align-left
+                                                                </v-icon>
+                                                            </v-btn>
+                                                            <v-btn value="top">
+                                                                <v-icon>
+                                                                    mdi-format-vertical-align-top
+                                                                </v-icon>
+                                                            </v-btn>
+                                                            <v-btn
+                                                                value="bottom"
+                                                            >
+                                                                <v-icon>
+                                                                    mdi-format-vertical-align-bottom
+                                                                </v-icon>
+                                                            </v-btn>
+                                                            <v-btn
+                                                                value="right"
+                                                            >
+                                                                <v-icon>
+                                                                    mdi-format-horizontal-align-right
+                                                                </v-icon>
+                                                            </v-btn>
+                                                        </v-btn-toggle>
+                                                    </div>
                                                 </div>
                                             </v-col>
                                         </v-row>
@@ -299,14 +310,11 @@
                                 </v-row>
                                 <v-row>
                                     <v-col cols="12" class="d-flex justify-end">
-                                        <v-btn
-                                            color="primary"
-                                            @click="updateOptions()"
-                                        >
+                                        <v-btn text @click="updateOptions()">
+                                            <v-icon small class="mr-2">
+                                                mdi-update
+                                            </v-icon>
                                             Update
-                                            <v-icon small class="ml-2"
-                                                >mdi-update</v-icon
-                                            >
                                         </v-btn>
                                     </v-col>
                                 </v-row>

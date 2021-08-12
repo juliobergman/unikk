@@ -6,10 +6,11 @@
             </v-progress-circular>
         </v-overlay>
         <!-- Tools -->
-        <v-toolbar class="mb-3" elevation="2" flat rounded dense>
+        <v-toolbar flat rounded dense>
             <v-text-field
-                flat
                 solo
+                flat
+                background-color="transparent"
                 v-model="search"
                 append-icon="mdi-magnify"
                 label="Search"
@@ -26,22 +27,23 @@
                 <span>Add New Contact</span>
             </v-tooltip>
         </v-toolbar>
-
+        <v-divider></v-divider>
         <!-- Table -->
-        <v-data-table
-            @click:row="showContact"
-            :headers="headers"
-            :items="contacts"
-            :items-per-page="itemsperpage"
-            :search="search"
-            item-key="id"
-            :loading="!loaded"
-            class="elevation-2"
-            sort-by="name"
-            hide-default-header
-            hide-default-footer
-        >
-        </v-data-table>
+        <v-card flat>
+            <v-data-table
+                @click:row="showContact"
+                :headers="headers"
+                :items="contacts"
+                :items-per-page="itemsperpage"
+                :search="search"
+                item-key="id"
+                :loading="!loaded"
+                sort-by="name"
+                hide-default-header
+                hide-default-footer
+            >
+            </v-data-table>
+        </v-card>
     </div>
 </template>
 

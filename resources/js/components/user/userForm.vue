@@ -1,7 +1,7 @@
 <template>
     <v-card>
         <v-form ref="form" v-model="valid" lazy-validation>
-            <!-- <v-toolbar class="main-gradient" dark>
+            <!-- <v-toolbar dark>
                 <v-toolbar-title v-if="!currentUserId">
                     Add New User
                 </v-toolbar-title>
@@ -10,41 +10,47 @@
                 </v-toolbar-title>
             </v-toolbar> -->
 
-            <v-card
-                v-if="!currentUserId"
-                class="main-gradient d-flex align-end"
-                tile
-                flat
-            >
-                <v-list-item color="rgba(0, 0, 0, .4)" dark>
+            <v-card v-if="!currentUserId" class="d-flex align-end" tile flat>
+                <v-list-item>
                     <v-list-item-content>
                         <v-list-item-title class="title">
+                            <v-icon small class="mr-2">
+                                mdi-account-plus
+                            </v-icon>
+
                             Add New User
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
             </v-card>
-            <v-card
-                v-if="currentUserId"
-                class="main-gradient d-flex align-end p-3"
-                tile
-                flat
-            >
-                <div>
-                    <v-avatar v-if="updateUser.userdata.profile_pic" size="120">
-                        <v-img :src="updateUser.userdata.profile_pic"> </v-img>
-                    </v-avatar>
-                </div>
-                <v-list-item color="rgba(0, 0, 0, .4)" dark>
-                    <v-list-item-content>
-                        <v-list-item-title class="title">
-                            {{ updateUser.name }}
-                        </v-list-item-title>
-                        <v-list-item-subtitle>
-                            {{ updateUser.userdata.job_title }}
-                        </v-list-item-subtitle>
-                    </v-list-item-content>
-                </v-list-item>
+            <v-card v-if="currentUserId" class="d-flex align-end" tile flat>
+                <v-img
+                    height="144px"
+                    src="/factory/stock/company-background.jpg"
+                >
+                    <div
+                        class="d-flex align-end pa-3 fill-height profile-bottom-gradient"
+                    >
+                        <v-avatar
+                            v-if="updateUser.userdata.profile_pic"
+                            size="120"
+                        >
+                            <v-img :src="updateUser.userdata.profile_pic">
+                            </v-img>
+                        </v-avatar>
+
+                        <v-list-item color="rgba(0, 0, 0, .4)" dark>
+                            <v-list-item-content>
+                                <v-list-item-title class="title">
+                                    {{ updateUser.name }}
+                                </v-list-item-title>
+                                <v-list-item-subtitle>
+                                    {{ updateUser.userdata.job_title }}
+                                </v-list-item-subtitle>
+                            </v-list-item-content>
+                        </v-list-item>
+                    </div>
+                </v-img>
             </v-card>
 
             <v-card-text>
@@ -92,50 +98,45 @@
                 <!-- New User Btn -->
                 <v-btn
                     block
+                    text
                     v-if="!currentUserId"
                     right
                     :loading="loading"
                     :disabled="!valid || loading"
-                    color="primary"
                     @click="userRegister()"
                 >
-                    Create
-
-                    <v-icon dark dense class="ml-2 align-self-end">
+                    <v-icon dense class="mr-2">
                         mdi-account-plus
                     </v-icon>
+                    Create
                 </v-btn>
                 <!-- Update/Delete User Btns -->
 
                 <v-btn
+                    text
+                    color="danger"
                     v-if="currentUserId"
-                    right
                     :loading="loading"
                     :disabled="!valid || loading"
-                    color="danger"
-                    dark
                     @click="userDelete()"
                 >
-                    Revoke
-
-                    <v-icon dark dense class="ml-2 align-self-end">
+                    <v-icon dark dense class="mr-2">
                         mdi-account-cancel
                     </v-icon>
+                    Revoke
                 </v-btn>
                 <v-spacer></v-spacer>
                 <v-btn
                     v-if="currentUserId"
-                    right
+                    text
                     :loading="loading"
                     :disabled="!valid || loading"
-                    color="primary"
                     @click="userUpdate()"
                 >
-                    Update
-
-                    <v-icon dark dense class="ml-2 align-self-end">
+                    <v-icon dark dense class="mr-2">
                         mdi-account-check
                     </v-icon>
+                    Update
                 </v-btn>
             </v-card-actions>
         </v-form>
@@ -155,17 +156,7 @@ export default {
         updateUser: { type: Object, required: false, default: {} }
     },
     data: () => ({
-        user: {
-            id: null,
-            name: undefined,
-            email: undefined,
-            role: undefined,
-            password: undefined,
-            temptoken: undefined,
-            job_title: undefined,
-            company: undefined,
-            membership: undefined
-        },
+        user: {},
         roleinf: false,
         roles: [
             { text: "Admin", value: "admin" },
@@ -282,9 +273,9 @@ export default {
                 });
         },
         formDefaults() {
+            this.user = {};
             this.loading = false;
             this.$refs.form.reset();
-            this.user.role = "";
             this.error = "";
         }
     },
@@ -312,7 +303,8 @@ export default {
     mounted() {
         this.bus.$on("closeUserDialog", this.formDefaults);
         this.user.id = this.userId;
-    }
+    },
+    watch: {}
 };
 </script>
 

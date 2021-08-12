@@ -2,11 +2,11 @@
     <v-main>
         <!-- Loader -->
         <v-overlay v-if="false" :value="!loaded" opacity="1" color="background">
-            <v-progress-circular :size="30" color="primary" indeterminate>
+            <v-progress-circular :size="30" indeterminate>
             </v-progress-circular>
         </v-overlay>
         <!-- Tools -->
-        <v-toolbar class="mb-3" elevation="2" flat rounded dense>
+        <v-toolbar class="mb-3" flat rounded dense>
             <v-spacer></v-spacer>
             <!-- Right Side Start -->
             <user-search
@@ -14,6 +14,7 @@
                 @new:membership="getUsers()"
             ></user-search>
         </v-toolbar>
+        <v-divider></v-divider>
         <!-- Register User Dialog -->
         <v-dialog
             v-model="userInfoDialog"
@@ -35,14 +36,13 @@
             item-key="name"
             :loading="!loaded"
             item-class="red"
-            class="elevation-2"
             :footer-props="{
                 showFirstLastPage: true,
                 itemsPerPageOptions: [10]
             }"
         >
             <template v-slot:item.name="{ item, isMobile }">
-                <v-list-item-avatar color="primary" v-if="!isMobile">
+                <v-list-item-avatar v-if="!isMobile">
                     <img
                         :src="item.userdata.profile_pic"
                         v-if="item.userdata.profile_pic"
@@ -56,12 +56,7 @@
                     </span>
                 </v-list-item-avatar>
                 {{ item.name }}
-                <v-avatar
-                    color="primary"
-                    v-if="isMobile"
-                    size="35"
-                    class="ml-2"
-                >
+                <v-avatar v-if="isMobile" size="35" class="ml-2">
                     <img
                         :src="item.userdata.profile_pic"
                         v-if="item.userdata.profile_pic"
@@ -74,13 +69,7 @@
             </template>
 
             <template v-slot:item.role="{ item }">
-                <v-chip
-                    label
-                    small
-                    color="primary"
-                    dark
-                    class="d-block userchip"
-                >
+                <v-chip label small dark class="d-block userchip">
                     {{ item.membership.role }}
                 </v-chip>
             </template>

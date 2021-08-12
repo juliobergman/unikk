@@ -1,10 +1,11 @@
 <template>
     <v-main>
         <fs-toolbar :bus="bus" :report="report" :period="period"> </fs-toolbar>
-        <v-divider></v-divider>
+        <v-divider v-show="!darkTheme"></v-divider>
         <fs-top-bar :bus="bus" :period="period" :lvl="lvl"></fs-top-bar>
-        <v-divider></v-divider>
+        <v-divider v-show="!darkTheme"></v-divider>
         <fs-table
+            style="overflow:hidden; !important"
             v-if="report"
             :bus="bus"
             :search="search"
@@ -37,6 +38,11 @@ export default {
         lvl: { data: "lvl1", name: "Level 1" },
         search: "yearly"
     }),
+    computed: {
+        darkTheme() {
+            return this.$vuetify.theme.dark ? true : false;
+        }
+    },
     methods: {
         updateReport(data) {
             this.report = data;

@@ -1,6 +1,6 @@
 <template>
     <v-main tag="div">
-        <v-toolbar class="mb-3" rounded elevation="2" dense>
+        <v-toolbar rounded flat dense>
             <v-btn icon @click="back()">
                 <v-icon>
                     mdi-chevron-left
@@ -16,7 +16,8 @@
                 </v-icon>
             </v-btn>
         </v-toolbar>
-        <v-container v-if="loaded" fluid class="p-0">
+        <v-divider></v-divider>
+        <v-container v-if="loaded" fluid class="pa-0">
             <!-- No Records Found -->
 
             <v-alert
@@ -44,7 +45,7 @@
                     <v-hover v-slot:default="{ hover }">
                         <v-card
                             class="pt-8 pr-8 pl-5"
-                            :elevation="hover ? 6 : 3"
+                            flat
                             @click="showChart(chart.id)"
                             rounded
                         >
@@ -52,10 +53,11 @@
                                 :mode="mode"
                                 :chart="chart"
                             ></chart-canvas>
-
-                            <v-card-title class="subtitle-1">
-                                {{ chart.title }}
-                            </v-card-title>
+                            <v-card-text
+                                v-text="chart.title"
+                                class="text-center font-weight-medium"
+                            >
+                            </v-card-text>
                         </v-card>
                     </v-hover>
                 </v-col>

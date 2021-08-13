@@ -17,6 +17,7 @@ class CreateReportsTable extends Migration
             $table->id();
             $table->string('name');
             $table->enum('type', ['income', 'balance', 'ratio']);
+            $table->enum('tw', ['actual', 'forecast']);
             $table->timestamps();
         });
     }

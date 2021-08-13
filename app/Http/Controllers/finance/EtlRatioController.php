@@ -45,7 +45,7 @@ class EtlRatioController extends Controller
         return (float)$result;
     }
 
-    protected function working_capital($a,$b)
+    protected function minus($a,$b)
     {
         return (float)($a - $b);
     }
@@ -121,6 +121,7 @@ class EtlRatioController extends Controller
             'Cash and cash equivalents',
             'Short-term Assets listed Stock Exchange',
             'Total Current Assets',
+            'Short-term Liabilites',
             'Total Liabilities',
             'Total Equity',
         ];
@@ -150,6 +151,10 @@ class EtlRatioController extends Controller
             $vars[$vkey] = $data->where('name', '=', $var_name)->first();
         }
 
+        if (in_array(null, $vars, true)) {
+            return response()->json([], 200);
+        }
+
         // effective_tax_rate
         // number_of_shares
 
@@ -169,7 +174,7 @@ class EtlRatioController extends Controller
         foreach ($this->ck as $col) {
             $ratio[$col] = $this->divide(
                 $vars['total_current_assets'][$col],
-                $vars['total_liabilities'][$col]
+                $vars['short_term_liabilites'][$col]
             );
         }
         $ratio['format'] = 'number';
@@ -179,10 +184,7 @@ class EtlRatioController extends Controller
 
         $ratio['name'] = 'Working Capital';
         foreach ($this->ck as $col) {
-            $ratio[$col] = $this->working_capital(
-                $vars['total_current_assets'][$col],
-                $vars['total_liabilities'][$col]
-            );
+            $ratio[$col] = $vars['total_current_assets'][$col] - $vars['short_term_liabilites'][$col];
         }
         $ratio['format'] = 'currency';
         $return[] = $ratio;
@@ -194,7 +196,7 @@ class EtlRatioController extends Controller
             $ratio[$col] = $this->cash_ratio(
                 $vars['cash_and_cash_equivalents'][$col],
                 $vars['short_term_assets_listed_stock_exchange'][$col],
-                $vars['total_liabilities'][$col]
+                $vars['short_term_liabilites'][$col]
             );
         }
         $ratio['format'] = 'number';

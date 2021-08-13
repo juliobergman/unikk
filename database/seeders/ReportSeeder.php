@@ -19,32 +19,38 @@ class ReportSeeder extends Seeder
             [
                 'id' => 1,
                 'name' => 'Actual Income Statement',
-                'type' => 'income'
+                'type' => 'income',
+                'tw' => 'actual'
             ],
             [
                 'id' => 2,
                 'name' => 'Forecast Income Statement',
-                'type' => 'income'
+                'type' => 'income',
+                'tw' => 'forecast'
             ],
             [
                 'id' => 3,
                 'name' => 'Actual Balance Sheet',
-                'type' => 'balance'
+                'type' => 'balance',
+                'tw' => 'actual'
             ],
             [
                 'id' => 4,
                 'name' => 'Forecast Balance Sheet',
-                'type' => 'balance'
+                'type' => 'balance',
+                'tw' => 'forecast'
             ],
             [
                 'id' => 5,
                 'name' => 'Actual Ratio Panel',
-                'type' => 'ratio'
+                'type' => 'ratio',
+                'tw' => 'actual'
             ],
             [
                 'id' => 6,
                 'name' => 'Forecast Ratio Panel',
-                'type' => 'ratio'
+                'type' => 'ratio',
+                'tw' => 'forecast'
             ],
         ];
 

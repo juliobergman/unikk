@@ -84,6 +84,7 @@ export default {
             let companyId = localStorage.getItem("company");
             let reportId = this.report.id;
             let reportType = this.report.type;
+            let reportTw = this.report.tw;
 
             let data = {
                 date: this.date,
@@ -95,6 +96,11 @@ export default {
             if (data.facts.length <= 0) {
                 return;
             }
+
+            // this.$emit("loaded", true);
+            // this.$router.push({
+            //     name: "financialStatement"
+            // });
 
             axios
                 .post("fact/store", data)
@@ -109,10 +115,23 @@ export default {
                             })
                             .then(response => {
                                 if (response.status == 200) {
-                                    this.$emit("loaded", true);
-                                    this.$router.push({
-                                        name: "financialStatement"
-                                    });
+                                    axios
+                                        .post("etl/extract/ratio", {
+                                            year: year,
+                                            company: companyId,
+                                            type: reportTw
+                                        })
+                                        .then(response => {
+                                            if (response.status == 200) {
+                                                this.$emit("loaded", true);
+                                                this.$router.push({
+                                                    name: "financialStatement"
+                                                });
+                                            }
+                                        })
+                                        .catch(response => {
+                                            console.error(response);
+                                        });
                                 }
                             })
                             .catch(response => {

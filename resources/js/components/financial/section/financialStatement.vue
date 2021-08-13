@@ -2,16 +2,24 @@
     <v-main>
         <fs-toolbar :bus="bus" :report="report" :period="period"> </fs-toolbar>
         <v-divider v-show="!darkTheme"></v-divider>
-        <fs-top-bar :bus="bus" :period="period" :lvl="lvl"></fs-top-bar>
-        <v-divider v-show="!darkTheme"></v-divider>
+        <v-slide-y-transition>
+            <fs-top-bar
+                v-show="report.type != 'ratio'"
+                :bus="bus"
+                :period="period"
+                :lvl="lvl"
+            ></fs-top-bar>
+        </v-slide-y-transition>
+        <v-divider v-show="!darkTheme && report.type != 'ratio'"></v-divider>
         <fs-table
             style="overflow:hidden; !important"
             v-if="report"
             :bus="bus"
-            :search="search"
             :rid="report.id"
+            :report="report"
             :lvl="lvl"
             :period="period"
+            :search="search"
         ></fs-table>
     </v-main>
 </template>

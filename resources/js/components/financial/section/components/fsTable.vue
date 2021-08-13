@@ -4,7 +4,7 @@
             <v-data-table
                 :loading="!loaded"
                 :headers="getHeaders()"
-                :items="report"
+                :items="rdata"
                 :item-class="rowClass"
                 item-key="key"
                 disable-filtering
@@ -19,10 +19,29 @@
                     v-for="header in headers"
                     v-slot:[`item.${header.value}`]="{ item, header, value }"
                 >
-                    <span @click="showRecords(item, header)">
-                        <!-- {{ value }} -->
-                        {{ formatAccounting(value) }}
-                    </span>
+                    <v-btn
+                        v-if="
+                            header.cellClass == 'month' &&
+                                value != null &&
+                                report.type != 'ratio'
+                        "
+                        text
+                        small
+                        block
+                        color="primary"
+                        @click="showRecords(item, header)"
+                    >
+                        <v-spacer></v-spacer> {{ format(value, item.format) }}
+                    </v-btn>
+                    <div
+                        v-if="
+                            (header.cellClass != 'month' &&
+                                item.row_class != 'divider') ||
+                                report.type == 'ratio'
+                        "
+                    >
+                        <v-spacer></v-spacer> {{ format(value, item.format) }}
+                    </div>
                 </template>
             </v-data-table>
             <v-dialog
@@ -54,7 +73,7 @@ export default {
         FsToolbar,
         FsRecords
     },
-    props: ["bus", "rid", "period", "lvl", "search"],
+    props: ["bus", "rid", "report", "period", "lvl", "search"],
     methods: {
         getReportData() {
             if (!this.period) return;
@@ -73,7 +92,7 @@ export default {
             axios
                 .post("dw/report", postData)
                 .then(response => {
-                    this.report = response.data;
+                    this.rdata = response.data;
                     setTimeout(() => {
                         this.loaded = true;
                     }, 100);
@@ -82,32 +101,48 @@ export default {
                     console.error(response);
                 });
         },
-        formatAccounting(value) {
-            if (isNaN(value) || value === null) {
+        format(value, format) {
+            if (value === null) {
+                return "";
+            }
+            if (isNaN(value)) {
                 return value;
             }
-            let val = parseFloat(value);
-            let currsym = this.currency_symbol;
+            if (format == "number") {
+                return parseFloat(value);
+            }
+            if (format == "percentage") {
+                return parseFloat(value) + "%";
+            }
+            if (format == "currency") {
+                let val = parseFloat(value);
+                let currsym = this.currency_symbol;
 
-            if (val >= 0) {
-                return (
-                    currsym +
-                    " " +
-                    val.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")
-                );
-            } else {
-                let nv = val * -1;
-                return (
-                    currsym +
-                    " (" +
-                    nv.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,") +
-                    ")"
-                );
+                if (val >= 0) {
+                    return (
+                        currsym +
+                        " " +
+                        val.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")
+                    );
+                } else {
+                    let nv = val * -1;
+                    return (
+                        currsym +
+                        " (" +
+                        nv.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,") +
+                        ")"
+                    );
+                }
             }
         },
         getHeaders() {
+            let $search = this.search;
+            if (this.report.type == "ratio") {
+                $search = "my";
+            }
+
             let result = this.headers.filter(header => {
-                return header.group.includes(this.search);
+                return header.group.includes($search);
             });
 
             result = [
@@ -138,6 +173,7 @@ export default {
             return item.row_class;
         },
         showRecords(item, header) {
+            if (this.report.type == "ratio") return;
             if (header.cellClass != "month") return;
             if (item.row_class == "result-row") return;
             this.date = new Date(
@@ -182,7 +218,7 @@ export default {
     data: () => ({
         loaded: true,
         currency_symbol: "$",
-        report: undefined,
+        rdata: undefined,
         recordsDialog: false,
         date: "",
         recordsName: "",
@@ -198,7 +234,7 @@ export default {
                 sortable: false,
                 class: "month_header",
                 cellClass: "month",
-                group: ["jan", "q1", "yearly"]
+                group: ["jan", "q1", "om", "my", "yearly"]
             },
             {
                 text: "February",
@@ -208,7 +244,7 @@ export default {
                 sortable: false,
                 class: "month_header",
                 cellClass: "month",
-                group: ["feb", "q1", "yearly"]
+                group: ["feb", "q1", "om", "my", "yearly"]
             },
             {
                 text: "March",
@@ -218,7 +254,7 @@ export default {
                 sortable: false,
                 class: "month_header",
                 cellClass: "month",
-                group: ["mar", "q1", "yearly"]
+                group: ["mar", "q1", "om", "my", "yearly"]
             },
             {
                 text: "Q1",
@@ -238,7 +274,7 @@ export default {
                 sortable: false,
                 class: "month_header",
                 cellClass: "month",
-                group: ["apr", "q2", "yearly"]
+                group: ["apr", "q2", "om", "my", "yearly"]
             },
             {
                 text: "May",
@@ -248,7 +284,7 @@ export default {
                 sortable: false,
                 class: "month_header",
                 cellClass: "month",
-                group: ["may", "q2", "yearly"]
+                group: ["may", "q2", "om", "my", "yearly"]
             },
             {
                 text: "June",
@@ -258,7 +294,7 @@ export default {
                 sortable: false,
                 class: "month_header",
                 cellClass: "month",
-                group: ["jun", "q2", "yearly"]
+                group: ["jun", "q2", "om", "my", "yearly"]
             },
             {
                 text: "Q2",
@@ -278,7 +314,7 @@ export default {
                 sortable: false,
                 class: "month_header",
                 cellClass: "month",
-                group: ["jul", "q3", "yearly"]
+                group: ["jul", "q3", "om", "my", "yearly"]
             },
             {
                 text: "August",
@@ -288,7 +324,7 @@ export default {
                 sortable: false,
                 class: "month_header",
                 cellClass: "month",
-                group: ["aug", "q3", "yearly"]
+                group: ["aug", "q3", "om", "my", "yearly"]
             },
             {
                 text: "September",
@@ -298,7 +334,7 @@ export default {
                 sortable: false,
                 class: "month_header",
                 cellClass: "month",
-                group: ["sep", "q3", "yearly"]
+                group: ["sep", "q3", "om", "my", "yearly"]
             },
             {
                 text: "Q3",
@@ -318,7 +354,7 @@ export default {
                 sortable: false,
                 class: "month_header",
                 cellClass: "month",
-                group: ["oct", "q4", "yearly"]
+                group: ["oct", "q4", "om", "my", "yearly"]
             },
             {
                 text: "November",
@@ -328,7 +364,7 @@ export default {
                 sortable: false,
                 class: "month_header",
                 cellClass: "month",
-                group: ["nov", "q4", "yearly"]
+                group: ["nov", "q4", "om", "my", "yearly"]
             },
             {
                 text: "December",
@@ -338,7 +374,7 @@ export default {
                 sortable: false,
                 class: "month_header",
                 cellClass: "month",
-                group: ["dec", "q4", "yearly"]
+                group: ["dec", "q4", "om", "my", "yearly"]
             },
             {
                 text: "Q4",
@@ -358,7 +394,7 @@ export default {
                 sortable: false,
                 class: "years_header",
                 cellClass: "years",
-                group: ["qa", "yearly"]
+                group: ["qa", "my", "yearly"]
             }
         ]
     }),

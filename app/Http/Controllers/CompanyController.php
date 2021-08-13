@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\Membership;
 use App\Models\CompanyData;
 use Illuminate\Http\Request;
 use App\Events\companyCreated;
-use App\Models\Membership;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 
@@ -42,13 +43,13 @@ class CompanyController extends Controller
             'company_data.website',
             'company_data.info',
             'company_data.logo',
-            'company_data.company_ov',
-            'company_data.financial_ov',
-            'company_data.milestones',
-            'company_data.competitors',
-            'company_data.goals',
-            'company_data.channels',
-            'company_data.challenges',
+            // 'company_data.company_ov',
+            // 'company_data.financial_ov',
+            // 'company_data.milestones',
+            // 'company_data.competitors',
+            // 'company_data.goals',
+            // 'company_data.channels',
+            // 'company_data.challenges',
             // --------------- Countries
             'res_countries.name as country_name',
             'res_countries.iso2 as country',
@@ -56,6 +57,8 @@ class CompanyController extends Controller
             'res_countries.subregion',
             'res_countries.latitude',
             'res_countries.longitude',
+            'res_countries.currency as country_currency',
+            'res_countries.currency_symbol as country_currency_symbol',
             // --------------- Currency
             'res_currencies.name as currency_name',
             'res_currencies.code as currency_code',
@@ -75,6 +78,15 @@ class CompanyController extends Controller
 
         return $company->first();
     }
+
+
+    public function current()
+    {
+        $membership = Membership::where('user_id', Auth::user()->id)->where('default',!null)->first();
+        // return $membership->id;
+        return $this->show($membership->id);
+    }
+
 
     protected function validator(array $data)
     {

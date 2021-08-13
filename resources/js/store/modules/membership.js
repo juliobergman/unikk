@@ -61,7 +61,7 @@ const mutations = {
                 }
             })
             .catch(response => {
-                // console.log(response);
+                console.error(response);
             });
     },
     setCompanyId(state, data) {

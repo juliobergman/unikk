@@ -23,6 +23,8 @@
             </v-list>
         </v-menu>
         <v-spacer></v-spacer>
+        <!-- Exchange Menu -->
+        <fs-exchange-menu :bus="bus"></fs-exchange-menu>
         <!-- Add Btn -->
         <fs-add-btn :bus="bus" :report="report"></fs-add-btn>
         <!-- Year Menu -->
@@ -57,8 +59,9 @@
 
 <script>
 import fsAddBtn from "./fsAddBtn";
+import FsExchangeMenu from "./fsExchangeMenu.vue";
 export default {
-    components: { fsAddBtn },
+    components: { fsAddBtn, FsExchangeMenu },
     props: ["bus", "report", "period"],
     data: () => ({
         year: undefined,

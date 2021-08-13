@@ -21,6 +21,9 @@ const actions = {
                 if (response.status === 204) {
                     window.location.replace("/app");
                 }
+            })
+            .catch(response => {
+                console.error(response);
             });
     }
 };

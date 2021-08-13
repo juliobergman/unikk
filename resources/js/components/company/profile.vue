@@ -114,8 +114,8 @@
                                     <v-autocomplete
                                         v-show="company.currency_id || edit"
                                         flat
-                                        :class="textFieldsClass"
                                         hide-details
+                                        :class="textFieldsClass"
                                         cache-items
                                         :items="currencies"
                                         item-text="name"
@@ -291,11 +291,11 @@ export default {
                     .get("company/" + cId)
                     .then(response => {
                         this.company = response.data;
-
                         this.ownership =
                             response.data.user_id == this.membership.user_id
                                 ? true
                                 : false;
+                        this.$store.dispatch("company/getCompany");
 
                         setTimeout(() => {
                             this.loaded = true;

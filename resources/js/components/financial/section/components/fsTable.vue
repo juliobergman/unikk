@@ -117,6 +117,9 @@ export default {
             if (format == "currency") {
                 let val = parseFloat(value);
                 let currsym = this.currency_symbol;
+                let xrate = this.xrate;
+
+                val = val * xrate;
 
                 if (val >= 0) {
                     return (
@@ -217,7 +220,7 @@ export default {
     },
     data: () => ({
         loaded: true,
-        currency_symbol: "$",
+        xchange: [],
         rdata: undefined,
         recordsDialog: false,
         date: "",
@@ -398,11 +401,35 @@ export default {
             }
         ]
     }),
+    computed: {
+        currency_symbol() {
+            if (this.xchange.length < 1) {
+                return this.$store.state.company.company.currency_symbol;
+            } else if (!this.xchange.currency) {
+                return "";
+            } else {
+                return this.xchange.currency;
+            }
+        },
+        xrate() {
+            if (this.xchange.length < 1) {
+                return 1;
+            } else {
+                return this.xchange.rate;
+            }
+        }
+    },
     created() {
+        if (localStorage.xchange) {
+            this.xchange = JSON.parse(localStorage.getItem("xchange"));
+        }
         this.getReportData();
     },
     mounted() {
         this.bus.$on("companyChange", this.getReportData);
+        this.bus.$on("currency:exchange", data => {
+            this.xchange = data;
+        });
     },
     watch: {
         period: {

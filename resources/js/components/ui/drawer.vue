@@ -163,7 +163,7 @@ export default {
             {
                 title: "Financial",
                 icon: "mdi-currency-usd",
-                to: "financial",
+                to: "financialStatement",
                 auth: ["admin"]
             }
             // {

@@ -133,6 +133,7 @@ export default {
         this.$store.dispatch("membership/getMembership");
         this.$store.dispatch("membership/getMembershipId");
         this.$store.dispatch("membership/getCompanyId");
+        this.$store.dispatch("company/getCompany");
         this.companySelect();
     },
     beforeDestroy() {
@@ -159,8 +160,11 @@ export default {
             );
         }
 
-        // Company Select
+        // Company
         this.bus.$on("companySelect", this.companySelect);
+        this.bus.$on("companyChange", () => {
+            this.$store.dispatch("company/getCompany");
+        });
         // Router Transitions
         this.$router.beforeEach((to, from, next) => {
             let toDepth = to.path.split("/").length;

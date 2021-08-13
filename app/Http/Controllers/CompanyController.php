@@ -26,12 +26,54 @@ class CompanyController extends Controller
     public function show($id)
     {
 
-        $company = Company::where('id', $id)->with('user:id,name,email')->first();
+        $data_select = [
+            // --------------- Company
+            'companies.id',
+            'companies.user_id',
+            'companies.name',
+            'companies.currency_id',
+            // --------------- Company Data
+            'company_data.address',
+            'company_data.city',
+            'company_data.sector',
+            'company_data.country',
+            'company_data.phone',
+            'company_data.email',
+            'company_data.website',
+            'company_data.info',
+            'company_data.logo',
+            'company_data.company_ov',
+            'company_data.financial_ov',
+            'company_data.milestones',
+            'company_data.competitors',
+            'company_data.goals',
+            'company_data.channels',
+            'company_data.challenges',
+            // --------------- Countries
+            'res_countries.name as country_name',
+            'res_countries.iso2 as country',
+            'res_countries.region',
+            'res_countries.subregion',
+            'res_countries.latitude',
+            'res_countries.longitude',
+            // --------------- Currency
+            'res_currencies.name as currency_name',
+            'res_currencies.code as currency_code',
+            'res_currencies.symbol as currency_symbol',
+        ];
 
-        $companydata = CompanyData::where('company_id', $company->id)->first();
-        $collection = collect($company);
-        $merged = $collection->merge($companydata);
-        return $merged;
+        $company = Company::query();
+        $company->where('companies.id',$id);
+        $company->with('user:id,name,email');
+
+        $company->join('company_data', 'companies.id', '=', 'company_data.company_id');
+        $company->join('res_countries', 'company_data.country', '=', 'res_countries.iso2');
+        $company->join('res_currencies', 'companies.currency_id', '=', 'res_currencies.id');
+
+
+        $company->select($data_select);
+
+        return $company->first();
     }
 
     protected function validator(array $data)
@@ -59,6 +101,7 @@ class CompanyController extends Controller
 
             $updateCompany = array(
                 'name' => $request->name,
+                'currency_id' => $request->currency_id
             );
 
             $updateData = array(

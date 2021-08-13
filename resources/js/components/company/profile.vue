@@ -45,6 +45,12 @@
                                 <v-card-actions
                                     class="fill-height justify-end align-end"
                                 >
+                                    <v-img
+                                        v-if="flag"
+                                        class="align-self-start mr-auto"
+                                        max-width="32px"
+                                        :src="flag"
+                                    ></v-img>
                                     <v-slide-y-reverse-transition>
                                         <v-btn
                                             fab
@@ -105,8 +111,90 @@
                                         flat
                                     >
                                     </v-text-field>
+                                    <v-autocomplete
+                                        v-show="company.currency_id || edit"
+                                        flat
+                                        :class="textFieldsClass"
+                                        hide-details
+                                        cache-items
+                                        :items="currencies"
+                                        item-text="name"
+                                        item-value="id"
+                                        v-model="company.currency_id"
+                                        label="Currency"
+                                    >
+                                        <template v-slot:selection="{ item }">
+                                            {{ item.name }} ({{ item.symbol }})
+                                        </template>
+                                        <template v-slot:item="{ item }">
+                                            <div
+                                                class="d-flex w-100 justify-space-between"
+                                            >
+                                                <span>{{ item.name }}</span>
+
+                                                <span>
+                                                    ({{ item.symbol }})
+                                                </span>
+                                            </div>
+                                        </template>
+                                    </v-autocomplete>
                                 </v-col>
                                 <v-col cols="12" md="6">
+                                    <v-text-field
+                                        v-show="company.region || edit"
+                                        :class="textFieldsClass"
+                                        hide-details
+                                        label="Region"
+                                        v-model="company.region"
+                                        flat
+                                        readonly
+                                    >
+                                    </v-text-field>
+
+                                    <v-text-field
+                                        v-show="company.subregion || edit"
+                                        :class="textFieldsClass"
+                                        hide-details
+                                        label="Sub Region"
+                                        v-model="company.subregion"
+                                        flat
+                                        readonly
+                                    >
+                                    </v-text-field>
+
+                                    <v-autocomplete
+                                        v-show="company.country || edit"
+                                        flat
+                                        :class="textFieldsClass"
+                                        hide-details
+                                        cache-items
+                                        :items="countries"
+                                        item-text="name"
+                                        item-value="iso2"
+                                        v-model="company.country"
+                                        label="Country"
+                                    >
+                                        <template v-slot:item="{ item }">
+                                            <div
+                                                class="d-flex w-100 justify-space-between"
+                                            >
+                                                <span>{{ item.name }}</span>
+
+                                                <span>
+                                                    <v-img
+                                                        class="align-self-start mr-auto"
+                                                        max-height="24px"
+                                                        :src="
+                                                            'factory/flags/4x3/' +
+                                                                item.iso2 +
+                                                                '.svg'
+                                                        "
+                                                    ></v-img>
+                                                </span>
+                                            </div>
+                                        </template>
+                                    </v-autocomplete>
+
                                     <v-text-field
                                         v-show="company.city || edit"
                                         :class="textFieldsClass"
@@ -116,8 +204,9 @@
                                         flat
                                     >
                                     </v-text-field>
+
                                     <v-text-field
-                                        v-show="company.address || edit"
+                                        v-show="false"
                                         :class="textFieldsClass + ' text-wrap'"
                                         hide-details
                                         label="Address"
@@ -125,6 +214,17 @@
                                         flat
                                     >
                                     </v-text-field>
+
+                                    <v-slide-y-transition>
+                                        <v-textarea
+                                            v-show="company.address || edit"
+                                            auto-grow
+                                            rows="1"
+                                            label="Address"
+                                            v-model="company.address"
+                                            :class="textFieldsClass"
+                                        ></v-textarea>
+                                    </v-slide-y-transition>
                                 </v-col>
                             </v-row>
                         </v-container>
@@ -166,7 +266,8 @@ export default {
         edit: false,
         ownership: false,
         company: {},
-        country: {}
+        countries: [],
+        currencies: []
     }),
     computed: {
         membership() {
@@ -174,6 +275,11 @@ export default {
         },
         textFieldsClass() {
             return this.edit ? "fields" : "fields noborder";
+        },
+        flag() {
+            return this.company.country
+                ? "factory/flags/4x3/" + this.company.country + ".svg"
+                : false;
         }
     },
     methods: {
@@ -191,7 +297,6 @@ export default {
                                 ? true
                                 : false;
 
-                        // this.getCountryData(response.data.country);
                         setTimeout(() => {
                             this.loaded = true;
                         }, 250);
@@ -201,11 +306,21 @@ export default {
                     });
             }
         },
-        getCountryData(iso) {
+        getCountries() {
             axios
-                .get("http://country:1111/api/country/" + iso)
+                .get("res/countries")
                 .then(response => {
-                    this.country = response.data;
+                    this.countries = response.data;
+                })
+                .catch(response => {
+                    console.log(response);
+                });
+        },
+        getCurrencies() {
+            axios
+                .get("res/currencies")
+                .then(response => {
+                    this.currencies = response.data;
                 })
                 .catch(response => {
                     console.log(response);
@@ -247,6 +362,7 @@ export default {
                 .then(response => {
                     if (response.status == 200) {
                         this.edit = false;
+                        this.getCompanyData();
                     }
                 })
                 .catch(response => {
@@ -259,6 +375,8 @@ export default {
         if (this.bus) {
             this.bus.$on("companyChange", this.editProfile);
         }
+        this.getCountries();
+        this.getCurrencies();
         this.getCompanyData();
     },
     watch: {

@@ -20,6 +20,7 @@ use App\Http\Controllers\finance\EtlIncomeController;
 use App\Http\Controllers\finance\EtlBalanceController;
 use App\Http\Controllers\finance\DataWarehouseController;
 use App\Http\Controllers\finance\DateDimensionController;
+use App\Http\Controllers\ResourcesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +59,13 @@ Route::prefix('/user')->group(function(){
 
     Route::middleware('guest')->get('/create-password/{token}/{email}', [UserController::class, 'create_password'])->name('password.create');
     Route::middleware('guest')->put('/create-new-password', [UserController::class, 'create_password_new']);
+});
+
+
+//Resources
+Route::prefix('/res')->group(function(){
+    Route::get('/countries', [ResourcesController::class, 'countries']);
+    Route::get('/currencies', [ResourcesController::class, 'currencies']);
 });
 
 
@@ -180,4 +188,6 @@ Route::prefix('/fact')->group(function(){
     Route::post('/destroy/bulk', [FactController::class, 'destroy_bulk']);
     Route::delete('/destroy/{id}', [FactController::class, 'destroy']);
 });
+
+
 

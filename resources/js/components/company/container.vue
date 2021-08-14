@@ -1,7 +1,8 @@
 <template>
     <v-main>
         <company-profile :bus="bus"></company-profile>
-        <v-spacer class="my-5"></v-spacer>
+        <v-divider v-show="!darkTheme"></v-divider>
+        <v-spacer v-show="darkTheme" class="my-6"></v-spacer>
         <work-group :bus="bus"></work-group>
     </v-main>
 </template>
@@ -14,6 +15,11 @@ export default {
     components: {
         CompanyProfile,
         WorkGroup
+    },
+    computed: {
+        darkTheme() {
+            return this.$vuetify.theme.dark ? true : false;
+        }
     }
 };
 </script>

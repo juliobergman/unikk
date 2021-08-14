@@ -1,25 +1,37 @@
 <template>
     <v-card flat>
+        <v-card-title class="pt-6 pb-2 font-weight-medium">
+            <span class="mx-auto">Team</span>
+        </v-card-title>
         <v-card-text>
+            <v-divider></v-divider>
             <v-container fluid class="pa-0">
                 <v-row>
                     <v-col
                         v-for="(member, idx) in memberships"
                         :key="idx"
                         cols="6"
-                        md="2"
+                        md="3"
                     >
                         <v-card
                             flat
                             hover
                             @click="bus.$emit('showUserProfile', member.id)"
                         >
-                            <v-card flat>
-                                <v-img
-                                    :aspect-ratio="1 / 1"
-                                    :src="member.userdata.profile_pic"
-                                ></v-img>
-                            </v-card>
+                            <div class="d-flex w-100 py-8">
+                                <v-avatar
+                                    rounded
+                                    class="mx-auto"
+                                    width="80%"
+                                    height="100%"
+                                    max-width="130px"
+                                >
+                                    <v-img
+                                        :aspect-ratio="1 / 1"
+                                        :src="member.userdata.profile_pic"
+                                    ></v-img>
+                                </v-avatar>
+                            </div>
                             <v-divider></v-divider>
                             <v-list-item>
                                 <v-list-item-content>

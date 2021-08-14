@@ -46,7 +46,13 @@
                 </v-text-field>
             </v-card-text>
             <v-card-actions>
-                <v-btn :disabled="!valid" block text @click="exchange()">
+                <v-btn text @click="clear()">
+                    <v-icon dense class="mr-2">
+                        mdi-delete
+                    </v-icon>
+                    Clear
+                </v-btn>
+                <v-btn :disabled="!valid" text @click="exchange()">
                     <v-icon dense class="mr-2">
                         mdi-autorenew
                     </v-icon>
@@ -93,6 +99,14 @@ export default {
         exchange() {
             localStorage.setItem("xchange", JSON.stringify(this.xchange));
             this.bus.$emit("currency:exchange", this.xchange);
+        },
+        clear() {
+            localStorage.removeItem("xchange");
+            this.xchange = {
+                rate: null,
+                currency: ""
+            };
+            this.bus.$emit("currency:exchange:clear");
         }
     },
     created() {

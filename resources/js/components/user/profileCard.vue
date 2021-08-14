@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-dialog @click:outside="reset()" v-model="dialog" width="375">
+        <v-dialog @click:outside="reset()" v-model="dialog" max-width="420">
             <v-card>
                 <v-progress-linear
                     v-if="!loaded"

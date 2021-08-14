@@ -430,6 +430,10 @@ export default {
         this.bus.$on("currency:exchange", data => {
             this.xchange = data;
         });
+        this.bus.$on("currency:exchange:clear", () => {
+            this.xchange = [];
+            // this.getReportData();
+        });
     },
     watch: {
         period: {

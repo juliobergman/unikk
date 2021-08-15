@@ -6,7 +6,7 @@
             </v-progress-circular>
         </v-overlay>
         <!-- Toolbar -->
-        <v-toolbar class="mb-3 px-1" elevation="2" rounded dense>
+        <v-toolbar class="mb-3 px-1" flat rounded dense>
             <v-btn @click="back()" icon small>
                 <v-icon>mdi-arrow-left</v-icon>
             </v-btn>
@@ -56,8 +56,9 @@
                 </v-icon>
             </v-btn>
         </v-toolbar>
+        <v-divider v-if="!darkTheme"></v-divider>
         <!-- Card -->
-        <v-card class="mt-2 pt-5">
+        <v-card class="mt-2 pt-5" flat>
             <v-form v-model="valid" :readonly="!edit">
                 <v-container fluid>
                     <v-row>
@@ -380,6 +381,9 @@ export default {
         }
     }),
     computed: {
+        darkTheme() {
+            return this.$vuetify.theme.dark ? true : false;
+        },
         flag() {
             return this.company.country
                 ? "factory/flags/4x3/" + this.company.country + ".svg"

@@ -33,6 +33,7 @@ class CompanyController extends Controller
             'companies.user_id',
             'companies.name',
             'companies.currency_id',
+            'companies.type as type',
             // --------------- Company Data
             'company_data.address',
             'company_data.city',

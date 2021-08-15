@@ -62,22 +62,28 @@
                 <v-container fluid>
                     <v-row>
                         <v-col cols="12" sm="5" md="3">
-                            <v-card flat size="100%">
+                            <v-card flat color="grey" size="100%">
                                 <v-img
                                     :aspect-ratio="1 / 1"
-                                    :src="target.company_data.logo"
-                                    :alt="target.name"
+                                    :src="company.logo"
+                                    :alt="company.name"
                                 >
                                     <v-card-actions
                                         class="fill-height justify-end align-end"
                                     >
+                                        <v-img
+                                            v-if="flag"
+                                            class="align-self-start mr-auto"
+                                            max-width="32px"
+                                            :src="flag"
+                                        ></v-img>
                                         <v-slide-y-reverse-transition>
                                             <v-btn
                                                 fab
                                                 x-small
                                                 v-show="edit"
                                                 class="transparent-overlay"
-                                                @click="pickAvatar()"
+                                                @click="pickLogo()"
                                             >
                                                 <v-icon>
                                                     mdi-upload
@@ -93,88 +99,178 @@
                                 <v-row>
                                     <v-col cols="12">
                                         <v-text-field
-                                            :rules="rules.required"
-                                            :class="
-                                                textFieldsClass +
-                                                    ' title primary--text'
-                                            "
+                                            :class="textFieldsClass + ' title'"
                                             hide-details
-                                            label="Name"
-                                            v-model="target.name"
+                                            label="Company Name"
+                                            v-model="company.name"
                                             flat
                                         >
                                         </v-text-field>
                                     </v-col>
                                 </v-row>
                                 <v-row>
-                                    <v-col cols="12" md="12">
+                                    <v-col cols="12" md="6">
                                         <v-text-field
-                                            v-show="
-                                                target.company_data.sector ||
-                                                    edit
-                                            "
+                                            v-show="company.sector || edit"
                                             :class="textFieldsClass"
                                             hide-details
                                             label="Sector"
-                                            v-model="target.company_data.sector"
+                                            v-model="company.sector"
                                             flat
                                         >
                                         </v-text-field>
                                         <v-text-field
-                                            v-show="
-                                                target.company_data.phone ||
-                                                    edit
-                                            "
+                                            v-show="company.phone || edit"
                                             :class="textFieldsClass"
                                             hide-details
                                             label="Phone"
-                                            v-model="target.company_data.phone"
+                                            v-model="company.phone"
                                             flat
                                         >
                                         </v-text-field>
                                         <v-text-field
-                                            v-show="
-                                                target.company_data.email ||
-                                                    edit
-                                            "
+                                            v-show="company.email || edit"
                                             :class="textFieldsClass"
                                             hide-details
                                             label="Email"
-                                            v-model="target.company_data.email"
+                                            v-model="company.email"
                                             flat
                                         >
                                         </v-text-field>
+                                        <v-autocomplete
+                                            v-show="company.currency_id || edit"
+                                            flat
+                                            hide-details
+                                            :class="textFieldsClass"
+                                            cache-items
+                                            :items="currencies"
+                                            item-text="name"
+                                            item-value="id"
+                                            v-model="company.currency_id"
+                                            label="Currency"
+                                        >
+                                            <template
+                                                v-slot:selection="{ item }"
+                                            >
+                                                {{ item.name }} ({{
+                                                    item.symbol
+                                                }})
+                                            </template>
+                                            <template v-slot:item="{ item }">
+                                                <div
+                                                    class="d-flex w-100 justify-space-between"
+                                                >
+                                                    <span>{{ item.name }}</span>
+
+                                                    <span>
+                                                        ({{ item.symbol }})
+                                                    </span>
+                                                </div>
+                                            </template>
+                                        </v-autocomplete>
+                                    </v-col>
+                                    <v-col cols="12" md="6">
                                         <v-text-field
-                                            v-show="
-                                                target.company_data.website ||
-                                                    edit
-                                            "
+                                            v-show="company.region || edit"
                                             :class="textFieldsClass"
                                             hide-details
-                                            label="Website"
-                                            v-model="
-                                                target.company_data.website
-                                            "
+                                            label="Region"
+                                            v-model="company.region"
+                                            flat
+                                            readonly
+                                        >
+                                        </v-text-field>
+
+                                        <v-text-field
+                                            v-show="company.subregion || edit"
+                                            :class="textFieldsClass"
+                                            hide-details
+                                            label="Sub Region"
+                                            v-model="company.subregion"
+                                            flat
+                                            readonly
+                                        >
+                                        </v-text-field>
+
+                                        <v-autocomplete
+                                            v-show="company.country || edit"
+                                            flat
+                                            :class="textFieldsClass"
+                                            hide-details
+                                            cache-items
+                                            :items="countries"
+                                            item-text="name"
+                                            item-value="iso2"
+                                            v-model="company.country"
+                                            label="Country"
+                                        >
+                                            <template v-slot:item="{ item }">
+                                                <div
+                                                    class="d-flex w-100 justify-space-between"
+                                                >
+                                                    <span>{{ item.name }}</span>
+
+                                                    <span>
+                                                        <v-img
+                                                            class="align-self-start mr-auto"
+                                                            max-height="24px"
+                                                            :src="
+                                                                'factory/flags/4x3/' +
+                                                                    item.iso2 +
+                                                                    '.svg'
+                                                            "
+                                                        ></v-img>
+                                                    </span>
+                                                </div>
+                                            </template>
+                                        </v-autocomplete>
+
+                                        <v-text-field
+                                            v-show="company.city || edit"
+                                            :class="textFieldsClass"
+                                            hide-details
+                                            label="City"
+                                            v-model="company.city"
                                             flat
                                         >
                                         </v-text-field>
+
+                                        <v-text-field
+                                            v-show="false"
+                                            :class="
+                                                textFieldsClass + ' text-wrap'
+                                            "
+                                            hide-details
+                                            label="Address"
+                                            v-model="company.address"
+                                            flat
+                                        >
+                                        </v-text-field>
+
+                                        <v-slide-y-transition>
+                                            <v-textarea
+                                                v-show="company.address || edit"
+                                                auto-grow
+                                                rows="1"
+                                                label="Address"
+                                                v-model="company.address"
+                                                :class="textFieldsClass"
+                                            ></v-textarea>
+                                        </v-slide-y-transition>
                                     </v-col>
                                 </v-row>
                             </v-container>
                         </v-col>
                     </v-row>
 
-                    <v-row
-                        v-show="target.company_data.company_ov || edit"
-                        class="mt-5"
-                    >
+                    <v-row v-show="company.company_ov || edit" class="mt-5">
                         <v-col cols="12">
                             <v-slide-y-transition>
                                 <v-textarea
                                     auto-grow
                                     rows="1"
                                     label="Company Overview"
-                                    v-model="target.company_data.company_ov"
+                                    v-model="company.company_ov"
                                     :class="textFieldsClass"
                                 ></v-textarea>
                             </v-slide-y-transition>
@@ -184,7 +280,7 @@
                                     auto-grow
                                     rows="1"
                                     label="Financial Overview"
-                                    v-model="target.company_data.financial_ov"
+                                    v-model="company.financial_ov"
                                     :class="textFieldsClass"
                                 ></v-textarea>
                             </v-slide-y-transition>
@@ -194,7 +290,7 @@
                                     auto-grow
                                     rows="1"
                                     label="Milestones"
-                                    v-model="target.company_data.milestones"
+                                    v-model="company.milestones"
                                     :class="textFieldsClass"
                                 ></v-textarea>
                             </v-slide-y-transition>
@@ -204,7 +300,7 @@
                                     auto-grow
                                     rows="1"
                                     label="Competitors"
-                                    v-model="target.company_data.competitors"
+                                    v-model="company.competitors"
                                     :class="textFieldsClass"
                                 ></v-textarea>
                             </v-slide-y-transition>
@@ -214,7 +310,7 @@
                                     auto-grow
                                     rows="1"
                                     label="Goals"
-                                    v-model="target.company_data.goals"
+                                    v-model="company.goals"
                                     :class="textFieldsClass"
                                 ></v-textarea>
                             </v-slide-y-transition>
@@ -224,7 +320,7 @@
                                     auto-grow
                                     rows="1"
                                     label="Distrbution Channels"
-                                    v-model="target.company_data.channels"
+                                    v-model="company.channels"
                                     :class="textFieldsClass"
                                 ></v-textarea>
                             </v-slide-y-transition>
@@ -234,7 +330,7 @@
                                     auto-grow
                                     rows="1"
                                     label="Challenges"
-                                    v-model="target.company_data.challenges"
+                                    v-model="company.challenges"
                                     :class="textFieldsClass"
                                 ></v-textarea>
                             </v-slide-y-transition>
@@ -243,10 +339,10 @@
 
                     <v-file-input
                         v-show="false"
-                        id="avatar"
-                        name="avatar"
-                        ref="avatar"
-                        @change="submitAvatar"
+                        id="logo"
+                        name="logo"
+                        ref="logo"
+                        @change="submitLogo"
                     ></v-file-input>
                 </v-container>
             </v-form>
@@ -269,9 +365,9 @@ export default {
         valid: true,
         loaded: true,
         edit: false,
-        target: {
-            company_data: {}
-        },
+        company: {},
+        countries: [],
+        currencies: [],
         rules: {
             required: [v => !!v || "This field is Required"],
             email: [
@@ -284,6 +380,11 @@ export default {
         }
     }),
     computed: {
+        flag() {
+            return this.company.country
+                ? "factory/flags/4x3/" + this.company.country + ".svg"
+                : false;
+        },
         textFieldsClass() {
             return this.edit ? "fields" : "fields noborder";
         }
@@ -294,19 +395,37 @@ export default {
         },
         getTarget() {
             let targetId = this.$route.params.id;
-
-            console.log(targetId);
-
             axios
                 .post("target/show", { id: targetId })
                 .then(response => {
-                    this.target = response.data;
+                    this.company = response.data;
                 })
-                .catch(error => {
+                .catch(response => {
+                    console.error(response);
                     // console.error(error);
                     // if (error.response.status == 404) {
                     //     this.$router.push({ name: "target" });
                     // }
+                });
+        },
+        getCountries() {
+            axios
+                .get("res/countries")
+                .then(response => {
+                    this.countries = response.data;
+                })
+                .catch(response => {
+                    console.log(response);
+                });
+        },
+        getCurrencies() {
+            axios
+                .get("res/currencies")
+                .then(response => {
+                    this.currencies = response.data;
+                })
+                .catch(response => {
+                    console.log(response);
                 });
         },
         editTarget(action) {
@@ -315,10 +434,10 @@ export default {
             }
             this.edit = action;
         },
-        pickAvatar() {
-            document.getElementById("avatar").click();
+        pickLogo() {
+            document.getElementById("logo").click();
         },
-        submitAvatar(e) {
+        submitLogo(e) {
             let formData = new FormData();
             formData.append("company", this.$route.params.id);
             formData.append("logo", e);
@@ -341,8 +460,10 @@ export default {
         },
         update() {
             axios
-                .put("target/update", this.target)
+                .put("target/update", this.company)
                 .then(response => {
+                    console.log(this.company);
+
                     if (response.status == 200) {
                         this.edit = false;
                     }
@@ -355,7 +476,7 @@ export default {
         acquire() {
             let message =
                 "Do you want to acquire " +
-                this.target.name +
+                this.company.name +
                 " from your Target list?";
 
             this.$refs.confirm
@@ -390,7 +511,7 @@ export default {
         destroy() {
             let message =
                 "Do you really want to DELETE " +
-                this.target.name +
+                this.company.name +
                 " from your Target list?";
             this.$refs.confirm
                 .open("Delete Target", message, { color: "danger" })
@@ -420,6 +541,8 @@ export default {
         }
     },
     created() {
+        this.getCountries();
+        this.getCurrencies();
         this.getTarget();
         if (this.$route.params.ref === "edit") {
             this.edit = true;

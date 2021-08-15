@@ -61,8 +61,8 @@ export default {
                 value: "name",
                 align: "left"
             },
-            { text: "City", value: "company_data.city" },
-            { text: "Country", value: "company_data.country" }
+            { text: "City", value: "city" },
+            { text: "Country", value: "country" }
         ],
         targets: []
     }),

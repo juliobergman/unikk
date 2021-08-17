@@ -8,19 +8,20 @@ use App\Http\Controllers\TargetController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ResourcesController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\chart\ChartController;
 use App\Http\Controllers\finance\CodeController;
 use App\Http\Controllers\finance\FactController;
 use App\Http\Controllers\finance\ReportController;
+use App\Http\Controllers\finance\ResultController;
 use App\Http\Controllers\ChartCollectionController;
 use App\Http\Controllers\finance\EtlRatioController;
 use App\Http\Controllers\finance\EtlIncomeController;
 use App\Http\Controllers\finance\EtlBalanceController;
 use App\Http\Controllers\finance\DataWarehouseController;
 use App\Http\Controllers\finance\DateDimensionController;
-use App\Http\Controllers\ResourcesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -160,6 +161,13 @@ Route::prefix('/etl')->group(function(){
 // DW
 Route::prefix('/dw')->group(function(){
     Route::post('/report', [DataWarehouseController::class, 'report']);
+    Route::post('/cdata', [DataWarehouseController::class, 'cdata']);
+    Route::get('/cfields', [DataWarehouseController::class, 'cfields']);
+});
+
+// Result
+Route::prefix('/result')->group(function(){
+    Route::get('/all', [ResultController::class, 'index']);
 });
 
 
@@ -189,6 +197,3 @@ Route::prefix('/fact')->group(function(){
     Route::post('/destroy/bulk', [FactController::class, 'destroy_bulk']);
     Route::delete('/destroy/{id}', [FactController::class, 'destroy']);
 });
-
-
-

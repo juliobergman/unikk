@@ -5,12 +5,28 @@ namespace App\Http\Controllers\finance;
 use App\Models\finance\Code;
 use App\Models\finance\Fact;
 use Illuminate\Http\Request;
+use App\Models\finance\Result;
 use App\Models\finance\CodeGroup;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class EtlBalanceController extends Controller
 {
+
+        protected $rfields;
+
+        protected function result_field($name)
+        {
+
+            $resfield = $this->rfields->where('name', '=', $name)->first();
+            if(is_object($resfield)){
+                $res = $resfield->id;
+            } else {
+                $res = null;
+            }
+            return $res;
+        }
+
         // Extract, Transform and Load
         protected function getgroup($request, $group, $lvl)
         {
@@ -204,14 +220,12 @@ class EtlBalanceController extends Controller
                 foreach ($build as $value) {
                     $result[$key] = [
                         'row'  => $key,
-                        'year' => $request->year,
-                        'company_id' => $request->company,
                         'lvl' => $lvl,
-                        'report_id' => $request->report,
                         'category_id'  => $value->branch_id,
                         'branch'  => $value->branch,
                         'row_class'  => 'data-row',
                         'name' => $value->name,
+                        'result_field' => $this->result_field($value->name),
                         'jan' => $data->where('name', '=', $value->name)->where('month_name_short', '=', 'jan')->sum('total_amount'),
                         'feb' => $data->where('name', '=', $value->name)->where('month_name_short', '=', 'feb')->sum('total_amount'),
                         'mar' => $data->where('name', '=', $value->name)->where('month_name_short', '=', 'mar')->sum('total_amount'),
@@ -239,14 +253,12 @@ class EtlBalanceController extends Controller
                 if ($lvl != 'lvl1') {
                     $result[$key] = [
                         'row'  => $key,
-                        'year' => $request->year,
-                        'company_id' => $request->company,
                         'lvl' => $lvl,
-                        'report_id' => $request->report,
                         'category_id'  => null,
                         'branch'  => null,
                         'row_class'  => 'result-row',
                         'name' => $group->name,
+                        'result_field' => $this->result_field($group->name),
                         'jan' => $data->where('month_name_short', '=', 'jan')->sum('total_amount'),
                         'feb' => $data->where('month_name_short', '=', 'feb')->sum('total_amount'),
                         'mar' => $data->where('month_name_short', '=', 'mar')->sum('total_amount'),
@@ -350,14 +362,12 @@ class EtlBalanceController extends Controller
                 if ($group->id == 6) {
                         $result[$key] = [
                             'row'  => $key,
-                            'year' => $request->year,
-                            'company_id' => $request->company,
                             'lvl' => $lvl,
-                            'report_id' => $request->report,
                             'category_id'  => null,
                             'branch'  => null,
                             'row_class'  => 'result-row',
                             'name' => 'Total Assets',
+                            'result_field' => $this->result_field('Total Assets'),
                             'jan' => $payload_assets['jan'],
                             'feb' => $payload_assets['feb'],
                             'mar' => $payload_assets['mar'],
@@ -382,14 +392,12 @@ class EtlBalanceController extends Controller
                 if ($group->id == 8) {
                         $result[$key] = [
                             'row'  => $key,
-                            'year' => $request->year,
-                            'company_id' => $request->company,
                             'lvl' => $lvl,
-                            'report_id' => $request->report,
                             'category_id'  => null,
                             'branch'  => null,
                             'row_class'  => 'result-row',
                             'name' => 'Total Liabilities',
+                            'result_field' => $this->result_field('Total Liabilities'),
                             'jan' => $payload_liabilities['jan'],
                             'feb' => $payload_liabilities['feb'],
                             'mar' => $payload_liabilities['mar'],
@@ -413,10 +421,11 @@ class EtlBalanceController extends Controller
                 if ($group->id == 9) {
                         // $result[$key] = [
                         //     'row'  => $key,
-                        //     'year' => $request->year,
-                        //     'company_id' => $request->company,
+                        // 'result_field' => $this->result_field('Total Equity'),
+                        //
+                        //
                         //     'lvl' => $lvl,
-                        //     'report_id' => $request->report,
+                        //
                         //     'category_id'  => null,
                         //     'branch'  => null,
                         //     'row_class'  => 'result-row',
@@ -442,14 +451,12 @@ class EtlBalanceController extends Controller
                         // $key++;
                         $result[$key] = [
                             'row'  => $key,
-                            'year' => $request->year,
-                            'company_id' => $request->company,
                             'lvl' => $lvl,
-                            'report_id' => $request->report,
                             'category_id'  => null,
                             'branch'  => null,
                             'row_class'  => 'result-row',
                             'name' => 'Total Liabilities + Equity',
+                            'result_field' => $this->result_field('Total Liabilities + Equity'),
                             'jan' => $payload_liabilities['jan'] + $payload_equity['jan'],
                             'feb' => $payload_liabilities['feb'] + $payload_equity['feb'],
                             'mar' => $payload_liabilities['mar'] + $payload_equity['mar'],
@@ -482,6 +489,9 @@ class EtlBalanceController extends Controller
         public function extract(Request $request)
         {
 
+            // Result Field Data
+            $this->rfields = Result::all();
+
             // Levels
             // $levels = ['lvl1','lvl2','lvl3','lvl4'];
             $levels = ['lvl1','lvl2','lvl3'];
@@ -495,6 +505,14 @@ class EtlBalanceController extends Controller
                 $result[] = $this->process_balance($request,$level);
             }
             $upsert = array_merge($result[0],$result[1],$result[2]);
+
+            // Common Data
+            foreach ($upsert as $key => $value) {
+                $upsert[$key]['report_type'] = 'balance';
+                $upsert[$key]['year'] = $request->year;
+                $upsert[$key]['company_id'] = $request->company;
+                $upsert[$key]['report_id'] = $request->report;
+            }
 
             // Columns to Update
             $colUpdate = [

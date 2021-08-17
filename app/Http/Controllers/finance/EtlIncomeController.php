@@ -8,9 +8,25 @@ use Illuminate\Http\Request;
 use App\Models\finance\CodeGroup;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\finance\Result;
 
 class EtlIncomeController extends Controller
 {
+
+        protected $rfields;
+
+        protected function result_field($name)
+        {
+
+            $resfield = $this->rfields->where('name', '=', $name)->first();
+            if(is_object($resfield)){
+                $res = $resfield->id;
+            } else {
+                $res = null;
+            }
+            return $res;
+        }
+
         // Extract, Transform and Load
         protected function getgroup($request, $group, $lvl)
         {
@@ -146,10 +162,8 @@ class EtlIncomeController extends Controller
                 foreach ($build as $value) {
                     $result[$key] = [
                         'row'  => $key,
-                        'year' => $request->year,
-                        'company_id' => $request->company,
+                        'result_field' => $this->result_field($value->name),
                         'lvl' => $lvl,
-                        'report_id' => $request->report,
                         'category_id'  => $value->branch_id,
                         'branch'  => $value->branch,
                         'row_class'  => 'data-row',
@@ -198,10 +212,8 @@ class EtlIncomeController extends Controller
 
                 $result[$key] = [
                     'row'  => $key,
-                    'year' => $request->year,
-                    'company_id' => $request->company,
+                    'result_field' => $this->result_field($group->name),
                     'lvl' => $lvl,
-                    'report_id' => $request->report,
                     'category_id'  => null,
                     'branch'  => null,
                     'row_class'  => 'result-row',
@@ -232,10 +244,8 @@ class EtlIncomeController extends Controller
             // Second Part of Report
             $result[$key] = [
                 'row' => $key,
-                'year' => $request->year,
-                'company_id' => $request->company,
+                'result_field' => null,
                 'lvl' => $lvl,
-                'report_id' => $request->report,
                 'category_id'  => null,
                 'branch'  => null,
                 'row_class' => 'divider',
@@ -269,10 +279,8 @@ class EtlIncomeController extends Controller
                     foreach ($er_data as $value) {
                         $result[$key] = [
                         'row'  => $key,
-                        'year' => $request->year,
-                        'company_id' => $request->company,
+                        'result_field' => $this->result_field($value['name']),
                         'lvl' => $lvl,
-                        'report_id' => $request->report,
                         'category_id'  => $value['category_id'],
                         'branch'  => $value['branch'],
                         'row_class'  => 'data-row',
@@ -320,10 +328,8 @@ class EtlIncomeController extends Controller
 
                     $result[$key] = [
                     'row'  => $key,
-                    'year' => $request->year,
-                    'company_id' => $request->company,
+                    'result_field' => $this->result_field($name),
                     'lvl' => $lvl,
-                    'report_id' => $request->report,
                     'category_id'  => null,
                     'branch'  => null,
                     'row_class'  => 'result-row',
@@ -356,12 +362,26 @@ class EtlIncomeController extends Controller
 
         public function extract(Request $request)
         {
+
+            // Result Field Data
+            $this->rfields = Result::all();
+
+
             // Levels
             $levels = ['lvl1','lvl2','lvl3'];
             foreach ($levels as $level) {
                 $result[] = $this->process_income($request,$level);
             }
             $upsert = array_merge($result[0],$result[1],$result[2]);
+
+            // Common Data
+            foreach ($upsert as $key => $value) {
+                $upsert[$key]['report_type'] = 'income';
+                $upsert[$key]['year'] = $request->year;
+                $upsert[$key]['company_id'] = $request->company;
+                $upsert[$key]['report_id'] = $request->report;
+            }
+
             // Columns to Update
             $colUpdate = [
                 'jan',
@@ -389,6 +409,8 @@ class EtlIncomeController extends Controller
                 'lvl',
                 'report_id',
             ];
+
+            // return $upsert;
 
             return DB::table('data_warehouse')->upsert($upsert, $compare, $colUpdate);
         }

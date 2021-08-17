@@ -28,6 +28,7 @@ class DataWarehouse extends Model
         'branch',
         'row_class',
         'name',
+        'result_field',
         'jan',
         'feb',
         'mar',

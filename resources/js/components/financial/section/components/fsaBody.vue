@@ -84,7 +84,7 @@ export default {
             let companyId = localStorage.getItem("company");
             let reportId = this.report.id;
             let reportType = this.report.type;
-            let reportTw = this.report.tw;
+            let reportTw = this.report.af;
 
             let data = {
                 date: this.date,
@@ -115,12 +115,17 @@ export default {
                             })
                             .then(response => {
                                 if (response.status == 200) {
+                                    let ratioPostData = {
+                                        year: year,
+                                        company: companyId,
+                                        type: reportTw
+                                    };
+
                                     axios
-                                        .post("etl/extract/ratio", {
-                                            year: year,
-                                            company: companyId,
-                                            type: reportTw
-                                        })
+                                        .post(
+                                            "etl/extract/ratio",
+                                            ratioPostData
+                                        )
                                         .then(response => {
                                             if (response.status == 200) {
                                                 this.$emit("loaded", true);

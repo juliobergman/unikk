@@ -2,24 +2,27 @@
     <v-main>
         <v-container fluid>
             <v-row>
-                <v-col cols="12" md="9">
+                <v-col cols="12" md="7">
                     <v-row>
-                        <v-col cols="12" md="4">
-                            <insights style="height: 180px;"></insights>
+                        <v-col cols="12" md="6">
+                            <c-place
+                                :bus="bus"
+                                style="height: 100px;"
+                            ></c-place>
                         </v-col>
-                        <v-col cols="12" md="4">
-                            <insights style="height: 180px;"></insights>
-                        </v-col>
-                        <v-col cols="12" md="4">
-                            <insights style="height: 180px;"></insights>
+                        <v-col cols="12" md="6">
+                            <c-place
+                                :bus="bus"
+                                style="height: 100px;"
+                            ></c-place>
                         </v-col>
                         <v-col cols="12">
-                            <insights style="height: 650px;"></insights>
+                            <insights :bus="bus"></insights>
                         </v-col>
                     </v-row>
                 </v-col>
-                <v-col cols="12" md="3">
-                    <insights style="height: 100%;"></insights>
+                <v-col cols="12" md="5">
+                    <c-place :bus="bus" class="fill-height"></c-place>
                 </v-col>
             </v-row>
         </v-container>
@@ -27,10 +30,11 @@
 </template>
 
 <script>
+import CPlace from "./components/cplace";
 import Insights from "./components/insights";
 export default {
     props: ["bus"],
-    components: { Insights },
+    components: { CPlace, Insights },
     data: () => ({
         loaded: true
     }),

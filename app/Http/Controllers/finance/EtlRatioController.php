@@ -4,14 +4,28 @@ namespace App\Http\Controllers\finance;
 
 use App\Models\Settings;
 use Illuminate\Http\Request;
+use App\Models\finance\Result;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\finance\DataWarehouse;
-use GrahamCampbell\ResultType\Result;
 
 class EtlRatioController extends Controller
 {
+
+    protected $rfields;
+
+    protected function result_field($name)
+    {
+
+        $resfield = $this->rfields->where('name', '=', $name)->first();
+        if(is_object($resfield)){
+            $res = $resfield->id;
+        } else {
+            $res = null;
+        }
+        return $res;
+    }
 
     protected $ck = [
         'jan',
@@ -91,6 +105,9 @@ class EtlRatioController extends Controller
     public function extract(Request $request)
     {
 
+        // Result Field Data
+        $this->rfields = Result::all();
+
         $reports = [
             'actual' => [1,3],
             'forecast' => [2,4]
@@ -106,7 +123,8 @@ class EtlRatioController extends Controller
         $dw->whereIn('report_id', $reports[$request->type]);
         $data = $dw->get();
 
-        if(!count($data)){
+
+        if (!count($data)) {
             return new JsonResponse([], 200);
         }
 
@@ -151,6 +169,7 @@ class EtlRatioController extends Controller
             $vars[$vkey] = $data->where('name', '=', $var_name)->first();
         }
 
+
         if (in_array(null, $vars, true)) {
             return response()->json([], 200);
         }
@@ -161,7 +180,7 @@ class EtlRatioController extends Controller
         $constants = Settings::where('company_id', $request->company)->where('selector', 'financial_ratio')->get();
         foreach ($constants as $e) {
             $ckey = strtolower(preg_replace("/[^a-zA-Z]+/", "_", $e->name));
-            if($e->type == 'float'){
+            if ($e->type == 'float') {
                 $constant[$ckey] = (float)$e->value;
             } else {
                 $constant[$ckey] = $e->value;
@@ -170,6 +189,7 @@ class EtlRatioController extends Controller
 
         // Builds
 
+
         $ratio['name'] = 'Current Ratio';
         foreach ($this->ck as $col) {
             $ratio[$col] = $this->divide(
@@ -177,6 +197,7 @@ class EtlRatioController extends Controller
                 $vars['short_term_liabilites'][$col]
             );
         }
+        $ratio['result_field'] = $this->result_field($ratio['name']);
         $ratio['format'] = 'number';
         $return[] = $ratio;
 
@@ -186,6 +207,7 @@ class EtlRatioController extends Controller
         foreach ($this->ck as $col) {
             $ratio[$col] = $vars['total_current_assets'][$col] - $vars['short_term_liabilites'][$col];
         }
+        $ratio['result_field'] = $this->result_field($ratio['name']);
         $ratio['format'] = 'currency';
         $return[] = $ratio;
 
@@ -199,9 +221,9 @@ class EtlRatioController extends Controller
                 $vars['short_term_liabilites'][$col]
             );
         }
+        $ratio['result_field'] = $this->result_field($ratio['name']);
         $ratio['format'] = 'number';
         $return[] = $ratio;
-
 
 
         $ratio['name'] = 'Net Income (%)';
@@ -211,6 +233,7 @@ class EtlRatioController extends Controller
                 $vars['income'][$col]
             );
         }
+        $ratio['result_field'] = $this->result_field($ratio['name']);
         $ratio['format'] = 'percentage';
         $return[] = $ratio;
 
@@ -220,6 +243,7 @@ class EtlRatioController extends Controller
         foreach ($this->ck as $col) {
             $ratio[$col] = (float)$vars['net_income'][$col];
         }
+        $ratio['result_field'] = $this->result_field($ratio['name']);
         $ratio['format'] = 'currency';
         $return[] = $ratio;
 
@@ -232,6 +256,7 @@ class EtlRatioController extends Controller
                 $vars['income'][$col]
             );
         }
+        $ratio['result_field'] = $this->result_field($ratio['name']);
         $ratio['format'] = 'percentage';
         $return[] = $ratio;
 
@@ -241,6 +266,7 @@ class EtlRatioController extends Controller
         foreach ($this->ck as $col) {
             $ratio[$col] = (float)$vars['gross_profit'][$col];
         }
+        $ratio['result_field'] = $this->result_field($ratio['name']);
         $ratio['format'] = 'currency';
         $return[] = $ratio;
 
@@ -253,6 +279,7 @@ class EtlRatioController extends Controller
                 $vars['total_equity'][$col]
             );
         }
+        $ratio['result_field'] = $this->result_field($ratio['name']);
         $ratio['format'] = 'percentage';
         $return[] = $ratio;
 
@@ -265,6 +292,7 @@ class EtlRatioController extends Controller
                 $vars['income'][$col]
             );
         }
+        $ratio['result_field'] = $this->result_field($ratio['name']);
         $ratio['format'] = 'percentage';
         $return[] = $ratio;
 
@@ -274,6 +302,7 @@ class EtlRatioController extends Controller
         foreach ($this->ck as $col) {
             $ratio[$col] = (float)$vars['ebitda'][$col];
         }
+        $ratio['result_field'] = $this->result_field($ratio['name']);
         $ratio['format'] = 'currency';
         $return[] = $ratio;
 
@@ -286,6 +315,7 @@ class EtlRatioController extends Controller
                 $vars['total_equity'][$col]
             );
         }
+        $ratio['result_field'] = $this->result_field($ratio['name']);
         $ratio['format'] = 'number';
         $return[] = $ratio;
 
@@ -298,6 +328,7 @@ class EtlRatioController extends Controller
                 $vars['interest_expenses_on_loans'][$col]
             );
         }
+        $ratio['result_field'] = $this->result_field($ratio['name']);
         $ratio['format'] = 'number';
         $return[] = $ratio;
 
@@ -314,6 +345,7 @@ class EtlRatioController extends Controller
             $calculated['nopat'][$col] = $operation;
         }
         unset($operation);
+        $ratio['result_field'] = $this->result_field($ratio['name']);
         $ratio['format'] = 'currency';
         $return[] = $ratio;
 
@@ -331,6 +363,7 @@ class EtlRatioController extends Controller
             $calculated['roic'][$col] = $operation;
         }
         unset($operation);
+        $ratio['result_field'] = $this->result_field($ratio['name']);
         $ratio['format'] = 'percentage';
         $return[] = $ratio;
 
@@ -344,6 +377,7 @@ class EtlRatioController extends Controller
             $ratio[$col] = $operation;
             $calculated['adjusted_equity'][$col] = $operation;
         }
+        $ratio['result_field'] = $this->result_field($ratio['name']);
         $ratio['format'] = 'currency';
         $return[] = $ratio;
 
@@ -358,6 +392,7 @@ class EtlRatioController extends Controller
             $ratio[$col] = $operation;
             $calculated['bvps'][$col] = $operation;
         }
+        $ratio['result_field'] = $this->result_field($ratio['name']);
         $ratio['format'] = 'currency';
         $return[] = $ratio;
 
@@ -368,6 +403,7 @@ class EtlRatioController extends Controller
             $return[$key]['lvl'] = 'lvl1';
             $return[$key]['company_id'] = $request->company;
             $return[$key]['report_id'] = $repratio[$request->type];
+            $return[$key]['report_type'] = 'ratio';
             $return[$key]['row_class'] = 'data-row';
             $return[$key]['branch'] = null;
             $return[$key]['category_id'] = null;
@@ -377,6 +413,7 @@ class EtlRatioController extends Controller
 
         // Columns to Update
         $colUpdate = [
+            'result_field',
             'jan',
             'feb',
             'mar',
@@ -402,6 +439,8 @@ class EtlRatioController extends Controller
             'lvl',
             'report_id',
         ];
+
+        // return $return;
 
         return DB::table('data_warehouse')->upsert($return, $compare, $colUpdate);
 

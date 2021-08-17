@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             CodeSeederIncome::class,
             CodeSeederBalance::class,
             ReportSeeder::class,
+            ResultSeeder::class,
             FactSeeder::class,
         ]);
 

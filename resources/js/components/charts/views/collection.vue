@@ -44,7 +44,7 @@
                 >
                     <v-hover v-slot:default="{ hover }">
                         <v-card
-                            class="pt-8 pr-8 pl-5"
+                            class="pt-8 pl-5 pr-8"
                             flat
                             @click="showChart(chart.id)"
                             rounded
@@ -98,6 +98,9 @@ export default {
                     e.chartdata = JSON.parse(e.chartdata);
                     e.chartoptions = JSON.parse(e.chartoptions);
                 });
+
+                console.log(dataCollection);
+
                 this.chartdata = chartList.data.charts;
                 if (!dataCollection || dataCollection < 1) {
                     this.norecords = true;

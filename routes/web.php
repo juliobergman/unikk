@@ -168,6 +168,8 @@ Route::prefix('/dw')->group(function(){
 // Result
 Route::prefix('/result')->group(function(){
     Route::get('/all', [ResultController::class, 'index']);
+    Route::post('/spark', [ResultController::class, 'spark']);
+    Route::post('/data', [ResultController::class, 'data']);
 });
 
 

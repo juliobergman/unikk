@@ -58,8 +58,12 @@ class DataWarehouseController extends Controller
     {
 
         $report = DataWarehouse::query();
+
         $report->join('reports', 'data_warehouse.report_id', '=', 'reports.id');
-        $report->select(['data_warehouse.*', 'reports.af']);
+        $report->join('results', 'data_warehouse.result_field', '=', 'results.id');
+
+        $report->select(['data_warehouse.*', 'reports.af','results.chart as chart']);
+
         $report->where('year', $request->year);
         $report->where('company_id', $request->company);
         $report->where('data_warehouse.result_field', $request->branch['id']);
@@ -69,30 +73,47 @@ class DataWarehouseController extends Controller
 
         $data = $report->get()->take(2);
 
+        // return $data;
+
         $cdata = [];
 
+        $cdata['format'] = $data[0]['format'];
         // Labels
         foreach ($this->ck as $key => $value) {
             $cdata['labels'][$key] = strtoupper($value);
         }
         // Colors
         $colors = [
-            'rgba(88, 149, 255, 0.5)',
-            'rgba(88, 255, 177, 0.5)',
+            'rgba(88, 149, 255, 0.9)',
+            'rgba(88, 255, 177, 0.9)',
+            'rgba(0, 0, 0, 0.8)',
+            'rgba(0, 0, 0, 0.8)',
             'rgba(0, 0, 0, 0.8)',
         ];
         $colorKey = 0;
 
         // ChartData
+        $cdata['tableheaders'][0]['text'] = '';
+        $cdata['tableheaders'][0]['value'] = 'name';
+        $cdata['tableheaders'][0]['format'] = null;
         foreach ($data as $key => $value) {
             if($colorKey >= count($colors)){ $colorKey = 0; }
-            $cdata['datasets'][$key]['label'] = ucwords($value['af']);
+            $cdata['datasets'][$key]['label'] = strtoupper($value['af']);
             $cdata['datasets'][$key]['backgroundColor'] = $colors[$colorKey];
+            $cdata['tableitems'][$key]['name'] = ucwords($value['af']);
             foreach ($this->ck as $k => $v) {
                 // $cdata['datasets'][$key]['data'][$k] = (float)$value[$v];
-                $cdata['datasets'][$key]['data'][$k] = (float)rand(1000,1505);
+                $cdata['datasets'][$key]['data'][$k] = (float)rand(100,2000);
+                $cdata['tableheaders'][$k+1]['text'] = strtoupper($v);
+                $cdata['tableheaders'][$k+1]['value'] = $v;
+                $cdata['tableheaders'][$k+1]['format'] = $data[0]['format'];
+                $cdata['tableitems'][$key][$v] = $cdata['datasets'][$key]['data'][$k];
             }
             $colorKey++;
+
+            // Table Header
+
+
         }
 
         return $cdata;

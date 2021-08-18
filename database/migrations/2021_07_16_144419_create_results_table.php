@@ -18,6 +18,8 @@ class CreateResultsTable extends Migration
             $table->string('name');
             $table->enum('chart', ['barChart', 'lineChart', 'pieChart']);
             $table->enum('report_type', ['income', 'balance', 'ratio']);
+            $table->enum('sparkline', ['yes', 'no'])->default('no');
+            $table->unsignedBigInteger('oby')->default(1);
             $table->timestamps();
         });
     }

@@ -14,6 +14,10 @@ class ResourcesController extends Controller
     }
     public function currencies()
     {
-        return ResCurrency::all()->toArray();
+        $currency = ResCurrency::query();
+        $currency->orderBy('id');
+        $currency->groupBy('symbol');
+
+        return $currency->get()->toArray();
     }
 }

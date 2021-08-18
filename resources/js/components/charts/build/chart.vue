@@ -1,7 +1,7 @@
 <template>
     <component
-        :width="1024"
-        :height="768"
+        :width="width"
+        :height="height"
         :is="type"
         :chart-data="chartData"
         :options="options"
@@ -17,6 +17,8 @@ export default {
     },
     props: {
         bus: {},
+        width: { type: Number, default: 1024 },
+        height: { type: Number, default: 768 },
         chartData: { type: Object, required: true },
         options: { type: Object, required: false },
         type: { type: String, required: true }

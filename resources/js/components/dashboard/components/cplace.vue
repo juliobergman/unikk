@@ -1,5 +1,5 @@
 <template>
-    <v-card color="grey darken-2" dark flat>
+    <v-card outlined>
         <v-card-text>component</v-card-text>
     </v-card>
 </template>

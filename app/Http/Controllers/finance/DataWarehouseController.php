@@ -107,8 +107,8 @@ class DataWarehouseController extends Controller
             $cdata['datasets'][$key]['backgroundColor'] = $colors[$colorKey];
             $cdata['tableitems'][$key]['name'] = ucwords($value['af']);
             foreach ($this->ck as $k => $v) {
-                // $cdata['datasets'][$key]['data'][$k] = (float)$value[$v];
-                $cdata['datasets'][$key]['data'][$k] = (float)rand(100,2000);
+                $cdata['datasets'][$key]['data'][$k] = (float)$value[$v];
+                // $cdata['datasets'][$key]['data'][$k] = (float)rand(100,2000);
                 $cdata['tableheaders'][$k+1]['text'] = strtoupper($v);
                 $cdata['tableheaders'][$k+1]['value'] = $v;
                 $cdata['tableheaders'][$k+1]['format'] = $data[0]['format'];

@@ -515,7 +515,7 @@ export default {
         });
         this.bus.$on("companyChange", () => {
             this.loaded = false;
-            this.getDataSets(this.branch);
+            this.getFields();
         });
     },
     watch: {

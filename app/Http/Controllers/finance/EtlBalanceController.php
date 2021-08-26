@@ -35,7 +35,7 @@ class EtlBalanceController extends Controller
         'nov' => ['month_name_short','nov'],
         'dec' => ['month_name_short','dec'],
         'qr4' => ['month_name_short','dec'],
-        'yar' => ['year', null],
+        'yar' => ['month_name_short','dec'],
     ];
 
         protected function result_field($name)
@@ -284,7 +284,7 @@ class EtlBalanceController extends Controller
 
         public function extract(Request $request)
         {
-            $this->ck['yar'] = ['year', $request->year];
+            // $this->ck['yar'] = ['year', $request->year];
             $this->rfields = Result::all();
             $reports = Report::where('type', 'balance')->get();
 
@@ -341,7 +341,7 @@ class EtlBalanceController extends Controller
                 'dec',
                 'qr4',
                 'yar',
-                'hidden'
+                'hidden',
             ];
 
             $compare = [

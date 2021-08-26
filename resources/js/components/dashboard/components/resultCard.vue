@@ -186,6 +186,9 @@ export default {
     },
     created() {
         this.getResults();
+        this.bus.$on("companyChange", () => {
+            this.getResults();
+        });
     }
 };
 </script>

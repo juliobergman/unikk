@@ -74,8 +74,8 @@ class ResultController extends Controller
             // Values
             foreach ($months as $k => $val) {
                 $ret[$key]['labels'][$k] = strtoupper($val);
-                // $ret[$key]['value'][$k] = (float)$sparkline[$val];
-                $ret[$key]['value'][$k] = (float)rand(100,2000);
+                $ret[$key]['value'][$k] = (float)$sparkline[$val];
+                // $ret[$key]['value'][$k] = (float)rand(100,2000);
             }
         }
 
@@ -113,14 +113,14 @@ class ResultController extends Controller
             $ret[$key]['name'] = $value->name;
             $ret[$key]['month_name'] = $month;
             $ret[$key]['format'] = $value->format;
-            // $ret[$key]['amount'] = (float)$value->$month;
-            $ret[$key]['amount'] = (float)rand(10000,50000);
+            $ret[$key]['amount'] = (float)$value->$month;
+            // $ret[$key]['amount'] = (float)rand(10000,50000);
 
             // Values
             foreach ($months as $k => $val) {
                 $ret[$key]['labels'][$k] = strtoupper($val);
-                // $ret[$key]['value'][$k] = (float)$value[$val];
-                $ret[$key]['value'][$k] = (float)rand(100,2000);
+                $ret[$key]['value'][$k] = (float)$value[$val];
+                // $ret[$key]['value'][$k] = (float)rand(100,2000);
             }
 
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\finance;
 
 use App\Models\Settings;
 use Illuminate\Http\Request;
+use App\Models\finance\Report;
 use App\Models\finance\Result;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
@@ -92,7 +93,6 @@ class EtlRatioController extends Controller
 
     protected function roic($a,$b,$c,$d)
     {
-
         $divider = ($b + $c) - $d;
         if($divider == 0){
             return 0;
@@ -102,7 +102,7 @@ class EtlRatioController extends Controller
     }
 
 
-    public function extract(Request $request)
+    protected function process_ratio($request, $af)
     {
 
         // Result Field Data
@@ -120,7 +120,7 @@ class EtlRatioController extends Controller
         $dw = DataWarehouse::query();
         $dw->where('company_id', $request->company);
         $dw->where('year', $request->year);
-        $dw->whereIn('report_id', $reports[$request->type]);
+        $dw->whereIn('report_id', $reports[$af]);
         $data = $dw->get();
 
 
@@ -189,30 +189,38 @@ class EtlRatioController extends Controller
 
         // Builds
 
-
+        $hiderow = 1;
         $ratio['name'] = 'Current Ratio';
         foreach ($this->ck as $col) {
             $ratio[$col] = $this->divide(
                 $vars['total_current_assets'][$col],
                 $vars['short_term_liabilites'][$col]
             );
+            if($ratio[$col]){ $hiderow = 0; }
         }
         $ratio['result_field'] = $this->result_field($ratio['name']);
         $ratio['format'] = 'number';
+        $ratio['hidden'] = $hiderow;
         $return[] = $ratio;
 
 
 
+
+
+        $hiderow = 1;
         $ratio['name'] = 'Working Capital';
         foreach ($this->ck as $col) {
             $ratio[$col] = $vars['total_current_assets'][$col] - $vars['short_term_liabilites'][$col];
+            if($ratio[$col]){ $hiderow = 0; }
         }
         $ratio['result_field'] = $this->result_field($ratio['name']);
         $ratio['format'] = 'currency';
+        $ratio['hidden'] = $hiderow;
         $return[] = $ratio;
 
 
 
+        $hiderow = 1;
         $ratio['name'] = 'Cash Ratio';
         foreach ($this->ck as $col) {
             $ratio[$col] = $this->cash_ratio(
@@ -220,119 +228,150 @@ class EtlRatioController extends Controller
                 $vars['short_term_assets_listed_stock_exchange'][$col],
                 $vars['short_term_liabilites'][$col]
             );
+            if($ratio[$col]){ $hiderow = 0; }
         }
         $ratio['result_field'] = $this->result_field($ratio['name']);
         $ratio['format'] = 'number';
+        $ratio['hidden'] = $hiderow;
         $return[] = $ratio;
 
 
+        $hiderow = 1;
         $ratio['name'] = 'Net Income (%)';
         foreach ($this->ck as $col) {
             $ratio[$col] = $this->percentage(
                 $vars['net_income'][$col],
                 $vars['income'][$col]
             );
+            if($ratio[$col]){ $hiderow = 0; }
         }
         $ratio['result_field'] = $this->result_field($ratio['name']);
         $ratio['format'] = 'percentage';
+        $ratio['hidden'] = $hiderow;
         $return[] = $ratio;
 
 
 
+        $hiderow = 1;
         $ratio['name'] = 'Net Income';
         foreach ($this->ck as $col) {
             $ratio[$col] = (float)$vars['net_income'][$col];
+            if($ratio[$col]){ $hiderow = 0; }
         }
         $ratio['result_field'] = $this->result_field($ratio['name']);
         $ratio['format'] = 'currency';
+        $ratio['hidden'] = $hiderow;
         $return[] = $ratio;
 
 
 
+        $hiderow = 1;
         $ratio['name'] = 'Gross Profit (%)';
         foreach ($this->ck as $col) {
             $ratio[$col] = $this->percentage(
                 $vars['gross_profit'][$col],
                 $vars['income'][$col]
             );
+            if($ratio[$col]){ $hiderow = 0; }
         }
         $ratio['result_field'] = $this->result_field($ratio['name']);
         $ratio['format'] = 'percentage';
+        $ratio['hidden'] = $hiderow;
         $return[] = $ratio;
 
 
 
+        $hiderow = 1;
         $ratio['name'] = 'Gross Profit';
         foreach ($this->ck as $col) {
             $ratio[$col] = (float)$vars['gross_profit'][$col];
+            if($ratio[$col]){ $hiderow = 0; }
         }
         $ratio['result_field'] = $this->result_field($ratio['name']);
         $ratio['format'] = 'currency';
+        $ratio['hidden'] = $hiderow;
         $return[] = $ratio;
 
 
 
+        $hiderow = 1;
         $ratio['name'] = 'Return on equity';
         foreach ($this->ck as $col) {
             $ratio[$col] = $this->percentage(
                 $vars['net_income'][$col],
                 $vars['total_equity'][$col]
             );
+            if($ratio[$col]){ $hiderow = 0; }
         }
         $ratio['result_field'] = $this->result_field($ratio['name']);
         $ratio['format'] = 'percentage';
+        $ratio['hidden'] = $hiderow;
         $return[] = $ratio;
 
 
 
+        $hiderow = 1;
         $ratio['name'] = 'EBITDA (%)';
         foreach ($this->ck as $col) {
             $ratio[$col] = $this->percentage(
                 $vars['ebitda'][$col],
                 $vars['income'][$col]
             );
+            if($ratio[$col]){ $hiderow = 0; }
         }
         $ratio['result_field'] = $this->result_field($ratio['name']);
         $ratio['format'] = 'percentage';
+        $ratio['hidden'] = $hiderow;
         $return[] = $ratio;
 
 
 
+        $hiderow = 1;
         $ratio['name'] = 'EBITDA';
         foreach ($this->ck as $col) {
             $ratio[$col] = (float)$vars['ebitda'][$col];
+            if($ratio[$col]){ $hiderow = 0; }
         }
         $ratio['result_field'] = $this->result_field($ratio['name']);
         $ratio['format'] = 'currency';
+        $ratio['hidden'] = $hiderow;
         $return[] = $ratio;
 
 
 
+        $hiderow = 1;
         $ratio['name'] = 'Debt to Equity';
         foreach ($this->ck as $col) {
             $ratio[$col] = $this->divide(
                 $vars['total_liabilities'][$col],
                 $vars['total_equity'][$col]
             );
+            if($ratio[$col]){ $hiderow = 0; }
         }
         $ratio['result_field'] = $this->result_field($ratio['name']);
         $ratio['format'] = 'number';
+        $ratio['hidden'] = $hiderow;
         $return[] = $ratio;
 
 
 
+        $hiderow = 1;
         $ratio['name'] = 'Interest coverage';
         foreach ($this->ck as $col) {
             $ratio[$col] = $this->divide(
                 $vars['ebit'][$col],
                 $vars['interest_expenses_on_loans'][$col]
             );
+            if($ratio[$col]){ $hiderow = 0; }
         }
         $ratio['result_field'] = $this->result_field($ratio['name']);
         $ratio['format'] = 'number';
+        $ratio['hidden'] = $hiderow;
         $return[] = $ratio;
 
 
+
+        $hiderow = 1;
         // Calculated Variables - NOPAT
         $ratio['name'] = 'NOPAT';
         foreach ($this->ck as $col) {
@@ -342,13 +381,18 @@ class EtlRatioController extends Controller
             );
 
             $ratio[$col] = $operation;
+            if($ratio[$col]){ $hiderow = 0; }
             $calculated['nopat'][$col] = $operation;
         }
         unset($operation);
         $ratio['result_field'] = $this->result_field($ratio['name']);
         $ratio['format'] = 'currency';
+        $ratio['hidden'] = $hiderow;
         $return[] = $ratio;
 
+
+
+        $hiderow = 1;
         // Calculated Variables - ROIC
         $ratio['name'] = 'ROIC';
         foreach ($this->ck as $col) {
@@ -360,13 +404,18 @@ class EtlRatioController extends Controller
             );
 
             $ratio[$col] = $operation;
+            if($ratio[$col]){ $hiderow = 0; }
             $calculated['roic'][$col] = $operation;
         }
         unset($operation);
         $ratio['result_field'] = $this->result_field($ratio['name']);
         $ratio['format'] = 'percentage';
+        $ratio['hidden'] = $hiderow;
         $return[] = $ratio;
 
+
+
+        $hiderow = 1;
         // Calculated Variables - Adjusted Equity
         $ratio['name'] = 'Adjusted Equity';
         foreach ($this->ck as $col) {
@@ -375,13 +424,17 @@ class EtlRatioController extends Controller
                 $vars['net_income'][$col]
             ]);
             $ratio[$col] = $operation;
+            if($ratio[$col]){ $hiderow = 0; }
             $calculated['adjusted_equity'][$col] = $operation;
         }
         $ratio['result_field'] = $this->result_field($ratio['name']);
         $ratio['format'] = 'currency';
+        $ratio['hidden'] = $hiderow;
         $return[] = $ratio;
 
 
+
+        $hiderow = 1;
         // Calculated Variables - Book Value per Share
         $ratio['name'] = 'Book Value per Share';
         foreach ($this->ck as $col) {
@@ -390,11 +443,16 @@ class EtlRatioController extends Controller
                 $constant['number_of_shares']
             );
             $ratio[$col] = $operation;
+            if($ratio[$col]){ $hiderow = 0; }
             $calculated['bvps'][$col] = $operation;
         }
         $ratio['result_field'] = $this->result_field($ratio['name']);
         $ratio['format'] = 'currency';
+        $ratio['hidden'] = $hiderow;
         $return[] = $ratio;
+
+
+
 
         // Shared & Aditional Information
         foreach ($return as $key => $value) {
@@ -402,7 +460,7 @@ class EtlRatioController extends Controller
             $return[$key]['year'] = $request->year;
             $return[$key]['lvl'] = 'lvl1';
             $return[$key]['company_id'] = $request->company;
-            $return[$key]['report_id'] = $repratio[$request->type];
+            $return[$key]['report_id'] = $repratio[$af];
             $return[$key]['report_type'] = 'ratio';
             $return[$key]['row_class'] = 'data-row';
             $return[$key]['branch'] = null;
@@ -413,6 +471,7 @@ class EtlRatioController extends Controller
 
         // Columns to Update
         $colUpdate = [
+            'row',
             'result_field',
             'jan',
             'feb',
@@ -431,6 +490,7 @@ class EtlRatioController extends Controller
             'dec',
             // 'qr4',
             'yar',
+            'hidden'
         ];
 
         $compare = [
@@ -440,9 +500,21 @@ class EtlRatioController extends Controller
             'report_id',
         ];
 
-        // return $return;
-
         return DB::table('data_warehouse')->upsert($return, $compare, $colUpdate);
 
     }
+
+    public function extract(Request $request)
+    {
+        $reports = ['actual','forecast'];
+
+        $ret = 0;
+        foreach ($reports as $report) {
+            $ret += $this->process_ratio($request, $report);
+        }
+
+        // Response
+        return new JsonResponse(['message' => 'Success', 'rows' => $ret], 200);
+    }
+
 }

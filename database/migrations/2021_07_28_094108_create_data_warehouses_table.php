@@ -20,6 +20,7 @@ class CreateDataWarehousesTable extends Migration
             $table->foreignId('company_id')->foreign('company_id')->references('id')->on('companies');
             $table->foreignId('report_id')->foreign('report_id')->references('id')->on('reports');
             $table->enum('report_type', ['income', 'balance', 'ratio']);
+            $table->enum('report_af', ['actual', 'forecast']);
             $table->foreignId('category_id')->nullable()->foreign('category_id')->references('id')->on('code_categories');
             $table->unsignedBigInteger('year');
             $table->string('lvl')->index();
@@ -28,7 +29,7 @@ class CreateDataWarehousesTable extends Migration
 
             $table->string('name')->nullable();
             $table->foreignId('result_field')->nullable()->foreign('result_field')->references('id')->on('results');
-            // $table->unsignedBigInteger('result_field')->nullable();
+
 
             $table->string('format')->default('currency');
             $table->string('branch')->nullable();
@@ -50,6 +51,8 @@ class CreateDataWarehousesTable extends Migration
             $table->decimal('dec', 20,2,false)->nullable();
             $table->decimal('qr4', 20,2,false)->nullable();
             $table->decimal('yar', 20,2,false)->nullable();
+            $table->boolean('hidden')->default(0);
+
             $table->softDeletes();
             $table->timestamps();
         });

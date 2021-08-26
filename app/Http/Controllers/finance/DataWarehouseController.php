@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\finance;
 
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Models\finance\DataWarehouse;
-use Illuminate\Http\Request;
 
 class DataWarehouseController extends Controller
 {
@@ -36,12 +37,14 @@ class DataWarehouseController extends Controller
         $report->where('company_id', $request->company);
         $report->where('lvl', $request->lvl);
         $report->where('report_id', $request->report);
+        $report->where('hidden', false);
         $report->orderBy('row','asc');
         return $report->get();
     }
 
     public function cfields(Request $request)
     {
+
         $field_data = DataWarehouse::query();
         $field_data->where('name','!=', null);
         $field_data->where('lvl', 'lvl1');
@@ -73,7 +76,9 @@ class DataWarehouseController extends Controller
 
         $data = $report->get()->take(2);
 
-        // return $data;
+        if(!count($data)){
+            return new JsonResponse(['message' => 'No Data Found'], 204);
+        }
 
         $cdata = [];
 

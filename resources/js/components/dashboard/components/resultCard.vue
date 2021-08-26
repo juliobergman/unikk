@@ -1,6 +1,6 @@
 <template>
-    <v-card flat :outlined="!darkTheme">
-        <v-card-text class="pl-2 pt-1 pb-0" v-if="loaded">
+    <v-card flat :outlined="!darkTheme" v-if="loaded && value">
+        <v-card-text class="pa-0">
             <v-select
                 solo
                 flat
@@ -13,19 +13,59 @@
                 return-object
             >
                 <template v-slot:selection="{ item }">
-                    <span class="text-button primary--text w-100">
-                        {{ item.name }}
-                    </span>
+                    <v-container
+                        fluid
+                        class="pa-0 ma-0 d-flex justify-space-between"
+                    >
+                        <span class="text-button primary--text text-no-wrap text-truncate">
+                            {{ item.name }}
+                        </span>
+
+                        <span class="text-button secondary--text ml-2">
+                            {{ item.month_name }}
+                        </span>
+                    </v-container>
                 </template>
             </v-select>
         </v-card-text>
         <v-divider class="mt-1 mb-2"></v-divider>
-        <v-card-text class="d-flex pt-2" v-if="loaded">
-            <span
-                class="ml-auto secondary--text result-amount"
-                v-text="res"
-            ></span>
-        </v-card-text>
+        <v-container fluid class="ma-0" v-if="loaded">
+            <v-row no-gutters>
+                <v-col cols="6">
+
+                    <v-sparkline
+                        :height="sparkline.height"
+                        :value="value"
+                        :labels="sparkline.labels"
+                        :gradient="sparkline.gradient"
+                        :smooth="sparkline.radius || false"
+                        :padding="sparkline.padding"
+                        :line-width="sparkline.width"
+                        :stroke-linecap="sparkline.lineCap"
+                        :gradient-direction="sparkline.gradientDirection"
+                        :fill="sparkline.fill"
+                        :type="sparkline.type"
+                        :auto-line-width="sparkline.autoLineWidth"
+                        auto-draw
+                        :auto-draw-duration="sparkline.autoDrawDuration"
+                    ></v-sparkline>
+
+
+                </v-col>
+                <v-col cols="6" class="d-flex justify-end">
+
+                <span
+                    class="secondary--text result-amount"
+                    v-text="res"
+                ></span>
+
+
+
+                </v-col>
+            </v-row>
+
+            </v-row>
+        </v-container>
     </v-card>
 </template>
 
@@ -34,20 +74,45 @@ export default {
     props: {
         bus: {},
         darkTheme: {},
-        resid: { type: Number, default: 21 }
+        inid: { type: Number, default: 21 }
     },
     data: () => ({
         loaded: true,
         name: "",
         data: undefined,
-        results: []
+        results: [],
+        sparkline: {
+            height: 75,
+            autoDrawDuration: 500,
+            width: 5,
+            radius: 1,
+            padding: 1,
+            lineCap: "round",
+            gradient: ["#5895ff", "#58ffb1"],
+            gradientDirection: "top",
+            fill: true,
+            type: "trend",
+            autoLineWidth: true,
+            labels: []
+        }
     }),
     computed: {
         currency_symbol() {
             return this.$store.state.company.company.currency_symbol;
         },
         res() {
-            return this.format(this.data.amount, this.data.format);
+            if(this.data){
+                return this.format(this.data.amount, this.data.format);
+            } else {
+                return false;
+            }
+        },
+        value(){
+            if(this.data){
+                return this.data.value;
+            } else {
+                return false;
+            }
         }
     },
     methods: {
@@ -109,10 +174,8 @@ export default {
                 .then(response => {
                     if (response.status == 200) {
                         let resp = response.data;
-                        this.data = resp.find(e => e.id == this.resid);
-
+                        this.data = resp.find(e => e.id == this.inid);
                         this.results = response.data;
-
                         this.loaded = true;
                     }
                 })
@@ -131,6 +194,5 @@ export default {
 .result-amount {
     font-size: 1.35rem;
     font-weight: 700;
-    margin-top: 4px;
 }
 </style>

@@ -205,6 +205,9 @@ export default {
     },
     mounted() {
         this.bus.$on("drawer", this.toggleDrawer);
+        this.bus.$on("print:on", payload => {
+            this.drawer = !payload;
+        });
         // if (!this.$route.name) {
         //     this.$router.push({ name: "charts" });
         // }

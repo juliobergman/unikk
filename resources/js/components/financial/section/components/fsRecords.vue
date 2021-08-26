@@ -82,7 +82,7 @@
 import confirm from "../../../ui/confirm";
 import alert from "../../../ui/alert";
 export default {
-    props: ["bus", "rid", "data", "date", "lvl", "name", "month"],
+    props: ["bus", "rid", "rtype", "data", "date", "lvl", "name", "month"],
     components: {
         confirm,
         alert
@@ -161,12 +161,11 @@ export default {
                                     this.clear();
 
                                     axios
-                                        .post("etl/extract/income", {
+                                        .post("etl/extract/" + this.rtype, {
                                             year: this.date.substr(0, 4),
                                             company: localStorage.getItem(
                                                 "company"
-                                            ),
-                                            report: this.rid
+                                            )
                                         })
                                         .then(response => {
                                             if (response.status == 200) {

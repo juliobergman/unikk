@@ -84,7 +84,6 @@ export default {
             let companyId = localStorage.getItem("company");
             let reportId = this.report.id;
             let reportType = this.report.type;
-            let reportTw = this.report.af;
 
             let data = {
                 date: this.date,
@@ -117,8 +116,7 @@ export default {
                                 if (response.status == 200) {
                                     let ratioPostData = {
                                         year: year,
-                                        company: companyId,
-                                        type: reportTw
+                                        company: companyId
                                     };
 
                                     axios

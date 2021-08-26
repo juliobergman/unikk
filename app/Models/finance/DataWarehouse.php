@@ -46,5 +46,6 @@ class DataWarehouse extends Model
         'dec',
         'qr4',
         'yar',
+        'hidden',
     ];
 }

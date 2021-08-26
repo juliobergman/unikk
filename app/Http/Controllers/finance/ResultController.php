@@ -63,6 +63,7 @@ class ResultController extends Controller
         $dw->where('company_id', $request->company);
         $dw->where('year', $request->year);
         $dw->whereIn('result_field', $wherin);
+        $dw->whereIn('report_id', [1,3,5]);
         $dw->groupBy('result_field');
         $data = $dw->get();
 
@@ -72,8 +73,8 @@ class ResultController extends Controller
             $ret[$key]['name'] = $sparkline->name;
             // Values
             foreach ($months as $k => $val) {
-                // $ret[$key]['value'][$k] = (float)$sparkline[$val];
                 $ret[$key]['labels'][$k] = strtoupper($val);
+                // $ret[$key]['value'][$k] = (float)$sparkline[$val];
                 $ret[$key]['value'][$k] = (float)rand(100,2000);
             }
         }
@@ -83,6 +84,10 @@ class ResultController extends Controller
 
     public function data(Request $request)
     {
+        $month_lenght = date('n');
+        $month_offset = 0;
+        $months = array_slice($this->ck, $month_offset, $month_lenght);
+
         $list = Result::query();
         $results = $list->get();
 
@@ -96,18 +101,29 @@ class ResultController extends Controller
         $dw->where('company_id', $request->company);
         $dw->where('year', $request->year);
         $dw->whereIn('result_field', $wherin);
+        $dw->whereIn('report_id', [1,3,5]);
         $dw->groupBy('result_field');
         $data = $dw->get();
 
-        $month = $this->ck[(date('n') - 1)];
+        $month = $this->ck[(date('n') - 2)];
 
         $ret = [];
         foreach ($data as $key => $value) {
             $ret[$key]['id'] = $value->result_field;
             $ret[$key]['name'] = $value->name;
+            $ret[$key]['month_name'] = $month;
             $ret[$key]['format'] = $value->format;
             // $ret[$key]['amount'] = (float)$value->$month;
             $ret[$key]['amount'] = (float)rand(10000,50000);
+
+            // Values
+            foreach ($months as $k => $val) {
+                $ret[$key]['labels'][$k] = strtoupper($val);
+                // $ret[$key]['value'][$k] = (float)$value[$val];
+                $ret[$key]['value'][$k] = (float)rand(100,2000);
+            }
+
+
         }
 
         return $ret;

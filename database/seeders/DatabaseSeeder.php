@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
             ReportSeeder::class,
             ResultSeeder::class,
             FactSeeder::class,
+            DWSeeder::class,
         ]);
 
     }

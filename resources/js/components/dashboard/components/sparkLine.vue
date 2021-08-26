@@ -16,7 +16,7 @@
                 :type="type"
                 :auto-line-width="autoLineWidth"
                 auto-draw
-                :auto-draw-duration="4000"
+                :auto-draw-duration="100"
             ></v-sparkline>
         </v-card-text>
     </v-card>
@@ -24,16 +24,22 @@
 
 <script>
 export default {
-    props: ["bus", "name", "value", "labels", "darkTheme"],
+    props: {
+        bus: {},
+        name: {},
+        value: {},
+        labels: {},
+        darkTheme: {},
+        type: { default: "trend" }
+    },
     data: () => ({
-        width: 4,
+        width: 3,
         radius: 5,
-        padding: 24,
+        padding: 10,
         lineCap: "round",
         gradient: ["#5895ff", "#58ffb1"],
         gradientDirection: "top",
         fill: false,
-        type: "trend",
         autoLineWidth: true
     })
 };

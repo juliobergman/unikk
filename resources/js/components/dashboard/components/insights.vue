@@ -1,6 +1,17 @@
 <template>
-    <v-card flat :outlined="!darkTheme">
-        <v-toolbar class="mb-4" color="transparent" flat>
+    <v-card flat :outlined="!darkTheme && !print" v-if="loadChart && loaded">
+        <v-card-text v-if="false" class="d-none d-print-inline mb-10">
+            <v-sheet max-width="30%">
+                <img src="factory/stock/default-print-header.png" class="w-100"></img>
+            </v-sheet>
+            <v-divider></v-divider>
+            <v-sheet class="d-flex my-10">
+                <span class="print-text-title" v-text="branch.name"></span>
+                <v-spacer></v-spacer>
+                <span class="print-text-title" v-text="year"></span>
+            </v-sheet>
+        </v-card-text>
+        <v-toolbar class="d-print-none mb-4" color="transparent" flat>
             <v-select
                 solo
                 flat
@@ -39,6 +50,7 @@
                 </template>
             </v-select>
             <v-btn
+                v-if="false"
                 v-show="fullscreen"
                 class="mr-2"
                 small
@@ -46,27 +58,34 @@
                 @click="goPrint()"
             >
                 <v-icon>
-                    mdi-printer
+                    {{ pricon }}
                 </v-icon>
             </v-btn>
-            <v-btn small icon class="mr-1" @click="goFullScreen()">
+            <v-btn v-show="!print" small icon class="mr-1" @click="goFullScreen()">
                 <v-icon>
                     {{ fsicon }}
                 </v-icon>
             </v-btn>
         </v-toolbar>
         <v-card-text>
-            <div id="print">
+            <div class="print-canvas">
                 <chart-canvas
                     v-if="loaded"
                     :height="fscsize"
                     :type="ctype"
-                    :chart-data="cdata()"
+                    :chart-data="chartData"
                     :options="coptions"
                     :bus="bus"
                 ></chart-canvas>
             </div>
-            <v-slider color="blue" min="0" max="9" v-model="zoom" step="1">
+            <v-slider
+                class="d-print-none"
+                color="blue"
+                min="0"
+                max="9"
+                v-model="zoom"
+                step="1"
+            >
                 <template v-slot:prepend>
                     <v-icon>
                         mdi-magnify-minus-outline
@@ -79,6 +98,7 @@
                 </template>
             </v-slider>
             <v-slider
+                class="d-print-none"
                 :disabled="this.zoom == 0"
                 min="0"
                 :max="this.zoom"
@@ -98,7 +118,9 @@
             </v-slider>
         </v-card-text>
         <v-card-text v-if="fullscreen">
-            <span v-text="branch.name" class="subtitle-2 ml-3"></span>
+            <span class="subtitle-2 ml-3">
+                {{ year }} - {{ branch.name }}
+            </span>
             <v-divider></v-divider>
             <v-data-table
                 :loading="!loaded"
@@ -182,23 +204,25 @@ const formatLabel = function(value, format, k = true) {
 };
 
 export default {
-    props: ["bus", "darkTheme"],
+    props:{
+        bus: {},
+        darkTheme: {},
+        inid: {type: Number, default:21},
+        ky: {type: Number, default:1}
+    },
     components: { chartCanvas },
     data: () => ({
         loaded: false,
+        print: false,
         fullscreen: false,
         selection: "",
         year: new Date().getFullYear(),
+        headers: [],
         fields: [],
         yearlist: [],
         zoom: 7,
         zoomPos: 5,
-        branch: {
-            id: 21,
-            name: "Net Income",
-            chart: "barChart",
-            report_type: "income"
-        },
+        branch: {},
         format: "",
         apilabels: [],
         apisets: [],
@@ -317,11 +341,36 @@ export default {
         }
     }),
     computed: {
+        rvid(){
+              return sessionStorage.getItem('rvid');
+        },
+        loadChart(){
+            return (this.apilabels || this.apisets) ? true : false;
+        },
+        chartData(){
+            return (this.apilabels || this.apisets) ? this.cdata() : false;
+        },
         fsicon() {
             return this.fullscreen ? "mdi-fullscreen-exit" : "mdi-fullscreen";
         },
+        pricon() {
+            return this.print ? "mdi-close" : "mdi-printer";
+        },
         fscsize() {
+
             return this.fullscreen ? 430 : 585;
+
+            // if(this.fullscreen){
+            //     return 430;
+            // } else {
+            //     return 585;
+            // }
+            // if(this.print){
+            //     return 768;
+            // } else {
+
+            //     return 585;
+            // }
         },
         // currency_symbol() {
         //     return this.$store.state.company.company.currency_symbol;
@@ -358,21 +407,52 @@ export default {
         }
     },
     methods: {
+        cdata() {
+            let start = this.zoomPos;
+            let end = this.zoomPos + (12 - this.zoom);
+            let labels = this.apilabels.slice(start, end);
+            let sets = [];
+
+            let arr = this.apisets;
+
+            arr.forEach((e, i) => {
+                sets[i] = {
+                    label: arr[i].label,
+                    backgroundColor: arr[i].backgroundColor,
+                    data: e.data.slice(start, end)
+                };
+            });
+
+            return {
+                labels: labels,
+                datasets: sets
+            };
+        },
         getFields() {
+            this.loaded.false;
             axios
                 .get("result/all")
                 .then(response => {
-                    this.fields = response.data;
+                    if (response.status == 200) {
+                        this.fields = response.data;
+                        this.branch = response.data.find(e => e.id == this.inid);
+                        this.getDataSets(this.branch);
+                        this.loaded = true;
+                    }
                 })
                 .catch(response => {
                     console.error(response);
                 });
         },
         getYears() {
+            this.loaded.false;
             axios
                 .get("date/years")
                 .then(response => {
-                    this.yearlist = response.data;
+                    if (response.status == 200) {
+                        this.yearlist = response.data;
+                        this.loaded = true;
+                    }
                 })
                 .catch(response => {
                     console.error(response);
@@ -380,6 +460,9 @@ export default {
         },
         async getDataSets($insight) {
             this.loaded = false;
+
+            if(_.isEmpty($insight)) return;
+
             let postData = {
                 year: 2021,
                 company: localStorage.company,
@@ -403,47 +486,37 @@ export default {
                 console.error(e);
             }
         },
-        cdata() {
-            let start = this.zoomPos;
-            let end = this.zoomPos + (12 - this.zoom);
-            let labels = this.apilabels.slice(start, end);
-            let sets = [];
-
-            let arr = this.apisets;
-
-            arr.forEach((e, i) => {
-                sets[i] = {
-                    label: arr[i].label,
-                    backgroundColor: arr[i].backgroundColor,
-                    data: e.data.slice(start, end)
-                };
-            });
-
-            return {
-                labels: labels,
-                datasets: sets
-            };
-        },
         formatN(value, format) {
             return formatLabel(value, format, false);
             // return 0;
         },
         goFullScreen() {
             this.fullscreen = !this.fullscreen;
-            this.bus.$emit("insights:fullscreen", this.fullscreen);
+            if(!this.fullscreen){
+                this.print = false;
+                this.bus.$emit("print:on", false);
+            }
+            this.bus.$emit("insights:fullscreen", {fullscreen: this.fullscreen,  ky: this.ky});
         },
         goPrint() {
-            this.bus.$emit("app:print", true);
+            this.print = !this.print;
+            this.bus.$emit("print:on", this.print);
         }
     },
     created() {
+        this.getFields();
+        this.getYears();
+    },
+    mounted(){
+        this.bus.$on("insights:fullscreen", (fs) => {
+            if (fs.ky != this.ky) {
+                this.fullscreen = false;
+            }
+        });
         this.bus.$on("companyChange", () => {
             this.loaded = false;
             this.getDataSets(this.branch);
         });
-        this.getFields();
-        this.getYears();
-        this.getDataSets(this.branch);
     },
     watch: {
         fscsize() {
@@ -455,3 +528,21 @@ export default {
     }
 };
 </script>
+<style scoped>
+@media print {
+    canvas.chart-canvas {
+        min-height: 100% !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        height: auto!important;
+        width: auto!important;
+    }
+    * {
+    color:  #232323 !important;
+    }
+}
+.print-text-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+</style>

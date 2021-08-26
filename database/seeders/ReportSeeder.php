@@ -18,39 +18,39 @@ class ReportSeeder extends Seeder
         $reports = [
             [
                 'id' => 1,
-                'name' => 'Actual Income Statement',
-                'type' => 'income',
-                'af' => 'actual'
-            ],
-            [
-                'id' => 2,
                 'name' => 'Forecast Income Statement',
                 'type' => 'income',
                 'af' => 'forecast'
             ],
             [
-                'id' => 3,
-                'name' => 'Actual Balance Sheet',
-                'type' => 'balance',
+                'id' => 2,
+                'name' => 'Actual Income Statement',
+                'type' => 'income',
                 'af' => 'actual'
             ],
             [
-                'id' => 4,
+                'id' => 3,
                 'name' => 'Forecast Balance Sheet',
                 'type' => 'balance',
                 'af' => 'forecast'
             ],
             [
-                'id' => 5,
-                'name' => 'Actual Ratio Panel',
-                'type' => 'ratio',
+                'id' => 4,
+                'name' => 'Actual Balance Sheet',
+                'type' => 'balance',
                 'af' => 'actual'
             ],
             [
-                'id' => 6,
+                'id' => 5,
                 'name' => 'Forecast Ratio Panel',
                 'type' => 'ratio',
                 'af' => 'forecast'
+            ],
+            [
+                'id' => 6,
+                'name' => 'Actual Ratio Panel',
+                'type' => 'ratio',
+                'af' => 'actual'
             ],
         ];
 

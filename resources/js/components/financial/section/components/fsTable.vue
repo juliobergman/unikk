@@ -53,6 +53,7 @@
                 <fs-records
                     :bus="bus"
                     :rid="rid"
+                    :rtype="report.type"
                     :data="post"
                     :date="date"
                     :lvl="lvl"

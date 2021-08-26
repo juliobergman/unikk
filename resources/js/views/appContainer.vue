@@ -9,7 +9,7 @@
                 :bus="bus"
                 :user="user"
             ></drawer-menu>
-            <v-app-bar dark clipped-right app flat>
+            <v-app-bar dark clipped-right app flat v-if="!print">
                 <v-app-bar-nav-icon
                     @click="bus.$emit('drawer')"
                 ></v-app-bar-nav-icon>
@@ -38,7 +38,11 @@
             </v-app-bar>
             <div class="p-3">
                 <transition :name="transitionName" mode="out-in">
-                    <router-view :key="$route.path" :bus="bus"></router-view>
+                    <router-view
+                        :key="$route.path + rvid"
+                        :bus="bus"
+                    ></router-view>
+                    <!-- <router-view :key="$route.path" :bus="bus"></router-view> -->
                 </transition>
             </div>
         </div>
@@ -69,6 +73,8 @@ export default {
         topMenuBtn
     },
     data: () => ({
+        rvid: 0,
+        print: false,
         isMobile: false,
         topMenu: true,
         transitionName: "slide-right",
@@ -129,6 +135,7 @@ export default {
         }
     },
     created() {
+        sessionStorage.setItem("rvid", this.rvid);
         this.$store.dispatch("user/getUser");
         this.$store.dispatch("membership/getMembership");
         this.$store.dispatch("membership/getMembershipId");
@@ -175,11 +182,16 @@ export default {
             if (to.meta.section != from.meta.section) {
                 this.transitionName = "slide";
             }
-
+            this.rvid++;
+            this.bus.$emit("key:update", this.rvid);
+            sessionStorage.setItem("rvid", this.rvid);
             next();
         });
         this.onResize();
         window.addEventListener("resize", this.onResize, { passive: true });
+        this.bus.$on("print:on", payload => {
+            this.print = payload;
+        });
     },
     watch: {
         currentCompany() {

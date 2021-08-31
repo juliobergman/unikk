@@ -10016,12 +10016,6 @@ h3 {
   background: linear-gradient(to right, rgba(63, 76, 107, 0.3) 0%, rgba(96, 108, 136, 0.3) 100%);
 }
 
-.theme--light .v-navigation-drawer__content,
-.theme--light .v-navigation-drawer__append,
-.theme--light .v-navigation-drawer__prepend {
-  background: rgba(255, 255, 255, 0.85);
-}
-
 .theme--light .transparent-overlay {
   background: rgba(255, 255, 255, 0.5) !important;
 }
@@ -10079,11 +10073,4 @@ h3 {
 
 .theme--dark .v-data-table__wrapper table tbody tr:hover td {
   background: #2e2e2e;
-}
-
-.btn-appbar-active {
-  color: #fff !important;
-  border-bottom: 2px solid #fff !important;
-  background: none !important;
-  background-color: #06f !important;
 }

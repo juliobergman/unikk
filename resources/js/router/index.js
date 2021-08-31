@@ -4,7 +4,13 @@ import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
 // Website
-// import wsMain from "../components/website/main";
+import WebWelcome from "../components/website/components/pages/welcome.vue";
+import WebAbout from "../components/website/components/pages/about.vue";
+import WebInvestment from "../components/website/components/pages/investment.vue";
+import WebGeofocus from "../components/website/components/pages/geofocus.vue";
+import WebEarth from "../components/website/components/pages/geofocus2.vue";
+import WebContact from "../components/website/components/pages/contact.vue";
+
 // Admin
 import Dashboard from "../components/dashboard/container";
 // User
@@ -36,33 +42,101 @@ import FinancialStatementAdd from "../components/financial/section/financialStat
 import FinancialStatement from "../components/financial/section/financialStatement";
 
 const routes = [
+    // Web
+    {
+        component: WebWelcome,
+        name: "webwelcome",
+        path: "/",
+        meta: {
+            depth: "0",
+            darkLogo: true,
+            darkBtn: true,
+            darkNavs: true
+        }
+    },
+    {
+        component: WebAbout,
+        name: "webabout",
+        path: "/about",
+        meta: {
+            depth: "1",
+            darkLogo: false,
+            darkBtn: true,
+            darkNavs: false
+        }
+    },
+    {
+        component: WebInvestment,
+        name: "webinvestment",
+        path: "/investment",
+        meta: {
+            depth: "2",
+            darkLogo: true,
+            darkBtn: false,
+            darkNavs: false
+        }
+    },
+    {
+        component: WebGeofocus,
+        name: "webgeofocus",
+        path: "/geofocus",
+        meta: {
+            depth: "3",
+            darkLogo: true,
+            darkBtn: true,
+            darkNavs: true
+        }
+    },
+    {
+        component: WebEarth,
+        name: "webearth",
+        path: "/earth",
+        meta: {
+            depth: "4",
+            darkLogo: true,
+            darkBtn: true,
+            darkNavs: true
+        }
+    },
+    {
+        component: WebContact,
+        name: "webcontact",
+        path: "/contact",
+        meta: {
+            depth: "5",
+            darkLogo: false,
+            darkBtn: false,
+            darkNavs: false
+        }
+    },
+    // App
+    {
+        component: Dashboard,
+        name: "dashboard",
+        path: "/app",
+        meta: { section: "dashboard" }
+    },
     {
         component: Company,
         name: "company",
-        path: "/company",
+        path: "/app/company",
         meta: { section: "company" }
     },
     {
         component: Account,
         name: "account",
-        path: "/account",
+        path: "/app/account",
         meta: { section: "account" }
     },
     {
         component: Users,
         name: "users",
-        path: "/users",
+        path: "/app/users",
         meta: { section: "users" }
     },
     {
-        component: Dashboard,
-        name: "dashboard",
-        path: "/",
-        meta: { section: "dashboard" }
-    },
-    {
         component: Charts,
-        path: "/charts",
+        path: "/app/charts",
         meta: { section: "charts" },
         children: [
             {
@@ -88,7 +162,7 @@ const routes = [
     {
         component: newChart,
         name: "newchart",
-        path: "/chart-build",
+        path: "/app/chart-build",
         children: [
             {
                 component: newBarChart,
@@ -131,59 +205,60 @@ const routes = [
     {
         component: Contact,
         name: "contact",
-        path: "/contact",
+        path: "/app/contact",
         meta: { section: "contact" }
     },
     {
         component: ContactProfile,
         name: "contactProfile",
-        path: "/contact/:id",
+        path: "/app/contact/:id",
         meta: { section: "contact" }
     },
     {
         component: Pecc,
         name: "pecc",
-        path: "/pecc",
+        path: "/app/pecc",
         meta: { section: "pecc" }
     },
     {
         component: PeccProfile,
         name: "peccProfile",
-        path: "/pecc/:id/:ref?",
+        path: "/app/pecc/:id/:ref?",
         meta: { section: "pecc" }
     },
     {
         component: Target,
         name: "target",
-        path: "/target",
+        path: "/app/target",
         meta: { section: "target" }
     },
     {
         component: TargetProfile,
         name: "targetProfile",
-        path: "/target/:id/:ref?",
+        path: "/app/target/:id/:ref?",
         meta: { section: "target" }
     },
     {
         component: Financial,
         name: "financial",
-        path: "/financial",
+        path: "/app/financial",
         meta: { section: "financial" }
     },
     {
         component: FinancialStatement,
         name: "financialStatement",
-        path: "/financial/statement",
+        path: "/app/financial/statement",
         meta: { section: "financial" }
     },
     {
         component: FinancialStatementAdd,
         name: "financialStatementAdd",
-        path: "/financial/statement/add",
+        path: "/app/financial/statement/add",
         meta: { section: "financial" }
     }
 ];
 
 export default new VueRouter({
+    mode: "history",
     routes
 });

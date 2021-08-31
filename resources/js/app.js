@@ -13,6 +13,7 @@ require("./bootstrap");
 window.Vue = require("vue").default;
 
 import Vuetify from "../plugins/vuetify";
+import i18n from "../plugins/i18n";
 import store from "./store";
 import router from "./router";
 import AOS from "aos";
@@ -27,12 +28,16 @@ Vue.component(
     require("./views/createPassword.vue").default
 );
 Vue.component("app-container", require("./views/appContainer.vue").default);
-Vue.component("website-container", require("./views/website.vue").default);
+Vue.component(
+    "website-container",
+    require("./components/website/App.vue").default
+);
 
 const app = new Vue({
     store,
     router,
     vuetify: Vuetify,
+    i18n,
     created() {
         AOS.init();
     },

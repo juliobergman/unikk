@@ -34,16 +34,8 @@ use App\Http\Controllers\finance\DateDimensionController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes(['register' => false]);
-// Route::post('/prelogin', [LoginController::class, 'prelogin']);
-
-Route::get('/app', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
 Route::get('/test', [TestController::class, 'index']);
 
 
@@ -68,9 +60,6 @@ Route::prefix('/res')->group(function(){
     Route::get('/countries', [ResourcesController::class, 'countries']);
     Route::get('/currencies', [ResourcesController::class, 'currencies']);
 });
-
-
-
 
 // Charts
 Route::prefix('/chart')->group(function(){
@@ -199,3 +188,21 @@ Route::prefix('/fact')->group(function(){
     Route::post('/destroy/bulk', [FactController::class, 'destroy_bulk']);
     Route::delete('/destroy/{id}', [FactController::class, 'destroy']);
 });
+
+
+// Login
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login')->middleware('guest');
+
+// App
+Route::prefix('/app')->group(function(){
+    Route::get('/{any?}', function () {
+        return view('spa');
+    })->where('any', '.*')->middleware('auth');
+});
+
+// Main Site
+Route::get('/{any}', function () {
+    return view('welcome');
+})->where('any', '.*');

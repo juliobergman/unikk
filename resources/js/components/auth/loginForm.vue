@@ -77,7 +77,7 @@ export default {
                     .post("login", this.user)
                     .then(response => {
                         if (response.status === 204) {
-                            window.location.replace("/app");
+                            window.location.replace("/app#/app");
                         }
                     })
                     .catch(res => {

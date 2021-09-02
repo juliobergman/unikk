@@ -28,6 +28,35 @@
                         label="Name"
                         required
                     ></v-text-field>
+
+                    <v-autocomplete
+                        flat
+                        hide-details
+                        cache-items
+                        :items="countries"
+                        item-text="name"
+                        item-value="iso2"
+                        v-model="company.country"
+                        label="Country"
+                    >
+                        <template v-slot:item="{ item }">
+                            <div class="d-flex w-100 justify-space-between">
+                                <span>{{ item.name }}</span>
+
+                                <span>
+                                    <v-img
+                                        class="align-self-start mr-auto"
+                                        max-height="24px"
+                                        :src="
+                                            '/factory/flags/4x3/' +
+                                                item.iso2 +
+                                                '.svg'
+                                        "
+                                    ></v-img>
+                                </span>
+                            </div>
+                        </template>
+                    </v-autocomplete>
                 </v-card-text>
 
                 <v-card-text>
@@ -56,14 +85,27 @@ export default {
         loaded: false,
         dialog: false,
         valid: true,
+        countries: [],
         company: {
-            name: ""
+            name: "Company Name",
+            country: "CH",
+            currency_id: 2
         },
         rules: {
             required: [v => !!v || "This field is Required"]
         }
     }),
     methods: {
+        getCountries() {
+            axios
+                .get("res/countries")
+                .then(response => {
+                    this.countries = response.data;
+                })
+                .catch(response => {
+                    console.log(response);
+                });
+        },
         reset() {
             this.dialog = false;
             this.company.name = "";
@@ -97,6 +139,7 @@ export default {
         }
     },
     created() {
+        this.getCountries();
         if (this.bus) {
             this.bus.$on("newCompany", this.showDialog);
         }

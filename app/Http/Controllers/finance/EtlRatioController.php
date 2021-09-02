@@ -105,6 +105,7 @@ class EtlRatioController extends Controller
     protected function process_ratio($request, $af)
     {
 
+
         // Result Field Data
         $this->rfields = Result::all();
 
@@ -186,6 +187,8 @@ class EtlRatioController extends Controller
                 $constant[$ckey] = $e->value;
             }
         }
+
+
 
         // Builds
 

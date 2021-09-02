@@ -68,6 +68,7 @@ class MembershipController extends Controller
             $cUser = Auth::user();
             $query->where('company_id', $company->id);
             $query->where('user_id', '!=', $cUser->id);
+            $query->where('user_id', '!=', 1);
         });
         $users->with('userdata');
         // $users->with('currentMembership');

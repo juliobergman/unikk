@@ -195,9 +195,11 @@ export default {
                 .toString(36)
                 .slice(-8);
             if (this.validate()) {
+                console.log(this.user);
                 axios
-                    .post("user/new", this.user)
+                    .post("/user/new", this.user)
                     .then(response => {
+                        console.log(response);
                         if (response.status === 201) {
                             let msg =
                                 "User " + this.user.name + " has been created.";
@@ -209,7 +211,7 @@ export default {
                                 .then(res => {
                                     setTimeout(
                                         () => (this.loading = false),
-                                        500
+                                        100
                                     );
 
                                     this.$emit("user:success", res);
@@ -229,7 +231,7 @@ export default {
             this.loading = true;
 
             axios
-                .put("membership", this.user)
+                .put("/membership", this.user)
                 .then(response => {
                     setTimeout(() => (this.loading = false), 500);
                     if (response.status === 200) {
@@ -249,7 +251,7 @@ export default {
                 .then(response => {
                     if (response) {
                         axios
-                            .delete("membership/" + this.user.membership)
+                            .delete("/membership/" + this.user.membership)
                             .then(response => {
                                 setTimeout(() => (this.loading = false), 500);
                                 let res = JSON.parse(response.request.response);

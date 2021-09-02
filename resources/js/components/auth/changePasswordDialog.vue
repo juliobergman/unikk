@@ -1,7 +1,7 @@
 <template>
     <v-dialog
         v-model="dialog"
-        width="500"
+        max-width="375"
         @update:return-value="initialState()"
     >
         <template v-slot:activator="{ on, attrs }">
@@ -12,7 +12,7 @@
 
         <v-card>
             <v-form ref="form" v-model="valid" lazy-validation>
-                <v-toolbar color="primary" dark>
+                <v-toolbar flat>
                     <v-toolbar-title>
                         Change Password
                     </v-toolbar-title>
@@ -58,7 +58,7 @@
 
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="primary" @click="submit()">
+                    <v-btn text block @click="submit()">
                         Change Password
                     </v-btn>
                 </v-card-actions>

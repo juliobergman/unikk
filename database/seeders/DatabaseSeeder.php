@@ -22,10 +22,7 @@ class DatabaseSeeder extends Seeder
             ResCountrySeeder::class,
             ResCurrencySeeder::class,
             SettingsSeeder::class,
-            ChartCollectionSeeder::class,
-            ChartSeeder::class,
             PeccSeeder::class,
-            ContactSeeder::class,
             CodeGroupSeeder::class,
             CodeCategorySeederIncome::class,
             CodeCategorySeederBalance::class,
@@ -33,7 +30,6 @@ class DatabaseSeeder extends Seeder
             CodeSeederBalance::class,
             ReportSeeder::class,
             ResultSeeder::class,
-            FactSeeder::class,
             DWSeeder::class,
         ]);
 

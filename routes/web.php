@@ -22,6 +22,7 @@ use App\Http\Controllers\finance\EtlIncomeController;
 use App\Http\Controllers\finance\EtlBalanceController;
 use App\Http\Controllers\finance\DataWarehouseController;
 use App\Http\Controllers\finance\DateDimensionController;
+use App\Http\Controllers\SettingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,12 +76,18 @@ Route::prefix('/chart')->group(function(){
 });
 
 // Company
-Route::middleware('auth')->prefix('/company')->group(function(){
+Route::prefix('/company')->group(function(){
     Route::get('/current', [CompanyController::class, 'current']);
     Route::get('/all', [CompanyController::class, 'index']);
     Route::get('/{id}', [CompanyController::class, 'show']);
     Route::post('/store', [CompanyController::class, 'store']);
     Route::put('/{company}', [CompanyController::class, 'update']);
+});
+
+// Settings
+Route::prefix('/settings')->group(function(){
+    Route::post('/get', [SettingsController::class, 'get']);
+    Route::put('/update', [SettingsController::class, 'update']);
 });
 
 // Memberships

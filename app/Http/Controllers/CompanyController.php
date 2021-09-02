@@ -67,7 +67,7 @@ class CompanyController extends Controller
         ];
 
         $company = Company::query();
-        $company->where('companies.id',$id);
+        $company->where('companies.id', $id);
         $company->with('user:id,name,email');
 
         $company->join('company_data', 'companies.id', '=', 'company_data.company_id');
@@ -77,7 +77,12 @@ class CompanyController extends Controller
 
         $company->select($data_select);
 
-        return $company->first();
+        $ret = $company->first();
+        if(!$ret){
+            return 'NotFound';
+        }
+
+        return $ret;
     }
 
 
@@ -93,14 +98,16 @@ class CompanyController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
+            'country' => ['required', 'string', 'max:2'],
+            'currency_id' => ['required', 'int', 'max:255'],
         ]);
     }
 
     public function store(Request $request)
     {
         $this->validator($request->all())->validate();
-        $newCompany = $request->user()->company()->create($request->only(['name','type','company_id']));
-        event(new companyCreated($newCompany));
+        $newCompany = $request->user()->company()->create($request->only(['name','currency_id','type','company_id']));
+        event(new companyCreated($newCompany, $request->country));
         $membership = Membership::where('company_id', $newCompany->id)->where('user_id', $newCompany->user_id)->first();
         return new JsonResponse(['company' => $newCompany, 'membership' => $membership], 201);
     }

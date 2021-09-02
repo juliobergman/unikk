@@ -8,8 +8,8 @@
                 }"
                 transition="fade-transition"
             >
-                <v-card class="mx-auto" max-width="400" elevation="3">
-                    <v-toolbar color="primary" elevation="0" dark>
+                <v-card class="mx-auto" max-width="400" flat outlined>
+                    <v-toolbar flat>
                         <v-toolbar-title>Create your Password</v-toolbar-title>
                     </v-toolbar>
                     <v-card-text>

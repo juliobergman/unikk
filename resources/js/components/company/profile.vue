@@ -8,15 +8,7 @@
                 >
                     <v-slide-x-reverse-transition>
                         <div v-show="edit">
-                            <v-btn
-                                v-if="false"
-                                icon
-                                small
-                                class="mr-4"
-                                color="danger"
-                            >
-                                <v-icon>mdi-delete</v-icon>
-                            </v-btn>
+                            <settings />
                             <v-btn @click="update()" icon small class="mr-4">
                                 <v-icon>mdi-content-save</v-icon>
                             </v-btn>
@@ -185,7 +177,7 @@
                                                         class="align-self-start mr-auto"
                                                         max-height="24px"
                                                         :src="
-                                                            'factory/flags/4x3/' +
+                                                            '/factory/flags/4x3/' +
                                                                 item.iso2 +
                                                                 '.svg'
                                                         "
@@ -259,8 +251,10 @@
 </template>
 
 <script>
+import Settings from "./settings.vue";
 export default {
     props: ["bus"],
+    components: { Settings },
     data: () => ({
         loaded: true,
         edit: false,
@@ -278,7 +272,7 @@ export default {
         },
         flag() {
             return this.company.country
-                ? "factory/flags/4x3/" + this.company.country + ".svg"
+                ? "/factory/flags/4x3/" + this.company.country + ".svg"
                 : false;
         }
     },
@@ -288,7 +282,7 @@ export default {
             if (this.membership) {
                 let cId = this.membership.company_id;
                 axios
-                    .get("company/" + cId)
+                    .get("/company/" + cId)
                     .then(response => {
                         this.company = response.data;
                         this.ownership =

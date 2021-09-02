@@ -27,11 +27,9 @@ class UserSeeder extends Seeder
 
         DB::table('users')->insert([
             'id' => 1,
-            'name' => 'James Smith',
+            'name' => 'First Admin',
             'email' => 'admin@mail.com',
-            // 'role' => 'admin',
             'email_verified_at' => now(),
-            // 'password' => '$2y$10$U0zZ5cRJsmLhSF.EVkXzre..4rg5ix8HwJSlS2x4xSA/zPqYaJ/Ve',
             'password' => Hash::make(env('USER_PASSWORD')),
             'temptoken' => Str::random(10),
             'remember_token' => Str::random(10),
@@ -41,137 +39,39 @@ class UserSeeder extends Seeder
 
         DB::table('user_data')->insert([
             'user_id' => 1,
-            'profile_pic' => '/factory/profile/male/avatar-10.jpg',
+            'profile_pic' => '/factory/stock/avatar-logo.jpg',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
 
-        DB::table('users')->insert([
-            'id' => 2,
-            'name' => 'John Doe',
-            'email' => 'demo@mail.com',
-            // 'role' => 'editor',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'temptoken' => Str::random(10),
-            'remember_token' => Str::random(10),
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
-        ]);
-
-        DB::table('user_data')->insert([
-            'user_id' => 2,
-            'profile_pic' => '/factory/profile/male/avatar-2.jpg',
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
-        ]);
-
-        Membership::factory(4)
-        ->create()
-        ;
-
-        Company::factory(3)
-        ->has(CompanyData::factory())
-        ->state(new Sequence(
-        ['user_id' => 1],
-        ['user_id' => 2],
-        ))
-        ->create();
-
-        Company::factory(10)
-        ->has(CompanyData::factory())
-        ->has(
-            Membership::factory()
-            ->state(['user_id' => 1])
-            ->state(['role' => 'admin'])
-        )
-        ->state([
+        DB::table('companies')->insert([
+            'id' => 1,
             'user_id' => 1,
+            'company_id' => null,
+            'currency_id' => 2,
+            'name' => 'Unikk Ventures AG',
+            'type' => 'active',
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        DB::table('company_data')->insert([
             'company_id' => 1,
-            'type' => 'target',
-        ])
-        ->create();
+            'logo' => '/factory/stock/unikk-logo.jpg',
+            'country' => 'ch',
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
 
-
-        User::factory(20)
-        ->state(new Sequence(
-            ['email_verified_at' => now()],
-            ['email_verified_at' => null]
-        ))
-        ->has(
-            UserData::factory()
-            ->state(new Sequence(
-                ['profile_pic' => '/factory/profile/female/avatar-1.jpg'],
-                ['profile_pic' => '/factory/profile/male/avatar-1.jpg'],
-                ['profile_pic' => '/factory/profile/female/avatar-2.jpg'],
-                ['profile_pic' => '/factory/profile/male/avatar-2.jpg'],
-                ['profile_pic' => '/factory/profile/female/avatar-3.jpg'],
-                ['profile_pic' => '/factory/profile/male/avatar-3.jpg'],
-                ['profile_pic' => '/factory/profile/female/avatar-4.jpg'],
-                ['profile_pic' => '/factory/profile/male/avatar-4.jpg'],
-                ['profile_pic' => '/factory/profile/female/avatar-5.jpg'],
-                ['profile_pic' => '/factory/profile/male/avatar-5.jpg'],
-                ['profile_pic' => '/factory/profile/female/avatar-6.jpg'],
-                ['profile_pic' => '/factory/profile/male/avatar-6.jpg'],
-                ['profile_pic' => '/factory/profile/female/avatar-7.jpg'],
-                ['profile_pic' => '/factory/profile/male/avatar-7.jpg'],
-                ['profile_pic' => '/factory/profile/female/avatar-8.jpg'],
-                ['profile_pic' => '/factory/profile/male/avatar-8.jpg'],
-                ['profile_pic' => '/factory/profile/female/avatar-9.jpg'],
-                ['profile_pic' => '/factory/profile/male/avatar-9.jpg'],
-                ['profile_pic' => '/factory/profile/female/avatar-10.jpg'],
-                ['profile_pic' => '/factory/profile/male/avatar-10.jpg']
-            ))
-            ->state(new Sequence(
-                ['gender' => 'female'],
-                ['gender' => 'male']
-            ))
-        )
-        ->has(
-            Membership::factory()
-            ->state(new Sequence(
-                ['company_id' => 1],
-                ['company_id' => 2],
-                ['company_id' => 3]
-                ))
-            ->state(new Sequence(
-                ['role' => 'editor'],
-                ['role' => 'user'],
-                ))
-        )
-        ->create();
-
-        DB::table('memberships')
-        ->where('id', 1)
-        ->update([
+        DB::table('memberships')->insert([
             'user_id' => 1,
+            'company_id' => '1',
+            'job_title' => 'System Admin',
             'role' => 'admin',
-            'company_id' => 1
+            'default' => 1,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
-        DB::table('memberships')
-        ->where('id', 2)
-        ->update([
-            'user_id' => 1,
-            'role' => 'editor',
-            'company_id' => 2
-        ]);
-        DB::table('memberships')
-        ->where('id', 3)
-        ->update([
-            'user_id' => 1,
-            'role' => 'admin',
-            'company_id' => 3
-        ]);
-
-        DB::table('memberships')
-        ->where('id', 4)
-        ->update([
-            'user_id' => 2,
-            'role' => 'admin',
-            'company_id' => 2
-        ]);
-
-
 
     }
 }

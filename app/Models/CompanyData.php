@@ -12,6 +12,7 @@ class CompanyData extends Model
 
     protected $fillable = [
         'company_id',
+        'country',
         'logo',
     ];
     protected $hidden = [

@@ -15,14 +15,16 @@ class companyCreated
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $company;
+    public $country;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($company)
+    public function __construct($company, $country)
     {
         $this->company = $company;
+        $this->country = $country;
     }
 }

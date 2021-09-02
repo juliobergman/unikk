@@ -32,11 +32,14 @@ class userCreatedListener
      */
     public function handle(userCreated $event)
     {
-
-        UserData::create(['user_id' => $event->user->id]);
+        UserData::create([
+            'user_id' => $event->user->id,
+            'profile_pic' => '/factory/stock/user-profile.jpg'
+        ]);
         Membership::create([
             'user_id' => $event->user->id,
             'company_id' => $event->data->company,
+            'job_title' => $event->data->job_title,
             'role' => $event->data->role
             ]);
         $email = array('email' => $event->user->email);

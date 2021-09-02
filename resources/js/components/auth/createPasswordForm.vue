@@ -31,12 +31,12 @@
             right
             :loading="loading"
             :disabled="!valid || loading"
-            color="primary"
+            text
             @click="login()"
         >
             Login
 
-            <v-icon dark dense class="ml-2 align-self-end">
+            <v-icon dense class="ml-2 align-self-end">
                 mdi-login
             </v-icon>
         </v-btn>

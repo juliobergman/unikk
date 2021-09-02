@@ -24,10 +24,9 @@ class DWSeeder extends Seeder
         $etl_balance = new EtlBalanceController;
         $etl_ratio = new EtlRatioController;
 
-
         $request = new \Illuminate\Http\Request();
         $request->replace([
-            'year' => 2021,
+            'year' => date('Y'),
             'company' => 1,
         ]);
 

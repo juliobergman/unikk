@@ -6,7 +6,7 @@ const state = {
 const getters = {};
 const actions = {
     getCompany({ commit }) {
-        axios.get("company/current").then(response => {
+        axios.get("/company/current").then(response => {
             commit("setCompany", response.data);
         });
     }

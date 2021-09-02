@@ -33,7 +33,7 @@ class CompanyDataFactory extends Factory
             'website' => $this->faker->domainName(),
             'info' => $this->faker->paragraph(10),
             'sector' => $this->faker->bs(),
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             // Target Data
             'company_ov' => $this->faker->paragraph(10),
             'financial_ov' => $this->faker->paragraph(10),

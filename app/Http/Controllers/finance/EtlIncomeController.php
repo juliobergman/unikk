@@ -347,8 +347,6 @@ class EtlIncomeController extends Controller
                 'report_id',
             ];
 
-            // return $upsert;
-
             $ret = DB::table('data_warehouse')->upsert($upsert, $compare, $colUpdate);
             // Response
             return new JsonResponse(['message' => 'Success', 'rows' => $ret], 200);

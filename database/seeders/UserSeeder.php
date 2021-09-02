@@ -4,13 +4,14 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Company;
-use App\Models\CompanyData;
-use App\Models\Membership;
 use App\Models\UserData;
+use App\Models\Membership;
+use App\Models\CompanyData;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 
 
@@ -30,7 +31,8 @@ class UserSeeder extends Seeder
             'email' => 'admin@mail.com',
             // 'role' => 'admin',
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            // 'password' => '$2y$10$U0zZ5cRJsmLhSF.EVkXzre..4rg5ix8HwJSlS2x4xSA/zPqYaJ/Ve',
+            'password' => Hash::make(env('USER_PASSWORD')),
             'temptoken' => Str::random(10),
             'remember_token' => Str::random(10),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),

@@ -84,8 +84,8 @@ class CompanyController extends Controller
     public function current()
     {
         $membership = Membership::where('user_id', Auth::user()->id)->where('default',!null)->first();
-        // return $membership->id;
-        return $this->show($membership->id);
+        // return $membership->company_id;
+        return $this->show($membership->company_id);
     }
 
 

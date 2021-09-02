@@ -196,11 +196,9 @@ Route::get('/login', function () {
 })->name('login')->middleware('guest');
 
 // App
-Route::prefix('/app')->group(function(){
-    Route::get('/{any?}', function () {
-        return view('spa');
-    })->where('any', '.*')->middleware('auth');
-});
+Route::get('app/{any?}', function () {
+    return view('spa');
+})->where('any', '.*')->middleware('auth');
 
 // Main Site
 Route::get('/{any}', function () {

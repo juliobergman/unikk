@@ -45,7 +45,7 @@ export default {
             {
                 text: "My Account",
                 icon: "mdi-account",
-                to: "/account"
+                to: "app/account"
             },
             {
                 text: "New Company",

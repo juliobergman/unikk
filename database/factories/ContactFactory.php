@@ -28,7 +28,7 @@ class ContactFactory extends Factory
             'email' => $this->faker->email(),
             'phone' => $this->faker->e164PhoneNumber(),
             'address' => $this->faker->address(),
-            'profile_pic' => 'factory/stock/user-profile.jpg',
+            'profile_pic' => '/factory/stock/user-profile.jpg',
         ];
     }
 }

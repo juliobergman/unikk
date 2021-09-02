@@ -6,7 +6,7 @@ const state = {
 const getters = {};
 const actions = {
     getUser({ commit }) {
-        axios.get("user/current").then(response => {
+        axios.get("/user/current").then(response => {
             commit("setUser", response.data);
         });
     },

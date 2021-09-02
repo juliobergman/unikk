@@ -18,7 +18,7 @@ class PeccSeeder extends Seeder
     {
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'Blackstone',
             'type' => 'Private equity',
             'region' => 'US fond in Europe',
@@ -31,7 +31,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'Advent International',
             'type' => 'Private equity',
             'region' => 'US fond in Europe',
@@ -44,7 +44,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'Carlyle Group',
             'type' => 'Private equity',
             'region' => 'US fond in Europe',
@@ -57,7 +57,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'KKR',
             'type' => 'Private equity',
             'region' => 'US fond in Europe',
@@ -70,7 +70,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'Bain Capital',
             'type' => 'Private equity , VC',
             'region' => 'US fond in Europe',
@@ -83,7 +83,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'EQT Partners',
             'type' => 'Private equity , VC',
             'region' => 'Nordic ',
@@ -96,7 +96,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'Nordic Capital',
             'type' => 'Private Equity',
             'region' => 'Nordic ',
@@ -109,7 +109,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'IK Invesments partners',
             'type' => 'Private Equity',
             'region' => 'Nordic ',
@@ -122,7 +122,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'Altor equity Partners',
             'type' => 'Private Equity',
             'region' => 'Nordic ',
@@ -135,7 +135,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'Hictectvision',
             'type' => 'Private Equity',
             'region' => 'Nordic ',
@@ -148,7 +148,7 @@ class PeccSeeder extends Seeder
         ]);
         // 10
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'Permira',
             'type' => 'Private Equity',
             'region' => 'UK',
@@ -161,7 +161,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'Cinven',
             'type' => 'Private equity',
             'region' => 'UK',
@@ -174,7 +174,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'Apax Partners',
             'type' => 'Private equity, VC',
             'region' => 'UK',
@@ -187,7 +187,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'BC Partners',
             'type' => 'Private equity, VC',
             'region' => 'UK',
@@ -200,7 +200,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'Bridgepoint',
             'type' => 'Private equity, VC',
             'region' => 'UK',
@@ -213,7 +213,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'CVC Capital',
             'type' => 'Private equity, VC',
             'region' => 'France+ Benelux',
@@ -226,7 +226,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'Ardian',
             'type' => 'Private equity, VC',
             'region' => 'France+ Benelux',
@@ -239,7 +239,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'PAI partners',
             'type' => 'Private equity, VC',
             'region' => 'France+ Benelux',
@@ -252,7 +252,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'Astorg',
             'type' => 'Private equity, VC',
             'region' => 'France+ Benelux',
@@ -265,7 +265,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'Equistone',
             'type' => 'Private Equity ',
             'region' => 'France+ Benelux',
@@ -279,7 +279,7 @@ class PeccSeeder extends Seeder
 
         // 20
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'Triton',
             'type' => 'Private equity',
             'region' => 'DACH',
@@ -292,7 +292,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'Partners Group',
             'type' => 'Private equtiy',
             'region' => 'DACH',
@@ -305,7 +305,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'Capvis',
             'type' => 'Private equity',
             'region' => 'DACH',
@@ -318,7 +318,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'DBAG',
             'type' => 'Private equity, VC',
             'region' => 'DACH',
@@ -331,7 +331,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'CASTIK Capital Partners',
             'type' => 'Private equity, VC',
             'region' => 'DACH',
@@ -344,7 +344,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'Investindustrial',
             'type' => 'Private equity, VC',
             'region' => 'South Europeans Funds',
@@ -357,7 +357,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'F2i',
             'type' => 'Private equity, VC',
             'region' => 'South Europeans Funds',
@@ -370,7 +370,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'FSI',
             'type' => 'Private equity, VC',
             'region' => 'South Europeans Funds',
@@ -383,7 +383,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'NB renaissance partners',
             'type' => 'Private equity, VC',
             'region' => 'South Europeans Funds',
@@ -396,7 +396,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'Alpha Group',
             'type' => 'Private equity, VC',
             'region' => 'South Europeans Funds',
@@ -410,7 +410,7 @@ class PeccSeeder extends Seeder
 
         // 30
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'MBK Partners',
             'type' => 'Private Equity',
             'region' => 'Asia',
@@ -423,7 +423,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'Affinity equity Partners',
             'type' => 'Private Equity',
             'region' => 'Asia',
@@ -436,7 +436,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'RRj Capital',
             'type' => 'Private Equity',
             'region' => 'Asia',
@@ -449,7 +449,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'Baring Private equity Asia',
             'type' => 'Private Equity',
             'region' => 'Asia',
@@ -462,7 +462,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'CITIC PE',
             'type' => 'Private Equity',
             'region' => 'Asia',
@@ -475,7 +475,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'CDH Investments',
             'type' => 'Private Equity , VC',
             'region' => 'Asia',
@@ -488,7 +488,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'CITIC Capital',
             'type' => 'Private Equity',
             'region' => 'Asia',
@@ -501,7 +501,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'PAG',
             'type' => 'Private Equity',
             'region' => 'Asia',
@@ -514,7 +514,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'Hopu Investments Management',
             'type' => 'Private Equity, VC',
             'region' => 'Asia',
@@ -527,7 +527,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'Hony Capital',
             'type' => 'Private Equity',
             'region' => 'Asia',
@@ -540,7 +540,7 @@ class PeccSeeder extends Seeder
         ]);
         //40
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'Ince Capital Partners',
             'type' => 'Private Equity',
             'region' => 'Asia',
@@ -553,7 +553,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'Mercury Capital',
             'type' => 'Private Equity, Direct placement',
             'region' => 'Asia',
@@ -566,7 +566,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'Olympus Capital',
             'type' => 'Private Equity, VC',
             'region' => 'Asia',
@@ -579,7 +579,7 @@ class PeccSeeder extends Seeder
         ]);
 
         DB::table('peccs')->insert([
-            'logo' => 'factory/stock/company-logo.jpg',
+            'logo' => '/factory/stock/company-logo.jpg',
             'fund' => 'Tiger Global Management',
             'type' => 'Private Equity, VC',
             'region' => 'Asia',

@@ -26,7 +26,7 @@ class ContactController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
-            'profile_pic' => 'factory/stock/user-profile.jpg',
+            'profile_pic' => '/factory/stock/user-profile.jpg',
         );
 
         $newContact = $request->user()->contacts()->create($contact);

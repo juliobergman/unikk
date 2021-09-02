@@ -362,7 +362,9 @@ export default {
                             });
                     }
                 })
-                .catch(response => {});
+                .catch(response => {
+                    console.error(response);
+                });
         }
     },
     created() {

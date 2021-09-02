@@ -11,7 +11,7 @@ const getters = {};
 const actions = {
     getMembership({ commit }) {
         axios
-            .get("membership/current")
+            .get("/membership/current")
             .then(response => {
                 commit("setMembership", response.data);
             })
@@ -22,7 +22,7 @@ const actions = {
     },
     getMembershipId({ commit }) {
         axios
-            .get("membership/current")
+            .get("/membership/current")
             .then(response => {
                 commit("setMembershipId", response.data.id);
             })
@@ -33,13 +33,13 @@ const actions = {
     },
     getCompanyId({ commit }) {
         axios
-            .get("membership/current")
+            .get("/membership/current")
             .then(response => {
                 commit("setCompanyId", response.data.company_id);
             })
             .catch(response => {
                 console.log(response);
-                commit("membershipNotFound");
+                commit("/membershipNotFound");
             });
     }
 };
@@ -49,7 +49,7 @@ const mutations = {
     },
     setMembershipId(state, data) {
         axios
-            .put("membership/default/" + data)
+            .put("/membership/default/" + data)
             .then(response => {
                 if (response.status == 200) {
                     localStorage.setItem("company", response.data.company_id);

@@ -1,4 +1,5 @@
 *
-!factory/
+!factory
+!factory/**
 !public/
 !.gitignore

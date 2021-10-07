@@ -3,6 +3,7 @@
 /public/hot
 /public/storage
 /public/factory
+/public/factory/**
 /public/ui
 /storage/*.key
 /vendor

@@ -14,7 +14,8 @@ class CreateDateDimensionsTable extends Migration
     public function up()
     {
         Schema::create('date_dimensions', function (Blueprint $table) {
-            $table->date('date')->primary();
+            $table->id();
+            $table->date('date');
             $table->unsignedInteger('day');
             $table->unsignedInteger('month');
             $table->unsignedInteger('year');

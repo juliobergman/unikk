@@ -43,6 +43,6 @@ class userCreatedListener
             'role' => $event->data->role
             ]);
         $email = array('email' => $event->user->email);
-        // Mail::to($email)->send(new UserCreatedByAdmin(urlencode($event->user->temptoken),urlencode($event->user->email)));
+        Mail::to($email)->send(new UserCreatedByAdmin(urlencode($event->user->temptoken),urlencode($event->user->email)));
     }
 }

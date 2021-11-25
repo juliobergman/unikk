@@ -38,6 +38,34 @@
                             label="Target Name"
                             required
                         ></v-text-field>
+                        <v-autocomplete
+                            flat
+                            hide-details
+                            cache-items
+                            :items="countries"
+                            item-text="name"
+                            item-value="iso2"
+                            v-model="target.country"
+                            label="Country"
+                        >
+                            <template v-slot:item="{ item }">
+                                <div class="d-flex w-100 justify-space-between">
+                                    <span>{{ item.name }}</span>
+
+                                    <span>
+                                        <v-img
+                                            class="align-self-start mr-auto"
+                                            max-height="24px"
+                                            :src="
+                                                '/factory/flags/4x3/' +
+                                                    item.iso2 +
+                                                    '.svg'
+                                            "
+                                        ></v-img>
+                                    </span>
+                                </div>
+                            </template>
+                        </v-autocomplete>
                     </v-card-text>
 
                     <v-divider></v-divider>
@@ -70,7 +98,12 @@ export default {
         dialog: false,
         loaded: true,
         valid: true,
-        target: {},
+        countries: [],
+        target: {
+            name: "Company Name",
+            country: "CH",
+            currency_id: 2
+        },
         rules: {
             required: [v => !!v || "This field is Required"],
             email: [
@@ -81,11 +114,20 @@ export default {
         }
     }),
     methods: {
+        getCountries() {
+            axios
+                .get("res/countries")
+                .then(response => {
+                    this.countries = response.data;
+                })
+                .catch(response => {
+                    console.log(response);
+                });
+        },
         addTarget() {
             this.loaded = false;
             this.target.type = "target";
             this.target.company_id = localStorage.getItem("company");
-            console.log(this.target);
             axios
                 .post("company/store", this.target)
                 .then(response => {
@@ -102,10 +144,14 @@ export default {
                         });
                     }
                 })
-                .catch(response => {
-                    console.error(response);
+                .catch(error => {
+                    console.error(error);
+                    console.error(error.response);
                 });
         }
+    },
+    created() {
+        this.getCountries();
     }
 };
 </script>

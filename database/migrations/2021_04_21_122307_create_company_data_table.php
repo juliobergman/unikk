@@ -12,6 +12,7 @@ class CreateCompanyDataTable extends Migration
         Schema::create('company_data', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id')->constrained()->onDelete('cascade');
+
             $table->string('address')->nullable();
             $table->string('city')->nullable();
             $table->string('sector')->nullable();

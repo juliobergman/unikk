@@ -17,7 +17,7 @@ class CodeSeederIncome extends Seeder
         $codes = [
             [
                 'id' => 1,
-
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 1,
                 'code_category_id' => 10,
@@ -26,7 +26,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 2,
-
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 2,
                 'code_category_id' => 11,
@@ -35,7 +35,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 3,
-
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 3,
                 'code_category_id' => 11,
@@ -44,7 +44,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 4,
-
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 4,
                 'code_category_id' => 11,
@@ -53,7 +53,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 5,
-
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 5,
                 'code_category_id' => 12,
@@ -62,7 +62,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 6,
-
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 6,
                 'code_category_id' => 13,
@@ -71,7 +71,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 7,
-
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 7,
                 'code_category_id' => 13,
@@ -80,7 +80,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 8,
-
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 8,
                 'code_category_id' => 14,
@@ -89,7 +89,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 9,
-
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 9,
                 'code_category_id' => 14,
@@ -98,6 +98,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 10,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 10,
                 'code_category_id' => 14,
@@ -106,6 +107,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 11,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 11,
                 'code_category_id' => 15,
@@ -114,6 +116,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 12,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 12,
                 'code_category_id' => 15,
@@ -122,6 +125,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 13,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 13,
                 'code_category_id' => 16,
@@ -130,6 +134,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 14,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 14,
                 'code_category_id' => 17,
@@ -138,6 +143,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 15,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 15,
                 'code_category_id' => 17,
@@ -146,6 +152,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 16,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 16,
                 'code_category_id' => 17,
@@ -154,6 +161,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 17,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 17,
                 'code_category_id' => 18,
@@ -162,6 +170,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 18,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 18,
                 'code_category_id' => 18,
@@ -170,6 +179,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 19,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 19,
                 'code_category_id' => 18,
@@ -178,6 +188,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 20,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 20,
                 'code_category_id' => 18,
@@ -186,6 +197,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 21,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 21,
                 'code_category_id' => 18,
@@ -194,6 +206,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 22,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 22,
                 'code_category_id' => 18,
@@ -202,6 +215,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 23,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 23,
                 'code_category_id' => 18,
@@ -210,6 +224,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 24,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 24,
                 'code_category_id' => 18,
@@ -218,6 +233,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 25,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 25,
                 'code_category_id' => 19,
@@ -226,6 +242,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 26,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 26,
                 'code_category_id' => 19,
@@ -234,6 +251,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 27,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 27,
                 'code_category_id' => 19,
@@ -242,6 +260,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 28,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 28,
                 'code_category_id' => 19,
@@ -250,6 +269,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 29,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 29,
                 'code_category_id' => 20,
@@ -258,6 +278,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 30,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 30,
                 'code_category_id' => 20,
@@ -266,6 +287,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 31,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 31,
                 'code_category_id' => 20,
@@ -274,6 +296,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 32,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 32,
                 'code_category_id' => 20,
@@ -282,6 +305,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 33,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 33,
                 'code_category_id' => 20,
@@ -290,6 +314,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 34,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 34,
                 'code_category_id' => 20,
@@ -298,6 +323,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 35,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 35,
                 'code_category_id' => 21,
@@ -306,6 +332,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 36,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 36,
                 'code_category_id' => 21,
@@ -314,6 +341,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 37,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 37,
                 'code_category_id' => 21,
@@ -322,6 +350,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 38,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 38,
                 'code_category_id' => 21,
@@ -330,6 +359,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 39,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 39,
                 'code_category_id' => 21,
@@ -338,6 +368,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 40,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 40,
                 'code_category_id' => 21,
@@ -346,6 +377,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 41,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 41,
                 'code_category_id' => 22,
@@ -354,6 +386,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 42,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 42,
                 'code_category_id' => 22,
@@ -362,6 +395,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 43,
+                'company_id' => 1,
                 'group' => 1,
                 'oby' => 43,
                 'code_category_id' => 22,
@@ -370,6 +404,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 44,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 44,
                 'code_category_id' => 23,
@@ -378,6 +413,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 45,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 45,
                 'code_category_id' => 24,
@@ -386,6 +422,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 46,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 46,
                 'code_category_id' => 24,
@@ -394,6 +431,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 47,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 47,
                 'code_category_id' => 25,
@@ -402,6 +440,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 48,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 48,
                 'code_category_id' => 25,
@@ -410,6 +449,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 49,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 49,
                 'code_category_id' => 25,
@@ -418,6 +458,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 50,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 50,
                 'code_category_id' => 25,
@@ -426,6 +467,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 51,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 51,
                 'code_category_id' => 25,
@@ -434,6 +476,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 52,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 52,
                 'code_category_id' => 26,
@@ -442,6 +485,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 53,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 53,
                 'code_category_id' => 26,
@@ -450,6 +494,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 54,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 54,
                 'code_category_id' => 27,
@@ -458,6 +503,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 55,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 55,
                 'code_category_id' => 28,
@@ -466,6 +512,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 56,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 56,
                 'code_category_id' => 28,
@@ -474,6 +521,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 57,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 57,
                 'code_category_id' => 28,
@@ -482,6 +530,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 58,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 58,
                 'code_category_id' => 28,
@@ -490,6 +539,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 59,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 59,
                 'code_category_id' => 28,
@@ -498,6 +548,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 60,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 60,
                 'code_category_id' => 28,
@@ -506,6 +557,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 61,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 61,
                 'code_category_id' => 28,
@@ -514,6 +566,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 62,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 62,
                 'code_category_id' => 28,
@@ -522,6 +575,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 63,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 63,
                 'code_category_id' => 28,
@@ -530,6 +584,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 64,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 64,
                 'code_category_id' => 28,
@@ -538,6 +593,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 65,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 65,
                 'code_category_id' => 28,
@@ -546,6 +602,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 66,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 66,
                 'code_category_id' => 28,
@@ -554,6 +611,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 67,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 67,
                 'code_category_id' => 28,
@@ -562,6 +620,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 68,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 68,
                 'code_category_id' => 29,
@@ -570,6 +629,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 69,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 69,
                 'code_category_id' => 29,
@@ -578,6 +638,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 70,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 70,
                 'code_category_id' => 29,
@@ -586,6 +647,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 71,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 71,
                 'code_category_id' => 29,
@@ -594,6 +656,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 72,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 72,
                 'code_category_id' => 29,
@@ -602,6 +665,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 73,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 73,
                 'code_category_id' => 29,
@@ -610,6 +674,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 74,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 74,
                 'code_category_id' => 29,
@@ -618,6 +683,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 75,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 75,
                 'code_category_id' => 30,
@@ -626,6 +692,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 76,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 76,
                 'code_category_id' => 31,
@@ -634,6 +701,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 77,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 77,
                 'code_category_id' => 31,
@@ -642,6 +710,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 78,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 78,
                 'code_category_id' => 31,
@@ -650,6 +719,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 79,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 79,
                 'code_category_id' => 31,
@@ -658,6 +728,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 80,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 80,
                 'code_category_id' => 31,
@@ -666,6 +737,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 81,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 81,
                 'code_category_id' => 31,
@@ -674,6 +746,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 82,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 82,
                 'code_category_id' => 31,
@@ -682,6 +755,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 83,
+                'company_id' => 1,
                 'group' => 2,
                 'oby' => 83,
                 'code_category_id' => 31,
@@ -690,6 +764,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 84,
+                'company_id' => 1,
                 'group' => 3,
                 'oby' => 84,
                 'code_category_id' => 32,
@@ -698,6 +773,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 85,
+                'company_id' => 1,
                 'group' => 3,
                 'oby' => 85,
                 'code_category_id' => 32,
@@ -706,6 +782,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 86,
+                'company_id' => 1,
                 'group' => 3,
                 'oby' => 86,
                 'code_category_id' => 32,
@@ -714,6 +791,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 87,
+                'company_id' => 1,
                 'group' => 3,
                 'oby' => 87,
                 'code_category_id' => 33,
@@ -722,6 +800,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 88,
+                'company_id' => 1,
                 'group' => 3,
                 'oby' => 88,
                 'code_category_id' => 33,
@@ -730,6 +809,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 89,
+                'company_id' => 1,
                 'group' => 3,
                 'oby' => 89,
                 'code_category_id' => 34,
@@ -738,6 +818,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 90,
+                'company_id' => 1,
                 'group' => 3,
                 'oby' => 90,
                 'code_category_id' => 35,
@@ -746,6 +827,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 91,
+                'company_id' => 1,
                 'group' => 3,
                 'oby' => 91,
                 'code_category_id' => 36,
@@ -754,6 +836,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 92,
+                'company_id' => 1,
                 'group' => 4,
                 'oby' => 92,
                 'code_category_id' => 37,
@@ -762,6 +845,7 @@ class CodeSeederIncome extends Seeder
             ],
             [
                 'id' => 93,
+                'company_id' => 1,
                 'group' => 4,
                 'oby' => 93,
                 'code_category_id' => 38,

@@ -69,11 +69,11 @@ class FactController extends Controller
     {
         $user = Auth::user()->id;
         $data = array_filter($request->facts);
+        $date = substr($request->date, 0, 8).'01';
         $insert = [];
-
         foreach ($data as $key => $value) {
             $insert[] = [
-                'date' => $request->date,
+                'date' => $date,
                 'code_id' => $key,
                 'report_id' => $request->report_id,
                 'company_id' => $request->company_id,
@@ -83,7 +83,9 @@ class FactController extends Controller
             ];
         }
 
-        return DB::table('facts')->insert($insert);;
+        // return $insert;
+        // return DB::table('facts')->insert($insert); //TODO Replace if Exists
+        return DB::table('facts')->upsert($insert, ['date','code_id','company_id'], ['amount']);
     }
 
     public function show(Fact $fact)

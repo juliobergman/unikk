@@ -56,8 +56,16 @@ export default {
         },
         getFields($type) {
             this.loaded = false;
+
+            let postData = {
+                type: $type,
+                company_id: localStorage.getItem("company")
+            };
+
+            console.log(postData);
+
             axios
-                .post("code/all", { type: $type })
+                .post("code/all", postData)
                 .then(response => {
                     this.items = response.data;
                     this.loaded = true;
@@ -100,6 +108,8 @@ export default {
             // this.$router.push({
             //     name: "financialStatement"
             // });
+
+            // console.log(data);
 
             axios
                 .post("fact/store", data)

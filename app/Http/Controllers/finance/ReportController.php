@@ -44,4 +44,11 @@ class ReportController extends Controller
     {
         //
     }
+
+    public function test(Request $request)
+    {
+        $dates = CarbonPeriod::create('2021-01-01', '1 month', '2022-12-31');
+
+        return $dates;
+    }
 }

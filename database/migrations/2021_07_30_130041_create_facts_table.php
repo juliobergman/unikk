@@ -21,6 +21,9 @@ class CreateFactsTable extends Migration
             $table->foreignId('company_id')->constrained();
             $table->foreignId('user_id')->constrained();
 
+            // Unique
+            $table->unique(['code_id','date','report_id','company_id'], 'unicus');
+
             $table->decimal('amount', 20,2,false);
 
             $table->timestamps();

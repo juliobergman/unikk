@@ -188,7 +188,6 @@ class EtlIncomeController extends Controller
                         $result[$key][$selector] = $values;
                     }
                     $result[$key]['hidden'] = $hiderow;
-
                     $key++;
 
                 }

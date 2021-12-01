@@ -171,6 +171,7 @@ Route::prefix('/result')->group(function(){
 
 // Reports
 Route::prefix('/report')->group(function(){
+    Route::post('/test', [ReportController::class, 'test']);
     Route::post('/all', [ReportController::class, 'index']);
     Route::post('/show', [ReportController::class, 'show']);
     Route::post('/store', [ReportController::class, 'store']);

@@ -11,9 +11,11 @@ class CodeController extends Controller
 
     public function index(Request $request)
     {
+
         $codes = Code::query();
         // Where
         $codes->where('group.type', $request->type);
+        $codes->where('codes.company_id', $request->company_id);
         // Select
         $codes->select(
             'codes.id as id',

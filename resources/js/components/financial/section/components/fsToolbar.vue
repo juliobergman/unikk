@@ -1,60 +1,42 @@
 <template>
-    <v-toolbar flat rounded dense class="v-toolbar__no_pad mb-2">
-        <v-menu offset-y>
-            <template v-slot:activator="{ on, attrs }">
-                <v-btn text tile height="48" v-bind="attrs" v-on="on">
-                    {{ reportData.name }}
+    <div>
+        <v-toolbar flat rounded dense class="v-toolbar__no_pad mb-2">
+            <v-btn-toggle group dense text tile mandatory color="teal">
+                <v-btn value="income">
+                    Income
                 </v-btn>
-            </template>
-            <v-list>
-                <v-list-item-group v-model="reportData" mandatory>
-                    <v-list-item
-                        v-for="(item, i) in reportMenu"
-                        :key="i"
-                        :value="item"
-                    >
-                        <v-list-item-content>
-                            <v-list-item-title
-                                v-text="item.name"
-                            ></v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
-                </v-list-item-group>
-            </v-list>
-        </v-menu>
-        <v-spacer></v-spacer>
-        <!-- Exchange Menu -->
-        <fs-exchange-menu :bus="bus"></fs-exchange-menu>
-        <!-- Add Btn -->
-        <fs-add-btn :bus="bus" :report="report"></fs-add-btn>
-        <!-- Year Menu -->
-        <v-menu offset-y>
-            <template v-slot:activator="{ on, attrs }">
-                <v-btn text tile height="48" v-bind="attrs" v-on="on">
-                    {{ year }}
+
+                <v-btn value="balance">
+                    Balance
                 </v-btn>
-            </template>
-            <v-list>
-                <v-list-item-group
-                    v-model="year"
-                    mandatory
-                    @change="bus.$emit('year:change', year)"
-                >
-                    <v-list-item
-                        v-for="(item, i) in yearButtons"
-                        :key="i"
-                        :value="item.year"
-                    >
-                        <v-list-item-content>
-                            <v-list-item-title
-                                v-text="item.year"
-                            ></v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
-                </v-list-item-group>
-            </v-list>
-        </v-menu>
-    </v-toolbar>
+
+                <v-btn value="ratio">
+                    Ratio
+                </v-btn>
+            </v-btn-toggle>
+
+            <v-spacer></v-spacer>
+        </v-toolbar>
+        <v-toolbar flat rounded dense class="v-toolbar__no_pad mb-2">
+            <v-btn-toggle group dense text tile mandatory>
+                <v-btn value="actual">
+                    <v-icon small class="mr-2" color="rgba(88, 149, 255, 0.9)">
+                        mdi-circle
+                    </v-icon>
+                    Actual
+                </v-btn>
+
+                <v-btn value="forecast">
+                    <v-icon small class="mr-2" color="rgba(88, 255, 177, 0.9)">
+                        mdi-circle
+                    </v-icon>
+                    Forecast
+                </v-btn>
+            </v-btn-toggle>
+
+            <v-spacer></v-spacer>
+        </v-toolbar>
+    </div>
 </template>
 
 <script>

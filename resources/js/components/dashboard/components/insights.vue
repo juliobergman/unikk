@@ -471,6 +471,8 @@ export default {
             try {
                 let axdata = await axios.post("dw/cdata", postData);
 
+                console.log(axdata);
+
                 this.apilabels = axdata.data.labels;
                 this.apisets = axdata.data.datasets;
                 this.tableheaders = axdata.data.tableheaders;
